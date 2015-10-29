@@ -1,0 +1,19 @@
+# Data file for the "safe move" functionality of the gantry software.
+# Here are declared labeled positions and routes among the positions
+# The gantry software will implement an algorithm to traverse amongst
+# These points in an efficient manner
+#pos LABEL X_COORD Y_COORD Z_COORD
+pos A 0 1 1
+pos B 0 1 2
+pos C 0 1 3
+pos D 0 2 1
+pos E 0 3 5
+pos F 0 0 0
+
+#edg LABEL1 LABEL2
+edg A B
+edg A C
+edg C B
+edg D E
+edg F U
+edg F E
