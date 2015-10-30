@@ -33,6 +33,7 @@
 				<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.LabVIEW.dll"/>
 				<Item Name="Connect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Connect.vi"/>
 				<Item Name="Disconnect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Disconnect.vi"/>
+				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsMultiple.vi"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
@@ -45,6 +46,7 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
+			<Item Name="Get Current Position Name.vi" Type="VI" URL="../Shared Components/Gantry Class/Get Current Position Name.vi"/>
 			<Item Name="gVision.dll" Type="Document" URL="../../gVision/Release/gVision.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
