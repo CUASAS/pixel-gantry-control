@@ -27,6 +27,11 @@ extern "C" __declspec(dllexport) int __cdecl getFiducial(char* img, int imgLineW
 														 float* coords);
 
 
+extern "C" __declspec(dllexport) int __cdecl fitFocus(double* focus_values,
+		                                      double* heights,
+						      int num_measurements);
+
+
 void show(cv::Mat img, bool interactive){
 	if (interactive) return;
 	cv::namedWindow("MyWindow", cv::WINDOW_AUTOSIZE);
@@ -183,5 +188,11 @@ __declspec(dllexport) int __cdecl getFiducial(char* imgPtr, int imgLineWidth,
 
 	myfile.close();
 
+	return 0;
+}
+
+__declspec(dllexport) int __cdecl fitFocus(double* focus_values,
+                                           double* heights,
+					   int num_measurements){
 	return 0;
 }
