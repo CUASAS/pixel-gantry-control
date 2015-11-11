@@ -1,12 +1,5 @@
-﻿Build started 10/29/2015 3:16:55 PM.
+﻿Build started 11/10/2015 8:24:26 PM.
 Project "C:\Users\husker\Desktop\gantry\gVision\gVision\gVision.vcxproj" on node 2 (Build target(s)).
-ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\opencv-3.0.0\install\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D GVISION_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Release\gVision.pch" /Fo"Release\\" /Fd"Release\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt safe_move.cpp
-  safe_move.cpp
-safe_move.cpp(63): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-safe_move.cpp(122): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-safe_move.cpp(123): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-safe_move.cpp(124): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 Link:
   C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\husker\Desktop\gantry\gVision\Release\gVision.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\opencv-3.0.0\install\x86\vc14\lib" opencv_calib3d300.lib opencv_calib3d300d.lib opencv_core300.lib opencv_core300d.lib opencv_features2d300.lib opencv_features2d300d.lib opencv_flann300.lib opencv_flann300d.lib opencv_hal300.lib opencv_hal300d.lib opencv_highgui300.lib opencv_highgui300d.lib opencv_imgcodecs300.lib opencv_imgcodecs300d.lib opencv_imgproc300.lib opencv_imgproc300d.lib opencv_ml300.lib opencv_ml300d.lib opencv_objdetect300.lib opencv_objdetect300d.lib opencv_photo300.lib opencv_photo300d.lib opencv_shape300.lib opencv_shape300d.lib opencv_stitching300.lib opencv_stitching300d.lib opencv_superres300.lib opencv_superres300d.lib opencv_ts300.lib opencv_ts300d.lib opencv_video300.lib opencv_video300d.lib opencv_videoio300.lib opencv_videoio300d.lib opencv_videostab300.lib opencv_videostab300d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\husker\Desktop\gantry\gVision\Release\gVision.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\husker\Desktop\gantry\gVision\Release\gVision.lib" /MACHINE:X86 /SAFESEH /DLL Release\dllmain.obj
   Release\gVision.obj
@@ -14,13 +7,13 @@ Link:
   Release\stdafx.obj
      Creating library C:\Users\husker\Desktop\gantry\gVision\Release\gVision.lib and object C:\Users\husker\Desktop\gantry\gVision\Release\gVision.exp
   Generating code
-  4 of 1175 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
+  1 of 1176 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
   Finished generating code
-    14 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   gVision.vcxproj -> C:\Users\husker\Desktop\gantry\gVision\Release\gVision.dll
 Done Building Project "C:\Users\husker\Desktop\gantry\gVision\gVision\gVision.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.99
+Time Elapsed 00:00:09.60
