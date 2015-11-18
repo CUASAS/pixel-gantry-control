@@ -36,7 +36,9 @@
 				<Item Name="ControllerDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/ControllerDiagPacket.ctl"/>
 				<Item Name="ConvertDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/ConvertDiagPacket.vi"/>
 				<Item Name="Disconnect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Disconnect.vi"/>
+				<Item Name="EnableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/EnableMultiple.vi"/>
 				<Item Name="GetAxisIndex.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Utility/GetAxisIndex.vi"/>
+				<Item Name="HomeMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/HomeMultiple.vi"/>
 				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsMultiple.vi"/>
 				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsSingle.vi"/>
 				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/RetrieveDiagPacket.vi"/>
@@ -45,7 +47,7 @@
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
 				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
 				<Item Name="Clear Errors.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Clear Errors.vi"/>
-				<Item Name="DAQmx Control Task.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/configure/task.llb/DAQmx Control Task.vi"/>
+				<Item Name="DAQmx Clear Task.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/configure/task.llb/DAQmx Clear Task.vi"/>
 				<Item Name="DAQmx Create AI Channel (sub).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/create/channels.llb/DAQmx Create AI Channel (sub).vi"/>
 				<Item Name="DAQmx Create AI Channel TEDS(sub).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/create/channels.llb/DAQmx Create AI Channel TEDS(sub).vi"/>
 				<Item Name="DAQmx Create AO Channel (sub).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/create/channels.llb/DAQmx Create AO Channel (sub).vi"/>
@@ -126,7 +128,6 @@
 				<Item Name="DAQmx Rollback Channel If Error.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/create/channels.llb/DAQmx Rollback Channel If Error.vi"/>
 				<Item Name="DAQmx Set CJC Parameters (sub).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/create/channels.llb/DAQmx Set CJC Parameters (sub).vi"/>
 				<Item Name="DAQmx Start Task.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/configure/task.llb/DAQmx Start Task.vi"/>
-				<Item Name="DAQmx Stop Task.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/configure/task.llb/DAQmx Stop Task.vi"/>
 				<Item Name="DAQmx Write (Analog 1D DBL 1Chan NSamp).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/write.llb/DAQmx Write (Analog 1D DBL 1Chan NSamp).vi"/>
 				<Item Name="DAQmx Write (Analog 1D DBL NChan 1Samp).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/write.llb/DAQmx Write (Analog 1D DBL NChan 1Samp).vi"/>
 				<Item Name="DAQmx Write (Analog 1D Wfm NChan 1Samp).vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/write.llb/DAQmx Write (Analog 1D Wfm NChan 1Samp).vi"/>
@@ -192,7 +193,7 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
-			<Item Name="daqmx.rc" Type="Document" URL="../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/objmgr/daqmx.rc"/>
+			<Item Name="gantry_Cameras.ctl" Type="VI" URL="../Shared Components/Gantry Class/typedefs/gantry_Cameras.ctl"/>
 			<Item Name="gVision.dll" Type="Document" URL="../../gVision/Release/gVision.dll"/>
 			<Item Name="niimaqdx.dll" Type="Document" URL="niimaqdx.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
