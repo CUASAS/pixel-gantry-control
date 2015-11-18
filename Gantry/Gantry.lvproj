@@ -193,7 +193,6 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
-			<Item Name="gantry_Cameras.ctl" Type="VI" URL="../Shared Components/Gantry Class/typedefs/gantry_Cameras.ctl"/>
 			<Item Name="gVision.dll" Type="Document" URL="../../gVision/Release/gVision.dll"/>
 			<Item Name="niimaqdx.dll" Type="Document" URL="niimaqdx.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>

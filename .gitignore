@@ -2,3 +2,5 @@
 #Vi Temp files
 *~
 *.swp
+#LabVIEW local files
+*.aliases
