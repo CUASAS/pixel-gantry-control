@@ -1,0 +1,464 @@
+
+'				MPG.pgm 
+'
+' This MPG program is can be use with all hardware
+' The appropriate MPGInclude.pgm file needs to be 
+' selected based on the hardware type being used
+' Refer to the MPG manual for more information
+' This program once configured properly should be added
+' to program automation and set to autorun on any
+' task other than task 1.  
+
+' This include file is the same regardless of hardware type
+' This include file defines the information shared 
+' between this program and the MPGSample.pgm
+#INCLUDE "MPGInclude.pgm"  
+
+' Select the SingleAxisMPGInclude.pgm if you are using
+' an HPe, HLe, CP, or CL.  There is no MPG support provided
+' for the MP and ML.  Select the MultipleAxisMPGInclude.pgm
+' if you are using an Npaq or Nservo.  Check the axis names 
+' in each include file to be sure they are correct for your
+' system
+'#INCLUDE "MPGSingleAxisInclude.pgm"
+#INCLUDE "MPGMultipleAxisInclude.pgm"
+
+#DEFINE SetHandOn   EXECCANNEDFUNCTION 7, 1
+#DEFINE SetHandOff  EXECCANNEDFUNCTION 8, 1
+#DEFINE HandleFault EXECCANNEDFUNCTION 9, 1
+
+' MPG active/enabled flag
+DVAR $Active  
+' Message present, all hand cmd's stopped
+DVAR $Msg, $Stopped    
+' Used to store default value of TaskTerminationAxes for this task
+DVAR $TaskTerminationAxesBackup
+
+SETCANNEDFUNCTION 7, "MPG.pgm", "HandOn" '1
+SETCANNEDFUNCTION 8, "MPG.pgm", "HandAllOff" '1
+SETCANNEDFUNCTION 9, "MPG.pgm", "HandleSoftLimit" '1
+TaskTerminationAxes = 0				; KEEP TASK 2 RUNNING
+
+' an axis is being MPGed
+LastAxis = 0  
+' MPG active
+$Active = 0      
+' distance per MPG count
+Incr = 0         
+' any user messages on display
+$Msg = 0        
+' all axes stopped
+$Stopped = 1              
+' Primary units are mm by default
+PRIMARY 
+' Store the value of TaskTerminationAxes
+$TaskTerminationAxesBackup = TaskTerminationAxes
+
+EnableMPG
+
+' Program loops forever handling the MPG functionality
+WHILE 1                        
+	' Wait for the MPG to be active
+   	WHILE( MPGOff )  	 	 
+		' If the axis is in motion
+		IF( $Stopped == 0 )        
+			' Disable the MPG for all axes
+         	CALL StopAll             
+      	ENDIF
+      	'Restore Task Fault Handling
+   		TaskTerminationAxes = $TaskTerminationAxesBackup
+   	  	
+		' test every .2 seconds
+      	DWELL .2
+'		' MPG LED off
+'		LedOutput = 0	
+'		' if axis in motion
+'		IF( $Stopped == 0 )  
+'			' disable the MPG for all axes
+'			CALL StopAll             
+'		ENDIF
+   	WEND 
+   	'Make sure the task can't be stopped
+	TaskTerminationAxes = 0
+	' Turn on the MPG LED 
+	'LedOutput = 1		     	
+	' The enable switch will clear all increment and axis inputs, if FALSE
+	' read increment switches & test/set $Active variable
+	CALL ReadIncr                  
+	IF( $Active )
+		' read axis switches
+		CALL ReadAxis               
+	ELSE              
+		' enable button was released
+		' disable the MPG for all axes
+		CALL StopAll                
+	ENDIF
+WEND 
+
+CALL HandOn
+CALL HandAllOff
+CALL HandleSoftLimit
+END PROGRAM
+
+' read the 3 increment switches
+DFS ReadIncr  
+	'X1
+	IF( MultX1 )                  
+		Incr = BaseIncr
+		' pendant is active
+		$Active = 1   
+	' X10
+	ELSE IF( MultX10 )            
+		Incr = BaseIncr * 10
+		' pendant is active
+		$Active = 1        
+	' X100
+	ELSE IF( MultX100 )           
+		Incr = BaseIncr * 100
+		' pendant is active
+		$Active = 1  
+	' X0
+	ELSE           
+		' disable MPG for all axes 
+		CALL StopAll                      
+		Incr = 0
+		' pendant is inactive
+		$Active = 0                
+	ENDIF
+ENDDFS
+
+' read the 6 axis switches
+DFS ReadAxis                     
+	IF( Xin )
+		IF( (AXISSTATUS(X,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 1 )				
+				CALL StopAll
+				LastAxis = 1
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0            
+			' if same axis and MPG disabled
+			ELSEIF( ( AXISSTATUS(X, DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				' re-enable the MPG
+				HandleFault		
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn          	
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "X Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+   	ELSEIF( Yin )
+		IF( (AXISSTATUS(Y,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 2 )				
+				CALL StopAll
+				LastAxis = 2
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0   
+			' if same axis and MPG disabled
+			elseif( ( AXISSTATUS(Y,DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				' re-enable the MPG
+				HandleFault		
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "Y Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+  	ELSEIF( Zin )
+		IF( (AXISSTATUS(Z,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 3 )				
+				CALL StopAll
+				LastAxis = 3
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			elseif( ( AXISSTATUS(Z,DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				' re-enable the MPG
+				HandleFault		
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "Z Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF                        
+   ELSEIF( Uin )                       
+		IF( (AXISSTATUS(U,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 4 )				
+				CALL StopAll
+				LastAxis = 4
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			elseif( ( AXISSTATUS(U,DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				HandleFault		' re-enable the MPG
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "U Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+  	ELSEIF( Vin )
+		IF( (AXISSTATUS(V,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 5 )				
+				CALL StopAll
+				LastAxis = 5
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			elseif( ( AXISSTATUS(V,DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				' re-enable the MPG
+				HandleFault		
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "V Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+   	ELSEIF( Win )
+		IF( (AXISSTATUS(W,DATAITEM_DriveStatus) BAND 1 ) == 1 )
+			' if different axis
+			IF( LastAxis != 6 )				
+				CALL StopAll
+				LastAxis = 6
+				CALL WaitCan
+				SetHandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			elseif( ( AXISSTATUS(W,DATAITEM_AxisStatus) BAND 0x10000 ) == 0 )			
+				CALL WaitCan
+				CanFuncNotDone = 1
+				' re-enable the MPG
+				HandleFault		
+				WHILE( CanFuncNotDone == 1)
+					' wait for canned function to finish on task 1
+				WEND
+				SetHandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "W Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+	ELSE   
+		' disable MPG for all axes
+		CALL StopAll                
+	ENDIF
+ENDDFS
+
+' disable MPG for all axes
+DFS StopAll  
+	' no last axis
+	LastAxis = 0				
+	IF( !$Stopped )
+		CALL WaitCan
+		SetHandOff
+		DWELL .2
+      	CALL ClearMsg
+		' all MPG commands now disabled
+      	$Stopped = 1            
+    ENDIF
+ENDDFS
+
+DFS ClearMsg
+	' hide message display
+	MSGHIDE			
+	' clear all "my" messages
+	MSGCLEAR 19			
+	$Msg = 0
+ENDDFS
+
+DFS HandOn
+	IF( LastAxis == 1 )
+        GEAR X MASTERCONFIG EncCh 2
+		HAND 1, X, Incr
+	ELSE IF( LastAxis == 2)
+        GEAR Y MASTERCONFIG EncCh 2
+		HAND 1, Y, Incr
+	ELSE IF( LastAxis == 3)
+        GEAR Z MASTERCONFIG EncCh 2
+		HAND 1, Z, Incr
+	ELSE IF( LastAxis == 4)
+        GEAR U MASTERCONFIG EncCh 2
+		HAND 1, U, Incr
+	ELSE IF( LastAxis == 5)
+        GEAR V MASTERCONFIG EncCh 2
+		HAND 1, V, Incr
+	ELSE IF( LastAxis == 6)
+        GEAR W MASTERCONFIG EncCh 2
+		HAND 1, W, Incr
+	ENDIF
+ENDDFS
+
+DFS HandAllOff
+	HAND 0, X, 0
+	HAND 0, Y, 0
+	HAND 0, Z, 0
+	HAND 0, U, 0
+	HAND 0, V, 0
+	HAND 0, W, 0        
+ENDDFS
+
+DFS WaitCan
+	' if VelTimeConst> 0, must wait for DECEL for canned function to finish !
+	WHILE( TaskStatus(1, DATAITEM_TaskStatus0) & 0x02000000 )
+		DWELL .1
+	WEND
+	CALL FixFault
+ENDDFS
+                 
+DFS FixFault
+	' if canned function active
+	IF( TaskStatus(1, DATAITEM_TaskStatus0) & 0x04000000 )			
+		' Stop the program running in task 1
+		PROGRAM 1 STOP
+		FAULTACK X Y Z U V W
+		TASKERROR 1 0
+		'MSGTASK 0, ""		' Clear current task fault message from task 1
+		' wait for inactive
+		WHILE( (TaskStatus(1, DATAITEM_TaskStatus0) & 0x04000000) == 0x04000000 )	
+			DWELL .1
+		WEND
+	ENDIF
+ENDDFS
+
+DFS HandleSoftLimit
+	IF( LastAxis == 1 )
+		' wait for move done
+		WHILE( (AXISSTATUS(X,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM X
+		' wait for move done
+  		WHILE( (AXISSTATUS(X,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ELSE IF( LastAxis == 2)
+		' wait for move done
+		WHILE( (AXISSTATUS(Y,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM Y
+		' wait for move done
+  		WHILE( (AXISSTATUS(Y,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ELSE IF( LastAxis == 3)         
+		' wait for move done
+		WHILE( (AXISSTATUS(Z,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM Z
+		' wait for move done
+  		WHILE( (AXISSTATUS(Z,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ELSE IF( LastAxis == 4)
+		' wait for move done
+		WHILE( (AXISSTATUS(U,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM U
+		' wait for move done
+  		WHILE( (AXISSTATUS(U,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ELSE IF( LastAxis == 5)
+		' wait for move done
+		WHILE( (AXISSTATUS(V,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM V
+		' wait for move done
+  		WHILE( (AXISSTATUS(V,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ELSE IF( LastAxis == 6)
+		' wait for move done
+		WHILE( (AXISSTATUS(W,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND
+		MOVEOUTLIM W
+		' wait for move done
+  		WHILE( (AXISSTATUS(W,DATAITEM_AxisStatus) BAND 0x4) == 0 )	
+		        ' nothing
+		WEND        
+	ENDIF
+		' DWELL 1 
+		TaskTerminationAxes = $TaskTerminationAxesBackup   ' back to normal
+		CanFuncNotDone = 0					' clear canned function done flag
+ENDDFS
