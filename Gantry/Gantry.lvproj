@@ -211,6 +211,8 @@
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
+			<Item Name="Create.vi" Type="VI" URL="../Shared Components/CameraTool Class/Create.vi"/>
+			<Item Name="Destroy.vi" Type="VI" URL="../Shared Components/CameraTool Class/Destroy.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
