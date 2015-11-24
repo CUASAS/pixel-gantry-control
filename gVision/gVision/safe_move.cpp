@@ -120,7 +120,13 @@ void parse_points(std::string filename,
         std::string line;
         while (std::getline(infile, line)) {
             if (line.size() == 0 || line[0] == '#') continue;
-            std::vector<std::string> tokens = split(line, ' ');
+            std::vector<std::string> tokens_all = split(line, ' ');
+	    std::vector<std::string> tokens;
+	    for(unsigned int i=0; i<tokens_all.size(); i++){
+	        if(tokens_all[i].size() > 0){
+		    tokens.push_back(tokens_all[i]);
+		}
+            }
             if (tokens.size() == 0) continue;
             if (tokens[0] == "pos") {  // Parse pos spec
                 if (tokens.size() != 5) {
