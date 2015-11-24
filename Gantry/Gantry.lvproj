@@ -46,6 +46,8 @@
 				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/RetrieveDiagPacket.vi"/>
 				<Item Name="StopProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/StopProgram.vi"/>
 				<Item Name="MoveIncMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveIncMultiple.vi"/>
+				<Item Name="WaitMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/WaitMultiple.vi"/>
+				<Item Name="WaitSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/WaitSingle.vi"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
@@ -197,6 +199,8 @@
 				<Item Name="NI_Vision_Acquisition_Software.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/driver/NI_Vision_Acquisition_Software.lvlib"/>
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
+				<Item Name="NI_Vision_Development_Module.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/NI_Vision_Development_Module.lvlib"/>
+				<Item Name="IMAQ Dispose" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Dispose"/>
 			</Item>
 			<Item Name="gVision.dll" Type="Document" URL="../../gVision/Release/gVision.dll"/>
 			<Item Name="niimaqdx.dll" Type="Document" URL="niimaqdx.dll">
