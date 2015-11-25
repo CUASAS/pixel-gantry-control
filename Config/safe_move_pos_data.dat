@@ -16,13 +16,13 @@ pos hdi_chuck            678 552 0
 pos needle_calibration   0 1 1
 
 pos tool_rack_pos_1_in   371.63227 17.98277 35.90
-pos tool_rack_pos_1_out  371.63227 118      35.90
+pos tool_rack_pos_1_out  371.63227 158      35.90
 
 pos tool_rack_pos_2_in   523.9994  17.75289 36.81
-pos tool_rack_pos_2_out  523.9994  118      36.81
+pos tool_rack_pos_2_out  523.9994  158      36.81
 
 pos tool_rack_pos_3_in   676.5179  17.6385  37.30
-pos tool_rack_pos_3_out  676.5179  118      37.30
+pos tool_rack_pos_3_out  676.5179  158      37.30
 
 
 pos front_load_position  20        670      0
@@ -47,9 +47,9 @@ edg bbm_chuck_4 tool_rack_pos_3_out
 edg tool_rack_pos_1_out tool_rack_pos_1_in
 edg tool_rack_pos_2_out tool_rack_pos_2_in
 edg tool_rack_pos_3_out tool_rack_pos_3_in
-edg home tool_rack_pos_1_in 
-edg home tool_rack_pos_2_in 
-edg home tool_rack_pos_3_in 
+edg home tool_rack_pos_1_out 
+edg home tool_rack_pos_2_out 
+edg home tool_rack_pos_3_out 
 edg tool_rack_pos_1_out tool_rack_pos_2_out
 edg tool_rack_pos_1_out tool_rack_pos_3_out
 edg tool_rack_pos_2_out tool_rack_pos_3_out
