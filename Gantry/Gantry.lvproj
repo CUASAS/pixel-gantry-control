@@ -28,6 +28,9 @@
 		<Item Name="Shared Components" Type="Folder" URL="../Shared Components">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
+		<Item Name="Gantry Application" Type="Folder" URL="../Gantry Application">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
