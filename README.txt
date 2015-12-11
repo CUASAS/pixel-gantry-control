@@ -42,5 +42,5 @@ Setup
 		- $cat id_rsa.pub
 		Copy the public key to your account on git.unl.edu . You may need to wait several minutes for the key to properly register
 10. Checkout project from git.unl.edu
-11. Add the directory containing the shared library files(.dll) to your system path variable.Without doing this LabVIEW will complain about
+11. Add the directory containing the shared library files(.dll) to your system path variable. Without doing this LabVIEW will complain about
       being unable to find one of the dependencies of gVision.dll(eg. opencvcore).
