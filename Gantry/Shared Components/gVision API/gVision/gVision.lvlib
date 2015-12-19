@@ -11,6 +11,7 @@
 	<Item Name="find_fiducial.vi" Type="VI" URL="../find_fiducial.vi"/>
 	<Item Name="fit_focus.vi" Type="VI" URL="../fit_focus.vi"/>
 	<Item Name="get_safe_path.vi" Type="VI" URL="../get_safe_path.vi"/>
+	<Item Name="phi_offset.vi" Type="VI" URL="../phi_offset.vi"/>
 	<Item Name="to_global_coords.vi" Type="VI" URL="../to_global_coords.vi"/>
 	<Item Name="to_local_coords.vi" Type="VI" URL="../to_local_coords.vi"/>
 </Library>
