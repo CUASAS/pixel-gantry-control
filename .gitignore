@@ -4,3 +4,4 @@
 *.swp
 #LabVIEW local files
 *.aliases
+*.lvlps
