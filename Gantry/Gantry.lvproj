@@ -105,15 +105,14 @@
 				<Item Name="Type Definitions" Type="Folder">
 					<Item Name="Position_Orientation.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Position_Orientation.ctl"/>
 				</Item>
-				<Item Name="Copy Gantry Data.vi" Type="VI" URL="../Shared Components/Utils/Copy Gantry Data.vi"/>
 				<Item Name="Extract Fiducial Definitions.vi" Type="VI" URL="../Shared Components/Utils/Extract Fiducial Definitions.vi"/>
-				<Item Name="Find Safe Path.vi" Type="VI" URL="../Shared Components/Utils/Find Safe Path.vi"/>
 				<Item Name="Helper - Camera Identification.vi" Type="VI" URL="../Shared Components/Utils/Helper - Camera Identification.vi"/>
 				<Item Name="Helper - HDI Start Position.vi" Type="VI" URL="../Shared Components/Utils/Helper - HDI Start Position.vi"/>
 				<Item Name="Parse CSV Line.vi" Type="VI" URL="../Shared Components/Utils/Parse CSV Line.vi"/>
 				<Item Name="Read Camera Name.vi" Type="VI" URL="../Shared Components/Utils/Read Camera Name.vi"/>
 				<Item Name="Read Center Orientation.vi" Type="VI" URL="../Shared Components/Utils/Read Center Orientation.vi"/>
 				<Item Name="Read Geometry Definition.vi" Type="VI" URL="../Shared Components/Utils/Read Geometry Definition.vi"/>
+				<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Utils/Read Offset.vi"/>
 				<Item Name="Read Speed.vi" Type="VI" URL="../Shared Components/Utils/Read Speed.vi"/>
 			</Item>
 			<Item Name="Vec3d Class" Type="Folder">
@@ -363,6 +362,7 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
+			<Item Name="Copy Gantry Data.vi" Type="VI" URL="../Shared Components/Utils/Copy Gantry Data.vi"/>
 			<Item Name="Create Error.vi" Type="VI" URL="/&lt;vilib&gt;/imathl/engines/lvmath/Functions/Error Handling/Create Error.vi"/>
 			<Item Name="Display _Struct.vi" Type="VI" URL="/&lt;vilib&gt;/imath/engines/lvmath/Plug In/_Struct/display/Display _Struct.vi"/>
 			<Item Name="Display_StructField_Data.vi" Type="VI" URL="/&lt;vilib&gt;/imath/engines/lvmath/Plug In/_Struct/display/Display_StructField_Data.vi"/>
