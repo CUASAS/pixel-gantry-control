@@ -91,6 +91,7 @@
 				<Item Name="SyringeTool Class.lvclass" Type="LVClass" URL="../Shared Components/SyringeTool Class/SyringeTool Class.lvclass"/>
 			</Item>
 			<Item Name="Utils" Type="Folder">
+				<Property Name="NI.SortType" Type="Int">3</Property>
 				<Item Name="Geometry Utils" Type="Folder">
 					<Item Name="Calculate Position Orientation.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Calculate Position Orientation.vi"/>
 					<Item Name="Centroid.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Centroid.vi"/>
@@ -107,9 +108,9 @@
 				</Item>
 				<Item Name="Extract Fiducial Definitions.vi" Type="VI" URL="../Shared Components/Utils/Extract Fiducial Definitions.vi"/>
 				<Item Name="Helper - Camera Identification.vi" Type="VI" URL="../Shared Components/Utils/Helper - Camera Identification.vi"/>
-				<Item Name="Helper - HDI Start Position.vi" Type="VI" URL="../Shared Components/Utils/Helper - HDI Start Position.vi"/>
 				<Item Name="Parse CSV Line.vi" Type="VI" URL="../Shared Components/Utils/Parse CSV Line.vi"/>
 				<Item Name="Read Camera Name.vi" Type="VI" URL="../Shared Components/Utils/Read Camera Name.vi"/>
+				<Item Name="Helper - HDI Start Position.vi" Type="VI" URL="../Shared Components/Utils/Helper - HDI Start Position.vi"/>
 				<Item Name="Read Center Orientation.vi" Type="VI" URL="../Shared Components/Utils/Read Center Orientation.vi"/>
 				<Item Name="Read Geometry Definition.vi" Type="VI" URL="../Shared Components/Utils/Read Geometry Definition.vi"/>
 				<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Utils/Read Offset.vi"/>
