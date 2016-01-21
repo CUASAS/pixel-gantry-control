@@ -21,6 +21,7 @@
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="Commissioning Helpers" Type="Folder">
 			<Item Name="Camera Identification.vi" Type="VI" URL="../Commissioning Helpers/Camera Identification.vi"/>
+			<Item Name="Fiducical Parameters Finder.vi" Type="VI" URL="../Commissioning Helpers/Fiducical Parameters Finder.vi"/>
 			<Item Name="HDI Pad Group Deviation.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Deviation.vi"/>
 			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
 			<Item Name="HDI Start Position Verify.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Verify.vi"/>
@@ -332,7 +333,6 @@
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
 				<Item Name="GetRTHostConnectedProp.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetRTHostConnectedProp.vi"/>
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
-				<Item Name="IMAQ Copy" Type="VI" URL="/&lt;vilib&gt;/vision/Management.llb/IMAQ Copy"/>
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
 				<Item Name="IMAQ Dispose" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Dispose"/>
 				<Item Name="IMAQ GetImagePixelPtr" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImagePixelPtr"/>
@@ -372,7 +372,6 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
-			<Item Name="Copy Gantry Data.vi" Type="VI" URL="../Shared Components/Utils/Copy Gantry Data.vi"/>
 			<Item Name="Create Error.vi" Type="VI" URL="/&lt;vilib&gt;/imathl/engines/lvmath/Functions/Error Handling/Create Error.vi"/>
 			<Item Name="Display _Struct.vi" Type="VI" URL="/&lt;vilib&gt;/imath/engines/lvmath/Plug In/_Struct/display/Display _Struct.vi"/>
 			<Item Name="Display_StructField_Data.vi" Type="VI" URL="/&lt;vilib&gt;/imath/engines/lvmath/Plug In/_Struct/display/Display_StructField_Data.vi"/>
