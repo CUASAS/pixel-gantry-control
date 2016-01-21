@@ -4,10 +4,10 @@
 # These points in an efficient manner
 #pos LABEL X_COORD Y_COORD Z_COORD
 pos home                 0   0   0
-pos bbm_chuck_1          68  245 0
-pos bbm_chuck_2          296 245 0
-pos bbm_chuck_3          487 245 0
-pos bbm_chuck_4          678 245 0
+pos bbm_chuck_0          68  245 0
+pos bbm_chuck_1          296 245 0
+pos bbm_chuck_2          487 245 0
+pos bbm_chuck_3          678 245 0
 pos glue_reservoir_chuck 68  552 0
 pos stamp_tool_chuck     296 552 0
 pos weight_tool_chuck    487 552 0 
@@ -15,68 +15,68 @@ pos hdi_chuck            678 552 0
 
 pos needle_calibration   0 1 1
 
-pos tool_rack_pos_1_in   371.63227 17.98277 35.90
-pos tool_rack_pos_1_out  371.63227 158      35.90
+pos tool_rack_pos_0_in   371.63227 17.98277 35.90
+pos tool_rack_pos_0_out  371.63227 158      35.90
 
-pos tool_rack_pos_2_in   523.9994  17.75289 36.81
-pos tool_rack_pos_2_out  523.9994  158      36.81
+pos tool_rack_pos_1_in   523.9994  17.75289 36.81
+pos tool_rack_pos_1_out  523.9994  158      36.81
 
-pos tool_rack_pos_3_in   676.5179  17.6385  37.30
-pos tool_rack_pos_3_out  676.5179  158      37.30
+pos tool_rack_pos_2_in   676.5179  17.6385  37.30
+pos tool_rack_pos_2_out  676.5179  158      37.30
 
 
 pos front_load_position  20        670      0
 
 #edg LABEL1 LABEL2
+edg bbm_chuck_0 needle_calibration
 edg bbm_chuck_1 needle_calibration
 edg bbm_chuck_2 needle_calibration
 edg bbm_chuck_3 needle_calibration
-edg bbm_chuck_4 needle_calibration
+edg bbm_chuck_0 tool_rack_pos_0_out
+edg bbm_chuck_1 tool_rack_pos_0_out
+edg bbm_chuck_2 tool_rack_pos_0_out
+edg bbm_chuck_3 tool_rack_pos_0_out
+edg bbm_chuck_0 tool_rack_pos_1_out
 edg bbm_chuck_1 tool_rack_pos_1_out
 edg bbm_chuck_2 tool_rack_pos_1_out
 edg bbm_chuck_3 tool_rack_pos_1_out
-edg bbm_chuck_4 tool_rack_pos_1_out
+edg bbm_chuck_0 tool_rack_pos_2_out
 edg bbm_chuck_1 tool_rack_pos_2_out
 edg bbm_chuck_2 tool_rack_pos_2_out
 edg bbm_chuck_3 tool_rack_pos_2_out
-edg bbm_chuck_4 tool_rack_pos_2_out
-edg bbm_chuck_1 tool_rack_pos_3_out
-edg bbm_chuck_2 tool_rack_pos_3_out
-edg bbm_chuck_3 tool_rack_pos_3_out
-edg bbm_chuck_4 tool_rack_pos_3_out
+edg tool_rack_pos_0_out tool_rack_pos_0_in
 edg tool_rack_pos_1_out tool_rack_pos_1_in
 edg tool_rack_pos_2_out tool_rack_pos_2_in
-edg tool_rack_pos_3_out tool_rack_pos_3_in
+edg home tool_rack_pos_0_out 
 edg home tool_rack_pos_1_out 
 edg home tool_rack_pos_2_out 
-edg home tool_rack_pos_3_out 
+edg tool_rack_pos_0_out tool_rack_pos_1_out
+edg tool_rack_pos_0_out tool_rack_pos_2_out
 edg tool_rack_pos_1_out tool_rack_pos_2_out
-edg tool_rack_pos_1_out tool_rack_pos_3_out
-edg tool_rack_pos_2_out tool_rack_pos_3_out
 edg home needle_calibration
-edg home bbm_chuck_1
+edg home bbm_chuck_0
 edg home front_load_position
 edg front_load_position needle_calibration
+edg bbm_chuck_0 bbm_chuck_1
+edg bbm_chuck_0 bbm_chuck_2
+edg bbm_chuck_0 bbm_chuck_3
 edg bbm_chuck_1 bbm_chuck_2
 edg bbm_chuck_1 bbm_chuck_3
-edg bbm_chuck_1 bbm_chuck_4
 edg bbm_chuck_2 bbm_chuck_3
-edg bbm_chuck_2 bbm_chuck_4
-edg bbm_chuck_3 bbm_chuck_4
+edg glue_reservoir_chuck bbm_chuck_0
 edg glue_reservoir_chuck bbm_chuck_1
 edg glue_reservoir_chuck bbm_chuck_2
 edg glue_reservoir_chuck bbm_chuck_3
-edg glue_reservoir_chuck bbm_chuck_4
+edg stamp_tool_chuck bbm_chuck_0
 edg stamp_tool_chuck bbm_chuck_1
 edg stamp_tool_chuck bbm_chuck_2
 edg stamp_tool_chuck bbm_chuck_3
-edg stamp_tool_chuck bbm_chuck_4
+edg weight_tool_chuck bbm_chuck_0
 edg weight_tool_chuck bbm_chuck_1
 edg weight_tool_chuck bbm_chuck_2
 edg weight_tool_chuck bbm_chuck_3
-edg weight_tool_chuck bbm_chuck_4
+edg hdi_chuck bbm_chuck_0
 edg hdi_chuck bbm_chuck_1
 edg hdi_chuck bbm_chuck_2
 edg hdi_chuck bbm_chuck_3
-edg hdi_chuck bbm_chuck_4
 edg glue_reservoir_chuck stamp_tool_chuck

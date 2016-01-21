@@ -19,6 +19,12 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="Commissioning Helpers" Type="Folder">
+			<Item Name="Camera Identification.vi" Type="VI" URL="../Commissioning Helpers/Camera Identification.vi"/>
+			<Item Name="HDI Pad Group Deviation.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Deviation.vi"/>
+			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
+			<Item Name="HDI Start Position Verify.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Verify.vi"/>
+		</Item>
 		<Item Name="Shared Components" Type="Folder">
 			<Item Name="CameraTool Class" Type="Folder">
 				<Item Name="Tests" Type="Folder">
@@ -91,10 +97,11 @@
 				<Item Name="SyringeTool Class.lvclass" Type="LVClass" URL="../Shared Components/SyringeTool Class/SyringeTool Class.lvclass"/>
 			</Item>
 			<Item Name="Utils" Type="Folder">
-				<Property Name="NI.SortType" Type="Int">3</Property>
+				<Property Name="NI.SortType" Type="Int">0</Property>
 				<Item Name="Geometry Utils" Type="Folder">
 					<Item Name="Calculate Position Orientation.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Calculate Position Orientation.vi"/>
 					<Item Name="Centroid.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Centroid.vi"/>
+					<Item Name="Get HDI Pad Local Coordinates.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Get HDI Pad Local Coordinates.vi"/>
 					<Item Name="Get Net Phi.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Get Net Phi.vi"/>
 					<Item Name="Principle Eigenpair.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Principle Eigenpair.vi"/>
 					<Item Name="To Global Coordinates.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/To Global Coordinates.vi"/>
@@ -107,14 +114,13 @@
 					<Item Name="Position_Orientation.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Position_Orientation.ctl"/>
 				</Item>
 				<Item Name="Extract Fiducial Definitions.vi" Type="VI" URL="../Shared Components/Utils/Extract Fiducial Definitions.vi"/>
-				<Item Name="Helper - Camera Identification.vi" Type="VI" URL="../Shared Components/Utils/Helper - Camera Identification.vi"/>
 				<Item Name="Parse CSV Line.vi" Type="VI" URL="../Shared Components/Utils/Parse CSV Line.vi"/>
 				<Item Name="Read Camera Name.vi" Type="VI" URL="../Shared Components/Utils/Read Camera Name.vi"/>
-				<Item Name="Helper - HDI Start Position.vi" Type="VI" URL="../Shared Components/Utils/Helper - HDI Start Position.vi"/>
 				<Item Name="Read Center Orientation.vi" Type="VI" URL="../Shared Components/Utils/Read Center Orientation.vi"/>
 				<Item Name="Read Geometry Definition.vi" Type="VI" URL="../Shared Components/Utils/Read Geometry Definition.vi"/>
 				<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Utils/Read Offset.vi"/>
 				<Item Name="Read Speed.vi" Type="VI" URL="../Shared Components/Utils/Read Speed.vi"/>
+				<Item Name="Superimpose Crosshairs.vi" Type="VI" URL="../Shared Components/Utils/Superimpose Crosshairs.vi"/>
 			</Item>
 			<Item Name="Vec3d Class" Type="Folder">
 				<Item Name="Tests" Type="Folder">
@@ -143,7 +149,6 @@
 				<Item Name="WorkTable Sandbox.vi" Type="VI" URL="../Shared Components/WorkTable Class/WorkTable Sandbox.vi"/>
 			</Item>
 		</Item>
-		<Item Name="Superimpose Crosshairs.vi" Type="VI" URL="../Shared Components/Utils/Superimpose Crosshairs.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
