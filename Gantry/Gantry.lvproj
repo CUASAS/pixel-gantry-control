@@ -102,6 +102,7 @@
 				<Item Name="Geometry Utils" Type="Folder">
 					<Item Name="Calculate Position Orientation.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Calculate Position Orientation.vi"/>
 					<Item Name="Centroid.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Centroid.vi"/>
+					<Item Name="Gantry Camera to Physical Coordinates.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Gantry Camera to Physical Coordinates.vi"/>
 					<Item Name="Get HDI Pad Local Coordinates.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Get HDI Pad Local Coordinates.vi"/>
 					<Item Name="Get Net Phi.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Get Net Phi.vi"/>
 					<Item Name="Principle Eigenpair.vi" Type="VI" URL="../Shared Components/Utils/Geometry Utils/Principle Eigenpair.vi"/>
@@ -121,6 +122,7 @@
 				<Item Name="Read Geometry Definition.vi" Type="VI" URL="../Shared Components/Utils/Read Geometry Definition.vi"/>
 				<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Utils/Read Offset.vi"/>
 				<Item Name="Read Speed.vi" Type="VI" URL="../Shared Components/Utils/Read Speed.vi"/>
+				<Item Name="Select Fiducial From Set.vi" Type="VI" URL="../Shared Components/Utils/Select Fiducial From Set.vi"/>
 				<Item Name="Superimpose Crosshairs.vi" Type="VI" URL="../Shared Components/Utils/Superimpose Crosshairs.vi"/>
 			</Item>
 			<Item Name="Vec3d Class" Type="Folder">
@@ -333,6 +335,8 @@
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
 				<Item Name="GetRTHostConnectedProp.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetRTHostConnectedProp.vi"/>
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
+				<Item Name="IMAQ Clear Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Clear Overlay"/>
+				<Item Name="IMAQ Copy" Type="VI" URL="/&lt;vilib&gt;/vision/Management.llb/IMAQ Copy"/>
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
 				<Item Name="IMAQ Dispose" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Dispose"/>
 				<Item Name="IMAQ GetImagePixelPtr" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImagePixelPtr"/>
@@ -340,6 +344,7 @@
 				<Item Name="IMAQ Image.ctl" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/IMAQ Image.ctl"/>
 				<Item Name="IMAQ Merge Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Merge Overlay"/>
 				<Item Name="IMAQ Overlay Line" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Line"/>
+				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
