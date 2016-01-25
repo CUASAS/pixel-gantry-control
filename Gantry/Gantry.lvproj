@@ -21,6 +21,7 @@
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="Commissioning Helpers" Type="Folder">
 			<Item Name="Camera Identification.vi" Type="VI" URL="../Commissioning Helpers/Camera Identification.vi"/>
+			<Item Name="Fiducial Parameters Finder From File.vi" Type="VI" URL="../Commissioning Helpers/Fiducial Parameters Finder From File.vi"/>
 			<Item Name="Fiducical Parameters Finder.vi" Type="VI" URL="../Commissioning Helpers/Fiducical Parameters Finder.vi"/>
 			<Item Name="HDI Pad Group Deviation.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Deviation.vi"/>
 			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
@@ -30,6 +31,7 @@
 			<Item Name="CameraTool Class" Type="Folder">
 				<Item Name="Tests" Type="Folder">
 					<Item Name="Test CameraTool Focus.vi" Type="VI" URL="../Shared Components/CameraTool Class/Tests/Test CameraTool Focus.vi"/>
+					<Item Name="Test CameraTool Get Fiducial Manual.vi" Type="VI" URL="../Shared Components/CameraTool Class/Tests/Test CameraTool Get Fiducial Manual.vi"/>
 					<Item Name="Test CameraTool Get Fiducial.vi" Type="VI" URL="../Shared Components/CameraTool Class/Tests/Test CameraTool Get Fiducial.vi"/>
 					<Item Name="Test Read HDI Fiducials.vi" Type="VI" URL="../Shared Components/CameraTool Class/Tests/Test Read HDI Fiducials.vi"/>
 				</Item>
@@ -345,6 +347,7 @@
 				<Item Name="IMAQ Merge Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Merge Overlay"/>
 				<Item Name="IMAQ Overlay Line" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Line"/>
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
+				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
