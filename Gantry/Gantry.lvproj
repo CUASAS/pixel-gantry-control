@@ -113,9 +113,14 @@
 				</Item>
 				<Item Name="Tests" Type="Folder">
 					<Item Name="Test Geometry Location Fitting.vi" Type="VI" URL="../Shared Components/Utils/Tests/Test Geometry Location Fitting.vi"/>
+					<Item Name="Test Stitch Together Images.vi" Type="VI" URL="../Shared Components/Utils/Tests/Test Stitch Together Images.vi"/>
 				</Item>
 				<Item Name="Type Definitions" Type="Folder">
 					<Item Name="Position_Orientation.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Position_Orientation.ctl"/>
+				</Item>
+				<Item Name="Vision Utils" Type="Folder">
+					<Item Name="Calculate Pixel Size.vi" Type="VI" URL="../Shared Components/Utils/Vision Utils/Calculate Pixel Size.vi"/>
+					<Item Name="Stitch Together Images.vi" Type="VI" URL="../Shared Components/Utils/Vision Utils/Stitch Together Images.vi"/>
 				</Item>
 				<Item Name="Extract Fiducial Definitions.vi" Type="VI" URL="../Shared Components/Utils/Extract Fiducial Definitions.vi"/>
 				<Item Name="Parse CSV Line.vi" Type="VI" URL="../Shared Components/Utils/Parse CSV Line.vi"/>
@@ -154,6 +159,7 @@
 				<Item Name="WorkTable Sandbox.vi" Type="VI" URL="../Shared Components/WorkTable Class/WorkTable Sandbox.vi"/>
 			</Item>
 		</Item>
+		<Item Name="Physical Image.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Physical Image.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
@@ -348,6 +354,7 @@
 				<Item Name="IMAQ Overlay Line" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Line"/>
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>
+				<Item Name="IMAQ SetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ SetImageSize"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
