@@ -56,7 +56,6 @@
 				<Item Name="Type Definitions" Type="Folder">
 					<Item Name="Gantry_Camera.ctl" Type="VI" URL="../Shared Components/Gantry Class/Type Definitions/Gantry_Camera.ctl"/>
 				</Item>
-				<Item Name="Gantry Class Sandbox.vi" Type="VI" URL="../Shared Components/Gantry Class/Gantry Class Sandbox.vi"/>
 				<Item Name="Gantry Class.lvclass" Type="LVClass" URL="../Shared Components/Gantry Class/Gantry Class.lvclass"/>
 			</Item>
 			<Item Name="GrabberTool Class" Type="Folder">
@@ -93,11 +92,9 @@
 				<Item Name="Tests" Type="Folder">
 					<Item Name="Test Pickup Tool Load.vi" Type="VI" URL="../Shared Components/PickupTool Class/Tests/Test Pickup Tool Load.vi"/>
 				</Item>
-				<Item Name="PickupTool Class Sandbox.vi" Type="VI" URL="../Shared Components/PickupTool Class/PickupTool Class Sandbox.vi"/>
 				<Item Name="PickupTool Class.lvclass" Type="LVClass" URL="../Shared Components/PickupTool Class/PickupTool Class.lvclass"/>
 			</Item>
 			<Item Name="SyringeTool Class" Type="Folder">
-				<Item Name="SyringeTool Class Sandbox.vi" Type="VI" URL="../Shared Components/SyringeTool Class/SyringeTool Class Sandbox.vi"/>
 				<Item Name="SyringeTool Class.lvclass" Type="LVClass" URL="../Shared Components/SyringeTool Class/SyringeTool Class.lvclass"/>
 			</Item>
 			<Item Name="Utils" Type="Folder">

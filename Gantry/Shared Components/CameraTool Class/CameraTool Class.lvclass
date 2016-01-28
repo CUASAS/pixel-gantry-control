@@ -44,6 +44,15 @@
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 			<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 		</Item>
+		<Item Name="Get HDI Pad Group Image.vi" Type="VI" URL="../Get HDI Pad Group Image.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!,%!!!!&amp;!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!#Z!=!!?!!!6%V:F9T.E)%.M98.T,GRW9WRB=X-!$EFN97&gt;F)&amp;"P=WFU;7^O!!!A!$@`````!!52!)!)!!!!!1!%!!!!!1!!!!!!!!!!!&amp;U!]1!!!!!!!!!"$EF.16%A37VB:W5O9X2M!%:!=!!&gt;#5F.16&amp;*&lt;7&amp;H:1!"!!9*35V"55FN97&gt;F%1#!#!!!!!%!"!!!!!%!!!!!!!!037VB:W5A5G6G:8*F&lt;G.F!!N!#A!&amp;?#BN&lt;3E!#U!+!!6Z+'VN+1!91&amp;!!!A!)!!E.2GFF&lt;'1A&lt;W9A6GFF&gt;Q"*!0%!!!!!!!!!!2*1;(FT;7.B&lt;#"*&lt;7&amp;H:3ZD&gt;'Q!,E"1!!-!"1!(!!I=3%2*)&amp;"B:#"(=G^V=#"1;(FT;7.B&lt;#"*&lt;7&amp;H:1!!.%"Q!"Y!!"I91W&amp;N:8*B6'^P&lt;#"$&lt;'&amp;T=SZM&gt;G.M98.T!!!/1W&amp;N:8*B6'^P&lt;#"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!"8!0%!!!!!!!!!!1Z*45&amp;2)%FN97&gt;F,G.U&lt;!"!1(!!(1F*45&amp;237VB:W5!!1!'#5F.16&amp;*&lt;7&amp;H:2%!A!A!!!!"!!1!!!!"!!!!!!!!#5FN97&gt;F)%2T&gt;!!01!-!#6"B:#"(=G^V=!!,1!-!"&amp;.M&lt;X1!!"B!5!!#!!]!%!V)2%EA5'&amp;E)%&gt;S&lt;X6Q!$*!=!!?!!!;'%.B&lt;76S962P&lt;WQA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!$5.B&lt;76S962P&lt;WQA;7Y!6!$Q!!Q!!Q!%!!M!$!!%!!1!"!!%!!U!$A!2!")$!!"Y!!!.#!!!!!!!!!E!!!#.#Q!!!!!!!!!!!!!!!!!!!!!!!!I!!!!3!!!!%!!!!*)!!!!!!1!4!!!!!!</Property>
+			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
+			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
+		</Item>
 		<Item Name="Load.vi" Type="VI" URL="../Load.vi">
 			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%2!!!!#1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$2!=!!?!!!;'%.B&lt;76S962P&lt;WQA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!$E.B&lt;76S962P&lt;WQA&lt;X6U!!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!+E"Q!"Y!!"952W&amp;O&gt;(*Z)%.M98.T,GRW9WRB=X-!!!F(97ZU=HEA37Y!6!$Q!!Q!!Q!%!!1!"1!%!!1!"!!%!!9!"!!%!!=$!!"Y!!!.#!!!!!!!!!!!!!!*!!!!!!!!!!!!!!!!!!!!!!!!!!I!!!!!!!!!!!!!!!I!!!!!!1!)!!!!!!</Property>
 			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
