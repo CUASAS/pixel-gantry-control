@@ -27,6 +27,7 @@
 			<Item Name="HDI Pad Group Imaging.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Imaging.vi"/>
 			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
 			<Item Name="HDI Start Position Verify.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Verify.vi"/>
+			<Item Name="Pot Single Line.vi" Type="VI" URL="../Commissioning Helpers/Pot Single Line.vi"/>
 		</Item>
 		<Item Name="Shared Components" Type="Folder">
 			<Item Name="CameraTool Class" Type="Folder">
@@ -349,7 +350,6 @@
 				<Item Name="IMAQ GetImagePixelPtr" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImagePixelPtr"/>
 				<Item Name="IMAQ GetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImageSize"/>
 				<Item Name="IMAQ Image.ctl" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/IMAQ Image.ctl"/>
-				<Item Name="IMAQ Merge Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Merge Overlay"/>
 				<Item Name="IMAQ Overlay Line" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Line"/>
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>

@@ -13,7 +13,7 @@ pos stamp_tool_chuck     296 552 0
 pos weight_tool_chuck    487 552 0 
 pos hdi_chuck            678 552 0
 
-pos needle_calibration   0 1 1
+pos needle_calibration   17.33703 80.14393 88.48577
 
 pos tool_rack_pos_0_in   371.63227 17.98277 35.90
 pos tool_rack_pos_0_out  371.63227 158      35.90
