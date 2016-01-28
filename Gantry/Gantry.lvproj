@@ -24,6 +24,7 @@
 			<Item Name="Fiducial Parameters Finder From File.vi" Type="VI" URL="../Commissioning Helpers/Fiducial Parameters Finder From File.vi"/>
 			<Item Name="Fiducical Parameters Finder.vi" Type="VI" URL="../Commissioning Helpers/Fiducical Parameters Finder.vi"/>
 			<Item Name="HDI Pad Group Deviation.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Deviation.vi"/>
+			<Item Name="HDI Pad Group Imaging.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Imaging.vi"/>
 			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
 			<Item Name="HDI Start Position Verify.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Verify.vi"/>
 		</Item>
@@ -116,6 +117,7 @@
 					<Item Name="Test Stitch Together Images.vi" Type="VI" URL="../Shared Components/Utils/Tests/Test Stitch Together Images.vi"/>
 				</Item>
 				<Item Name="Type Definitions" Type="Folder">
+					<Item Name="Physical Image.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Physical Image.ctl"/>
 					<Item Name="Position_Orientation.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Position_Orientation.ctl"/>
 				</Item>
 				<Item Name="Vision Utils" Type="Folder">
@@ -159,7 +161,6 @@
 				<Item Name="WorkTable Sandbox.vi" Type="VI" URL="../Shared Components/WorkTable Class/WorkTable Sandbox.vi"/>
 			</Item>
 		</Item>
-		<Item Name="Physical Image.ctl" Type="VI" URL="../Shared Components/Utils/Type Definitions/Physical Image.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
@@ -192,6 +193,7 @@
 				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
 				<Item Name="Check Special Tags.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Check Special Tags.vi"/>
 				<Item Name="Clear Errors.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Clear Errors.vi"/>
+				<Item Name="Color (U64)" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Color (U64)"/>
 				<Item Name="Color to RGB.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/colorconv.llb/Color to RGB.vi"/>
 				<Item Name="Convert property node font to graphics font.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Convert property node font to graphics font.vi"/>
 				<Item Name="DAQmx Clear Task.vi" Type="VI" URL="/&lt;vilib&gt;/DAQmx/configure/task.llb/DAQmx Clear Task.vi"/>
@@ -355,6 +357,13 @@
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>
 				<Item Name="IMAQ SetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ SetImageSize"/>
+				<Item Name="IMAQ Write BMP File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write BMP File 2"/>
+				<Item Name="IMAQ Write File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write File 2"/>
+				<Item Name="IMAQ Write Image And Vision Info File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write Image And Vision Info File 2"/>
+				<Item Name="IMAQ Write JPEG File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write JPEG File 2"/>
+				<Item Name="IMAQ Write JPEG2000 File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write JPEG2000 File 2"/>
+				<Item Name="IMAQ Write PNG File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write PNG File 2"/>
+				<Item Name="IMAQ Write TIFF File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write TIFF File 2"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
