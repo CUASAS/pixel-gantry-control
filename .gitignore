@@ -5,3 +5,6 @@
 #LabVIEW local files
 *.aliases
 *.lvlps
+
+#Gantry local data directory
+Data/
