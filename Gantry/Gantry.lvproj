@@ -161,6 +161,7 @@
 		</Item>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
+				<Item Name="AcknowledgeAll.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/AcknowledgeAll.vi"/>
 				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
 				<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.LabVIEW.dll"/>
 				<Item Name="AxisDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/AxisDiagPacket.ctl"/>
@@ -174,7 +175,6 @@
 				<Item Name="EnableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/EnableMultiple.vi"/>
 				<Item Name="ExecuteProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/ExecuteProgram.vi"/>
 				<Item Name="GetAxisIndex.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Utility/GetAxisIndex.vi"/>
-				<Item Name="HomeMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/HomeMultiple.vi"/>
 				<Item Name="HomeSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/HomeSingle.vi"/>
 				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsMultiple.vi"/>
 				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsSingle.vi"/>
