@@ -19,15 +19,8 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Commissioning Helpers" Type="Folder">
-			<Item Name="Camera Identification.vi" Type="VI" URL="../Commissioning Helpers/Camera Identification.vi"/>
-			<Item Name="Fiducial Parameters Finder From File.vi" Type="VI" URL="../Commissioning Helpers/Fiducial Parameters Finder From File.vi"/>
-			<Item Name="Fiducical Parameters Finder.vi" Type="VI" URL="../Commissioning Helpers/Fiducical Parameters Finder.vi"/>
-			<Item Name="HDI Pad Group Deviation.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Deviation.vi"/>
-			<Item Name="HDI Pad Group Imaging.vi" Type="VI" URL="../Commissioning Helpers/HDI Pad Group Imaging.vi"/>
-			<Item Name="HDI Start Position Acquire.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Acquire.vi"/>
-			<Item Name="HDI Start Position Verify.vi" Type="VI" URL="../Commissioning Helpers/HDI Start Position Verify.vi"/>
-			<Item Name="Pot Single Line.vi" Type="VI" URL="../Commissioning Helpers/Pot Single Line.vi"/>
+		<Item Name="Commissioning Helpers" Type="Folder" URL="../Commissioning Helpers">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="Gantry Application" Type="Folder" URL="../Gantry Application">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
