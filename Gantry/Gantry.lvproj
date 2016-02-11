@@ -46,7 +46,6 @@
 				<Item Name="GetAxisIndex.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Utility/GetAxisIndex.vi"/>
 				<Item Name="HomeSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/HomeSingle.vi"/>
 				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsMultiple.vi"/>
-				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsSingle.vi"/>
 				<Item Name="MoveIncMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveIncMultiple.vi"/>
 				<Item Name="MoveIncSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveIncSingle.vi"/>
 				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/RetrieveDiagPacket.vi"/>
