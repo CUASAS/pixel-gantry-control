@@ -4,11 +4,11 @@
 # These points in an efficient manner
 #pos LABEL X_COORD Y_COORD Z_COORD
 pos home                 0   0   0
-pos module_chuck_0          68  245 0
-pos module_chuck_1          296 245 0
-pos module_chuck_2          487 245 0
-pos module_chuck_3          678 245 0
-pos module_chuck_4          678 552 0
+pos module_chuck_0       68  245 0
+pos module_chuck_1       296 245 0
+pos module_chuck_2       487 245 0
+pos module_chuck_3       678 245 0
+pos module_chuck_4       678 552 0
 pos glue_reservoir_chuck 68  552 0
 pos stamp_tool_chuck     296 552 0
 pos weight_tool_chuck    487 552 0 
