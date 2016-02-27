@@ -53,7 +53,6 @@ edg home tool_rack_pos_2_out
 edg tool_rack_pos_0_out tool_rack_pos_1_out
 edg tool_rack_pos_0_out tool_rack_pos_2_out
 edg tool_rack_pos_1_out tool_rack_pos_2_out
-edg home needle_calibration
 edg home module_chuck_0
 edg home front_load_position
 edg front_load_position needle_calibration
