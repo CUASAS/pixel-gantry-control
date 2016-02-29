@@ -47,14 +47,10 @@ edg module_chuck_3 tool_rack_pos_2_out
 edg tool_rack_pos_0_out tool_rack_pos_0_in
 edg tool_rack_pos_1_out tool_rack_pos_1_in
 edg tool_rack_pos_2_out tool_rack_pos_2_in
-edg home tool_rack_pos_0_out 
-edg home tool_rack_pos_1_out 
-edg home tool_rack_pos_2_out 
 edg tool_rack_pos_0_out tool_rack_pos_1_out
 edg tool_rack_pos_0_out tool_rack_pos_2_out
 edg tool_rack_pos_1_out tool_rack_pos_2_out
 edg home module_chuck_0
-edg home front_load_position
 edg front_load_position needle_calibration
 edg module_chuck_0 module_chuck_1
 edg module_chuck_0 module_chuck_2
@@ -79,3 +75,13 @@ edg module_chuck_4 module_chuck_1
 edg module_chuck_4 module_chuck_2
 edg module_chuck_4 module_chuck_3
 edg glue_reservoir_chuck stamp_tool_chuck
+
+edg front_load_position home 
+edg front_load_position module_chuck_0
+edg front_load_position module_chuck_1
+edg front_load_position module_chuck_2
+edg front_load_position module_chuck_3
+edg front_load_position module_chuck_4
+edg front_load_position glue_reservoir_chuck
+edg front_load_position stamp_tool_chuck
+edg front_load_position weight_tool_chuck
