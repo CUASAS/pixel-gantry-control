@@ -34,7 +34,7 @@
 			<Property Name="NI.ClassItem.State" Type="Int">1107821056</Property>
 		</Item>
 	</Item>
-	<Item Name="methods" Type="Folder">
+	<Item Name="Methods" Type="Folder">
 		<Item Name="Read Geometry Definition" Type="Folder">
 			<Item Name="Read Geometry Definition 3D.vi" Type="VI" URL="../Read Geometry Definition 3D.vi">
 				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!((!!!!$!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$*!=!!?!!!6%V:F9T.E)%.M98.T,GRW9WRB=X-!%U:F982V=G5A1W^P=G2J&lt;G&amp;U:8-!0%"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!%E.P&lt;G:J:S".97ZB:W6S)'^V&gt;!!!&amp;E"1!!-!!!!"!!)):8*S&lt;X)A;7Y!!""!-0````](2G6B&gt;(6S:1"0!0%!!!!!!!!!!1V198*U)&amp;2Z='5O9X2M!$F!&amp;A!&amp;!U*#41.)2%E.2UR626*&amp;5U636E^*5A646%&amp;.5!:825F(3&amp;1!!!F198*U)&amp;2Z='5!/E"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!%5.P&lt;G:J:S".97ZB:W6S)'FO!'%!]!!-!!-!"!!&amp;!!9!"!!%!!1!"!!(!!A!#1!+!Q!!?!!!$1A!!!!!!!!*!!!!$1M!!!!!!!!!!!!!!!!!!!!!!!!+!!!!#!!!!!A!!!!1!!!.!!!!$!!!!!!!!!!!!!!"!!M!!!!!</Property>
