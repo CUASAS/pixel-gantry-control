@@ -62,23 +62,23 @@
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 			<Property Name="NI.ClassItem.State" Type="Int">1342710290</Property>
 		</Item>
-		<Item Name="Pot Points.vi" Type="VI" URL="../Pot Points.vi">
-			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!'-!!!!$1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$2!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!$V.Z=GFO:W65&lt;W^M)'^V&gt;!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!*%"Q!"Y!!"546G6D-W1A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!&amp;5'^J&lt;H1!$%!B"E6O97*M:1!!,1$R!!!!!!!!!!%--W1A5'^J&lt;H1O9X2M!"B!5!!#!!=!#!AT:#"1&lt;WFO&gt;!!!&amp;%"!!!(`````!!E'5'^J&lt;H2T!!!U1(!!(A!!'RF4?8*J&lt;G&gt;F6'^P&lt;#"$&lt;'&amp;T=SZM&gt;G.M98.T!!Z4?8*J&lt;G&gt;F6'^P&lt;#"J&lt;A!!6!$Q!!Q!!Q!%!!1!"1!%!!1!"!!%!!9!"!!+!!M#!!"Y!!!.#!!!!!!!!!!!!!#.#Q!!!!!!!!!!!!!!!!!!!!!!!!A!!!!!!!!!#!!!!*!!!!!!!1!-!!!!!!</Property>
+		<Item Name="Pot Point.vi" Type="VI" URL="../Pot Point.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%`!!!!#A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$2!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!$V.Z=GFO:W65&lt;W^M)'^V&gt;!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!*%"Q!"Y!!"546G6D-W1A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!&amp;5'^J&lt;H1!.%"Q!"Y!!"M:5XFS;7ZH:62P&lt;WQA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!/5XFS;7ZH:62P&lt;WQA;7Y!!&amp;1!]!!-!!-!"!!%!!5!"!!%!!1!"!!'!!1!"Q!)!Q!!?!!!$1A!!!!!!!!!!!!!D1M!!!!!!!!!!!!!!!!!!!!!!!!+!!!!!!!!!!I!!!#3!!!!!!%!#1!!!!!</Property>
 			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
 			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
 			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
 			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
-			<Property Name="NI.ClassItem.State" Type="Int">1342710272</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 		</Item>
-		<Item Name="Purge Needle.vi" Type="VI" URL="../Purge Needle.vi">
-			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%_!!!!#1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$J!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!&amp;6.Z=GFO:W65&lt;W^M)%.M98.T)'^V&gt;!!A1&amp;!!!Q!!!!%!!B.F=H*P=C"J&lt;C!I&lt;G]A:8*S&lt;X)J!$J!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!&amp;&amp;.Z=GFO:W65&lt;W^M)%.M98.T)'FO!!"B!0!!$!!$!!1!"!!&amp;!!1!"!!%!!1!"A!%!!1!"Q)!!(A!!!U)!!!!!!!!!!!!!!U,!!!!!!!!!!!!!!!!!!!!!!!!#!!!!!!!!!!!!!!!%!!!$1!!!!Q!!!!!!!!!!!!!!1!)!!!!!!</Property>
+		<Item Name="Pot Points.vi" Type="VI" URL="../Pot Points.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!'-!!!!$1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$2!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!$V.Z=GFO:W65&lt;W^M)'^V&gt;!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!*%"Q!"Y!!"546G6D-W1A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!&amp;5'^J&lt;H1!$%!B"E6O97*M:1!!,1$R!!!!!!!!!!%--W1A5'^J&lt;H1O9X2M!"B!5!!#!!=!#!AT:#"1&lt;WFO&gt;!!!&amp;%"!!!(`````!!E'5'^J&lt;H2T!!!U1(!!(A!!'RF4?8*J&lt;G&gt;F6'^P&lt;#"$&lt;'&amp;T=SZM&gt;G.M98.T!!Z4?8*J&lt;G&gt;F6'^P&lt;#"J&lt;A!!6!$Q!!Q!!Q!%!!1!"1!%!!1!"!!%!!9!"!!+!!M$!!"Y!!!.#!!!!!!!!!!!!!#.#Q!!!!!!!!!!!!!!!!!!!!!!!!I!!!!!!!!!#!!!!*)!!!!!!1!-!!!!!!</Property>
 			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
 			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
-			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
 			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
-			<Property Name="NI.ClassItem.State" Type="Int">1342710272</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 		</Item>
 		<Item Name="Syringe Off.vi" Type="VI" URL="../Syringe Off.vi">
 			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%I!!!!#1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$2!=!!?!!!&lt;'6.Z=GFO:W65&lt;W^M)%.M98.T,GRW9WRB=X-!$V.Z=GFO:W65&lt;W^M)'^V&gt;!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!.%"Q!"Y!!"M:5XFS;7ZH:62P&lt;WQA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!/5XFS;7ZH:62P&lt;WQA;7Y!!'%!]!!-!!-!"!!%!!5!"!!%!!1!"!!'!!1!"!!(!Q!!?!!!$1A!!!!!!!!!!!!!$1M!!!!!!!!!!!!!!!!!!!!!!!!+!!!!!!!!!!!!!!!3!!!.!!!!$!!!!!!!!!!!!!!"!!A!!!!!</Property>
