@@ -13,7 +13,7 @@ pos glue_reservoir_chuck 68  552 0
 pos stamp_tool_chuck     296 552 0
 pos weight_tool_chuck    487 552 0 
 
-pos needle_calibration   17.7589 77.4818 88.4902
+pos needle_calibration   17.320  77.561  88.382
 
 pos tool_rack_pos_0_in   371.63227 17.98277 35.90
 pos tool_rack_pos_0_out  371.63227 158      35.90
