@@ -6,3 +6,5 @@
 *.aliases
 *.lvlps
 
+#Session Config Files
+Config_*/
