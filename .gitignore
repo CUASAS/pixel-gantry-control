@@ -7,4 +7,6 @@
 *.lvlps
 
 #Session Config Files
-Config_*/
+Logs/
+
+
