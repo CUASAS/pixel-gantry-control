@@ -25,7 +25,7 @@ pos tool_rack_pos_2_in   676.5179  17.6385  37.30
 pos tool_rack_pos_2_out  676.5179  158      37.30
 
 
-pos front_load_position  20        670      0
+pos front_load_position  20        630      0
 
 #edg LABEL1 LABEL2
 edg module_chuck_0 needle_calibration
