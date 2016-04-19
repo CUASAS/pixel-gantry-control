@@ -153,4 +153,13 @@
 		<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 		<Property Name="NI.ClassItem.State" Type="Int">1074536978</Property>
 	</Item>
+	<Item Name="Format HV.vi" Type="VI" URL="../Format HV.vi">
+		<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!(^!!!!%A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!!A!-0````]!*%"!!!(`````!!572G^S&lt;7&amp;U&gt;'6E)%&amp;E:(*F=X-A5'&amp;E=Q!!,E"Q!"Y!!"541W^O=W^M:3"-&lt;W=O&lt;(:D&lt;'&amp;T=Q!01W^O=W^M:3"-&lt;W=A&lt;X6U!#R!=!!?!!!:&amp;V&gt;P=GN597*M:3"$&lt;'&amp;T=SZM&gt;G.M98.T!!F8&lt;X*L6'&amp;C&lt;'5!*%"Q!"Y!!"546G6D-W1A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!&amp;5'^J&lt;H1!$%!B"E6O97*M:1!!,1$R!!!!!!!!!!%--W1A5'^J&lt;H1O9X2M!"B!5!!#!!E!#AB)6C!N)%*#41!!&amp;E"!!!(`````!!M*3&amp;9A5'^J&lt;H2T!":!5!!$!!!!!1!##'6S=G^S)'FO!!!,1!-!"&amp;.M&lt;X1!!!N!!Q!&amp;1WBV9WM!,E"Q!"Y!!"541W^O=W^M:3"-&lt;W=O&lt;(:D&lt;'&amp;T=Q!/1W^O=W^M:3"-&lt;W=A;7Y!!'%!]!!-!!-!"!!'!!=!#!!%!!Q!"!!.!!Y!$Q!1!Q!!?!!!$1A!!!!!!!!*!!!!$1M!!!I!!!!!!!!!#!!!!!!!!!!)!!!!#!!!!!A!!!!1!!!.!!!!$!!!!!!!!!!!!!!"!"%!!!!!</Property>
+		<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+		<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+		<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+		<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+		<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+		<Property Name="NI.ClassItem.State" Type="Int">1342710290</Property>
+	</Item>
 </LVClass>
