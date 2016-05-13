@@ -3,29 +3,31 @@
 # The gantry software will implement an algorithm to traverse amongst
 # These points in an efficient manner
 #pos LABEL X_COORD Y_COORD Z_COORD
-pos home                 0   0   0
-pos module_chuck_0       68  245 0
-pos module_chuck_1       296 245 0
-pos module_chuck_2       487 245 0
-pos module_chuck_3       678 245 0
-pos module_chuck_4       678 552 0
-pos glue_reservoir_chuck 68  552 0
-pos stamp_tool_chuck     296 552 0
-pos weight_tool_chuck    487 552 0 
+pos home                      0         0        0
+pos module_chuck_0            68        245      0
+pos module_chuck_1            296       245      0
+pos module_chuck_2            487       245      0
+pos module_chuck_3            678       245      0
+pos module_chuck_4            678       552      0
+pos glue_reservoir_chuck      68        552      0
+pos stamp_tool_chuck          296       552      0
+pos stamp_tool_chuck_load     296       552      0
+pos weight_tool_chuck         487       552      0 
+pos weight_tool_chuck_load    487       552      0 
 
-pos needle_calibration   17.68012 77.82602 88.71135
+pos needle_calibration        17.68012  77.82602 88.71135
 
-pos tool_rack_pos_0_in   371.63227 17.98277 35.90
-pos tool_rack_pos_0_out  371.63227 158      35.90
+pos tool_rack_pos_0_in        371.63227 17.98277 35.90
+pos tool_rack_pos_0_out       371.63227 158      35.90
 
-pos tool_rack_pos_1_in   523.9994  17.75289 36.81
-pos tool_rack_pos_1_out  523.9994  158      36.81
+pos tool_rack_pos_1_in        523.9994  17.75289 36.81
+pos tool_rack_pos_1_out       523.9994  158      36.81
 
-pos tool_rack_pos_2_in   676.5179  17.6385  37.30
-pos tool_rack_pos_2_out  676.5179  158      37.30
+pos tool_rack_pos_2_in        676.5179  17.6385  37.30
+pos tool_rack_pos_2_out       676.5179  158      37.30
 
 
-pos front_load_position  20        630      0
+pos front_load_position       20        630      0
 
 #edg LABEL1 LABEL2
 edg module_chuck_0 needle_calibration
@@ -85,3 +87,6 @@ edg front_load_position module_chuck_4
 edg front_load_position glue_reservoir_chuck
 edg front_load_position stamp_tool_chuck
 edg front_load_position weight_tool_chuck
+
+edg stamp_tool_chuck stamp_tool_chuck_load
+edg weight_tool_chuck weight_tool_chuck_load
