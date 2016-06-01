@@ -22,7 +22,10 @@
 		<Item Name="Commissioning Helpers" Type="Folder" URL="../Commissioning Helpers">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
-		<Item Name="Gantry Application" Type="Folder" URL="../Gantry Application">
+		<Item Name="Gluing Application" Type="Folder" URL="../Gluing Application">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Potting Application" Type="Folder" URL="../Potting Application">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="Shared Components" Type="Folder" URL="../Shared Components">

@@ -174,6 +174,15 @@
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 			<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 		</Item>
+		<Item Name="Read Gluing Parameters.vi" Type="VI" URL="../Read Gluing Parameters.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!'[!!!!$!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!"F!#A!45W&amp;G:3"(=G&amp;C9G6S)&amp;"J9WNV=!!81!I!%6.B:G5A2X*B9G*F=C"-;7:U!$Y!]1!!!!!!!!!"&amp;5&gt;M&gt;7FO:S"198*B&lt;76U:8*T,G.U&lt;!!A1&amp;!!!A!&amp;!!922WRV;7ZH)&amp;"B=G&amp;N:82F=H-!1E"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!'%.P&lt;G:J:S".97ZB:W6S)%.M98.T)'^V&gt;!!!)%"1!!-!!!!"!!)4:8*S&lt;X)A;7YA+'ZP)'6S=G^S+1"!1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!81W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-A;7Y!91$Q!!Q!!Q!%!!=!#!!%!!1!"!!%!!E!"!!%!!I$!!"Y!!!.#!!!!!!!!!E!!!!.#Q!!!!!!!!!!!!!!!!!!!!!!!!I!!!!!!!!!!!!!!"!!!!U!!!!-!!!!!!!!!!!!!!%!#Q!!!!!</Property>
+			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
+		</Item>
 		<Item Name="Read Manifold Hardware Path.vi" Type="VI" URL="../Read Manifold Hardware Path.vi">
 			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!&amp;8!!!!#Q!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!":!-0````].3'&amp;S:(&gt;B=G5A5'&amp;U;!!]1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!31W^O:GFH)%VB&lt;G&amp;H:8)A&lt;X6U!!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!#U!$!!21&lt;X*U!!![1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!21W^O:GFH)%VB&lt;G&amp;H:8)A;7Y!91$Q!!Q!!Q!%!!5!"A!%!!1!"!!%!!=!"!!)!!E$!!"Y!!!.#!!!!!!!!!E!!!!.#Q!!!!!!!!!!!!!!!!!!!!!!!!I!!!!!!!!!#!!!!"!!!!U!!!!-!!!!!!!!!!!!!!%!#A!!!!!</Property>
 			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>

@@ -11,9 +11,8 @@ pos module_chuck_3            678       245      0
 pos module_chuck_4            678       552      0
 pos glue_reservoir_chuck      68        552      0
 pos stamp_tool_chuck          296       552      0
-pos stamp_tool_chuck_load     296       552      0
-pos weight_tool_chuck         487       552      0 
-pos weight_tool_chuck_load    487       552      0 
+pos weight_tool_chuck         487       552      0
+pos grabber_start_pos         1         1        1 
 
 pos needle_calibration        17.68012  77.82602 88.71135
 
@@ -88,5 +87,5 @@ edg front_load_position glue_reservoir_chuck
 edg front_load_position stamp_tool_chuck
 edg front_load_position weight_tool_chuck
 
-edg stamp_tool_chuck stamp_tool_chuck_load
-edg weight_tool_chuck weight_tool_chuck_load
+edg stamp_tool_chuck grabber_start_pos
+edg weight_tool_chuck grabber_start_pos
