@@ -14,7 +14,7 @@ pos stamp_tool_chuck          296       552      0
 pos weight_tool_chuck         487       552      0
 pos grabber_start_pos         1         1        1 
 
-pos needle_calibration        17.68012  77.82602 88.71135
+pos needle_calibration        17.489    76.620   88.300
 
 pos tool_rack_pos_0_in        371.63227 17.98277 37.00
 pos tool_rack_pos_0_out       371.63227 158      37.00
