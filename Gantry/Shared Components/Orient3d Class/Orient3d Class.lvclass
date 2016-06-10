@@ -79,6 +79,15 @@
 			<Property Name="NI.ClassItem.State" Type="Int">1342710272</Property>
 		</Item>
 	</Item>
+	<Item Name="Create From Euler Angles.vi" Type="VI" URL="../Create From Euler Angles.vi">
+		<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%1!!!!#Q!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$"!=!!?!!!9&amp;E^S;76O&gt;$.E)%.M98.T,GRW9WRB=X-!!!R0=GFF&lt;H1T:#"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!!01!I!#("I;3^S&lt;WRM!!!21!I!#X2I:82B,X"J&gt;'.I!!V!#A!(=(.J,XFB&gt;Q"5!0!!$!!$!!1!"!!&amp;!!1!"!!%!!1!"A!(!!A!#1)!!(A!!!U)!!!!!!!!!!!!!!E!!!!!!!!!!!!!!!!!!!!!!!!!#!!!!!I!!!!+!!!!#A!!!!!"!!I!!!!!</Property>
+		<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+		<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+		<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+		<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+		<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+		<Property Name="NI.ClassItem.State" Type="Int">1107821056</Property>
+	</Item>
 	<Item Name="Create From Matrix.vi" Type="VI" URL="../Create From Matrix.vi">
 		<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!&amp;(!!!!#A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$"!=!!?!!!9&amp;E^S;76O&gt;$.E)%.M98.T,GRW9WRB=X-!!!R0=GFF&lt;H1T:#"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!!:1!I!%V*F97QA47&amp;U=GFY)%6M:7VF&lt;H1!3Q$R!!!!!!!!!!)04EF@47&amp;U=GFY,GRW&lt;'FC$F*F97R.982S;8AO9X2M!#2!1!!#``````````]!"Q^3&lt;X2B&gt;'FP&lt;C".982S;8A!6!$Q!!Q!!Q!%!!1!"1!%!!1!"!!%!!9!"!!)!!1$!!"Y!!!.#!!!!!!!!!!!!!!*!!!!!!!!!!!!!!!!!!!!!!!!!!A!!!!!!!!!#!!!!!!!!!!!!1!*!!!!!!</Property>
 		<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
