@@ -12,7 +12,7 @@ pos module_chuck_4            678       552      0
 pos glue_reservoir_chuck      68        552      0
 pos stamp_tool_chuck          296       552      0
 pos weight_tool_chuck         487       552      0
-pos grabber_start_pos         389.6     651.8    62.4 
+pos grabber_start_pos         389.6     651.8    60 
 pos between_chuck_0_and_1     1         1        1
 pos between_chuck_2_and_3     1         1        1 
 
