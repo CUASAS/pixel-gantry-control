@@ -63,6 +63,15 @@
 				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 				<Property Name="NI.ClassItem.State" Type="Int">1350574608</Property>
 			</Item>
+			<Item Name="Read Geometry Definition Orient.vi" Type="VI" URL="../Read Geometry Definition Orient.vi">
+				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!**!!!!$!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$"!=!!?!!!9&amp;E^S;76O&gt;$.E)%.M98.T,GRW9WRB=X-!!!R0=GFF&lt;H1T:#"P&gt;81!!$R!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"*$&lt;WZG;7=A47&amp;O97&gt;F=C"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!!11$$`````"U:F982V=G5!UQ$R!!!!!!!!!!%.5'&amp;S&gt;#"5?8"F,G.U&lt;!#^1"9!%Q.#1EU$3%2*#%*"5E5A3%2*$5&gt;-656326.&amp;5F:036)(5V2"46"@-1&gt;46%&amp;.5&amp;]S"V.515V18T-(5V2"46"@.!&gt;46%&amp;.5&amp;]V#&amp;&gt;&amp;35&gt;)6&amp;]R#&amp;&gt;&amp;35&gt;)6&amp;]S#&amp;&gt;&amp;35&gt;)6&amp;]T#&amp;&gt;&amp;35&gt;)6&amp;]U#&amp;&gt;&amp;35&gt;)6&amp;]V#&amp;&gt;&amp;35&gt;)6&amp;]W#&amp;&gt;&amp;35&gt;)6&amp;]X#&amp;&gt;&amp;35&gt;)6&amp;]Y#V"*1UN&amp;5F^54U^-#U&gt;315*&amp;5F^54U^-!!!*5'&amp;S&gt;#"5?8"F!$J!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"&amp;$&lt;WZG;7=A47&amp;O97&gt;F=C"J&lt;A"B!0!!$!!$!!1!"1!'!!1!"!!%!!1!"Q!)!!E!#A-!!(A!!!U)!!!!!!!!#1!!!!U,!!!!!!!!!!!!!!!!!!!!!!!!#A!!!!A!!!!)!!!!%!!!$1!!!!Q!!!!!!!!!!!!!!1!,!!!!!!</Property>
+				<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+				<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+				<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+				<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+				<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
+			</Item>
 			<Item Name="Read Geometry Definition Poly.vi" Type="VI" URL="../Read Geometry Definition Poly.vi">
 				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!!1!!!!!1!)!0+`D="N!!%!!!!!!!!</Property>
 				<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
