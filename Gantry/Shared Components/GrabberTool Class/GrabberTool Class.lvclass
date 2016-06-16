@@ -135,7 +135,7 @@
 				<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
 				<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
 				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
-				<Property Name="NI.ClassItem.State" Type="Int">1082143248</Property>
+				<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
 			</Item>
 			<Item Name="Return Stamp Precheck.vi" Type="VI" URL="../Return Stamp Precheck.vi">
 				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!&amp;0!!!!#A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$J!=!!?!!!&lt;'5&gt;S97*C:8*5&lt;W^M)%.M98.T,GRW9WRB=X-!&amp;5&gt;S97*C:8*5&lt;W^M)%.M98.T)'^V&gt;!!A1&amp;!!!Q!!!!%!!B.F=H*P=C"J&lt;C!I&lt;G]A:8*S&lt;X)J!"&amp;!!Q!,5WRP&gt;#"/&gt;7VC:8)!/E"Q!"Y!!"M:2X*B9G*F=F2P&lt;WQA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!52X*B9G*F=F2P&lt;WQA1WRB=X-A;7Y!!'%!]!!-!!-!"!!%!!5!"!!%!!1!"!!'!!1!"Q!)!Q!!?!!!$1A!!!!!!!!!!!!!$1M!!!!!!!!!!!!!!!!!!!!!!!!+!!!!!!!!!!I!!!!3!!!.!!!!$!!!!!!!!!!!!!!"!!E!!!!!</Property>
