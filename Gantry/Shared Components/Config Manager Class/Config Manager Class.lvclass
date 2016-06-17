@@ -228,6 +228,15 @@
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 			<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
 		</Item>
+		<Item Name="Save Image.vi" Type="VI" URL="../Save Image.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!)=!!!!$A!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!#!!.`````]!"2%!A!A!!!!"!!1!!!!"!!!!!!!!!!!!6Q$R!!!!!!!!!!%/35V"53"*&lt;7&amp;H:3ZD&gt;'Q!1%"Q!"U*35V"55FN97&gt;F!!%!"1F*45&amp;237VB:W52!)!)!!!!!1!%!!!!!1!!!!!!!!F*&lt;7&amp;H:3"P&gt;81!0%"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!%E.P&lt;G:J:S".97ZB:W6S)'^V&gt;!!!$%!B"U&amp;S9WBJ&gt;G5!$%!B"U2J=X"P=W5!&amp;E"1!!-!!!!"!!)):8*S&lt;X)A;7Y!!&amp;=!]1!!!!!!!!!"$EF.16%A37VB:W5O9X2M!%"!=!!&gt;#5F.16&amp;*&lt;7&amp;H:1!"!!5*35V"55FN97&gt;F%1#!#!!!!!%!"!!!!!%!!!!!!!!)37VB:W5A;7Y!!$J!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"&amp;$&lt;WZG;7=A47&amp;O97&gt;F=C"J&lt;A"B!0!!$!!$!!1!"A!(!!1!#!!%!!E!#A!%!!M!$!-!!(A!!!U)!!!!!!!!$1I!!!U,!!!!!!!!#!!!!!!!!!!)!!!!#A!!!!!!!!!+!!!!%!!!$1!!!!Q!!!!!!!!!!!!!!1!.!!!!!!</Property>
+			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
+			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
+		</Item>
 	</Item>
 	<Item Name="Create.vi" Type="VI" URL="../Create.vi">
 		<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">%1#!#!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!%0!!!!#1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$R!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"*$&lt;WZG;7=A47&amp;O97&gt;F=C"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!!A1$,`````&amp;E.P&lt;G:J:S"';7RF=S"%;8*F9X2P=HE!!&amp;1!]!!-!!-!"!!%!!5!"!!%!!1!"!!'!!1!"Q!%!A!!?!!!$1A!!!!!!!!!!!!!#1!!!!!!!!!!!!!!!!!!!!!!!!!)!!!!!!!!!!A!!!!!!!!!!!%!#!!!!!!</Property>
