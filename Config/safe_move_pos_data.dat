@@ -24,8 +24,8 @@ pos tool_rack_pos_0_out       371.63227 158      37.00
 pos tool_rack_pos_1_in        523.9994  17.75289 36.81
 pos tool_rack_pos_1_out       523.9994  158      36.81
 
-pos tool_rack_pos_2_in        676.5179  17.6385  37.80
-pos tool_rack_pos_2_out       676.5179  158      37.80
+pos tool_rack_pos_2_in        676.5179  17.6385  37.95
+pos tool_rack_pos_2_out       676.5179  158      37.95
 
 
 pos front_load_position       20        630      0
