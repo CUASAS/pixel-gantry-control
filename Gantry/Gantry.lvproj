@@ -19,7 +19,19 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="Gantry" Type="Folder" URL="..">
+		<Item Name="Application Utilities" Type="Folder" URL="../Application Utilities">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Commissioning Helpers" Type="Folder" URL="../Commissioning Helpers">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Gluing Application" Type="Folder" URL="../Gluing Application">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Potting Application" Type="Folder" URL="../Potting Application">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Shared Components" Type="Folder" URL="../Shared Components">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="Dependencies" Type="Dependencies">
@@ -327,7 +339,6 @@
 			<Item Name="determine_range_line.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/determine_range_line.vi"/>
 			<Item Name="find_vertex_min_max.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/find_vertex_min_max.vi"/>
 			<Item Name="is_index_in_list.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/is_index_in_list.vi"/>
-			<Item Name="Load.vi" Type="VI" URL="../Shared Components/PickupTool Class/Load.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/resource/lvanlys.dll"/>
 			<Item Name="make_color_index_array.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/make_color_index_array.vi"/>
 			<Item Name="native norm.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/native norm.vi"/>
@@ -344,7 +355,6 @@
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Processed Data.ctl" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/xcontrol/Processed Data.ctl"/>
-			<Item Name="Unload.vi" Type="VI" URL="../Shared Components/PickupTool Class/Unload.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
