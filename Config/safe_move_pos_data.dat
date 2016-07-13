@@ -65,19 +65,21 @@ edg glue_reservoir_chuck module_chuck_0
 edg glue_reservoir_chuck module_chuck_1
 edg glue_reservoir_chuck module_chuck_2
 edg glue_reservoir_chuck module_chuck_3
+edg glue_reservoir_chuck stamp_tool_chuck
 edg stamp_tool_chuck module_chuck_0
 edg stamp_tool_chuck module_chuck_1
 edg stamp_tool_chuck module_chuck_2
 edg stamp_tool_chuck module_chuck_3
+edg stamp_tool_chuck weight_tool_chuck
 edg weight_tool_chuck module_chuck_0
 edg weight_tool_chuck module_chuck_1
 edg weight_tool_chuck module_chuck_2
 edg weight_tool_chuck module_chuck_3
+edg weight_tool_chuck module_chuck_4
 edg module_chuck_4 module_chuck_0
 edg module_chuck_4 module_chuck_1
 edg module_chuck_4 module_chuck_2
 edg module_chuck_4 module_chuck_3
-edg glue_reservoir_chuck stamp_tool_chuck
 
 edg front_load_position home 
 edg front_load_position module_chuck_0
