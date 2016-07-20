@@ -93,6 +93,7 @@ edg front_load_position weight_tool_chuck
 
 edg stamp_tool_chuck grabber_start_pos
 edg weight_tool_chuck grabber_start_pos
+edg tool_rack_pos_0_out grabber_start_pos
 
 edg between_chuck_0_and_1 module_chuck_0
 edg between_chuck_0_and_1 module_chuck_1
