@@ -16,7 +16,7 @@ pos grabber_start_pos         389.6     651.8    60
 pos between_chuck_0_and_1     182.9     350.6    48.2
 pos between_chuck_2_and_3     582.7     350.6    48.2 
 
-pos needle_calibration        17.695    76.350   88.008
+pos needle_calibration        17.848    76.608   87.448
 
 pos tool_rack_pos_0_in        371.63227 17.98277 37.00
 pos tool_rack_pos_0_out       371.63227 158      37.00
