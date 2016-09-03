@@ -16,7 +16,8 @@ pos grabber_start_pos         389.6     651.8    60
 pos between_chuck_0_and_1     182.9     350.6    48.2
 pos between_chuck_2_and_3     582.7     350.6    48.2 
 
-pos needle_calibration        17.848    76.608   87.448
+pos needle_calibration        16.888    76.026   86.416
+pos needle_calibration_camera 118.440   16.458   59.120
 
 pos tool_rack_pos_0_in        371.63227 17.98277 37.00
 pos tool_rack_pos_0_out       371.63227 158      37.00
@@ -35,6 +36,9 @@ edg module_chuck_0 needle_calibration
 edg module_chuck_1 needle_calibration
 edg module_chuck_2 needle_calibration
 edg module_chuck_3 needle_calibration
+edg module_chuck_0 needle_calibration_camera
+edg module_chuck_1 needle_calibration_camera
+edg module_chuck_2 needle_calibration_camera
 edg module_chuck_0 tool_rack_pos_0_out
 edg module_chuck_1 tool_rack_pos_0_out
 edg module_chuck_2 tool_rack_pos_0_out
@@ -55,6 +59,7 @@ edg tool_rack_pos_0_out tool_rack_pos_2_out
 edg tool_rack_pos_1_out tool_rack_pos_2_out
 edg home module_chuck_0
 edg front_load_position needle_calibration
+edg needle_calibration_camera needle_calibration
 edg module_chuck_0 module_chuck_1
 edg module_chuck_0 module_chuck_2
 edg module_chuck_0 module_chuck_3
