@@ -23,7 +23,7 @@ Setup
     http://www.aerotechmotioncontrol.com/a32downloads1.asp
     and enter the key
     
-    A6VW78YWS33L6SFQGGC6TWYF
+    ************************
     
     Select version 4.03.002. 
     The LabVIEW libraries are included in the installer so no additional downloads are needed.
