@@ -3,7 +3,22 @@ GANTRY
 ======
 This project contains control and automation softare for CMS FPIX module assembly.
 
+## Installing gVision API
 
+Due to large binary file sizes, the gVision API is no longer included in this repository. Instead, it can be downloaded in compressed form from this url
+
+```
+http://t3.unl.edu/~cfangmeier/gVision_API.zip
+```
+
+Unzip this into `pixel-gantry-control\Gantry\Shared Components\`
+
+
+
+
+
+
+**Instructions Below are out of date, to be updated in the near future**
 
 -----
 Setup

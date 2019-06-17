@@ -9,4 +9,8 @@
 #Session Config Files
 Logs/
 
+#gVision API (downloaded separately)
+Gantry/Shared Components/gVision API/
+Gantry/Shared Components/gVision API.zip
+
 
