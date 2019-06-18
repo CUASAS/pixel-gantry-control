@@ -17,7 +17,7 @@ git clone git@github.com:CUASAS/pixel-gantry-control.git
 
 ### Installing LabVIEW
 
-I've found that having other versions of Labview (esp 2018+) installed confuses the toolkit installers and they fail to install the support for 2017 that is needed. Therefore if possible 
+I've found that having other versions of Labview (esp 2018+) installed confuses the toolkit installers and they fail to install the support for 2017 that is needed. Therefore if possible start with a fresh system or remove all other National Instruments software prior to following these instructions.
 
 Install [LabVIEW 2017 (64-bit)](http://www.ni.com/download/labview-development-system-2017/6698/en/). Select "I am a current user of LabVIEW Development System" and go through the installer.
 
