@@ -1,0 +1,10 @@
+# Calculate the Fibbonacci Sequence
+        COPY $v1 1
+        COPY $v2 1
+        COPY $cnt 10
+@LABEL  PRINT "Value: %d" $v1.x
+        ADD $vTmp $v1 $v2
+        COPY $v1 $v2
+        COPY $v2 $vTmp
+        ADD $cnt $cnt -1
+        GOTOIF @LABEL $cnt
