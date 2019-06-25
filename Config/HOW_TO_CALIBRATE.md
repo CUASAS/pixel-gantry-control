@@ -69,9 +69,51 @@ aspect_ratio_max = 1.1   # --
 ```
 
 # `general_configuration.ini`
+
+A catch-all for configuration data that doesn't merit it's own config file. It contains configuration specific for the potting and gluing processes.
+
 # `manifold_parameters.ini`
+
+Specifies two important lookup tables. The first is the referred to as `PORTS`. This associates an index to a hardware path that is ultimately wired up control a specific vacuum line. The second is called `CHANNELS`. This associates a semantic name (eg `gantry_head_inner`) to an index. This level of indirection is important because there isn't a 1:1 mapping between semantic names and vacuum lines. For example, `module_chuck_0_slot_0` and `module_chuck_0_slot_1` share the same vacuum line.
+
 # `offsets.ini`
+
+Currently contains a single entry: `tool_holder_offset`. This is the vector offset between the point on the bottom surface of tool adapter on the gantry head and the point directly under the gantry head camera and in focus.
+
 # `part_locations.ini`
+
+This stores the "default" positions of parts on the gantry table. This information is used in conjuction with the fiducial positions in `geometry_definitions.ini` to calculate where the fiducial markings on parts should be. Once this known, an automated procedure can go to the fiducial positions, perform an autofocus, and take an image. As long as the alignment is good enough that the the fiducial ends up within the FOV of the camera, the automated fiducial finder can localize the fiducial within the image.
+
+The actual location/orientation is stored as a 3d-vector and a 3d-rotation expressed as a [quaternion](https://en.wikipedia.org/wiki/Quaternion). There is a helper to measure these quantities: `Commissioning Helpers/HDI-BBM Start Position Acquire.vi`.
+
+```ini
+chuck_0_slot_0_center = 22.589052,245.132000,63.007994
+chuck_0_slot_0_orient = -0.000000,0.000000,-0.000084,1.000000
+```
+
 # `potting_def_pos.ini`
+
+**DEPRECIATED**
+
 # `safe_move_pos_data.dat`
-test_images.ini
+
+Listing of information used in the "Safe Move" or "Move to Name" functions. It specifies a series of named positions across the gantry table. These generally correspond to roughly above each of the chucks, the tool rack, home, and a handful of other positions. In addition to the positions, this file also includes pairs of positions that are generally "safe" to move between in straight lines.
+
+This makes it simpler to, for example, tell the gantry to go to Chuck 1 and not have to reference the coordinates of Chuck 1 explicitely and trust that the gantry won't crash into anything on the way.
+
+Positions are specified using the following format:
+
+```
+pos home                      0         0        0
+pos module_chuck_1            296       245      0
+```
+
+And connecting two positions is done like:
+
+```
+edg home module_chuck_0
+```
+
+# `test_images.ini`
+
+References some test images stored in `Data/` to be used in lieu of real images when running in virtual mode.
