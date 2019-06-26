@@ -1,0 +1,7 @@
+SETVAC gantry_pickup_head 1
+GETVAC gantry_pickup_head $x
+PRINT "Gantry head on? %b" $x
+
+SETVAC gantry_pickup_head 0
+GETVAC gantry_pickup_head $x
+PRINT "Gantry head on? %b" $x
