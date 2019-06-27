@@ -350,7 +350,10 @@
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 				<Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib"/>
 			</Item>
-			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/user.lib/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
+			<Item Name="Aerotech.A3200" Type="Document" URL="Aerotech.A3200">
+				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
+			</Item>
+			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/user.lib/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
 			<Item Name="Create (camera only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (camera only).vi"/>
 			<Item Name="Create (dispenser only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (dispenser only).vi"/>
 			<Item Name="Create (vacuum only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (vacuum only).vi"/>
