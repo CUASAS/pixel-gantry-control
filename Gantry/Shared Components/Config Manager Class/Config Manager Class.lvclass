@@ -149,6 +149,15 @@
 			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 			<Property Name="NI.ClassItem.State" Type="Int">1352671760</Property>
 		</Item>
+		<Item Name="Read Config Cameras.vi" Type="VI" URL="../Read Config Cameras.vi">
+			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!,1!!!!'!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!@1$R!!!!!!!!!!%01W&amp;N:8*B)%6O&gt;7UO9X2M!'6!&amp;A!&amp;#U&gt;"4F2373")25&amp;%&amp;%Z&amp;252-23"$15R*1F*"6%F04C"9&amp;%Z&amp;252-23"$15R*1F*"6%F04C":$&amp;.515Z%)%."456311V435V315YA6U6#1U&amp;.!!!'1W&amp;N:8*B!!!;1%!!!@````]!"!R$97VF=G%A27ZV&lt;8-!!!N!"Q!%6(FQ:1!!$5!(!!&gt;7:8*T;7^O!!N!"Q!&amp;2GRB:X-!&amp;U!(!""4:8*J97R/&gt;7VC:8*);7&gt;I!!!61!=!$V.F=GFB&lt;%ZV&lt;7*F=ERP&gt;Q!.1!=!"U*V=V2Z='5!&amp;E!Q`````QV*&lt;H2F=G:B9W6/97VF!"2!-0````]+6G6O:'^S4G&amp;N:1!!%E!Q`````QF.&lt;W2F&lt;%ZB&lt;75!'%!Q`````QZ$97VF=G&amp;';7RF4G&amp;N:1!!(%!Q`````R*$97VF=G&amp;"&gt;(2S;7*V&gt;'665EQ!!#B!5!!,!!9!"Q!)!!E!#A!,!!Q!$1!/!!]!%!N*45&amp;2:(AA2'&amp;U91!=1%!!!@````]!%1Z*45&amp;2:(AA1W&amp;N:8*B=Q!!0%"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!%E.P&lt;G:J:S".97ZB:W6S)'^V&gt;!!!"!!!!":!5!!$!!!!!1!##'6S=G^S)'FO!!![1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!21W^O:GFH)%VB&lt;G&amp;H:8)A;7Y!6!$Q!!Q!!Q!&amp;!")!%Q!5!"1!&amp;!!5!"5!&amp;!!5!"9$!!"Y!!!.#!!!#1!!!!E!!!#.#Q!!!!!!!!!!!!!!!!!!!!!!!!I!!!!!!!!!!!!!!*!!!!!!!1!8!!!!!!</Property>
+			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+			<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
+			<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
+			<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+			<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+			<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
+		</Item>
 		<Item Name="Read Default Image Path.vi" Type="VI" URL="../Read Default Image Path.vi">
 			<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!'`!!!!$!!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!"*!-P````])5'&amp;U;#"P&gt;81!!$R!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"*$&lt;WZG;7=A47&amp;O97&gt;F=C"P&gt;81!!":!5!!$!!!!!1!##'6S=G^S)'FO!!!A!$@`````!!58!)!!!!!!!1!%!!!!!1!!!!!!!!!!!&amp;=!]1!!!!!!!!!"$EF.16%A37VB:W5O9X2M!%"!=!!&gt;#5F.16&amp;*&lt;7&amp;H:1!"!!A*35V"55FN97&gt;F&amp;Q#!!!!!!!%!"!!!!!%!!!!!!!!)37VB:W5A;7Y!!$J!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"&amp;$&lt;WZG;7=A47&amp;O97&gt;F=C"J&lt;A"B!0!!$!!$!!1!"1!'!!1!"!!%!!1!"Q!%!!E!#A-!!(A!!!U)!!!!!!!!#1!!!!U,!!!!!!!!!!!!!!!!!!!!!!!!#A!!!!!!!!!+!!!!%!!!$1!!!!Q!!!!!!!!!!!!!!1!,!!!!!!</Property>
 			<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>

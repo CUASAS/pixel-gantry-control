@@ -1,0 +1,22 @@
+'				MPGSample.pgm 
+'
+' This is a simple sample program for the MPG.
+' Refer to the MPGA manual for more information.
+
+' Before you run this program, make sure that you add MPG.pgm
+' to program automation as auto-run silent on task 2, 3 or 
+' 4 (NOT task 1) for the appropriate hardware device.  
+
+#INCLUDE "MPGInclude.pgm"
+
+' Enable the Manual Pulse Generator.
+EnableMPG 	 
+MSGDISPLAY 27, "The MPG is now enabled. Press F2-Cycle Start to continue."       
+
+PROGRAM PAUSE
+
+' Disable the Manual Pulse Generator.
+DisableMPG 
+' Clear the messages from the display.
+MSGCLEAR 27                                                    
+MSGDISPLAY 27, "The MPG is now disabled."

@@ -1,0 +1,25 @@
+# First, calculate some positions
+COPY $pickup {113.68,292.40,-31.76}
+ADD $stage $pickup {0,0,3}
+ADD $pre_stage $stage {-105,0,0}
+
+HOME
+# Next, Execute motion to pickup the tool
+MOVETO $pre_stage 50
+MOVETO $stage 50
+MOVETO $pickup
+#SETVAC gantry_pickup_head 1
+SETVAC gantry_radial_pickup_head 1
+WAIT 2000  # Wait 2 seconds for vacuum to settle
+MOVETO $stage 
+MOVETO $pre_stage 50
+
+# Wait a few seconds and then return the tool
+WAIT 5000
+MOVETO $stage 50
+MOVETO $pickup
+#SETVAC gantry_pickup_head 0
+SETVAC gantry_radial_pickup_head 0
+WAIT 2000
+MOVETO $stage 50
+MOVETO $pre_stage 50
