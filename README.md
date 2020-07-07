@@ -45,3 +45,6 @@ http://t3.unl.edu/~cfangmeier/gVision_API.zip
 Unzip this into `pixel-gantry-control\Gantry\Shared Components\`
 
 
+### Selecting a Config
+
+Inside the `Config` directory are seveal folders containing configuration files for specific gantries. By default, the `Nebraska` configuration is used, but this can be changed by editing the content of `Config/config.txt` to one of the other configurations.
