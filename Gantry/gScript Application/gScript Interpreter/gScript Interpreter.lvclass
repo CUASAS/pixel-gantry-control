@@ -330,6 +330,15 @@
 				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
 				<Property Name="NI.ClassItem.State" Type="Int">1082401296</Property>
 			</Item>
+			<Item Name="CMD_VIDEO.vi" Type="VI" URL="../CMD_VIDEO.vi">
+				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!'V!!!!$1!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!$Z!=!!?!!!&gt;'W&gt;49X*J=(1A37ZU:8*Q=G6U:8)O&lt;(:D&lt;'&amp;T=Q!8:V.D=GFQ&gt;#"*&lt;H2F=H"S:82F=C"P&gt;81!,%"Q!"Y!!"952W&amp;O&gt;(*Z)%.M98.T,GRW9WRB=X-!!!J(97ZU=HEA&lt;X6U!!!K1(!!(A!!&amp;B2(97ZU=HEA1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!#5&gt;B&lt;H2S?3"J&lt;A!A1&amp;!!!Q!!!!%!!B.F=H*P=C"J&lt;C!I&lt;G]A:8*S&lt;X)J!""!-0````]'5X2S;7ZH!!!71%!!!@````]!#1F"=G&gt;V&lt;76O&gt;(-!0E"Q!"Y!!"U&lt;:V.D=GFQ&gt;#"*&lt;H2F=H"S:82F=CZM&gt;G.M98.T!":H5W.S;8"U)%FO&gt;'6S=(*F&gt;'6S)'FO!!"5!0!!$!!$!!1!"!!&amp;!!9!"!!(!!1!#!!%!!I!#Q-!!(A!!!U)!!!!!!!!!!!!!)U,!!!."A!!!!!!!!I!!!!!!!!!#A!!!!!!!!))!!!!E!!!!!!"!!Q!!!!!</Property>
+				<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
+				<Property Name="NI.ClassItem.Flags" Type="Int">1073774912</Property>
+				<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">false</Property>
+				<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
+				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
+				<Property Name="NI.ClassItem.State" Type="Int">1082130960</Property>
+			</Item>
 		</Item>
 	</Item>
 	<Item Name="Clear Script.vi" Type="VI" URL="../Clear Script.vi">
