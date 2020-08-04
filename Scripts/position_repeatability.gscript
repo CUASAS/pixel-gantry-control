@@ -1,0 +1,27 @@
+SETLOG repeat_test3.txt
+CLEARLOG
+
+COPY $target {283.895650,331.079791,92.696642}
+COPY $count 100
+
+@LOOP MOVETO {0,0,0} 80
+      MOVETO {800,200,20} 80
+      MOVETO $target 80
+      
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      FINDFID $fidpos HDI
+      PRINT "%d %v" $count $fidpos
+      
+      DEC $count $count
+      GOTOIF @LOOP $count
+
+PRINT "Done."
