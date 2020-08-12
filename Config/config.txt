@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 Nebraska
-=======
-Nebraska
->>>>>>> parent of 2c37878... Purdue Mock Assembly Folder
