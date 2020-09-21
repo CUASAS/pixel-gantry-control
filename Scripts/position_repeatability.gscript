@@ -1,27 +1,30 @@
-SETLOG repeat_test3.txt
+SETLOG repeat_test.txt
 CLEARLOG
 
-COPY $target {283.895650,331.079791,92.696642}
-COPY $count 100
+# $target is where the fiducial is
+COPY $target {760.339,147.436,46.760}
 
-@LOOP MOVETO {0,0,0} 80
-      MOVETO {800,200,20} 80
-      MOVETO $target 80
+# $count is the number of iterations you want to perform
+COPY $count 10
+COPY $speed 150 # mm/s
+
+# Must LOADTOOL CAMERA to ensure that the gantry is not
+# holding any other tools 
+LOADTOOL CAMERA
+
+@LOOP MOVETO {100,100,0} $speed
+      MOVETO {900,100,0} $speed
+      MOVETO {900,650,0} $speed
+      MOVETO {100,650,0} $speed
+      MOVETO {100,100,0} $speed
+      MOVETO $target $speed
       
-      FINDFID $fidpos HDI
-      PRINT "%d %v" $count $fidpos
-      FINDFID $fidpos HDI
-      PRINT "%d %v" $count $fidpos
-      FINDFID $fidpos HDI
-      PRINT "%d %v" $count $fidpos
-      FINDFID $fidpos HDI
-      PRINT "%d %v" $count $fidpos
-      FINDFID $fidpos HDI
-      PRINT "%d %v" $count $fidpos
+      SNAPSHOT "GANTRY HEAD" "fiducial_pic_{$count}.png"
       FINDFID $fidpos HDI
       PRINT "%d %v" $count $fidpos
       
       DEC $count $count
       GOTOIF @LOOP $count
 
+UNLOADTOOL
 PRINT "Done."
