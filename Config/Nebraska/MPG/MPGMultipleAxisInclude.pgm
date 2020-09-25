@@ -25,7 +25,7 @@
 
 ' Define the distance for one tick (or change) of the MPG handWheel.
 ' The distance is in primary units which defaults to mm.
-#DEFINE BaseIncr  .005             
+#DEFINE BaseIncr  .001             
 
 ' Define the axis has the encoder channel connected to the MPG.
 #DEFINE EncCh     Y
@@ -47,6 +47,6 @@
 ' Define the inputs/state for the 3 mult. switches.
 #DEFINE MultX1    $DI[6].IOAxis EQ 1  
 #DEFINE MultX10   $DI[7].IOAxis EQ 1
-#DEFINE MultX100  $DI[12].IOAxis EQ 1
+#DEFINE MultX100  $DI[8].IOAxis EQ 1
 
 #DEFINE LedOutput $DO[7].IOAxis

@@ -4,8 +4,8 @@ COPY $speed 50 # speed for most motions
 
 # $refcenter and $refrotation need to be set to roughly (O(mm)) the
 # correct values for each HDI location.
-COPY $refcenter {222.903357,355.123542,77.986611}
-COPY $refrotation {-0.000000,0.000000,-0.000085,-1.000000}
+COPY $refcenter {231.766653,397.185549,77.931687}
+COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
 
 # Load local fiducial coordinates from "geometry_definitions.ini"
 LOADGEODEF $fid_tl_local %v TFPX_HDI_V2 fid_tl
