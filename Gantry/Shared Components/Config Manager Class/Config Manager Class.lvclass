@@ -104,13 +104,13 @@
 				<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
 			</Item>
 			<Item Name="Read Manifold Channel Other.vi" Type="VI" URL="../Read Manifold Channel Other.vi">
-				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!(D!!!!#Q!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!!V!!Q!(1WBB&lt;GZF&lt;!!]1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!31W^O:GFH)%VB&lt;G&amp;H:8)A&lt;X6U!!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!I!$R!!!!!!!!!!%;47&amp;O;7:P&lt;'1A1WBB&lt;GZF&lt;#"5?8"F=SZD&gt;'Q!@5!7!!522U&amp;/6&amp;*:8UB&amp;152@4V6526)22U&amp;/6&amp;*:8UB&amp;152@35Z/26)52UR626^326.&amp;5F:036*@1UB61UM15V2"46"@6%^04&amp;^$3&amp;6$3R&amp;825F(3&amp;2@6%^04&amp;^$3&amp;6$3Q!647&amp;O;7:P&lt;'1A1WBB&lt;GZF&lt;#"5?8"F!$J!=!!?!!!?(%.P&lt;G:J:S".97ZB:W6S)%.M98.T,GRW9WRB=X-!!"&amp;$&lt;WZG;7=A47&amp;O97&gt;F=C"J&lt;A"B!0!!$!!$!!1!"1!'!!1!"!!%!!1!"Q!%!!A!#1-!!(A!!!U)!!!!!!!!#1!!!!U,!!!!!!!!!!!!!!!!!!!!!!!!#A!!!!!!!!!)!!!!%!!!$1!!!!Q!!!!!!!!!!!!!!1!+!!!!!!</Property>
+				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!&amp;B!!!!#Q!-1#%'=X2B&gt;(6T!!!,1!-!"'.P:'5!!""!-0````]'=W^V=G.F!!!71&amp;!!!Q!!!!%!!AFF=H*P=C"P&gt;81!"!!!!!V!!Q!(1WBB&lt;GZF&lt;!!]1(!!(A!!(BR$&lt;WZG;7=A47&amp;O97&gt;F=C"$&lt;'&amp;T=SZM&gt;G.M98.T!!!31W^O:GFH)%VB&lt;G&amp;H:8)A&lt;X6U!!!71&amp;!!!Q!!!!%!!ABF=H*P=C"J&lt;A!!(E!Q`````R6.97ZJ:G^M:#"$;'&amp;O&lt;G6M)%ZB&lt;75!/E"Q!"Y!!"Y=1W^O:GFH)%VB&lt;G&amp;H:8)A1WRB=X-O&lt;(:D&lt;'&amp;T=Q!!%5.P&lt;G:J:S".97ZB:W6S)'FO!'%!]!!-!!-!"!!&amp;!!9!"!!%!!1!"!!(!!1!#!!*!Q!!?!!!$1A!!!!!!!!*!!!!$1M!!!!!!!!!!!!!!!!!!!!!!!!+!!!!!!!!!1I!!!!1!!!.!!!!$!!!!!!!!!!!!!!"!!I!!!!!</Property>
 				<Property Name="NI.ClassItem.ExecutionSystem" Type="Int">-1</Property>
 				<Property Name="NI.ClassItem.Flags" Type="Int">0</Property>
 				<Property Name="NI.ClassItem.IsStaticMethod" Type="Bool">true</Property>
 				<Property Name="NI.ClassItem.MethodScope" Type="UInt">1</Property>
 				<Property Name="NI.ClassItem.Priority" Type="Int">1</Property>
-				<Property Name="NI.ClassItem.State" Type="Int">1342710288</Property>
+				<Property Name="NI.ClassItem.State" Type="Int">1107821072</Property>
 			</Item>
 			<Item Name="Read Manifold Channel Poly.vi" Type="VI" URL="../Read Manifold Channel Poly.vi">
 				<Property Name="NI.ClassItem.ConnectorPane" Type="Bin">&amp;Q#!!!!!!!)!"1!&amp;!!!-!%!!!@````]!!!!"!!%!!!!1!!!!!1!)!0+`E8YF!!%!!!!!!!!</Property>
