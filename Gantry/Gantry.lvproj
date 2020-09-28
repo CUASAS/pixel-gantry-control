@@ -66,6 +66,7 @@
 				<Item Name="MoveIncSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/MoveIncSingle.vi"/>
 				<Item Name="Reset.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Initialize/Reset.vi"/>
 				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Status/RetrieveDiagPacket.vi"/>
+				<Item Name="SetAnalogOutput.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/SetAnalogOutput.vi"/>
 				<Item Name="SetAxisParameterFloat.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Parameters/SetAxisParameterFloat.vi"/>
 				<Item Name="SetAxisParameterInteger.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Parameters/SetAxisParameterInteger.vi"/>
 				<Item Name="StopProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/StopProgram.vi"/>
