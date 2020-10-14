@@ -76,10 +76,6 @@ A catch-all for configuration data that doesn't merit it's own config file. It c
 
 Specifies two important lookup tables. The first is the referred to as `PORTS`. This associates an index to a hardware path that is ultimately wired up control a specific vacuum line. The second is called `CHANNELS`. This associates a semantic name (eg `gantry_head_inner`) to an index. This level of indirection is important because there isn't a 1:1 mapping between semantic names and vacuum lines. For example, `module_chuck_0_slot_0` and `module_chuck_0_slot_1` share the same vacuum line.
 
-# `offsets.ini`
-
-Currently contains a single entry: `tool_holder_offset`. This is the vector offset between the point on the bottom surface of tool adapter on the gantry head and the point directly under the gantry head camera and in focus.
-
 # `part_locations.ini`
 
 This stores the "default" positions of parts on the gantry table. This information is used in conjuction with the fiducial positions in `geometry_definitions.ini` to calculate where the fiducial markings on parts should be. Once this known, an automated procedure can go to the fiducial positions, perform an autofocus, and take an image. As long as the alignment is good enough that the the fiducial ends up within the FOV of the camera, the automated fiducial finder can localize the fiducial within the image.

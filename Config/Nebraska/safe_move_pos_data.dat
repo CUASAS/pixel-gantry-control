@@ -7,9 +7,10 @@
 pos home                      0         0        0
 pos module_chuck_0            68        245      0
 
+# must be 2mm above tool in z
+pos tool_rack_pos_0_in        651.275   16.653   35.899
+pos tool_rack_pos_0_out       651.275   158      35.899
 
-pos tool_rack_pos_0_in        649.972   18.965   37.117
-pos tool_rack_pos_0_out       649.972   158      37.117
 
 pos front_load_position       433       314      0
 

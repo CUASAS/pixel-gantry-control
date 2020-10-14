@@ -276,7 +276,7 @@ ENDDFS
 
 DFS ClearMsg
 	' hide message display
-	MSGHIDE			
+	' MSGHIDE			
 	' clear all "my" messages
 	MSGCLEAR 19			
 	$Msg = 0
