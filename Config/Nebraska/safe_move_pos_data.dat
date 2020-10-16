@@ -5,7 +5,7 @@
 
 #pos LABEL X_COORD Y_COORD Z_COORD
 pos home                      0         0        0
-pos module_chuck_0            68        245      0
+pos module_chuck_0            269       401      0
 
 # must be 2mm above tool in z
 pos tool_rack_pos_0_in        651.275   16.653   35.899
