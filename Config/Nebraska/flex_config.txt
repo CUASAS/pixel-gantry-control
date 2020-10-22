@@ -1,0 +1,98 @@
+
+camera.gantryhead.CameraGroup: 1
+camera.gantryhead.VendorName: UI327xCP-M_4103643853
+camera.gantryhead.SerialNumberHigh: A4C207BC
+camera.gantryhead.SerialNumberLow: 2D82C3C8
+camera.gantryhead.FOV-x: 1.400
+camera.gantryhead.FOV-y: 1.048
+
+dispenser.hardware_address: cDAQ1Mod1/port0/line30
+
+vacuum.gantry_head_outer: 14
+vacuum.gantry_head_inner: 15
+vacuum.module_chuck_0_slot_1: 1
+vacuum.module_chuck_0_slot_2: 2
+vacuum.gelpak_release: 0
+
+manifold.reset_on_start: false
+manifold.port.00: cDAQ1Mod1/port0/line0
+manifold.port.01: cDAQ1Mod1/port0/line1
+manifold.port.02: cDAQ1Mod1/port0/line2
+manifold.port.03: cDAQ1Mod1/port0/line3
+manifold.port.04: cDAQ1Mod1/port0/line4
+manifold.port.05: cDAQ1Mod1/port0/line5
+manifold.port.06: cDAQ1Mod1/port0/line6
+manifold.port.07: cDAQ1Mod1/port0/line7
+manifold.port.08: cDAQ1Mod1/port0/line8
+manifold.port.09: cDAQ1Mod1/port0/line9
+manifold.port.10: cDAQ1Mod1/port0/line10
+manifold.port.11: cDAQ1Mod1/port0/line11
+manifold.port.12: cDAQ1Mod1/port0/line12
+manifold.port.13: cDAQ1Mod1/port0/line13
+manifold.port.14: cDAQ1Mod1/port0/line14
+manifold.port.15: cDAQ1Mod1/port0/line15
+manifold.port.16: cDAQ1Mod1/port0/line16
+manifold.port.17: cDAQ1Mod1/port0/line17
+manifold.port.18: cDAQ1Mod1/port0/line18
+manifold.port.19: cDAQ1Mod1/port0/line19
+manifold.port.20: cDAQ1Mod1/port0/line20
+manifold.port.21: cDAQ1Mod1/port0/line21
+manifold.port.22: cDAQ1Mod1/port0/line22
+manifold.port.23: cDAQ1Mod1/port0/line23
+manifold.port.24: cDAQ1Mod1/port0/line24
+manifold.port.25: cDAQ1Mod1/port0/line25
+manifold.port.26: cDAQ1Mod1/port0/line26
+manifold.port.27: cDAQ1Mod1/port0/line27
+manifold.port.28: cDAQ1Mod1/port0/line28
+manifold.port.29: cDAQ1Mod1/port0/line29
+
+
+#====== PROCEDURE: Potting
+
+# The curing parameters are used to adjust the speed of the needle to
+# compensate for the increasing viscosity of the encapsulant as time passes.
+# v = v_nom * (1 - A*t^2 - B*t)
+# For depositing a dot instead of a line, this value scales how long the 
+# dispenser is active
+procedure.potting.araldite2011.curing_param_a: 4e-9
+procedure.potting.araldite2011.curing_param_b: 2e-5
+procedure.potting.araldite2011.speed_nominal: 0.5 # mm/s
+procedure.potting.araldite2011.time_nominal: 2.0  # s
+procedure.potting.num_of_dots: 1
+procedure.potting.dist_between_dots: 0.1
+
+# The time delay between turning on the dispenser and beginning motion
+procedure.potting.turn_on_time: 0.5
+# The amount of time to preemptively turn off the dispenser before motion ends
+procedure.potting.turn_off_time: 0.1
+
+# Scales the length of the line-segment defining a pot-line. The scaled line 
+# shares a center point and orientation.
+procedure.potting.pot_length_scale: 1.0
+
+procedure.potting.hdi_edge_pads.pot_length_scale: 1.08
+procedure.potting.bbm_edge_pads.pot_length_scale: 1.03
+procedure.potting.address_pads.pot_length_scale: 1.09
+
+# Height of the needle as it moves between pot-lines. Must be high enough to clear
+# any obstacles on the module.
+procedure.potting.safe_height_offset: 5 # mm
+
+# Nominal distance between the tip of the needle and the surface during
+# encapsulation.
+procedure.potting.tip_height: 0.180
+
+# Length of nominal Sylgard traces for the TBM on the HDI side
+procedure.potting.TBM_pot_length_x: 4.21
+procedure.potting.TBM_pot_length_y: 5.72
+
+#====== PROCEDURE: Gluing
+
+# Distance for grabber to safely pick up stamp or weight tool, in mm
+procedure.gluing.safe_grabber_pickup=2
+# Safe lift of stamp or weight tool, in mm
+procedure.gluing.safe_grabber_lift: 40
+# Glue wait delay time while stamp is in glue resevoir, in seconds
+procedure.gluing.glue_res_wait_time: 15
+# Glue wait delay time while stamp+glue is on BM, in seconds
+procedure.gluing.glue_bbm_wait_time: 10

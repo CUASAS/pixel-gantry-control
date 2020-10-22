@@ -25,13 +25,7 @@
 		<Item Name="Commissioning Helpers" Type="Folder" URL="../Commissioning Helpers">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
-		<Item Name="Gluing Application" Type="Folder" URL="../Gluing Application">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
 		<Item Name="gScript Application" Type="Folder" URL="../gScript Application">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
-		<Item Name="Potting Application" Type="Folder" URL="../Potting Application">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="Purdue Mock Assembly" Type="Folder" URL="../Purdue Mock Assembly">
@@ -337,7 +331,6 @@
 				<Item Name="Path To Command Line String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Path To Command Line String.vi"/>
 				<Item Name="PathToUNIXPathString.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/CFURL.llb/PathToUNIXPathString.vi"/>
 				<Item Name="Relative Path To Platform Independent String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Relative Path To Platform Independent String.vi"/>
-				<Item Name="RGB to Color.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/colorconv.llb/RGB to Color.vi"/>
 				<Item Name="Search and Replace Pattern.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Search and Replace Pattern.vi"/>
 				<Item Name="Set Bold Text.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set Bold Text.vi"/>
 				<Item Name="Set String Value.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set String Value.vi"/>
@@ -355,6 +348,11 @@
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 				<Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib"/>
 			</Item>
+			<Item Name="Active Paths.ctl" Type="VI" URL="../Legacy Applications/Gluing Application/UI typedefs/Active Paths.ctl"/>
+			<Item Name="BBM Chuck Used.ctl" Type="VI" URL="../Legacy Applications/Gluing Application/UI typedefs/BBM Chuck Used.ctl"/>
+			<Item Name="Glue Path.ctl" Type="VI" URL="../Legacy Applications/Gluing Application/UI typedefs/Glue Path.ctl"/>
+			<Item Name="Glue Paths.ctl" Type="VI" URL="../Legacy Applications/Gluing Application/UI typedefs/Glue Paths.ctl"/>
+			<Item Name="Glue Progress States.ctl" Type="VI" URL="../Gluing Application/UI typedefs/Glue Progress States.ctl"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -371,7 +369,7 @@
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
-			<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Offset.vi"/>
+			<Item Name="Progress States.ctl" Type="VI" URL="../Potting Application/UI typedefs/Progress States.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
