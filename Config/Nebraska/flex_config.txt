@@ -1,4 +1,6 @@
-
+#================================================
+#====== Hardware configuration
+#================================================
 camera.gantryhead.CameraGroup: 1
 camera.gantryhead.VendorName: UI327xCP-M_4103643853
 camera.gantryhead.SerialNumberHigh: A4C207BC
@@ -46,8 +48,57 @@ manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
 
+tool_rack.0: picker_tool
+tool_rack.1: None
+tool_rack.2: None
 
-#====== PROCEDURE: Potting
+#================================================
+#====== Geometry Definitions
+#================================================
+
+geometry.TFPX_HDI_V2.fid_TR = 2.90,-20.845,0
+geometry.TFPX_HDI_V2.fid_TL = -8.77,-20.795,0
+geometry.TFPX_HDI_V2.fid_BL = -8.77,20.755,0
+geometry.TFPX_HDI_V2.fid_BR = 2.90,21.555,0
+
+geometry.TFPX_1X2_MOCKUP.fid_TR = 8.600,-21.600,0
+geometry.TFPX_1X2_MOCKUP.fid_TL = -8.600,-21.600,0
+geometry.TFPX_1X2_MOCKUP.fid_BL = -8.600,21.600,0
+geometry.TFPX_1X2_MOCKUP.fid_BR = 8.600,21.600,0
+
+
+geometry.PICKER_TOOL.center_offset= 0,0,53.6
+geometry.GRABBER_TOOL.center_offset= 0,0,43.38
+
+# The offset between the camera and the
+# center-of-rotation of the gantry head in x-y
+# and the bottom surface of the tool-holder in z
+geometry.tool_holder_offset = 0.909,-102.339,-43.72
+
+#================================================
+#====== Vision/Pattern Recognition parameters
+#================================================
+
+vision.debug_enable = True
+
+vision.FPIX_HDI.shrink_factor    = 4
+vision.FPIX_HDI.dilate_size      = 5
+vision.FPIX_HDI.size_min         = 0.12
+vision.FPIX_HDI.size_max         = 0.18
+vision.FPIX_HDI.color_groups     = 2
+vision.FPIX_HDI.aspect_ratio_min = 0.9
+vision.FPIX_HDI.aspect_ratio_max = 1.1
+
+vision.FPIX_BBM.shrink_factor    = 8
+vision.FPIX_BBM.dilate_size      = 3
+vision.FPIX_BBM.size_min         = 0.01
+vision.FPIX_BBM.size_max         = 0.02
+vision.FPIX_BBM.color_groups     = 3
+vision.FPIX_BBM.aspect_ratio_min = 0.9
+vision.FPIX_BBM.aspect_ratio_max = 1.1
+
+
+#====== Potting procedure parameters
 
 # The curing parameters are used to adjust the speed of the needle to
 # compensate for the increasing viscosity of the encapsulant as time passes.
@@ -86,7 +137,7 @@ procedure.potting.tip_height: 0.180
 procedure.potting.TBM_pot_length_x: 4.21
 procedure.potting.TBM_pot_length_y: 5.72
 
-#====== PROCEDURE: Gluing
+#====== Gluing procedure parameters
 
 # Distance for grabber to safely pick up stamp or weight tool, in mm
 procedure.gluing.safe_grabber_pickup=2
