@@ -79,7 +79,7 @@ geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-vision.debug_enable = True
+vision.debug_enable: True
 
 vision.FPIX_HDI.shrink_factor: 4
 vision.FPIX_HDI.dilate_size: 5
@@ -168,7 +168,7 @@ procedure.potting.TBM_pot_length_y: 5.72
 #====== Gluing procedure parameters
 #================================================
 # Distance for grabber to safely pick up stamp or weight tool, in mm
-procedure.gluing.safe_grabber_pickup=2
+procedure.gluing.safe_grabber_pickup: 2
 # Safe lift of stamp or weight tool, in mm
 procedure.gluing.safe_grabber_lift: 40
 # Glue wait delay time while stamp is in glue resevoir, in seconds
