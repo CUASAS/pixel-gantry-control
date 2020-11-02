@@ -368,6 +368,7 @@
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Progress States.ctl" Type="VI" URL="../Potting Application/UI typedefs/Progress States.ctl"/>
+			<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Offset.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
