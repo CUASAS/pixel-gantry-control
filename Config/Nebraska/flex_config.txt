@@ -3,8 +3,8 @@
 #================================================
 camera.gantryhead.CameraGroup: 1
 camera.gantryhead.VendorName: UI327xCP-M_4103643853
-camera.gantryhead.SerialNumberHigh: A4C207BC
-camera.gantryhead.SerialNumberLow: 2D82C3C8
+camera.gantryhead.SerialNumberHigh: 0xA4C207BC
+camera.gantryhead.SerialNumberLow: 0x2D82C3C8
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
 
@@ -132,46 +132,20 @@ graph_motion.edge.tool_rack_pos_0_out.module_chuck_0: True
 # v = v_nom * (1 - A*t^2 - B*t)
 # For depositing a dot instead of a line, this value scales how long the 
 # dispenser is active
-procedure.potting.sylgard.curing_param_a: 4e-9
-procedure.potting.sylgard.curing_param_b: 2e-5
-procedure.potting.sylgard.speed_nominal: 0.5 # mm/s
-procedure.potting.sylgard.time_nominal: 2.0  # s
-procedure.potting.num_of_dots: 1
-procedure.potting.dist_between_dots: 0.1
+potting.sylgard.curing_param_a: 4e-9
+potting.sylgard.curing_param_b: 2e-5
+potting.sylgard.speed_nominal: 0.5 # mm/s
+potting.sylgard.time_nominal: 2.0  # s
 
 # The time delay between turning on the dispenser and beginning motion
-procedure.potting.turn_on_time: 0.5
+potting.sylgard.turn_on_time: 0.5
 # The amount of time to preemptively turn off the dispenser before motion ends
-procedure.potting.turn_off_time: 0.1
-
-# Scales the length of the line-segment defining a pot-line. The scaled line 
-# shares a center point and orientation.
-procedure.potting.pot_length_scale: 1.0
-
-procedure.potting.hdi_edge_pads.pot_length_scale: 1.08
-procedure.potting.bbm_edge_pads.pot_length_scale: 1.03
-procedure.potting.address_pads.pot_length_scale: 1.09
-
-# Height of the needle as it moves between pot-lines. Must be high enough to clear
-# any obstacles on the module.
-procedure.potting.safe_height_offset: 5 # mm
+potting.sylgard.turn_off_time: 0.1
 
 # Nominal distance between the tip of the needle and the surface during
 # encapsulation.
-procedure.potting.tip_height: 0.180
+potting.sylgard.tip_height: 0.180
 
-# Length of nominal Sylgard traces for the TBM on the HDI side
-procedure.potting.TBM_pot_length_x: 4.21
-procedure.potting.TBM_pot_length_y: 5.72
-
-#================================================
-#====== Gluing procedure parameters
-#================================================
-# Distance for grabber to safely pick up stamp or weight tool, in mm
-procedure.gluing.safe_grabber_pickup: 2
-# Safe lift of stamp or weight tool, in mm
-procedure.gluing.safe_grabber_lift: 40
-# Glue wait delay time while stamp is in glue resevoir, in seconds
-procedure.gluing.glue_res_wait_time: 15
-# Glue wait delay time while stamp+glue is on BM, in seconds
-procedure.gluing.glue_bbm_wait_time: 10
+# Height of the needle as it moves between pot-lines. Must be high enough to clear
+# any obstacles on the module.
+potting.sylgard.safe_height_offset: 5 # mm
