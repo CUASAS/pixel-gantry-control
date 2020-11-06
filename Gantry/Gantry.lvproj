@@ -62,11 +62,8 @@
 				<Item Name="WaitSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/WaitSingle.vi"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
-				<Item Name="3DPC_SurfacePlot.xctl" Type="XControl" URL="/&lt;vilib&gt;/Native 3D Graph/xcontrol/3DPC_SurfacePlot.xctl"/>
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
 				<Item Name="Add File to Zip.vi" Type="VI" URL="/&lt;vilib&gt;/zip/Add File to Zip.vi"/>
-				<Item Name="Base Datatype.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Base Datatype.lvclass"/>
-				<Item Name="Binary Search Sorted Array.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/Binary Search Sorted Array.vi"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
 				<Item Name="Check Special Tags.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Check Special Tags.vi"/>
@@ -304,7 +301,6 @@
 				<Item Name="IMAQ Write TIFF File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write TIFF File 2"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Is Path and Not Empty.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Is Path and Not Empty.vi"/>
-				<Item Name="Line.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Line/Line.lvclass"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="LVPoint32TypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVPoint32TypeDef.ctl"/>
@@ -321,7 +317,6 @@
 				<Item Name="NI_Vision_Acquisition_Software.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/driver/NI_Vision_Acquisition_Software.lvlib"/>
 				<Item Name="NI_Vision_Development_Module.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/NI_Vision_Development_Module.lvlib"/>
 				<Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi"/>
-				<Item Name="Parametric.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Parametric/Parametric.lvclass"/>
 				<Item Name="Path To Command Line String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Path To Command Line String.vi"/>
 				<Item Name="PathToUNIXPathString.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/CFURL.llb/PathToUNIXPathString.vi"/>
 				<Item Name="Relative Path To Platform Independent String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Relative Path To Platform Independent String.vi"/>
@@ -332,26 +327,19 @@
 				<Item Name="Space Constant.vi" Type="VI" URL="/&lt;vilib&gt;/dlg_ctls.llb/Space Constant.vi"/>
 				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
 				<Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi"/>
-				<Item Name="Surface.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Surface/Surface.lvclass"/>
 				<Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi"/>
 				<Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl"/>
 				<Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi"/>
 				<Item Name="Three Button Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog.vi"/>
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
-				<Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib"/>
 			</Item>
 			<Item Name="Camera Enum.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Camera Enum.ctl"/>
 			<Item Name="Fiducial Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Fiducial Type.ctl"/>
-			<Item Name="Get All Vacuum.vi" Type="VI" URL="../Shared Components/Utils/Get All Vacuum.vi"/>
-			<Item Name="Glue Progress States.ctl" Type="VI" URL="../Legacy Applications/Gluing Application/UI typedefs/Glue Progress States.ctl"/>
-			<Item Name="GrabberTool Class.lvclass" Type="LVClass" URL="../Shared Components/GrabberTool Class/GrabberTool Class.lvclass"/>
-			<Item Name="Load.vi" Type="VI" URL="../Shared Components/GrabberTool Class/Load.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
-			<Item Name="Named Position.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Named Position.ctl"/>
 			<Item Name="niimaqdx.dll" Type="Document" URL="niimaqdx.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
@@ -364,27 +352,9 @@
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
-			<Item Name="Offset.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Offset.ctl"/>
-			<Item Name="Part Type to Fiducial Type.vi" Type="VI" URL="../Shared Components/Utils/Part Type to Fiducial Type.vi"/>
 			<Item Name="Part Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Part Type.ctl"/>
-			<Item Name="Pick HDI Precheck.vi" Type="VI" URL="../Shared Components/PickerTool Class/Pick HDI Precheck.vi"/>
-			<Item Name="Place HDI Precheck.vi" Type="VI" URL="../Shared Components/PickerTool Class/Place HDI Precheck.vi"/>
 			<Item Name="Potting Surface Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Potting Surface Type.ctl"/>
-			<Item Name="Progress States.ctl" Type="VI" URL="../Legacy Applications/Potting Application/UI typedefs/Progress States.ctl"/>
-			<Item Name="Read Fiducial Definitions.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Fiducial Definitions.vi"/>
-			<Item Name="Read Geometry Definition 3D.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Geometry Definition 3D.vi"/>
-			<Item Name="Read Geometry Definition Double.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Geometry Definition Double.vi"/>
-			<Item Name="Read Geometry Definition Integer.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Geometry Definition Integer.vi"/>
-			<Item Name="Read Geometry Definition Poly.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Geometry Definition Poly.vi"/>
-			<Item Name="Read Offset.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Offset.vi"/>
 			<Item Name="Read Potting Parameters.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Potting Parameters.vi"/>
-			<Item Name="Read Syringe.vi" Type="VI" URL="../Shared Components/WorkTable Class/Read Syringe.vi"/>
-			<Item Name="Replace HDI Precheck.vi" Type="VI" URL="../Shared Components/PickerTool Class/Replace HDI Precheck.vi"/>
-			<Item Name="Set All Vacuum.vi" Type="VI" URL="../Shared Components/Utils/Set All Vacuum.vi"/>
-			<Item Name="Unload.vi" Type="VI" URL="../Shared Components/GrabberTool Class/Unload.vi"/>
-			<Item Name="WorkTable Class.lvclass" Type="LVClass" URL="../Shared Components/WorkTable Class/WorkTable Class.lvclass"/>
-			<Item Name="Worktable_Mode.ctl" Type="VI" URL="../Shared Components/WorkTable Class/Type Definitions/Worktable_Mode.ctl"/>
-			<Item Name="Worktable_Syringe.ctl" Type="VI" URL="../Shared Components/WorkTable Class/Type Definitions/Worktable_Syringe.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>
