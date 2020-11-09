@@ -14,10 +14,10 @@ COPY $start_rot {-0.000670,0.000412,-0.004562,0.999989}
 COPY $end_pos {232.732261,396.215568,77.655460}
 COPY $end_rot {-0.000300,0.000640,-0.001178,0.999999}
 
-LOADGEODEF $tl_local %v TFPX_1X2_MOCKUP_V2 fid_tl
-LOADGEODEF $tr_local %v TFPX_1X2_MOCKUP_V2 fid_tr
-LOADGEODEF $br_local %v TFPX_1X2_MOCKUP_V2 fid_br
-LOADGEODEF $bl_local %v TFPX_1X2_MOCKUP_V2 fid_bl
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
 
 
 @PROCESS_START SETVAC module_chuck_0_slot_2 1
@@ -108,7 +108,7 @@ END
         GETPOS $bl_meas
 
         MPGOFF
-        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP_V2 $tr_meas $br_meas $bl_meas $tl_meas
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
         PRINT "Measured position: %v" $meas_pos
         PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
         GOTO $SURVEY_RET
@@ -116,8 +116,8 @@ END
 # CALCPICKUP
 # Arguments:
 #  $target_pos - center of piece to pickup/place
-@CALCPICKUP LOADGEODEF $picker_height %v PICKER_TOOL center_offset
-            LOADGEODEF $ghco %v GANTRY_HEAD tool_holder_offset
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
             ADD $netoffset $picker_height $ghco
             SUB $pickup_pos $target_pos $netoffset
             COPY $pickup_pos_z0 $pickup_pos
@@ -127,6 +127,6 @@ END
 # SAVE_SNAPSHOT
 # Arguments:
 #  $img_idx - numerical suffix of image filename, get's incremented each time
-@SAVE_SNAPSHOT SNAPSHOT "GANTRY HEAD" "fiducial_on_glass_{$img_idx}.png"
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
                INC $img_idx $img_idx
                GOTO $RET

@@ -56,15 +56,15 @@ tool_rack.2: None
 #====== Geometry Definitions
 #================================================
 
-geometry.TFPX_HDI_V2.fid_TR: {2.90,-20.845,0}
-geometry.TFPX_HDI_V2.fid_TL: {-8.77,-20.795,0}
-geometry.TFPX_HDI_V2.fid_BL: {-8.77,20.755,0}
-geometry.TFPX_HDI_V2.fid_BR: {2.90,21.555,0}
+geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.845,0}
+geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.795,0}
+geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.755,0}
+geometry.TFPX_HDI_V2.fid_br: {2.90,21.555,0}
 
-geometry.TFPX_1X2_MOCKUP.fid_TR: {8.600,-21.600,0}
-geometry.TFPX_1X2_MOCKUP.fid_TL: {-8.600,-21.600,0}
-geometry.TFPX_1X2_MOCKUP.fid_BL: {-8.600,21.600,0}
-geometry.TFPX_1X2_MOCKUP.fid_BR: {8.600,21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_tr: {8.600,-21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
 
 geometry.PICKER_TOOL.center_offset: {0,0,53.6}
