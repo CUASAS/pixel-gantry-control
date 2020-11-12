@@ -41,6 +41,24 @@ gScript has a simple type system, supporting four types in memory (both for vari
 
 But what about booleans? Boolean types are not supported in memory, but in commands that expect a boolean (e.g. `GOTOIF`) an argument is interpreted as false if the number in the first (the `x`) slot rounds to zero. Otherwise, it is interpreted as true.
 
+### String Interpolation
+
+Although strings are not an in-memory datatype in gScript, you can still create them dynamically at runtime using *string interpolation*. This is perhaps best explained with an example.
+
+```
+COPY $count 2
+SNAPSHOT gantryhead "sample_image_{$count}.png"
+```
+
+The second argument in the `SNAPSHOT` command is the filename to save the snapshot image as. In this case, the `{$count}` section will be replaced with the value of the variable `$count` - ie "sample_image_2.png". Many (although not all) functions which expect string inputs support this functionality. You can also supply an optional type that will determine how the content of the variable is formatted. For example, consider the following snippet.
+
+```
+GETPOS $curr
+CHOICEPOPUP "You are at {$curr:%v}. Is this correct?"
+```
+
+This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
+
 ## Command Listing
 
 ### General Commands
