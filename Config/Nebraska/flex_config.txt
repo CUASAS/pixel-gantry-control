@@ -105,7 +105,7 @@ vision.FPIX_BBM.aspect_ratio_max: 1.1
 # The gantry software will find the shortest path to get from
 # point to point
 
-#pos LABEL X_COORD Y_COORD Z_COORD
+#graph_motion.pos.LABEL: {x,y,z}
 graph_motion.pos.home: {0,0,0}
 graph_motion.pos.module_chuck_0: {269,401,0}
 
@@ -117,7 +117,7 @@ graph_motion.pos.front_load_position: {433,314,0}
 
 graph_motion.pos.home2: {0,10,10}
 
-#graph_motion.edg.LABEL1.LABEL2 True/False
+#graph_motion.edge.LABEL1.LABEL2 True/False
 graph_motion.edge.home.module_chuck_0: True
 graph_motion.edge.home.front_load_position: True
 graph_motion.edge.home.tool_rack_pos_0_out: True

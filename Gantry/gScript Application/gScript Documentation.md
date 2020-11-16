@@ -202,7 +202,7 @@ Creates a popup offering the user two options. Typically used to ask the user a 
 *Format:* `CHOICEPOPUP choice question yeslabel nolabel`
 
   - `choice`: Writable location to store the user's choice as 0 (no) or 1 (yes)
-  - `question`: The test to be displayed to the user
+  - `question`: The text to be displayed to the user
   - `yeslabel`: **Optional** Label for the "yes" button, Default: "Yes"
   - `nolabel`: **Optional** Label for the "no" button, Default: "No"
 
@@ -232,10 +232,9 @@ Dumps the internal state of the application to the log.
 
 Reads an object from the internal state of the application (ie the FlexWorktable) and saves it as a gScript variable.
 
-*Format:* `FLEXREAD dest type key`
+*Format:* `FLEXREAD dest key`
 
   - `dest`: Writable location to store the value
-  - `type`: One of `%d`, `%f`, `%v`, or `%r`
   - `key`: Key for the object to read from the internal state.
 
 #### `FLEXWRITE`
@@ -274,9 +273,9 @@ Moves the gantry through the displacement specified by the vector `dis`
   - `dis`: 3D Vector specifying a relative motion
   - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, use the (rather slow) default speed.
 
-#### `MOVESAFE`
+#### `MOVENAME`
 
-Moves the gantry to the named position `pos_name`. It must be one of the named positions found in `safe_move_pos_data.dat`.
+Moves the gantry to the named position `pos_name`. It must be one of the named positions found in the `graph_motion.pos` namespace of `flex_config.txt`.
 
 *Format:* `MOVESAFE pos_name`
 
