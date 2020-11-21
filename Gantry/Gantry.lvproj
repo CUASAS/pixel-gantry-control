@@ -335,7 +335,9 @@
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
 			<Item Name="Camera Enum.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Camera Enum.ctl"/>
-			<Item Name="Fiducial Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Fiducial Type.ctl"/>
+			<Item Name="CameraTool Class.lvclass" Type="LVClass" URL="../Shared Components/CameraTool Class.lvclass"/>
+			<Item Name="find_fiducial.vi" Type="VI" URL="../gVision API/gVision/find_fiducial.vi"/>
+			<Item Name="find_fiducial.vi" Type="VI" URL="../Shared Components/gVision API/gVision/find_fiducial.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -352,7 +354,6 @@
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
-			<Item Name="Part Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Part Type.ctl"/>
 			<Item Name="Potting Surface Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Potting Surface Type.ctl"/>
 			<Item Name="Read Potting Parameters.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Potting Parameters.vi"/>
 		</Item>

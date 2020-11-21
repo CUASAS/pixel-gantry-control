@@ -81,6 +81,7 @@ geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 
 vision.debug_enable: True
 
+vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrink_factor: 4
 vision.FPIX_HDI.dilate_size: 5
 vision.FPIX_HDI.size_min: 0.12
@@ -89,6 +90,7 @@ vision.FPIX_HDI.color_groups: 2
 vision.FPIX_HDI.aspect_ratio_min: 0.9
 vision.FPIX_HDI.aspect_ratio_max: 1.1
 
+vision.FPIX_HDI.method: find_patches
 vision.FPIX_BBM.shrink_factor: 8
 vision.FPIX_BBM.dilate_size: 3
 vision.FPIX_BBM.size_min: 0.01
