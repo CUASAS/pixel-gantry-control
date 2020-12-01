@@ -346,11 +346,11 @@ Tooled Routines call functions that are defined by the "Tool" subclasses of the 
 
 #### `LOADTOOL`
 
-"Loads" the specified tool. This means different things for different tools. For example, `PICKER` loading means moving the gantry to the tool rack and picking up that tool, while for `CAMERA` and `SYRINGE` it currently just does internal bookkeeping.
+"Loads" the specified tool. This means different things for different tools. For example, `PICKER` loading means moving the gantry to the tool rack and picking up that tool, while for `SYRINGE` it currently just does internal bookkeeping.
 
 *Format:* `LOADTOOL toolname`
 
-  - `toolname`: One of `CAMERA`, `SYRINGE`, or `PICKER`.
+  - `toolname`: One of `SYRINGE`, or `PICKER`.
 
 #### `UNLOADTOOL`
 
@@ -372,6 +372,17 @@ Tooled Routines call functions that are defined by the "Tool" subclasses of the 
 
   - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0}.
   - `fidtype`: Specify the type of fiducial you want to find. Needs to correspond to a section in the `vision.*` namespace in `flex_config.txt`.
+
+#### `SURVEY`
+
+Creates a composite image centered at `loc` with size `x-size` by `y-size`. 
+
+*Format:* `SURVEY loc x-size y-size filename`
+
+  - `loc`: Center of image
+  - `x-size`: Width of composite image in mm
+  - `y-size`: Height of composite image in mm
+  - `filename`: **Optional**. If supplied, save the image to this file rather than displaying it as a pop up.
 
 #### **Syringe Tool**
 

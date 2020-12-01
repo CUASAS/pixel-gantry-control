@@ -49,8 +49,8 @@ manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
 
 tool_rack.0: picker_tool
-tool_rack.1: None
-tool_rack.2: None
+tool_rack.1: none
+tool_rack.2: none
 
 #================================================
 #====== Geometry Definitions
