@@ -321,6 +321,40 @@ Fetches an image from the specified camera. If filename is specified, the image 
 
 *Format:* `SNAPSHOT cam_name filename`
 
+#### `VIDEO`
+
+Displays a popup windows showing a video stream from a specified camera. If no camera is specified, `gantry_head` is used. In the popup window, clicking on the display will recenter the gantry on that position.
+
+*Format:* `VIDEO cam_name`
+
+#### `AUTOFOCUS`
+
+Attempts to find the position in z that is maximum focus.
+
+*Format:* `AUTOFOCUS res range steps`
+
+  - `res`: Writable location to save the position of max focus in the specified range.
+  - `range`: Size of window to search for maximum focus centered around the current position.
+  - `steps`: The number of samples to take within `range`.
+
+
+#### `SURVEY`
+
+Creates a composite image centered at `loc` with size `x-size` by `y-size`. 
+
+*Format:* `SURVEY loc x-size y-size filename`
+
+  - `loc`: Center of image
+  - `x-size`: Width of composite image in mm
+  - `y-size`: Height of composite image in mm
+  - `filename`: **Optional**. If supplied, save the image to this file rather than displaying it as a pop up.
+
+#### `FINDFID`
+
+*Format:* `FINDFID loc fidtype`
+
+  - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0}.
+  - `fidtype`: Specify the type of fiducial you want to find. Needs to correspond to a section in the `vision.*` namespace in `flex_config.txt`.
 
 ### Vacuum Commands
 
@@ -356,33 +390,6 @@ Tooled Routines call functions that are defined by the "Tool" subclasses of the 
 
 *Format:* `UNLOADTOOL`
 
-#### **Camera Tool**
-
-#### `AUTOFOCUS`
-
-*Format:* `AUTOFOCUS res range steps`
-
-  - `res`: Writable location to save the position of max focus in the specified range.
-  - `range`: Size of window to search for maximum focus centered around the current position.
-  - `steps`: The number of samples to take within `range`.
-
-#### `FINDFID`
-
-*Format:* `FINDFID loc fidtype`
-
-  - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0}.
-  - `fidtype`: Specify the type of fiducial you want to find. Needs to correspond to a section in the `vision.*` namespace in `flex_config.txt`.
-
-#### `SURVEY`
-
-Creates a composite image centered at `loc` with size `x-size` by `y-size`. 
-
-*Format:* `SURVEY loc x-size y-size filename`
-
-  - `loc`: Center of image
-  - `x-size`: Width of composite image in mm
-  - `y-size`: Height of composite image in mm
-  - `filename`: **Optional**. If supplied, save the image to this file rather than displaying it as a pop up.
 
 #### **Syringe Tool**
 
