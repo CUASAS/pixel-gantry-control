@@ -7,6 +7,10 @@ camera.gantryhead.SerialNumberHigh: 0xA4C207BC
 camera.gantryhead.SerialNumberLow: 0x2D82C3C8
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
+light.gantryhead.control: npaq
+light.gantryhead.hardware_address: Y.0
+# light.gantryhead.control: minidaq
+# light.gantryhead.hardware_address: cDAQ1Mod2/ao0
 
 dispenser.hardware_address: cDAQ1Mod1/port0/line30
 
@@ -51,6 +55,7 @@ manifold.port.29: cDAQ1Mod1/port0/line29
 tool_rack.0: picker_tool
 tool_rack.1: none
 tool_rack.2: none
+
 
 #================================================
 #====== Geometry Definitions
