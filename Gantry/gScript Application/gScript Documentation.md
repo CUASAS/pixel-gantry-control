@@ -228,6 +228,16 @@ Dumps the internal state of the application to the log.
 
   - `prefix`: **Optional** Used to specify a prefix to select only a subset of the internal state variables. For example, `DUMPSTATE geometry` will only dump out the geometry definitions.
 
+#### `LOADCONFIG`
+
+Loads the content of a config file into the internal state of the application.
+
+*Format:* `LOADCONFIG prefix filename`
+
+  - `prefix`: **Optional** Used to specify a prefix to load only items in the config file whose keys begin with that prefix.
+  - `filename`: **Optional** Use to specify an alternative config file to load data from. By default, it is the same `flex_config.txt` that is read upon startup.
+
+
 #### `FLEXREAD`
 
 Reads an object from the internal state of the application (ie the FlexWorktable) and saves it as a gScript variable.
