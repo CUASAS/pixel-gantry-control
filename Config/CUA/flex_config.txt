@@ -1,0 +1,86 @@
+#================================================
+#====== Hardware configuration
+#================================================
+
+camera.gantryhead.CameraGroup: 1
+camera.gantryhead.VendorName: UI148xSE-M_4002830874
+camera.gantryhead.SerialNumberHigh: 1113688
+camera.gantryhead.SerialNumberLow: 648570317
+camera.gantryhead.FOV-x: 1.095
+camera.gantryhead.FOV-y: 0.824
+
+#================================================
+
+dispenser.hardware_address: cDAQ1Mod6/port0/line30
+
+# Vacuum line16 is unknown (so far)
+vacuum.gantry_head_outer:    2
+vacuum.gantry_head_inner:    0
+vacuum.module_chuck4_slot1:  3
+vacuum.module_chuck4_slot2:  5
+vacuum.module_chuck4_slot3:  7
+vacuum.module_chuck4_slot4:  9
+
+manifold.reset_on_start: false
+manifold.port.00: cDAQ1Mod6/port0/line0
+manifold.port.01: cDAQ1Mod6/port0/line1
+manifold.port.02: cDAQ1Mod6/port0/line2
+manifold.port.03: cDAQ1Mod6/port0/line3
+manifold.port.04: cDAQ1Mod6/port0/line4
+manifold.port.05: cDAQ1Mod6/port0/line5
+manifold.port.06: cDAQ1Mod6/port0/line6
+manifold.port.07: cDAQ1Mod6/port0/line7
+manifold.port.08: cDAQ1Mod6/port0/line8
+manifold.port.09: cDAQ1Mod6/port0/line9
+manifold.port.10: cDAQ1Mod6/port0/line10
+manifold.port.11: cDAQ1Mod6/port0/line11
+manifold.port.12: cDAQ1Mod6/port0/line12
+manifold.port.13: cDAQ1Mod6/port0/line13
+manifold.port.14: cDAQ1Mod6/port0/line14
+manifold.port.15: cDAQ1Mod6/port0/line15
+manifold.port.16: cDAQ1Mod6/port0/line16
+
+#tool_rack.0: picker_tool
+#tool_rack.1: None
+#tool_rack.2: None
+
+# must be 2mm above tool in z
+graph_motion.edge.home_safe.middle_tool_rack_out: True
+graph_motion.edge.middle_tool_rack_out.middle_tool_rack_up: True
+graph_motion.edge.middle_tool_rack_up.middle_tool_rack: True
+graph_motion.edge.middle_tool_rack_out.hdi_position: True
+graph_motion.edge.home.home_safe: True
+
+graph_motion.pos.home: {0,0,0}
+graph_motion.pos.middle_tool_rack: {677.112,18.533,43.047} #2mm before sucking it
+graph_motion.pos.middle_tool_rack_up: {677.112,18.533,40.01}
+graph_motion.pos.middle_tool_rack_out: {677.112,106.640,40.01}
+graph_motion.pos.hdi_position: {721.430,342.000,59.152}
+graph_motion.pos.home_safe: {0,450.000,0}
+# graph_motion.pos.tool_rack_pos_0_in: {651.275,16.653,35.899}
+# graph_motion.pos.tool_rack_pos_0_out: {651.275,158,35.899}
+
+
+#================================================
+#====== Vision/Pattern Recognition parameters
+#================================================
+
+vision.debug_enable: True
+
+vision.FPIX_HDI.method: find_patches
+vision.FPIX_HDI.shrink_factor: 4
+vision.FPIX_HDI.dilate_size: 5
+vision.FPIX_HDI.size_min: 0.2
+vision.FPIX_HDI.size_max: 0.26
+vision.FPIX_HDI.color_groups: 2
+vision.FPIX_HDI.aspect_ratio_min: 0.9
+vision.FPIX_HDI.aspect_ratio_max: 1.1
+
+vision.FPIX_BBM.method: find_patches
+vision.FPIX_BBM.shrink_factor: 8
+vision.FPIX_BBM.dilate_size: 3
+vision.FPIX_BBM.size_min: 0.01
+vision.FPIX_BBM.size_max: 0.02
+vision.FPIX_BBM.color_groups: 3
+vision.FPIX_BBM.aspect_ratio_min: 0.9
+vision.FPIX_BBM.aspect_ratio_max: 1.1
