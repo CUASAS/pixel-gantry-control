@@ -59,6 +59,16 @@ CHOICEPOPUP "You are at {$curr:%v}. Is this correct?"
 
 This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
 
+### Error Handling
+
+The interpreter has three error-handling modes
+
+  - `default`: If a command returns an error, it is logged and any running script is aborted.
+  - `prompt`: If a command returns an error, a popup is presented to the user with the error message and an option to abort the script or continue.
+  - `setvar`: If a command returns an error, the variable `$ERR` is set to the error code. Subsequent code can read this value and act accordingly.
+  
+Upon startup, the error handling mode is `default`. The `SETERRORMODE` command can be used to change the error mode.
+
 ## Command Listing
 
 ### General Commands
@@ -133,6 +143,13 @@ Similar to `GOTO`, except in addition to moving to the the specified line, it al
 *Format:* `CALL dest`
 
   - `dest`: The address of the statement to execute next. Can be a Label.
+
+#### `END`
+
+Stops the execution of the current script.
+
+*Format:* `END`
+
 
 #### `ADD`
 
@@ -255,7 +272,14 @@ Reads an object from the internal state of the application (ie the FlexWorktable
 
   - `key`: Key of the destination
   - `src`: Readable location with the data to be copied to key
- 
+
+#### `SETERRORMODE`
+
+Sets the current error handling mode.
+
+*Format:* `SETERRORMODE mode`
+
+  - `mode`: One of `default`, `prompt`, or `setvar`. See section `Error Handling` for more information.
 
 ### Motion Commands
 
