@@ -9,7 +9,7 @@ camera.gantryhead.SerialNumberLow: 0x26A865CD
 camera.gantryhead.FOV-x: 1.095
 camera.gantryhead.FOV-y: 0.824
 light.gantryhead.control: manual
-# light.gantryhead.hardware_address: Y.0
+light.gantryhead.hardware_address: Y.0
 
 
 #================================================
@@ -43,8 +43,8 @@ manifold.port.14: cDAQ1Mod6/port0/line14
 manifold.port.15: cDAQ1Mod6/port0/line15
 manifold.port.16: cDAQ1Mod6/port0/line16
 
-#tool_rack.0: picker_tool
-#tool_rack.1: None
+#tool_rack.0: None
+tool_rack.1: picker_tool
 #tool_rack.2: None
 
 # must be 2mm above tool in z
@@ -53,18 +53,15 @@ graph_motion.edge.middle_tool_rack_out.middle_tool_rack_up: True
 graph_motion.edge.middle_tool_rack_up.middle_tool_rack: True
 graph_motion.edge.middle_tool_rack_out.hdi_position: True
 graph_motion.edge.home.home_safe: True
-
-graph_motion.pos.module_chuck_0: {269,401,0}
-
+graph_motion.edge.home.tool_rack_pos_1_out: True
+graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_1_in: True
 
 graph_motion.pos.home: {0,0,0}
-graph_motion.pos.middle_tool_rack: {677.112,18.533,43.047} #2mm before sucking it
-graph_motion.pos.middle_tool_rack_up: {677.112,18.533,40.01}
-graph_motion.pos.middle_tool_rack_out: {677.112,106.640,40.01}
+graph_motion.pos.tool_rack_pos_1_in: {677.112,18.533,43.047} #2mm before sucking it
+graph_motion.pos.tool_rack_pos_1_out: {677.112,106.640,40.01}
 graph_motion.pos.hdi_position: {721.430,342.000,59.152}
 graph_motion.pos.home_safe: {0,450.000,0}
-# graph_motion.pos.tool_rack_pos_0_in: {651.275,16.653,35.899}
-# graph_motion.pos.tool_rack_pos_0_out: {651.275,158,35.899}
+
 
 #================================================
 #====== Geometry Definitions
@@ -74,6 +71,14 @@ geometry.TFPX_1X2_MOCKUP.fid_tr: {8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
+
+geometry.PICKER_TOOL.center_offset: {0,0,53.6}
+
+
+# The offset between the camera and the
+# center-of-rotation of the gantry head in x-y
+# and the bottom surface of the tool-holder in z
+geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
