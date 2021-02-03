@@ -8,6 +8,9 @@ camera.gantryhead.SerialNumberHigh: 0x10FE58
 camera.gantryhead.SerialNumberLow: 0x26A865CD
 camera.gantryhead.FOV-x: 1.095
 camera.gantryhead.FOV-y: 0.824
+light.gantryhead.control: manual
+# light.gantryhead.hardware_address: Y.0
+
 
 #================================================
 
@@ -51,6 +54,9 @@ graph_motion.edge.middle_tool_rack_up.middle_tool_rack: True
 graph_motion.edge.middle_tool_rack_out.hdi_position: True
 graph_motion.edge.home.home_safe: True
 
+graph_motion.pos.module_chuck_0: {269,401,0}
+
+
 graph_motion.pos.home: {0,0,0}
 graph_motion.pos.middle_tool_rack: {677.112,18.533,43.047} #2mm before sucking it
 graph_motion.pos.middle_tool_rack_up: {677.112,18.533,40.01}
@@ -60,12 +66,20 @@ graph_motion.pos.home_safe: {0,450.000,0}
 # graph_motion.pos.tool_rack_pos_0_in: {651.275,16.653,35.899}
 # graph_motion.pos.tool_rack_pos_0_out: {651.275,158,35.899}
 
+#================================================
+#====== Geometry Definitions
+#================================================
+
+geometry.TFPX_1X2_MOCKUP.fid_tr: {8.600,-21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
+geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-vision.debug_enable: False
+vision.debug_enable: True
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrink_factor: 4
@@ -84,3 +98,18 @@ vision.FPIX_BBM.size_max: 0.02
 vision.FPIX_BBM.color_groups: 3
 vision.FPIX_BBM.aspect_ratio_min: 0.9
 vision.FPIX_BBM.aspect_ratio_max: 1.1
+
+vision.FPIX_MOCK.method: find_circles
+vision.FPIX_MOCK.shrinkFactor: 4
+vision.FPIX_MOCK.dilateSize: 5
+vision.FPIX_MOCK.sizeMin: 0.12
+vision.FPIX_MOCK.sizeMax: 0.18
+vision.FPIX_MOCK.colorGroups: 2
+vision.FPIX_MOCK.aspectRatioMin: 0.9
+vision.FPIX_MOCK.aspectRatioMax: 1.1
+vision.FPIX_MOCK.minRadius: 0.1
+vision.FPIX_MOCK.maxRadius: 1.
+vision.FPIX_MOCK.houghGradientParam1: 100.
+vision.FPIX_MOCK.houghGradientParam2: 50.
+
+
