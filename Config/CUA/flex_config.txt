@@ -23,7 +23,10 @@ vacuum.module_chuck4_slot1:  3
 vacuum.module_chuck4_slot2:  5
 vacuum.module_chuck4_slot3:  7
 vacuum.module_chuck4_slot4:  9
-
+vacuum.module_chuck2_slot1:  14
+vacuum.module_chuck2_slot2:  14
+vacuum.module_chuck2_slot3:  14
+vacuum.module_chuck2_slot4:  14
 manifold.reset_on_start: false
 manifold.port.00: cDAQ1Mod6/port0/line0
 manifold.port.01: cDAQ1Mod6/port0/line1
@@ -72,7 +75,7 @@ geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
-geometry.PICKER_TOOL.center_offset: {0,0,53.6}
+geometry.PICKER_TOOL.center_offset: {0,0,48.15}
 
 
 # The offset between the camera and the
