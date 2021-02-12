@@ -7,6 +7,10 @@ camera.gantryhead.SerialNumberHigh: 0xA4C207BC
 camera.gantryhead.SerialNumberLow: 0x2D82C3C8
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
+light.gantryhead.control: npaq
+light.gantryhead.hardware_address: Y.0
+# light.gantryhead.control: minidaq
+# light.gantryhead.hardware_address: cDAQ1Mod2/ao0
 
 dispenser.hardware_address: cDAQ1Mod1/port0/line30
 
@@ -52,14 +56,21 @@ tool_rack.0: picker_tool
 tool_rack.1: none
 tool_rack.2: none
 
+
 #================================================
 #====== Geometry Definitions
 #================================================
 
-geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.845,0}
-geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.795,0}
-geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.755,0}
-geometry.TFPX_HDI_V2.fid_br: {2.90,21.555,0}
+#geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.845,0}
+#geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.795,0}
+#geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.755,0}
+#geometry.TFPX_HDI_V2.fid_br: {2.90,21.555,0}
+
+geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.825,0}
+geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.775,0}
+geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.775,0}
+geometry.TFPX_HDI_V2.fid_br: {2.90,21.575,0}
+
 
 geometry.TFPX_1X2_MOCKUP.fid_tr: {8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
@@ -67,7 +78,9 @@ geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
 
-geometry.PICKER_TOOL.center_offset: {0,0,53.6}
+#geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
+geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
+
 geometry.GRABBER_TOOL.center_offset: {0,0,43.38}
 
 # The offset between the camera and the
@@ -82,22 +95,22 @@ geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 vision.debug_enable: True
 
 vision.FPIX_HDI.method: find_patches
-vision.FPIX_HDI.shrink_factor: 4
-vision.FPIX_HDI.dilate_size: 5
-vision.FPIX_HDI.size_min: 0.12
-vision.FPIX_HDI.size_max: 0.18
-vision.FPIX_HDI.color_groups: 2
-vision.FPIX_HDI.aspect_ratio_min: 0.9
-vision.FPIX_HDI.aspect_ratio_max: 1.1
+vision.FPIX_HDI.shrinkFactor: 4
+vision.FPIX_HDI.dilateSize: 5
+vision.FPIX_HDI.sizeMin: 0.12
+vision.FPIX_HDI.sizeMax: 0.18
+vision.FPIX_HDI.colorGroups: 2
+vision.FPIX_HDI.aspectRatioMin: 0.9
+vision.FPIX_HDI.aspectRatioMax: 1.1
 
 vision.FPIX_HDI.method: find_patches
-vision.FPIX_BBM.shrink_factor: 8
-vision.FPIX_BBM.dilate_size: 3
-vision.FPIX_BBM.size_min: 0.01
-vision.FPIX_BBM.size_max: 0.02
-vision.FPIX_BBM.color_groups: 3
-vision.FPIX_BBM.aspect_ratio_min: 0.9
-vision.FPIX_BBM.aspect_ratio_max: 1.1
+vision.FPIX_BBM.shrinkFactor: 8
+vision.FPIX_BBM.dilateSize: 3
+vision.FPIX_BBM.sizeMin: 0.01
+vision.FPIX_BBM.sizeMax: 0.02
+vision.FPIX_BBM.colorGroups: 3
+vision.FPIX_BBM.aspectRatioMin: 0.9
+vision.FPIX_BBM.aspectRatioMax: 1.1
 
 #================================================
 #====== "Safe" (ie graph-based) motion data
@@ -112,8 +125,11 @@ graph_motion.pos.home: {0,0,0}
 graph_motion.pos.module_chuck_0: {269,401,0}
 
 # must be 2mm above tool in z
-graph_motion.pos.tool_rack_pos_0_in: {651.275,16.653,35.899}
-graph_motion.pos.tool_rack_pos_0_out: {651.275,158,35.899}
+#graph_motion.pos.tool_rack_pos_0_in: {651.275,16.653,35.899}
+#graph_motion.pos.tool_rack_pos_0_out: {651.275,158,35.899}
+graph_motion.pos.tool_rack_pos_0_in: {651.275,17.0975,36.1448}
+graph_motion.pos.tool_rack_pos_0_out: {651.275,158,36.1448}
+
 
 graph_motion.pos.front_load_position: {433,314,0}
 
