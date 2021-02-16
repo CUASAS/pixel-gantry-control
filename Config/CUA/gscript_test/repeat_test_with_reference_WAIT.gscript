@@ -1,0 +1,118 @@
+SETLOG "repeat_test_with_reference_190.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP5 MOVETO {600,150,62.54398} 190
+      MOVETO {700,250,62.54398} 190
+      MOVETO $fid_pos 190
+      WAIT 1000
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP5 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_210.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP4 MOVETO {600,150,62.54398} 210
+      MOVETO {700,250,62.54398} 210
+      MOVETO $fid_pos 210
+      WAIT 1000
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP4 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_200_Wait1000.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP4 MOVETO {600,150,62.54398} 200
+      MOVETO {700,250,62.54398} 200
+      MOVETO $fid_pos 200
+      WAIT 1000
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP4 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_200_Wait800.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP3 MOVETO {600,150,62.54398} 200
+      MOVETO {700,250,62.54398} 200
+      MOVETO $fid_pos 200
+      WAIT 800
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP3 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_200_Wait600.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP2 MOVETO {600,150,62.54398} 200
+      MOVETO {700,250,62.54398} 200
+      MOVETO $fid_pos 200
+      WAIT 600
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP2 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_200_Wait400.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP1 MOVETO {600,150,62.54398} 200
+      MOVETO {700,250,62.54398} 200
+      MOVETO $fid_pos 200
+      WAIT 400
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP1 $count
+PRINT "Done"
+
+SETLOG "repeat_test_with_reference_200_Wait200.log"
+CLEARLOG
+SETVAC module_chuck4_slot3 1
+
+COPY $fid_pos {686.776,275.695,62.54398}
+COPY $count 200
+
+@LOOP0 MOVETO {600,150,62.54398} 200
+      MOVETO {700,250,62.54398} 200
+      MOVETO $fid_pos 200
+      WAIT 200
+      FINDFID $pos FPIX_HDI
+      PRINT "FIDPOS %d %v" $count $pos
+      DEC $count $count
+      GOTOIF @LOOP0 $count
+PRINT "Done"
