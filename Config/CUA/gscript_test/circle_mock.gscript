@@ -1,0 +1,139 @@
+#FINDFID $pos FPIX_MOCK
+#PRINT "FIDPOS %v" $pos
+#GETPOS $position
+#PRINT "GetPos %v" $position
+LOADCONFIG
+SETLOG pick_and_place.txt
+HOME
+COPY $speed 150
+COPY $img_idx 0
+
+COPY $start_tr {319.564593,213.091524,62.479924}
+COPY $start_tl {302.364661,213.041735,62.479924}
+COPY $start_bl {302.489788,256.387551,62.479924}
+COPY $start_br {319.693237,256.289805,62.479926}
+
+FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
+
+PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
+
+COPY $end_tr {641.145373,210.504892,62.351882}
+COPY $end_tl {623.945346,210.406036,62.351882}
+COPY $end_bl {623.781931,253.607738,62.351882}
+COPY $end_br {640.987447,253.703164,62.351882}
+
+FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+LOADTOOL picker_tool
+
+
+#Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $meas_rot
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC module_chuck2_slot1 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+ROTATE $meas_rot -1
+
+# Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $end_rot
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 0
+WAIT 500
+SETVAC module_chuck4_slot1 1
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+ROTATE $end_rot -1
+
+UNLOADTOOL
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+CALL @SURVEY
+
+SUB $delta $meas_pos $end_pos
+PRINT "Misplacement: %v" $delta
+
+MOVEREL {0,0,-60} $speed
+SETVAC module_chuck4_slot1 0
+
+CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
+GOTOIF @PROCESS_START $choice
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MPGON
+        MOVETO $pos $speed
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $speed
+        VIDEO
+        CALL @SAVE_SNAPSHOT
+        GETPOS $tl_meas
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $speed
+        VIDEO
+        CALL @SAVE_SNAPSHOT
+        GETPOS $tr_meas
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $speed
+        VIDEO
+        CALL @SAVE_SNAPSHOT
+        GETPOS $br_meas
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $speed
+        VIDEO
+        CALL @SAVE_SNAPSHOT
+        GETPOS $bl_meas
+
+        MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+
+# SAVE_SNAPSHOT
+# Arguments:
+#  $img_idx - numerical suffix of image filename, get's incremented each time
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
+               INC $img_idx $img_idx
+               GOTO $RET
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET

@@ -49,3 +49,5 @@ Inside the `Config` directory are seveal folders containing configuration files 
 ### Getting Help
 
 If you discover a bug or would like to request a feature, please feel free to open an [issue](https://github.com/CUASAS/pixel-gantry-control/issues). If you have general questions about how to use the software, create a [discussion](https://github.com/CUASAS/pixel-gantry-control/discussions).
+
+There is also a developing set of tutorials on various aspects of `gScript` programming developing [here](https://drive.google.com/drive/folders/1jjhutLgPGgwVizSZdoIk1yHqYb2zJ_WL?usp=sharing).
