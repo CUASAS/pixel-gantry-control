@@ -39,7 +39,7 @@ Run the Aerotech installer. The installer doesn't put the Aerotech VIs in a plac
 
 ### Installing gVision API
 
-Due to large binary file sizes, the gVision API is not included in the git repository. Instead, you need to download the [latest releast](https://github.com/CUASAS/pixel-gantry-vision/releases). Download the zip archive and unzip it into `pixel-gantry-control\Gantry\Shared Components\`. If the zip file contains any redistributable installers, run those now to install any required libraries.
+Due to large binary file sizes, the gVision API is not included in the git repository. Instead, you need to download the [latest releast](https://github.com/CUASAS/pixel-gantry-vision/releases). Download the zip archive and unzip it's contents into `pixel-gantry-control\Gantry\Shared Components\gVision API\`. If the zip file contains any redistributable installers, run those now to install any required libraries.
 
 
 ### Selecting a Config
