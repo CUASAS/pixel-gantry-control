@@ -91,26 +91,30 @@ END
         TRANSFORML2G $tl_global $tl_local $pos $rot
         MOVETO $tl_global $speed
         VIDEO
-        CALL @SAVE_SNAPSHOT
-        GETPOS $tl_meas
+	FINDFID $tl_meas FPIX_MOCK
+        CALL @SAVE_SNAPSHOT 
+
 
         TRANSFORML2G $tr_global $tr_local $pos $rot
         MOVETO $tr_global $speed
         VIDEO
+        FINDFID $tr_meas FPIX_MOCK
         CALL @SAVE_SNAPSHOT
-        GETPOS $tr_meas
+
 
         TRANSFORML2G $br_global $br_local $pos $rot
         MOVETO $br_global $speed
         VIDEO
+        FINDFID $br_meas FPIX_MOCK
         CALL @SAVE_SNAPSHOT
-        GETPOS $br_meas
+
 
         TRANSFORML2G $bl_global $bl_local $pos $rot
         MOVETO $bl_global $speed
         VIDEO
+         FINDFID $bl_meas FPIX_MOCK
         CALL @SAVE_SNAPSHOT
-        GETPOS $bl_meas
+
 
         MPGOFF
         FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas

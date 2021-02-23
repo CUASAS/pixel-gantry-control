@@ -8,6 +8,7 @@ camera.gantryhead.SerialNumberHigh: 0x10FE58
 camera.gantryhead.SerialNumberLow: 0x26A865CD
 camera.gantryhead.FOV-x: 1.095
 camera.gantryhead.FOV-y: 0.824
+
 light.gantryhead.control: manual
 light.gantryhead.hardware_address: Y.0
 
@@ -27,6 +28,12 @@ vacuum.module_chuck2_slot1:  14
 vacuum.module_chuck2_slot2:  14
 vacuum.module_chuck2_slot3:  14
 vacuum.module_chuck2_slot4:  14
+
+# Purdue Mechanics vacuum
+vacuum.purdue_mechanics_left: 13
+vacuum.purdue_mechanics_right: 15
+
+
 manifold.reset_on_start: false
 manifold.port.00: cDAQ1Mod6/port0/line0
 manifold.port.01: cDAQ1Mod6/port0/line1
@@ -108,16 +115,29 @@ vision.FPIX_BBM.aspect_ratio_min: 0.9
 vision.FPIX_BBM.aspect_ratio_max: 1.1
 
 vision.FPIX_MOCK.method: find_circles
-vision.FPIX_MOCK.shrinkFactor: 4
-vision.FPIX_MOCK.dilateSize: 5
-vision.FPIX_MOCK.sizeMin: 0.12
-vision.FPIX_MOCK.sizeMax: 0.18
-vision.FPIX_MOCK.colorGroups: 2
-vision.FPIX_MOCK.aspectRatioMin: 0.9
-vision.FPIX_MOCK.aspectRatioMax: 1.1
-vision.FPIX_MOCK.minRadius: 0.1
-vision.FPIX_MOCK.maxRadius: 1.
+vision.FPIX_MOCK.minRadius: 0.12
+vision.FPIX_MOCK.maxRadius: 0.14
 vision.FPIX_MOCK.houghGradientParam1: 100.
 vision.FPIX_MOCK.houghGradientParam2: 50.
 
+#Mock HDI bond pad params
+vision.FPIX_MOCK_HDI_BOTTOM_LEFT_PAD.method: find_rects
+vision.FPIX_MOCK_HDI_BOTTOM_LEFT_PAD.nominalWidth: 0.584063
+vision.FPIX_MOCK_HDI_BOTTOM_LEFT_PAD.nominalHeight: 0.359158
+vision.FPIX_MOCK_HDI_BOTTOM_LEFT_PAD.tolerance: 0.24
+
+vision.FPIX_MOCK_HDI_BOTTOM_RIGHT_PAD.method: find_rects
+vision.FPIX_MOCK_HDI_BOTTOM_RIGHT_PAD.nominalWidth: 0.584063
+vision.FPIX_MOCK_HDI_BOTTOM_RIGHT_PAD.nominalHeight: 0.359158
+vision.FPIX_MOCK_HDI_BOTTOM_RIGHT_PAD.tolerance: 0.24
+
+vision.FPIX_MOCK_HDI_TOP_RIGHT_PAD.method: find_rects
+vision.FPIX_MOCK_HDI_TOP_RIGHT_PAD.nominalWidth: 0.584063
+vision.FPIX_MOCK_HDI_TOP_RIGHT_PAD.nominalHeight: 0.359158
+vision.FPIX_MOCK_HDI_TOP_RIGHT_PAD.tolerance: 0.24
+
+vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.method: find_rects
+vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalWidth: 0.574219
+vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalHeight:0.612971
+vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.tolerance: 0.24
 
