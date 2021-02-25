@@ -1,0 +1,342 @@
+'				MPG.pgm 
+'
+' This MPG program can be use with all hardware.
+' The appropriate MPGInclude.pgm file must be 
+' selected based on the hardware type you are using.
+' Refer to the MPG manual for more information.
+' After this program is configured correctly, add the
+' program to program automation and set to autorun on any
+' task other than task 1.  
+
+' This include file is the same regardless of hardware type.
+' This include file defines the information that is shared 
+' between this program and the MPGSample.pgm.
+#INCLUDE "MPGInclude.pgm"  
+
+' Select the SingleAxisMPGInclude.pgm if you are using
+' an HPe, HLe, CP, CL, MP or ML. 
+' Select the MultipleAxisMPGInclude.pgm if you
+' are using an Npaq or Nservo. Verify that the axis names 
+' names in each include file are correct for your system.
+'#INCLUDE "MPGSingleAxisInclude.pgm"
+#INCLUDE "MPGMultipleAxisInclude.pgm"
+
+' MPG active/enabled flag.
+DVAR $Active
+' Message present. All hand commands stopped.
+DVAR $Msg, $Stopped
+
+' An axis is being controlled by the MPG.
+LastAxis = 0
+' The MPG is active.
+$Active = 0
+' The distance per MPG count.
+Incr = 0
+' Any user messages on the display.
+$Msg = 0
+' All axes are stopped.
+$Stopped = 1
+' Primary units are mm by default.
+PRIMARY 
+
+EnableMPG
+
+' Program loops forever handling the MPG functionality.
+WHILE 1                        
+	' Wait for the MPG to be active.
+   	WHILE( MPGOff )  	 	 
+		' If the axis is in motion
+		IF( $Stopped == 0 )        
+			' disable the MPG for all axes.
+         	CALL StopAll             
+      	ENDIF
+   	  	
+		' Test every 0.2 seconds.
+      	DWELL .2
+   	WEND
+	
+   	'Make sure the task cannot be stopped.
+	TaskTerminationAxes = 0
+	
+	' Turn on the MPG LED. 
+	LedOutput = 1
+	
+	' The enable switch clears all increment and axis inputs, if FALSE
+	' read increment switches & test/set $Active variable
+	CALL ReadIncr                  
+	IF( $Active )
+		' Read axis switches.
+		CALL ReadAxis               
+	ELSE              
+		' Enable button was released.
+		' Disable the MPG for all axes.
+		CALL StopAll                
+	ENDIF
+WEND
+
+END PROGRAM
+
+' read the 3 increment switches
+DFS ReadIncr  
+	'X1
+	IF( MultX1 )                  
+		Incr = BaseIncr
+		' pendant is active
+		$Active = 1   
+	' X10
+	ELSE IF( MultX10 )            
+		Incr = BaseIncr * 10
+		' pendant is active
+		$Active = 1        
+	' X100
+	ELSE IF( MultX100 )           
+		Incr = BaseIncr * 100
+		' pendant is active
+		$Active = 1  
+	' X0
+	ELSE           
+		' disable MPG for all axes 
+		CALL StopAll                      
+		Incr = 0
+		' pendant is inactive
+		$Active = 0                
+	ENDIF
+ENDDFS
+
+' read the 6 axis switches
+DFS ReadAxis                     
+	IF( Xin )
+		IF((AXISSTATUS(X, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 1 )				
+				CALL StopAll
+				LastAxis = 1
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0            
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(X, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))			
+				' re-enable the MPG
+				CALL HandleAxisFault		
+				CALL HandOn          	
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "X Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+   	ELSEIF( Yin )
+		IF((AXISSTATUS(Y, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 2 )				
+				CALL StopAll
+				LastAxis = 2
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0   
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(Y, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))
+				' re-enable the MPG
+				CALL HandleAxisFault		
+				CALL HandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "Y Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+  	ELSEIF( Zin )
+		IF((AXISSTATUS(Z, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 3 )				
+				CALL StopAll
+				LastAxis = 3
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(Z, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))
+				' re-enable the MPG
+				CALL HandleAxisFault		
+				CALL HandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "Z Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF                        
+   ELSEIF( Uin )                       
+		IF((AXISSTATUS(U, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 4 )				
+				CALL StopAll
+				LastAxis = 4
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(U, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))			
+				' re-enable the MPG
+				CALL HandleAxisFault
+				CALL HandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "U Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+  	ELSEIF( Vin )
+		IF((AXISSTATUS(V, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 5 )				
+				CALL StopAll
+				LastAxis = 5
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(V, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))		
+				' re-enable the MPG
+				CALL HandleAxisFault		
+				CALL HandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "V Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+   	ELSEIF( Win )
+		IF((AXISSTATUS(W, DATAITEM_DriveStatus) BAND DRIVESTATUS_Enabled))
+			' if different axis
+			IF( LastAxis != 6 )				
+				CALL StopAll
+				LastAxis = 6
+				CALL HandOn 
+				' all axes not stopped
+				$Stopped = 0               
+			' if same axis and MPG disabled
+			ELSEIF(!(AXISSTATUS(W, DATAITEM_AxisStatus) BAND AXISSTATUS_MasterSlaveControl))			
+				' re-enable the MPG
+				CALL HandleAxisFault		
+				CALL HandOn 
+			ENDIF
+			IF( $Msg )
+				' clear axis disabled message
+				CALL ClearMsg	   
+			ENDIF
+		ELSE 
+			IF( !$Msg )
+				MSGDISPLAY 19, "W Axis not enabled !"
+				$Msg = 1
+			ENDIF
+		ENDIF
+	ELSE   
+		' disable MPG for all axes
+		CALL StopAll                
+	ENDIF
+ENDDFS
+
+' disable MPG for all axes
+DFS StopAll  
+	' no last axis
+	LastAxis = 0				
+    IF( !$Stopped )
+		CALL HandAllOff
+		DWELL .2
+      	CALL ClearMsg
+		' all MPG commands now disabled
+      	$Stopped = 1            
+    ENDIF
+ENDDFS
+
+DFS ClearMsg
+	' hide message display
+	' MSGHIDE			
+	' clear all "my" messages
+	MSGCLEAR 19			
+	$Msg = 0
+ENDDFS
+
+DFS HandOn
+	IF( LastAxis == 1 )
+        GEAR X MASTERCONFIG EncCh 2
+		HAND 1, X, Incr
+	ELSE IF( LastAxis == 2)
+        GEAR Y MASTERCONFIG EncCh 2
+		HAND 1, Y, Incr
+	ELSE IF( LastAxis == 3)
+        GEAR Z MASTERCONFIG EncCh 2
+		HAND 1, Z, Incr
+	ELSE IF( LastAxis == 4)
+        GEAR U MASTERCONFIG EncCh 2
+		HAND 1, U, Incr
+	ELSE IF( LastAxis == 5)
+        GEAR V MASTERCONFIG EncCh 2
+		HAND 1, V, Incr
+	ELSE IF( LastAxis == 6)
+        GEAR W MASTERCONFIG EncCh 2
+		HAND 1, W, Incr
+	ENDIF
+ENDDFS
+
+DFS HandAllOff
+	HAND 0, X, 0
+	HAND 0, Y, 0
+	HAND 0, Z, 0
+	HAND 0, U, 0
+	HAND 0, V, 0
+	HAND 0, W, 0        
+ENDDFS
+
+DFS HandleAxisFault
+	IF( LastAxis == 1 )
+		WAIT MOVEDONE X
+		FAULTACK X
+  		WAIT MOVEDONE X       
+	ELSE IF( LastAxis == 2)
+		WAIT MOVEDONE Y
+		FAULTACK Y
+		WAIT MOVEDONE Y       
+	ELSE IF( LastAxis == 3)         
+		WAIT MOVEDONE Z
+		FAULTACK Z
+		WAIT MOVEDONE Z        
+	ELSE IF( LastAxis == 4)
+		WAIT MOVEDONE U
+		FAULTACK U
+		WAIT MOVEDONE U       
+	ELSE IF( LastAxis == 5)
+		WAIT MOVEDONE V
+		FAULTACK V
+		WAIT MOVEDONE V       
+	ELSE IF( LastAxis == 6)
+		WAIT MOVEDONE W
+		FAULTACK W
+		WAIT MOVEDONE W       
+	ENDIF
+ENDDFS

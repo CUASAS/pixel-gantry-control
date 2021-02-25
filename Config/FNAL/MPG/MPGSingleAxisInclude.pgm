@@ -1,0 +1,59 @@
+'				MPGSingleAxisInclude.pgm 
+'
+' This file must be included in MPG.pgm if you are
+' using an Ndrive CP, CL, HPe, HLe, MP or ML with the MPG.
+' If you are using an Ndrive MP or ML, you must change the 
+' MultX1, MultX10 and MultX100 defines as noted in this file.
+'
+' Review each of the following defines to make sure 
+' that the axis names match the system where the MPG
+' is being used.  
+'  
+
+' Define the names of the axes in your system by changing the 
+' second letter in each of the next six program lines. Make sure
+' that you use the correct upper or lower case of the axis name.
+'
+' 1st position on axis selector switch.
+#DEFINE X X	
+' 2nd position on axis selector switch.
+#DEFINE Y Y	
+' 3rd position on axis selector switch.
+#DEFINE Z Z	
+' 4th position on axis selector switch.
+#DEFINE U U	
+' The A axis moves when the switch on the MPG is set to 5th axis V.
+#DEFINE V A	
+' The B axis moves when the switch on the MPG is set to 6th axis B.
+#DEFINE W B		
+
+' Define the distance for one tick (or change) of the MPG handWheel.
+' The distance is in primary units which defaults to mm.
+#DEFINE BaseIncr  .005             
+
+' This is the name of the axis that is connected to the auxiliary
+' encoder channel of the MPG Master axis.
+#DEFINE EncCh     X                 
+
+' This is the name of the axis that is connected to the MPG.
+#DEFINE IOAxis    X   
+
+' Define the inputs/state for the 6 axis switches.
+#DEFINE Xin       $DI[0].IOAxis EQ 1  
+#DEFINE Yin       $DI[1].IOAxis EQ 1
+#DEFINE Zin       $DI[2].IOAxis EQ 1
+#DEFINE Uin       $DI[3].IOAxis EQ 1
+#DEFINE Vin       $DI[4].IOAxis EQ 1
+#DEFINE Win       $DI[5].IOAxis EQ 1
+
+' Define the inputs/state for the 3 mult. switches.
+#DEFINE MultX1    $DI[6].IOAxis EQ 1  
+#DEFINE MultX10   $DI[7].IOAxis EQ 1
+#DEFINE MultX100  $DI[8].IOAxis EQ 1
+
+' The following defines are only valid for an Ndrive MP or ML.
+'#DEFINE MultX1	  (($DI[6].IOAxis EQ 0) && ($DI[7].IOAxis EQ 0))
+'#DEFINE MultX10   $DI[6].IOAxis EQ 1
+'#DEFINE MultX100  $DI[7].IOAxis EQ 1
+
+#DEFINE LedOutput $DO[10].IOAxis
