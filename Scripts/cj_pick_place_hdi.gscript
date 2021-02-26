@@ -3,7 +3,7 @@
 # 2. Record/Locate target position
 # 3. Pickup and place glass piece
 # 4. Record final position
-SETLOG pick_and_place_middle.txt
+SETLOG pick_and_place_and_hdi.txt
 # CLEARLOG
 COPY $speed 50
 COPY $img_idx 0
@@ -26,7 +26,8 @@ COPY $rot $start_rot
 CALL @SURVEY
 
 
-LOADTOOL PICKER
+#LOADTOOL PICKER
+LOADTOOL picker_tool
 
 MOVENAME module_chuck_0
 
@@ -37,7 +38,7 @@ MOVETO $pickup_pos_z0 50
 ROTATE $meas_rot
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 1
-WAIT 500
+WAIT 2000
 SETVAC module_chuck_0_slot_2 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
@@ -49,9 +50,11 @@ CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
 ROTATE $end_rot
 MOVETO $pickup_pos 10
-SETVAC gantry_head_inner 0
-WAIT 500
+#SETVAC gantry_head_inner 0
 SETVAC module_chuck_0_slot_1 1
+WAIT 2000
+#SETVAC module_chuck_0_slot_1 1
+SETVAC gantry_head_inner 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
 ROTATE $end_rot -1
@@ -65,7 +68,46 @@ CALL @SURVEY
 SUB $delta $meas_pos $end_pos
 PRINT "Misplacement: %v" $delta
 
-MOVEREL {0,0,-60} $speed
+# HDI measurement
+HOME
+CHOICEPOPUP $answer_st "HDI, weight installation done?"
+COPY $speed 50 # speed for most motions
+# $refcenter and $refrotation need to be set to roughly (O(mm)) the
+# correct values for each HDI location.
+COPY $refcenter {231.766653,397.185549,77.931687}
+COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
+FLEXREAD $fid_tl_local geometry.TFPX_HDI_V2.fid_tl
+FLEXREAD $fid_tr_local geometry.TFPX_HDI_V2.fid_tr
+FLEXREAD $fid_br_local geometry.TFPX_HDI_V2.fid_br
+FLEXREAD $fid_bl_local geometry.TFPX_HDI_V2.fid_bl
+# Convert local coordinates to global coordinates using reference
+# Center and Rotation
+TRANSFORML2G $fid_tl_global $fid_tl_local $refcenter $refrotation
+TRANSFORML2G $fid_tr_global $fid_tr_local $refcenter $refrotation
+TRANSFORML2G $fid_br_global $fid_br_local $refcenter $refrotation
+TRANSFORML2G $fid_bl_global $fid_bl_local $refcenter $refrotation
+
+#LOADTOOL CAMERA
+MPGON
+COPY $focus_range .5 # mm
+COPY $focus_samples 10
+# Go to TL Reference
+MOVETO $fid_tl_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_tl
+# Go to BL Reference
+MOVETO $fid_bl_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_bl
+MOVEREL {0,0,-50} $speed
+UNLOADTOOL
+MPGOFF
+PRINT "HDI located at tl : %v, bl : %v" $fid_tl $fid_bl
+
+
+#MOVEREL {0,0,-60} $speed
 SETVAC module_chuck_0_slot_1 0
 
 CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
@@ -112,6 +154,7 @@ END
         PRINT "Measured position: %v" $meas_pos
         PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
         GOTO $SURVEY_RET
+
 
 # CALCPICKUP
 # Arguments:

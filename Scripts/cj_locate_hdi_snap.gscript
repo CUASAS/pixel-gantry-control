@@ -8,10 +8,15 @@ COPY $refcenter {231.766653,397.185549,77.931687}
 COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
 
 # Load local fiducial coordinates from "geometry_definitions.ini"
-LOADGEODEF $fid_tl_local %v TFPX_HDI_V2 fid_tl
-LOADGEODEF $fid_tr_local %v TFPX_HDI_V2 fid_tr
-LOADGEODEF $fid_br_local %v TFPX_HDI_V2 fid_br
-LOADGEODEF $fid_bl_local %v TFPX_HDI_V2 fid_bl
+#LOADGEODEF $fid_tl_local %v TFPX_HDI_V2 fid_tl
+#LOADGEODEF $fid_tr_local %v TFPX_HDI_V2 fid_tr
+#LOADGEODEF $fid_br_local %v TFPX_HDI_V2 fid_br
+#LOADGEODEF $fid_bl_local %v TFPX_HDI_V2 fid_bl
+FLEXREAD $fid_tl_local geometry.TFPX_HDI_V2.fid_tl
+FLEXREAD $fid_tr_local geometry.TFPX_HDI_V2.fid_tr
+FLEXREAD $fid_br_local geometry.TFPX_HDI_V2.fid_br
+FLEXREAD $fid_bl_local geometry.TFPX_HDI_V2.fid_bl
+
 
 # Convert local coordinates to global coordinates using reference
 # Center and Rotation
@@ -41,26 +46,36 @@ TRANSFORML2G $fid_bl_global $fid_bl_local $refcenter $refrotation
       # Go to TL Reference
       MOVETO $fid_tl_global $speed
       AUTOFOCUS $_ $focus_range $focus_samples
-      VIDEO "GANTRY HEAD"
+#      VIDEO "GANTRY HEAD"
+      VIDEO "gantryhead"
       GETPOS $fid_tl
+      SNAPSHOT "gantryhead" "fid_tl.png"
 
       # Go to TR Reference
       MOVETO $fid_tr_global $speed
       AUTOFOCUS $_ $focus_range $focus_samples
-      VIDEO "GANTRY HEAD"
+#      VIDEO "GANTRY HEAD"
+      VIDEO "gantryhead"
       GETPOS $fid_tr
+      SNAPSHOT "gantryhead" "fid_tr.png"
+
 
       # Go to BR Reference
       MOVETO $fid_br_global $speed
       AUTOFOCUS $_ $focus_range $focus_samples
-      VIDEO "GANTRY HEAD"
+#      VIDEO "GANTRY HEAD"
+      VIDEO "gantryhead"
       GETPOS $fid_br
+      SNAPSHOT "gantryhead" "fid_br.png"
+
 
       # Go to BL Reference
       MOVETO $fid_bl_global $speed
       AUTOFOCUS $_ $focus_range $focus_samples
-      VIDEO "GANTRY HEAD"
+#      VIDEO "GANTRY HEAD"
+      VIDEO "gantryhead"
       GETPOS $fid_bl
+      SNAPSHOT "gantryhead" "fid_bl.png"
 
       MOVEREL {0,0,-50} $speed
 

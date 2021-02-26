@@ -1,0 +1,23 @@
+COPY $speed 50 # speed for most motions
+
+# $refcenter and $refrotation need to be set to roughly (O(mm)) the
+# correct values for each HDI location.
+COPY $refcenter {231.766653,397.185549,77.931687}
+COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
+
+# Load local fiducial coordinates from "geometry_definitions.ini"
+FLEXREAD $fid_tl_local geometry.TFPX_HDI_V2.fid_tl
+
+# Convert local coordinates to global coordinates using reference
+# Center and Rotation
+TRANSFORML2G $fid_tl_global $fid_tl_local $refcenter $refrotation
+
+MPGON
+
+COPY $focus_range .5 # mm
+COPY $focus_samples 10
+
+MOVETO $fid_tl_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+#VIDEO "gantryhead"
+#GETPOS $fid_tl

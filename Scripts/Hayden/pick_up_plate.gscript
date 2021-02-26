@@ -1,0 +1,24 @@
+HOME
+
+COPY $target_pos {666,378,68.65}
+CALL @CALCPICKUP
+
+LOADTOOL etl_picker_tool
+MOVETO $pickup_pos_z0 50
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+MOVEREL {0,0,-20}
+
+END
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.etl_picker_tool.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
