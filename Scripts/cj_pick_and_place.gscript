@@ -3,7 +3,7 @@
 # 2. Record/Locate target position
 # 3. Pickup and place glass piece
 # 4. Record final position
-SETLOG pick_and_place_middle.txt
+SETLOG pick_and_place_middle_re5.txt
 # CLEARLOG
 COPY $speed 50
 COPY $img_idx 0
@@ -26,7 +26,7 @@ COPY $rot $start_rot
 CALL @SURVEY
 
 
-LOADTOOL PICKER
+LOADTOOL picker_tool
 
 MOVENAME module_chuck_0
 
@@ -37,7 +37,7 @@ MOVETO $pickup_pos_z0 50
 ROTATE $meas_rot
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 1
-WAIT 500
+WAIT 2000
 SETVAC module_chuck_0_slot_2 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
@@ -49,9 +49,11 @@ CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
 ROTATE $end_rot
 MOVETO $pickup_pos 10
-SETVAC gantry_head_inner 0
-WAIT 500
+#SETVAC gantry_head_inner 0
 SETVAC module_chuck_0_slot_1 1
+WAIT 2000
+#SETVAC module_chuck_0_slot_1 1
+SETVAC gantry_head_inner 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
 ROTATE $end_rot -1

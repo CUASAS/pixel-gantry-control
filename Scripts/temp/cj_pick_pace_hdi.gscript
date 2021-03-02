@@ -3,7 +3,7 @@
 # 2. Record/Locate target position
 # 3. Pickup and place glass piece
 # 4. Record final position
-SETLOG pick_and_place_middle.txt
+SETLOG pick_and_place.txt
 # CLEARLOG
 COPY $speed 50
 COPY $img_idx 0

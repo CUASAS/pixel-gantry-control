@@ -18,6 +18,8 @@ vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
 vacuum.module_chuck_0_slot_1: 1
 vacuum.module_chuck_0_slot_2: 2
+vacuum.etl_chuck_1: 3
+vacuum.etl_chuck_2: 5
 vacuum.gelpak_release: 0
 
 manifold.reset_on_start: false
