@@ -1,0 +1,16 @@
+'				MPGInclude.pgm 
+'
+' This program must be included in any program that
+' references the MPG.
+'  
+
+' Global variables used by the various MPG programs:
+#DEFINE $AxesSel        $global[5]
+#DEFINE Incr            $global[7]
+#DEFINE LastAxis        $global[8]
+' Replaces "MPGOff" with "$global[9] == 0"
+#DEFINE MPGOff		 	$global[9] == 0    
+
+' Commands to enable and disable the MPG:
+#DEFINE EnableMPG  $global[9] = 1	
+#DEFINE DisableMPG $global[9] = 0
