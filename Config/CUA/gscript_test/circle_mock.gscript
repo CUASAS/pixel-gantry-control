@@ -8,19 +8,19 @@ HOME
 COPY $speed 150
 COPY $img_idx 0
 
-COPY $start_tr {319.564593,213.091524,62.479924}
-COPY $start_tl {302.364661,213.041735,62.479924}
-COPY $start_bl {302.489788,256.387551,62.479924}
-COPY $start_br {319.693237,256.289805,62.479926}
+COPY $start_tr  {344.224076,528.473174,67.998338}
+COPY $start_tl  {326.790436,528.584280,68.027211}
+COPY $start_bl {326.995097,571.774673,68.050822}
+COPY $start_br  {344.192747,571.689922,68.023199}
 
 FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
 
 PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
 
-COPY $end_tr {641.145373,210.504892,62.351882}
-COPY $end_tl {623.945346,210.406036,62.351882}
-COPY $end_bl {623.781931,253.607738,62.351882}
-COPY $end_br {640.987447,253.703164,62.351882}
+COPY $end_tr {343.987944,528.580042,68.003568}
+COPY $end_tl {250.913168,529.169935,68.303301}
+COPY $end_bl {327.006152,571.804537,68.069388}
+COPY $end_br  {344.193072,571.778504,68.011344}
 
 FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
 
@@ -29,6 +29,7 @@ FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
 FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
 FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
 
+@PROCESS_START SETVAC purdue_mechanics_right 1
 COPY $pos $start_pos
 COPY $rot $start_rot
 CALL @SURVEY
@@ -44,7 +45,7 @@ ROTATE $meas_rot
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 1
 WAIT 500
-SETVAC module_chuck2_slot1 0
+SETVAC purdue_mechanics_right 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
 ROTATE $meas_rot -1
@@ -57,7 +58,7 @@ ROTATE $end_rot
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 0
 WAIT 500
-SETVAC module_chuck4_slot1 1
+SETVAC purdue_mechanics_left 1
 WAIT 2000
 MOVETO $pickup_pos_z0 10
 ROTATE $end_rot -1
@@ -72,7 +73,7 @@ SUB $delta $meas_pos $end_pos
 PRINT "Misplacement: %v" $delta
 
 MOVEREL {0,0,-60} $speed
-SETVAC module_chuck4_slot1 0
+SETVAC purdue_mechanics_left 0
 
 CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
 GOTOIF @PROCESS_START $choice
@@ -91,28 +92,36 @@ END
         TRANSFORML2G $tl_global $tl_local $pos $rot
         MOVETO $tl_global $speed
         VIDEO
-	FINDFID $tl_meas FPIX_MOCK
+        WAIT 1000
+        FINDFID $tl_meas FPIX_MOCK
+        PRINT "tl_meas %v" $tl_meas
         CALL @SAVE_SNAPSHOT 
 
 
         TRANSFORML2G $tr_global $tr_local $pos $rot
         MOVETO $tr_global $speed
         VIDEO
+        WAIT 1000
         FINDFID $tr_meas FPIX_MOCK
+        PRINT "tr_meas %v" $tr_meas
         CALL @SAVE_SNAPSHOT
 
 
         TRANSFORML2G $br_global $br_local $pos $rot
         MOVETO $br_global $speed
         VIDEO
+        WAIT 1000
         FINDFID $br_meas FPIX_MOCK
+        PRINT "br_meas %v" $br_meas
         CALL @SAVE_SNAPSHOT
 
 
         TRANSFORML2G $bl_global $bl_local $pos $rot
         MOVETO $bl_global $speed
         VIDEO
-         FINDFID $bl_meas FPIX_MOCK
+        WAIT 1000
+        FINDFID $bl_meas FPIX_MOCK
+        PRINT "bl_meas %v" $bl_meas
         CALL @SAVE_SNAPSHOT
 
 

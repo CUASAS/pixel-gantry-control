@@ -6,8 +6,8 @@ camera.gantryhead.CameraGroup: 1
 camera.gantryhead.VendorName: UI148xSE-M_4002830874
 camera.gantryhead.SerialNumberHigh: 0x10FE58
 camera.gantryhead.SerialNumberLow: 0x26A865CD
-camera.gantryhead.FOV-x: 1.095
-camera.gantryhead.FOV-y: 0.824
+camera.gantryhead.FOV-x: 1.4
+camera.gantryhead.FOV-y: 1.048
 
 light.gantryhead.control: manual
 light.gantryhead.hardware_address: Y.0
@@ -30,8 +30,8 @@ vacuum.module_chuck2_slot3:  14
 vacuum.module_chuck2_slot4:  14
 
 # Purdue Mechanics vacuum
-vacuum.purdue_mechanics_left: 13
-vacuum.purdue_mechanics_right: 15
+vacuum.purdue_mechanics_left: 15
+vacuum.purdue_mechanics_right: 13
 
 
 manifold.reset_on_start: false
@@ -82,7 +82,7 @@ geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
-geometry.PICKER_TOOL.center_offset: {0,0,48.15}
+geometry.PICKER_TOOL.center_offset: {0,0,47.15}
 
 
 # The offset between the camera and the
@@ -115,8 +115,8 @@ vision.FPIX_BBM.aspect_ratio_min: 0.9
 vision.FPIX_BBM.aspect_ratio_max: 1.1
 
 vision.FPIX_MOCK.method: find_circles
-vision.FPIX_MOCK.minRadius: 0.12
-vision.FPIX_MOCK.maxRadius: 0.14
+vision.FPIX_MOCK.minRadius: 0.10
+vision.FPIX_MOCK.maxRadius: 0.15
 vision.FPIX_MOCK.houghGradientParam1: 100.
 vision.FPIX_MOCK.houghGradientParam2: 50.
 
