@@ -171,6 +171,25 @@ Subtracts the two arguments piecewise and stores the result in `dest`. The type 
   - `dest`: Writable location for the result of the subtraction
   - `arg1`: Readable location for the first input to the subtraction
   - `arg2`: Readable location for the second input to the subtraction
+  
+#### `MUL`
+
+Multiplies the two arguments piecewise and stores the result in `dest`. The type of `dest` is copied from `arg1`.
+
+*Format:* `ADD dest arg1 arg2`
+
+  - `dest`: Writable location for the result of the multiplication
+  - `arg1`: Readable location for the first input to the multiplication.
+  - `arg2`: Readable location for the second input to the multiplication.
+  
+#### `INVERT`
+
+Performs an inversion appropriate to the input's type. For floats, it return 1/`arg1`. For vectors, each element is multiplied by -1. For rotations, the sense of the rotation is reversed. Integer inversion is not supported. 
+
+*Format:* `INVERT dest arg1`
+
+  - `dest`: Writable location for the result of the inversion
+  - `arg1`: Readable location for the first input to the inversion.
 
 #### `INC` 
 
@@ -327,10 +346,20 @@ Reads the current position of the gantry and saves it into `pos`.
 
 Rotates the gantry head by `rot` degrees.
 
-*Format:* `ROTATE rot`
+*Format:* `ROTATE rot speed`
 
   - `rot`: The amount to rotate in degrees
+  - `speed`: **Optional** number to specify the speed of the motion in deg/s.  If omitted, use the (rather slow) default speed.
 
+#### `ROTATETO`
+
+Rotates the gantry head to position `pos`
+
+*Format:* `ROTATE pos speed`
+
+  - `pos`: The orientation to rotate the gantry head
+  - `speed`: **Optional** number to specify the speed of the motion in deg/s.  If omitted, use the (rather slow) default speed.
+  
 #### `GETROT`
 
 Reads the current rotation of the gantry head in degrees and saves it into `rot`.
