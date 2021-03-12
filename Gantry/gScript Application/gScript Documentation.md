@@ -330,9 +330,10 @@ Moves the gantry through the displacement specified by the vector `dis`
 
 Moves the gantry to the named position `pos_name`. It must be one of the named positions found in the `graph_motion.pos` namespace of `flex_config.txt`.
 
-*Format:* `MOVESAFE pos_name`
+*Format:* `MOVESAFE pos_name speed`
 
   - `pos_name`: A string literal for the name 
+  - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, fall back to `motion.travel_speed` from the flex_config. If that is not specified either, move at 50 mm/s.
 
 #### `GETPOS`
 
