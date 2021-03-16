@@ -345,7 +345,7 @@ Reads the current position of the gantry and saves it into `pos`.
 
 #### `ROTATE`
 
-Rotates the gantry head by `rot` degrees.
+Rotates the gantry head by `rot` degrees. This is a relative motion.
 
 *Format:* `ROTATE rot speed`
 
@@ -354,7 +354,7 @@ Rotates the gantry head by `rot` degrees.
 
 #### `ROTATETO`
 
-Rotates the gantry head to position `pos`
+Rotates the gantry head to position `pos`, where `pos` is an absolute coordinate.
 
 *Format:* `ROTATE pos speed`
 
