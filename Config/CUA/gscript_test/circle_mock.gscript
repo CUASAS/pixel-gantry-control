@@ -4,25 +4,30 @@
 #PRINT "GetPos %v" $position
 LOADCONFIG
 SETLOG pick_and_place.txt
+SETERRORMODE prompt
+CLEARLOG
 HOME
 COPY $speed 150
+COPY $rspeed 45
 COPY $img_idx 0
 
-COPY $start_tr  {344.224076,528.473174,67.998338}
-COPY $start_tl  {326.790436,528.584280,68.027211}
-COPY $start_bl {326.995097,571.774673,68.050822}
-COPY $start_br  {344.192747,571.689922,68.023199}
+COPY $start_tr {343.888406,528.944033,68.054130}
+COPY $start_br {344.109963,572.141561,68.095730}
+COPY $start_bl {326.908876,572.230783,68.099728}
+COPY $start_tl {326.691572,529.031441,68.045330}
 
 FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
 
 PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
 
-COPY $end_tr {343.987944,528.580042,68.003568}
-COPY $end_tl {250.913168,529.169935,68.303301}
-COPY $end_bl {327.006152,571.804537,68.069388}
-COPY $end_br  {344.193072,571.778504,68.011344}
+COPY $end_tr {268.473325,527.599464,68.018539}
+COPY $end_tl {251.267011,527.694827,68.064908}
+COPY $end_bl {251.524641,570.901571,68.102974}
+COPY $end_br {268.729088,570.794648,68.064573}
 
 FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+
+PRINT "ENDPOS|ROT %v %v" $end_pos $end_rot
 
 FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
 FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
@@ -41,27 +46,31 @@ LOADTOOL picker_tool
 COPY $target_pos $meas_pos
 CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
-ROTATE $meas_rot
+ROTATE $meas_rot $rspeed
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 1
 WAIT 500
 SETVAC purdue_mechanics_right 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
-ROTATE $meas_rot -1
+PRINT "meas_rot = %v" $meas_rot
+MUL $meas_rot_ $meas_rot -1
+print "meas_rot_ = %v" $meas_rot_
+ROTATE $meas_rot_ $rspeed
 
 # Place Step
 COPY $target_pos $end_pos
 CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
-ROTATE $end_rot
+ROTATE $end_rot $rspeed
 MOVETO $pickup_pos 10
-SETVAC gantry_head_inner 0
-WAIT 500
+WAIT 1000
 SETVAC purdue_mechanics_left 1
+SETVAC gantry_head_inner 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
-ROTATE $end_rot -1
+MUL $end_rot_ $end_rot -1
+ROTATE $end_rot_ $rspeed
 
 UNLOADTOOL
 
@@ -94,6 +103,8 @@ END
         VIDEO
         WAIT 1000
         FINDFID $tl_meas FPIX_MOCK
+        MOVETO $tl_meas $speed
+        VIDEO
         PRINT "tl_meas %v" $tl_meas
         CALL @SAVE_SNAPSHOT 
 
@@ -103,6 +114,8 @@ END
         VIDEO
         WAIT 1000
         FINDFID $tr_meas FPIX_MOCK
+        MOVETO $tr_meas $speed
+        VIDEO
         PRINT "tr_meas %v" $tr_meas
         CALL @SAVE_SNAPSHOT
 
@@ -112,6 +125,8 @@ END
         VIDEO
         WAIT 1000
         FINDFID $br_meas FPIX_MOCK
+        MOVETO $br_meas $speed
+        VIDEO
         PRINT "br_meas %v" $br_meas
         CALL @SAVE_SNAPSHOT
 
@@ -121,6 +136,8 @@ END
         VIDEO
         WAIT 1000
         FINDFID $bl_meas FPIX_MOCK
+        MOVETO $bl_meas $speed
+        VIDEO
         PRINT "bl_meas %v" $bl_meas
         CALL @SAVE_SNAPSHOT
 
