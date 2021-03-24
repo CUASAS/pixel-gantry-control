@@ -28,10 +28,11 @@ TRANSFORML2G $fid_bl_global $fid_bl_local $refcenter $refrotation
 
 # With these calculations out of the way, we can proceed with the
 # measurements.
+HOME
 SETVAC module_chuck_0_slot_1 1
-@LOOP HOME
+ 
 #      LOADTOOL CAMERA
-      MPGON
+@LOOP  MPGON
 
       # Each measurement procedes in three steps
       #  1. Automatically move to a best guess position based on
