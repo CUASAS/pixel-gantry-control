@@ -7,6 +7,7 @@ camera.gantryhead.SerialNumberHigh: 0xA4C207BC
 camera.gantryhead.SerialNumberLow: 0x2D82C3C8
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
+camera.gantryhead.horizontalMirror: False
 light.gantryhead.control: npaq
 light.gantryhead.hardware_address: Y.0
 # light.gantryhead.control: minidaq
@@ -53,6 +54,8 @@ manifold.port.26: cDAQ1Mod1/port0/line26
 manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
+
+motion.travel_speed: 50  # mm/s
 
 tool_rack.0: picker_tool
 tool_rack.1: none
@@ -104,6 +107,7 @@ geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 #================================================
 
 vision.debug_enable: True
+vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrinkFactor: 4
