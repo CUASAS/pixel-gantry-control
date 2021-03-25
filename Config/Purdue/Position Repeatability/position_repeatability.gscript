@@ -1,0 +1,30 @@
+# Purdue's Position Repeatability script
+# March, 2021
+
+SETLOG repeat_test.txt
+CLEARLOG
+HOME
+
+# $target is where the fiducial is
+COPY $target {89.43,291.77,87.43}
+
+# $count is the number of iterations you want to perform
+COPY $count 1
+COPY $speed1 150 # mm/s
+COPY $speed2 10 # mm/s
+
+@LOOP MOVETO {100,100,0} $speed1
+      MOVETO {650,100,0} $speed1
+      MOVETO {650,650,0} $speed1
+      MOVETO {100,650,0} $speed1
+      MOVETO {100,100,0} $speed1
+      MOVETO $target $speed2
+
+      SNAPSHOT "gantryhead" "fiducial_pic_{$count}.png"
+      FINDFID $fidpos FPIX_HDI
+      PRINT "%d %v" $count $fidpos
+
+      DEC $count $count
+      GOTOIF @LOOP $count
+
+PRINT "Done."
