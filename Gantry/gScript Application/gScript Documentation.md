@@ -191,6 +191,60 @@ Performs an inversion appropriate to the input's type. For floats, it return 1/`
   - `dest`: Writable location for the result of the inversion
   - `arg1`: Readable location for the first input to the inversion.
 
+#### `COMPOSE`
+
+Composes two rotations together. Returns the rotation that is the result of rotation `a` followed by rotation `b`.
+
+*Format:* `COMPOSE out a b`
+
+  - `dest`: Writable location to store the result of the composition
+  - `a`: Readable location for the first rotation
+  - `b`: Readable location for the second rotation
+
+#### `QUAT2EULER`
+
+Converts a rotation from quaternion representation to euler angle representation. The semantics of the angles are described [here](https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Euler_angles_to_quaternion_conversion).
+
+*Format:* `QUAT2EULER yaw pitch roll quat`
+
+  - `yaw`: Writable location to store the yaw (psi) of the rotation
+  - `pitch`: Writable location to store the yaw (theta) of the rotation
+  - `roll`: Writable location to store the yaw (phi) of the rotation
+  - `quat`: Readable location for the input quaternion.
+
+#### `EULER2QUAT`
+
+Converts a rotation from euler angle representation to quaternion representation. The semantics of the angles are described [here](https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Euler_angles_to_quaternion_conversion).
+
+*Format:* `EULER2QUAT quat yaw pitch roll`
+
+  - `quat`: Writable location for the output quaternion.
+  - `yaw`: Readable location to access the yaw (psi) of the rotation
+  - `pitch`: Readable location to access the yaw (theta) of the rotation
+  - `roll`: Readable location to access the yaw (phi) of the rotation
+
+#### `TRANSFORMG2L`
+
+Applies a coordinate tranformation to convert a global (ie gantry) coordinate to a local coordinate. The transformation is described by the offset and rotation between the gantry's coordinate system and the local coordinate system.
+
+*Format:* `TRANSFORMG2L local global offset rotation`
+
+  - `local`: Writable location for the local coordinate
+  - `global`: Readable location for the global coordinate
+  - `offset`: Readable location for the coordinate transform offset
+  - `rotation`: Readable location for the coordinate transform rotation
+
+#### `TRANSFORML2G`
+
+Applies a coordinate tranformation to convert a local coordinate to a global (ie gantry) coordinate. The transformation is described by the offset and rotation between the gantry's coordinate system and the local coordinate system.
+
+*Format:* `TRANSFORMG2L local global offset rotation`
+
+  - `local`: Writable location for the local coordinate
+  - `global`: Readable location for the global coordinate
+  - `offset`: Readable location for the coordinate transform offset
+  - `rotation`: Readable location for the coordinate transform rotation
+  
 #### `INC` 
 
 Increments the first, the `x`, field in `arg1` by 1 and stores the result in `dest`.
@@ -377,6 +431,18 @@ Enables the [Joystick](https://www.aerotech.com/product-catalog/motion-controlle
 
   - `cam_name`: **Optional**. The camera identification for the popup feed. If omitted, `gantryhead` camera is used.
 
+#### `MPGON`
+
+*Format:* `MPGON`
+
+Starts the script in the motion composer to enable the [MPG](https://www.aerotech.com/wp-content/uploads/2020/11/MPG.pdf) hand controller. The script is supplied by Aerotech, but requires some customization for a particular setup to work properly. To use this command, a properly customized set of scripts must reside in `Config/*site*/MPG`.
+
+#### `MPGOFF`
+
+*Format:* `MPGOFF`
+
+Stops the MPG Script.
+
 ### Vision Commands
 
 #### `SNAPSHOT`
@@ -401,6 +467,18 @@ Attempts to find the position in z that is maximum focus.
   - `range`: Size of window to search for maximum focus centered around the current position.
   - `steps`: The number of samples to take within `range`.
 
+#### `SETLIGHT`
+
+Sets the intensity of the light associated with camera `cam`. The gantry setup must have hardware support for a controllable light. There are currently three supported modes of control. The mode is set in the `flex_config` with a key of `light.camname.control`. Some control modes also require a hardware address that is specified as `light.camname.hardware_address`. The control modes are as follows:
+
+  - `manual`: No automatic control is enabled. The `SETLIGHT` command does nothing.
+  - `minidaq`: Control is done through a module in the NI compactDAQ. In this case, the `hardware_address` should be a DAQmx channel specifier (eg. "cDAQ1Mod1/port0/line30")
+  - `npaq`: Control is done through one of the analog outputs on the NPAQ (or other gantry controller). Here, the `hardware_address` should be of the form "AXIS.CHANNEL" (eg. "Y.0" for axis Y channel 0).
+
+*Format:* `SETLIGHT intensity cam`
+
+  - `intensity`: Readable location for the light intensity. Range is [0-100].
+  - `cam`: name of camera
 
 #### `SURVEY`
 
@@ -417,7 +495,7 @@ Creates a composite image centered at `loc` with size `x-size` by `y-size`.
 
 *Format:* `FINDFID loc fidtype`
 
-  - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0}.
+  - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0} and an error will be thrown.
   - `fidtype`: Specify the type of fiducial you want to find. Needs to correspond to a section in the `vision.*` namespace in `flex_config.txt`.
 
 ### Vacuum Commands
@@ -444,13 +522,41 @@ Tooled Routines call functions that are defined by the "Tool" subclasses of the 
 
 #### `LOADTOOL`
 
-"Loads" the specified tool. This means different things for different tools. For example, `PICKER` loading means moving the gantry to the tool rack and picking up that tool, while for `SYRINGE` it currently just does internal bookkeeping.
+Loads the specified tool. If the tool is on the tool rack, it is loaded onto the gantry head's tool holder. For this to work properly, two things must be specified. 
+
+First, the position on the tool rack that the tool occupies must be specified in the `flex_config` under the `tool_rack` namespace. For example, if the "picker tool" is sittin in the left-most position (ie position 0) then the required line is `tool_rack.0: picker_tool`.
+
+Second, the tool rack position at which the tool resides must have two corresponding entries in the `graph_motion` section of the `flex_config`. Again, assuming the tool is in position 0, the required entries are `graph_motion.pos.tool_rack_pos_0_in` and `graph_motion.pos.tool_rack_pos_0_out`. The "in" position is 2mm above where the gantry must be to pick up a tool at that tool rack position. This can generally be found by just alligning the tool holder with the tool by eye, recording the position, and then subtracting 2mm from the z coordinate. The "out" position should have the same x and z as the "in", but with y set to be out in front of the tool rack.
+
+With these positions specified, the motion to load the tool is as follows: 
+
+  1. Move to the "out" position
+  2. Move to the "in" position
+  3. Move down 2mm
+  4. Turn on the vacuum to grab the tool (channel name `gantry_head_outer`)
+  5. Wait 1.5s
+  6. Move up 2mm
+  7. Move to "out" position
+
+Finally, because this command utilizes the graph motion feature to navigate to the "in" and "out" positions, the "out" must be connected to the rest of the graph, and the "in" and "out" positions must be connected together. A minimal setup could consist of:
+
+```
+graph_motion.pos.home: {0,0,0}
+graph_motion.pos.tool_rack_pos_0_in:  {651,16,37} # updated to site's values
+graph_motion.pos.tool_rack_pos_0_out: {651,158,37}    # updated to site's values
+
+graph_motion.edge.home.tool_rack_pos_0_out: True
+graph_motion.edge.tool_rack_pos_0_out.tool_rack_pos_0_in: True
+
+```
 
 *Format:* `LOADTOOL toolname`
 
-  - `toolname`: One of `SYRINGE`, or `PICKER`.
+  - `toolname`: The name of the tool. Must be one of those listed in the `tool_rack` namespace of the `flex_config`.
 
 #### `UNLOADTOOL`
+
+Unloads the current tool. Has the same configuration pre-requisites as `LOADTOOL`.
 
 *Format:* `UNLOADTOOL`
 
