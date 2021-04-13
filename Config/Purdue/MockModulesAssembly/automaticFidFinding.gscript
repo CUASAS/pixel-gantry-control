@@ -8,7 +8,7 @@ HOME
 # CLEARLOG
 COPY $speed 10 
 
-COPY $start_pos {559.363,218.562,87.957}
+COPY $start_pos {559.363,218.562,87.985}
 COPY $start_rot {0.001415,0.000010,-0.006911,-0.999975}
 
 #Read flex config
@@ -24,14 +24,15 @@ COPY $start_pos $tl_global
 
 #actual Code
 @FINDFIDFOCUS COPY $sum {0,0,0}
-              COPY $count 8       # number of iterations
-              COPY $found_count 0 # count of positions w/ found fids
+              COPY $count 9       # number of iterations
+              COPY $found_count 0.0 # count of positions w/ found fids
               MOVETO $start_pos
               MOVEREL {0,0,.025} # 25um down (extra 5um to make loop simple)
               SETERRORMODE setvar
 @LOOPSTART    GOTOIFN @LOOPEND $count # if count==0, exit loop
               DEC $count $count
               MOVEREL {0,0,-0.005} # 5um up
+              WAIT 500
               FINDFID $pos FPIX_Glass
               GOTOIF @LOOPSTART $ERR # if no fid found, go to start of loop, else continue
               ADD $sum $sum $pos
