@@ -88,6 +88,11 @@ geometry.ETL_AL_Mockup.fid_tl: {-21.9,-11.39,0}
 geometry.ETL_AL_Mockup.fid_bl: {-21.9,11.39,0}
 geometry.ETL_AL_Mockup.fid_br: {21.9,11.39,0}
 
+geometry.ETL_Sensor_PCB_Mockup.fid_tr: {18.88,-9.14,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-18.88,-9.14,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-18.88,9.14,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_br: {18.88,9.14,0}
+
 geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
 geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
@@ -151,7 +156,7 @@ graph_motion.pos.tool_rack_pos_2_out: {956.400,158,37.080}
 graph_motion.pos.front_load_position: {433,314,0}
 
 graph_motion.pos.etl_chuck_1:  {496,398,0}
-graph_motion.pos.etl_chuck_2: {752,397,0}
+graph_motion.pos.etl_chuck_2: {725,346,0}
 
 graph_motion.pos.home2: {0,10,10}
 
@@ -166,6 +171,7 @@ graph_motion.edge.tool_rack_pos_0_out.module_chuck_0: True
 
 graph_motion.edge.etl_chuck_1.home: True
 graph_motion.edge.etl_chuck_1.etl_chuck_2: True
+graph_motion.edge.etl_chuck_2.module_chuck_0: True
 
 graph_motion.edge.tool_rack_pos_2_out.etl_chuck_2: True
 graph_motion.edge.tool_rack_pos_2_out.etl_chuck_1: True
