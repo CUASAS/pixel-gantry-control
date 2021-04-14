@@ -113,6 +113,8 @@ geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 
 vision.debug_enable: True
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
+vision.autofocus.step_size: 0.01234 # mm
+vision.autofocus.delay: 1000 # ms
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrinkFactor: 4
