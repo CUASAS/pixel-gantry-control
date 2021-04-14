@@ -2,18 +2,23 @@
 # 1. Locate Glass Piece
 # 2. Record/Locate target position
 # 3. Pickup and place glass piece
-# 4. Record final position
+# 4. Check alignment of glass piece and HDI
 HOME
-SETLOG pick_and_place.txt
+
 # CLEARLOG
+#Useful Constants
 COPY $speed 50
 COPY $img_idx 0
+COPY $center2TL {-10.082,-20.813,0}
+COPY $G_bond2HDI_bond {1.240,0,0}
+COPY $TL2BL {0,41.626,0}
 
-COPY $start_pos {590.544664,337.891457,100.102483}
+COPY $start_pos {559.363,218.562,87.957}
 COPY $start_rot {0.001415,0.000010,-0.006911,-0.999975}
 
 COPY $end_pos {108.211873,547.545008,99.656033}
-COPY $end_rot {-0.000400,-0.000003,0.006354,0.999980}
+EULER2QUAT $end_rot 0.002694 0 0
+#COPY $end_rot {-0.000400,-0.000003,0.006354,0.999980}
 
 FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
 FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
@@ -60,21 +65,14 @@ ROTATE $neg_end_rot
 
 UNLOADTOOL
 
-COPY $pos $end_pos
-COPY $rot $end_rot
-CALL @SURVEY
+CHOICEPOPUP $choice "Did you place the HDI and weight" "Yes" "No, quit." 
+GOTOIFN @SKIP_ALIGNMENT $choice
 
-SUB $delta $end_pos $meas_pos
-PRINT "Misplacement Position: %v" $delta
-INVERT $neg_meas_rot $meas_rot
-COMPOSE $delta_theta $end_rot $neg_meas_rot
-PRINT "Misplacement Angle: %r" $delta_theta
+#if they said yes
+CALL @CHECK_ALIGNMENT
 
-MOVEREL {0,0,-60} $speed
-SETVAC module_chuck_0_slot_1 0
-
-CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
-GOTOIF @PROCESS_START $choice
+#if they said no
+@SKIP_ALIGNMENT COPY $dummy 1
 
 END
 
@@ -142,9 +140,28 @@ END
             COPY $pickup_pos_z0.z 0
             GOTO $RET
 
-# SAVE_SNAPSHOT
-# Arguments:
-#  $img_idx - numerical suffix of image filename, get's incremented each time
-@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
-               INC $img_idx $img_idx
-               GOTO $RET
+# CHECKALIGNMENT
+# Arguments
+#  $not sure yet - im not sure yet
+@CHECK_ALIGNMENT MOVETO $end_pos $speed
+            #Top Glass Fiducial
+            MOVEREL $center2TL 
+            VIDEO
+            GETPOS $top_glass
+
+            #Top HDI Fiducial
+            MOVEREL $G_bond2HDI_bond
+            VIDEO
+            GETPOS $top_HDI
+
+            #Bottom HDI Fiducial
+            MOVEREL $TL2BL 
+            VIDEO
+            GETPOS $bottom_HDI
+
+            #Bottom Glass Fiducial
+            MOVEREL $G_bond2HDI_bond
+            VIDEO
+            GETPOS $bottom_glass
+
+            GOTO $RET

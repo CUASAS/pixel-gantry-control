@@ -6,7 +6,7 @@ CLEARLOG
 HOME
 
 # $target is where the fiducial is
-COPY $target {580.413,342.463,100.0018}
+COPY $target {581.589699,359.393188,100.001800}
 
 # $count is the number of iterations you want to perform
 COPY $count 1

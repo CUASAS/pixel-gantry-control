@@ -1,0 +1,40 @@
+# Steps: 
+
+#HOME
+SETLOG pick_and_place.txt
+# CLEARLOG
+
+MOVETO {98,529,90} 50
+
+
+MOVETO {98.808,529.779,99.349} 5
+VIDEO
+GETPOS $tl_top
+
+MOVETO {98.751,548.441,99.349} 5
+VIDEO
+GETPOS $bl_topMiddle
+
+MOVETO {98.750,550.627,99.349} 5
+VIDEO
+GETPOS $tl_bottomMiddle
+
+MOVETO {98.698,570.296,99.349} 5
+VIDEO
+GETPOS $bl_bottom
+
+
+#PRINT "1. Top Left: %v" $tl_top
+#PRINT "2. Bottom Left: %v" $bl_topMiddle
+#PRINT "3. Top Left: %v" $tl_bottomMiddle
+#PRINT "4. Bottom Left: %v" $bl_bottom
+
+#Math 
+#ADD $topTwo $tl_top $bl_topMiddle
+#ADD $bottomTwo $tl_bottomMiddle $bl_bottom
+#ADD $allFour $topTwo $bottomTwo
+
+
+
+
+END
