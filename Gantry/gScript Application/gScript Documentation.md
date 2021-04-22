@@ -459,13 +459,13 @@ Displays a popup windows showing a video stream from a specified camera. If no c
 
 #### `AUTOFOCUS`
 
-Attempts to find the position in z that is maximum focus.
+Takes a series of images spaced roughly 20 um apart within `range`. For each image, the focus is calculated. The focus values are then fit using a gaussian. The center of the gaussian is used as the focal position. Finally, the gantry moves to the focal position. The default image spacing can be overridden by setting the flex_config entry `vision.autofocus.step_size` to a different value. By default, there is no delay between the end of motion and grabbing an image. For low-framerate (<10fps) cameras, this can result in getting an old image from before motion ended. To remedy this, one can add a delay by setting the `vision.autofocus.delay` entry in the flex_config.
 
-*Format:* `AUTOFOCUS res range steps`
+*Format:* `AUTOFOCUS res range mode`
 
   - `res`: Writable location to save the position of max focus in the specified range.
   - `range`: Size of window to search for maximum focus centered around the current position.
-  - `steps`: The number of samples to take within `range`.
+  - `mode`: **Optional** specify `autoclose` to close the monitor popup when finished. Otherwise window will remain open until close button is pressed.
 
 #### `SETLIGHT`
 
