@@ -181,10 +181,67 @@ Multiplies the two arguments piecewise and stores the result in `dest`. The type
   - `dest`: Writable location for the result of the multiplication
   - `arg1`: Readable location for the first input to the multiplication.
   - `arg2`: Readable location for the second input to the multiplication.
-  
+
+
+#### `SIN`
+
+Calculates the sine of the input argument. The input should be in degrees.
+
+*Format:* `SIN dest angle`
+
+  - `dest`: Writable location to store `sin(angle)`
+  - `angle`: Readable location for the angle
+
+#### `COS`
+
+Calculates the cosine of the input argument. The input should be in degrees.
+
+*Format:* `COS dest angle`
+
+  - `dest`: Writable location to store `cos(angle)`
+  - `angle`: Readable location for the angle
+
+#### `TAN`
+
+Calculates the tangent of the input argument. The input should be in degrees.
+
+*Format:* `TAN dest angle`
+
+  - `dest`: Writable location to store `tan(angle)`
+  - `angle`: Readable location for the angle
+
+#### `ATAN2`
+
+Calculates the arctangent based on the slope of a line segment with specified x and y components.
+
+*Format:* `ATAN2 dest x y`
+
+  - `dest`: Writable location to store the arctangent angle in degrees
+  - `x`: x component of the line segment
+  - `y`: y component of the line segment
+
+#### `ABS`
+
+Calculates the absolute of the input argument. For integers and floats, returns the absolute value. For vectors, returns the length. Rotations are not supported.
+
+*Format:* `ABS dest arg`
+
+  - `dest`: Writable location to store the result of the calculation
+  - `arg`: Readable location for the input
+
+#### `POW`
+
+Calculates the exponential `base^power`. Both base and power must be either floats or integers.
+
+*Format:* `ABS dest base power`
+
+  - `dest`: Writable location to store the result of the calculation
+  - `base`: Readable location for the base
+  - `power`: Readable location for the exponent
+
 #### `INVERT`
 
-Performs an inversion appropriate to the input's type. For floats, it return 1/`arg1`. For vectors, each element is multiplied by -1. For rotations, the sense of the rotation is reversed. Integer inversion is not supported. 
+Performs an inversion appropriate to the input's type. For floats and integers, it return 1/`arg1`. For vectors, each element is multiplied by -1. For rotations, the sense of the rotation is reversed.
 
 *Format:* `INVERT dest arg1`
 
