@@ -36,6 +36,7 @@ gScript has a simple type system, supporting four types in memory (both for vari
   - **float**: `10.0`, `3.14E-2`
   - **integer**: `0`, `12`, `-568`
   - **3D Vector**: `{12,13.7,-2}`, Don't put spaces between the values!
+  - **Composite 3D Vector**: `{$A,$B.x,-2}`, a vector created (at least partially) from other variables.
   - **3D Rotation**: `{0.1,0.9,.16,0}`, Again, no spaces
   - **string**: `a_string`, `"a string with spaces"`, Quote escaping is not currently supported
 
