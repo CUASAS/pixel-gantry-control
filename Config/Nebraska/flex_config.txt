@@ -19,8 +19,8 @@ vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
 vacuum.module_chuck_0_slot_1: 1
 vacuum.module_chuck_0_slot_2: 2
-vacuum.etl_chuck_1: 3
-vacuum.etl_chuck_2: 5
+vacuum.etl_chuck_1: 5
+vacuum.etl_chuck_2: 3
 vacuum.gelpak_release: 0
 
 manifold.reset_on_start: false
@@ -55,7 +55,7 @@ manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
 
-motion.travel_speed: 50  # mm/s
+motion.travel_speed: 100  # mm/s
 
 tool_rack.0: picker_tool
 tool_rack.1: none
@@ -105,15 +105,18 @@ geometry.GRABBER_TOOL.center_offset: {0,0,43.38}
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
+
+# geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-vision.debug_enable: True
+vision.debug_enable: False
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
-vision.autofocus.step_size: 0.01234 # mm
+#vision.autofocus.step_size: 0.01234 # mm
+vision.autofocus.step_size: 0.002 # mm
 vision.autofocus.delay: 1000 # ms
 
 vision.FPIX_HDI.method: find_patches
@@ -125,7 +128,7 @@ vision.FPIX_HDI.colorGroups: 2
 vision.FPIX_HDI.aspectRatioMin: 0.9
 vision.FPIX_HDI.aspectRatioMax: 1.1
 
-vision.FPIX_HDI.method: find_patches
+vision.FPIX_BBM.method: find_patches
 vision.FPIX_BBM.shrinkFactor: 8
 vision.FPIX_BBM.dilateSize: 3
 vision.FPIX_BBM.sizeMin: 0.01
@@ -133,6 +136,15 @@ vision.FPIX_BBM.sizeMax: 0.02
 vision.FPIX_BBM.colorGroups: 3
 vision.FPIX_BBM.aspectRatioMin: 0.9
 vision.FPIX_BBM.aspectRatioMax: 1.1
+
+vision.ETL_PCB_Mockup.method: find_patches
+vision.ETL_PCB_Mockup.shrinkFactor: 4
+vision.ETL_PCB_Mockup.dilateSize: 5
+vision.ETL_PCB_Mockup.sizeMin: 0.13
+vision.ETL_PCB_Mockup.sizeMax: 0.21
+vision.ETL_PCB_Mockup.colorGroups: 3
+vision.ETL_PCB_Mockup.aspectRatioMin: 0.9
+vision.ETL_PCB_Mockup.aspectRatioMax: 1.1
 
 #================================================
 #====== "Safe" (ie graph-based) motion data
@@ -157,8 +169,10 @@ graph_motion.pos.tool_rack_pos_2_out: {956.400,158,37.080}
 
 graph_motion.pos.front_load_position: {433,314,0}
 
-graph_motion.pos.etl_chuck_1:  {496,398,0}
-graph_motion.pos.etl_chuck_2: {725,346,0}
+graph_motion.pos.etl_chuck_1: {473,393,0}
+graph_motion.pos.etl_chuck_2: {627,393,0}
+graph_motion.pos.etl_chuck_3: {777,393,0}
+graph_motion.pos.etl_chuck_4: {720,138,0}
 
 graph_motion.pos.home2: {0,10,10}
 
@@ -171,8 +185,13 @@ graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_0_out: True
 graph_motion.edge.tool_rack_pos_0_out.module_chuck_0: True
 
+# Connections for ETL chucks
 graph_motion.edge.etl_chuck_1.home: True
 graph_motion.edge.etl_chuck_1.etl_chuck_2: True
+graph_motion.edge.etl_chuck_2.etl_chuck_3: True
+graph_motion.edge.etl_chuck_1.etl_chuck_4: True
+graph_motion.edge.etl_chuck_2.etl_chuck_4: True
+graph_motion.edge.etl_chuck_3.etl_chuck_4: True
 graph_motion.edge.etl_chuck_2.module_chuck_0: True
 
 graph_motion.edge.tool_rack_pos_2_out.etl_chuck_2: True
