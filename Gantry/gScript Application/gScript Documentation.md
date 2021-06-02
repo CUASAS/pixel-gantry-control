@@ -501,6 +501,12 @@ Starts the script in the motion composer to enable the [MPG](https://www.aerotec
 
 Stops the MPG Script.
 
+#### `ACKFAULT`
+
+*Format:* `ACKFAULT`
+
+Clears all axis faults and (re-)enables all exes.
+
 ### Vision Commands
 
 #### `SNAPSHOT`

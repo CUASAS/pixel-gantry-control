@@ -21,6 +21,10 @@ vacuum.module_chuck_0_slot_1: 1
 vacuum.module_chuck_0_slot_2: 2
 vacuum.etl_chuck_1: 5
 vacuum.etl_chuck_2: 3
+vacuum.etl_chuck_4_pos_1: 9
+vacuum.etl_chuck_4_pos_2: 6
+vacuum.etl_chuck_4_pos_3: 7
+vacuum.etl_chuck_4_pos_4: 4
 vacuum.gelpak_release: 0
 
 manifold.reset_on_start: false
@@ -164,8 +168,8 @@ graph_motion.pos.module_chuck_0: {269,401,0}
 graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,38.0}
 graph_motion.pos.tool_rack_pos_0_out: {651.182,158,38.0}
 
-graph_motion.pos.tool_rack_pos_2_in:  {956.400,16.280,37.080}
-graph_motion.pos.tool_rack_pos_2_out: {956.400,158,37.080}
+graph_motion.pos.tool_rack_pos_2_in:  {955.975,16.800,35.024}
+graph_motion.pos.tool_rack_pos_2_out: {955.975,158,35.024}
 
 graph_motion.pos.front_load_position: {433,314,0}
 
