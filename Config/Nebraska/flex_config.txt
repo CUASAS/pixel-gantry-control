@@ -66,6 +66,7 @@ tool_rack.0: picker_tool
 tool_rack.1: etl_grabber_tool
 tool_rack.2: etl_picker_tool
 
+tool_exchange_vacuum_delay: 2500  # ms
 
 #================================================
 #====== Geometry Definitions

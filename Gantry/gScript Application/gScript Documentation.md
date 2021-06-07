@@ -548,11 +548,12 @@ Sets the intensity of the light associated with camera `cam`. The gantry setup m
 
 Creates a composite image centered at `loc` with size `x-size` by `y-size`. 
 
-*Format:* `SURVEY loc x-size y-size filename`
+*Format:* `SURVEY loc x-size y-size quality filename`
 
   - `loc`: Center of image
   - `x-size`: Width of composite image in mm
   - `y-size`: Height of composite image in mm
+  - `quality`: Amount to downsample the image. Sometimes necessary when imaging a large area. Options are: `perfect` (no downsampling), `high` (4x downsampling), `medium` (8x), and `low`(16x).
   - `filename`: **Optional**. If supplied, save the image to this file rather than displaying it as a pop up.
 
 #### `FINDFID`
@@ -598,7 +599,7 @@ With these positions specified, the motion to load the tool is as follows:
   2. Move to the "in" position
   3. Move down 2mm
   4. Turn on the vacuum to grab the tool (channel name `gantry_head_outer`)
-  5. Wait 1.5s
+  5. Wait 1500ms, or if specified in flex_config, `tool_exchange_vacuum_delay` ms.
   6. Move up 2mm
   7. Move to "out" position
 
