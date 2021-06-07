@@ -1,0 +1,206 @@
+VERSION v1.2
+LOADCONFIG
+#LOADCONFIG "" full file name config_box.txt
+#set vaccuums
+SETVAC etl_chuck_4_pos_1 1 #for bottom piece
+SETVAC etl_chuck_4_pos_2 1 #for the top piece
+SETVAC etl_chuck_1 0       #for the glue resevoir
+SETVAC etl_chuck_2 0
+
+COPY $stamp_number 1 #change this according to what stamp you will be using
+
+#------------------------GRAB TARGET LOCATIONS------------------------------------------------#
+
+#Uses @CALCPICKUP
+COPY $bottom_center {647.880,110.210,74.650}	  #adjust z height to account for thickness of piece on top below under Pick and Place section
+COPY $bottom_rotation  {0,0,-0.004,1}                          
+COPY $bottom_thickness {0,0,-0.04}
+
+#Extra glueing spot modifications (right next to eachother breaks it!) 
+COPY $bottom_center_3 {751.745,111.2605,74.650}
+COPY $bottom_center_4 {804.23,111.580,74.650}
+SETVAC etl_chuck_4_pos_3 1 #turn on all vacs for top pieces
+SETVAC etl_chuck_4_pos_4 1
+COPY $bottom_center $bottom_center
+#done with 5/28 modifications
+
+COPY $top_center {699.113,110.388,74.5}        #piece that will be getting picked up (going to have to add more)
+COPY $top_rotation {0.0003,0.0002,0.0035,1}     
+
+#glue resevoir stuff; Uses @CALC_XYZ
+COPY $glue_resevoir {451.942,318.604,0}             #multiple of these                          
+COPY $glue_resevoir_down  {451.942,318.604,65.6559} #glue go down 1mm release   
+
+#stamping it; Uses @CALC_XYZ
+COPY $stamp_down {647.880,110.210,63.440}   #general for any stamp                                             
+COPY $stamp_up {647.880,110.210,0}                                                                 
+
+#picker heights (grabber height used)
+COPY $grabber_height {0,0,43.3}
+COPY $stamp_height_with_grabber {0,0,55.9} 
+
+#---------------------------PICK UP PICKER TOOL------------------------------------------------#
+
+loadtool etl_grabber_tool
+
+#----------------------------PICK UP GLUE TOOL------------------------------------------------#
+
+MOVENAME etl_chuck_2
+flexread $stamp_point_1 "geometry.stamp_{$stamp_number}.point_1"
+flexread $stamp_point_2 "geometry.stamp_{$stamp_number}.point_2"
+flexread $stamp_point_3 "geometry.stamp_{$stamp_number}.point_3"
+flexread $stamp_point_4 "geometry.stamp_{$stamp_number}.point_4"
+
+COPY $camera_pos $stamp_point_1
+CALL @CALC_GRABBER
+
+MOVETO $grabber_pos_z0 #this is directly overhead, camera offset applied by calc function above
+MOVETO $stamp_point_2
+MOVETO $stamp_point_3
+MOVETO $stamp_point_4
+MOVETO $grabber_pos_z0 
+
+#--------------------------GO TO GLUE RESEVOIR: GET GLUE --------------------------------------------#
+
+MOVENAME etl_chuck_1
+COPY $camera_pos $glue_resevoir 
+COPY $get_down_z $glue_resevoir_down
+CALL @CALC_XYZ
+MOVETO $XYZ_pos_z0 #this puts stamp right over resevoir
+MOVETO $down_z     #goes down to stamp
+WAIT 1000
+MOVETO $XYZ_pos_z0 #moves back
+
+#---------------------------------STAMP IT------------------------------------------------#
+MOVENAME etl_chuck_4
+
+flexread $stamp_center_offset "geometry.stamp_{$stamp_number}.center_offset" #gets rotation of the stamp
+ADD $bottom_center $bottom_center $stamp_center_offset
+
+COPY $camera_pos $bottom_center
+COPY $get_down_z $stamp_down
+CALL @CALC_XYZ
+MOVETO $XYZ_pos_z0 #puts stamp right over bottom piece
+
+flexread $stamp_rotation "geometry.stamp_{$stamp_number}.rotation" #gets rotation of the stamp (0 or -90)
+ROTATETO $stamp_rotation
+flexread $stamp_rotation_offset "geometry.stamp_{$stamp_number}.rotation_offset" #gets rotation of the stamp, make sure its in the same orientation with piece getting stamped
+ROTATE $stamp_rotation_offset #"rotate" so it is NOT absolute motion
+
+MOVETO $down_z     #goes down to stamp
+WAIT 1000
+MOVETO $XYZ_pos_z0
+ROTATETO 0 30
+
+#---------------------------------PUT GLUE TOOL BACK------------------------------------------------#
+MOVENAME etl_chuck_2
+
+#flexread got points from above just need offset now
+COPY $offset_catch geometry.stamp_{$stamp_number}.offset_catch
+
+ADD $glue_tool_center_p1_offset $offset_catch $stamp_point_1
+ADD $stamp_point_4 $stamp_point_4 $offset_catch
+
+COPY $camera_pos $glue_tool_center_p1_offset
+CALL @CALC_GRABBER
+MOVETO $grabber_pos_z0 #position directly overhead glue tool center + offset
+MOVETO $stamp_point_4
+MOVETO $stamp_point_3
+MOVETO $stamp_point_2
+MOVETO $grabber_pos_z0
+
+#---------------------------------PUT GRABBER TOOL BACK------------------------------------------------#
+
+unloadtool
+
+#---------------------------------PICK AND PLACE OF TOP PIECE TO BOTTOM PIECE-----------------------------------#
+
+
+COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+ADD $picker_height_cup_5 $picker_height_cup_5 {0,0,0}                        #FOR CALIBRATION BETWEEN PICKERTOOLS
+COPY $picker_height $picker_height_cup_5 #UPDATE WHEN CHANGING SUCTION CUPS
+
+loadtool etl_picker_tool
+
+#Step: pickup part
+MOVENAME etl_chuck_4            
+COPY $camera_pos $top_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50 
+
+MOVETO $pickup_pos 50     #goes down 
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC etl_chuck_4_pos_2 0           
+WAIT 500
+MOVETO $pickup_pos_z0 50
+
+
+#Step: place part, already at chuck 4 
+COPY $camera_pos $bottom_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50    
+
+ADD $pickup_pos $pickup_pos $bottom_thickness  #Account for thickness of bottom
+MOVETO $pickup_pos 50        
+WAIT 500
+SETVAC gantry_head_inner 0
+WAIT 500
+MOVETO $pickup_pos_z0 50   
+
+unloadtool
+
+
+#---------------------------------PUT WEIGHT ON-----------------------------------#
+
+loadtool etl_grabber_tool
+
+COPY $weight_point_1 {0,0,0} #just over it z is zero
+COPY $weight_point_2 {0,0,0}
+COPY $weight_point_3 {0,0,0}
+COPY $weight_point_4 {0,0,0}
+
+#pickup weight
+MOVENAME etl_chuck_2
+
+COPY $camera_pos $weight_point_1
+CALL @CALC_GRABBER
+
+MOVETO $grabber_pos_z0 #this is directly overhead, camera offset applied by calc function above
+MOVETO $weight_point_2
+MOVETO $weight_point_3
+MOVETO $weight_point_4
+MOVETO $grabber_pos_z0
+
+unloadtool
+
+END
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+#  $picker_height - height of picker tool
+@CALCPICKUP       #for gantry picker tool
+            FLEXREAD $ghco geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $camera_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+#could turn this into calcpick up by: COPY $picker_height $grabber_height
+@CALC_GRABBER      #in order to have what calc pick up does, pickup_pos, you need the picker heights for tool in config
+            FLEXREAD $ghco geometry.tool_holder_offset     #gets gantry head camera offset (gcho)
+            ADD $netoffset $grabber_height $ghco           #adds the height of the picker tool to this offset
+            SUB $grabber_pos $camera_pos $netoffset        #brings gantry head to camera position (grabber pos)
+            COPY $grabber_pos_z0 $grabber_pos
+            COPY $grabber_pos_z0.z 0
+            GOTO $RET
+
+@CALC_XYZ          #for calculating stamp down position offset between gantry cam and actual gantry center
+        FLEXREAD $ghco geometry.tool_holder_offset
+        SUB $XYZ_pos $camera_pos $ghco
+        COPY $XYZ_pos_z0 $XYZ_pos
+        COPY $XYZ_pos_z0.z 0
+        COPY $down_z $XYZ_pos
+        COPY $down_z.z $get_down_z.z
+        GOTO $RET
