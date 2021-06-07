@@ -67,6 +67,9 @@ tool_rack.2: etl_picker_tool
 
 tool_exchange_vacuum_delay: 2500  # ms
 
+survey_image_delay: 0  # ms
+survey_movement_speed: 20  # mm/s
+
 #================================================
 #====== Geometry Definitions
 #================================================
