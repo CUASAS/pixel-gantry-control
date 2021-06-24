@@ -19,6 +19,12 @@ vacuum.gantry_head_outer: 0
 vacuum.gantry_head_inner: 2
 vacuum.module_chuck_0_slot_1: 24
 vacuum.module_chuck_0_slot_2: 18
+vacuum.rd53a_chuck_1_TL: 19
+vacuum.rd53a_chuck_1_TR: 20
+vacuum.rd53a_chuck_1_BL: 21
+vacuum.rd53a_chuck_1_BR: 25
+vacuum.rd53a_chuck_2: 26
+vacuum.rd53a_chuck_3: 27
 vacuum.gelpak_release: 0
 
 manifold.reset_on_start: false
@@ -117,6 +123,12 @@ vision.FPIX_Glass.minRadius: 0.08
 vision.FPIX_Glass.maxRadius: 0.14
 vision.FPIX_Glass.houghGradientParam1: 100
 vision.FPIX_Glass.houghGradientParam2: 50
+
+vision.FPIX_RD53A_HDI.method: find_circles
+vision.FPIX_RD53A_HDI.minRadius: 0.470
+vision.FPIX_RD53A_HDI.maxRadius: 0.530
+vision.FPIX_RD53A_HDI.houghGradientParam1: 100
+vision.FPIX_RD53A_HDI.houghGradientParam2: 50
 
 #================================================
 #====== "Safe" (ie graph-based) motion data
