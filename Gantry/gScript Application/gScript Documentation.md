@@ -36,6 +36,7 @@ gScript has a simple type system, supporting four types in memory (both for vari
   - **float**: `10.0`, `3.14E-2`
   - **integer**: `0`, `12`, `-568`
   - **3D Vector**: `{12,13.7,-2}`, Don't put spaces between the values!
+  - **Composite 3D Vector**: `{$A,$B.x,-2}`, a vector created (at least partially) from other variables.
   - **3D Rotation**: `{0.1,0.9,.16,0}`, Again, no spaces
   - **string**: `a_string`, `"a string with spaces"`, Quote escaping is not currently supported
 
@@ -181,10 +182,67 @@ Multiplies the two arguments piecewise and stores the result in `dest`. The type
   - `dest`: Writable location for the result of the multiplication
   - `arg1`: Readable location for the first input to the multiplication.
   - `arg2`: Readable location for the second input to the multiplication.
-  
+
+
+#### `SIN`
+
+Calculates the sine of the input argument. The input should be in degrees.
+
+*Format:* `SIN dest angle`
+
+  - `dest`: Writable location to store `sin(angle)`
+  - `angle`: Readable location for the angle
+
+#### `COS`
+
+Calculates the cosine of the input argument. The input should be in degrees.
+
+*Format:* `COS dest angle`
+
+  - `dest`: Writable location to store `cos(angle)`
+  - `angle`: Readable location for the angle
+
+#### `TAN`
+
+Calculates the tangent of the input argument. The input should be in degrees.
+
+*Format:* `TAN dest angle`
+
+  - `dest`: Writable location to store `tan(angle)`
+  - `angle`: Readable location for the angle
+
+#### `ATAN2`
+
+Calculates the arctangent based on the slope of a line segment with specified x and y components.
+
+*Format:* `ATAN2 dest x y`
+
+  - `dest`: Writable location to store the arctangent angle in degrees
+  - `x`: x component of the line segment
+  - `y`: y component of the line segment
+
+#### `ABS`
+
+Calculates the absolute of the input argument. For integers and floats, returns the absolute value. For vectors, returns the length. Rotations are not supported.
+
+*Format:* `ABS dest arg`
+
+  - `dest`: Writable location to store the result of the calculation
+  - `arg`: Readable location for the input
+
+#### `POW`
+
+Calculates the exponential `base^power`. Both base and power must be either floats or integers.
+
+*Format:* `ABS dest base power`
+
+  - `dest`: Writable location to store the result of the calculation
+  - `base`: Readable location for the base
+  - `power`: Readable location for the exponent
+
 #### `INVERT`
 
-Performs an inversion appropriate to the input's type. For floats, it return 1/`arg1`. For vectors, each element is multiplied by -1. For rotations, the sense of the rotation is reversed. Integer inversion is not supported. 
+Performs an inversion appropriate to the input's type. For floats and integers, it return 1/`arg1`. For vectors, each element is multiplied by -1. For rotations, the sense of the rotation is reversed.
 
 *Format:* `INVERT dest arg1`
 
@@ -384,10 +442,20 @@ Moves the gantry through the displacement specified by the vector `dis`
 
 Moves the gantry to the named position `pos_name`. It must be one of the named positions found in the `graph_motion.pos` namespace of `flex_config.txt`.
 
-*Format:* `MOVESAFE pos_name speed`
+*Format:* `MOVENAME pos_name speed`
 
   - `pos_name`: A string literal for the name 
   - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, fall back to `motion.travel_speed` from the flex_config. If that is not specified either, move at 50 mm/s.
+
+#### `MOVESAFE`
+
+Moves to coordinate `pos` in two separate vertical and horizontal motions. By default, the vertical motion is performed first if `pos` is higher (ie smaller z) than the current position. If `pos` is lower (larger z), then the horizontal motion is performed first. This behavior can be overridden by supplying the optional `order` argument which can be one of `vertical_first`, `horizontal_first`, or `auto` (for the default behavior). 
+
+*Format:* `MOVESAFE pos speed order`
+
+  - `pos`: 3D vector specifying the absolute position to move to
+  - `speed`: **Optional** Number to specify the speed of the motion in mm/s.  If omitted, use the (rather slow) default speed.
+  - `order`: **Optional** Override the default behavior to force either the horizontal or vertical motion to occur first.
 
 #### `GETPOS`
 
@@ -443,6 +511,12 @@ Starts the script in the motion composer to enable the [MPG](https://www.aerotec
 
 Stops the MPG Script.
 
+#### `ACKFAULT`
+
+*Format:* `ACKFAULT`
+
+Clears all axis faults and (re-)enables all exes.
+
 ### Vision Commands
 
 #### `SNAPSHOT`
@@ -484,11 +558,12 @@ Sets the intensity of the light associated with camera `cam`. The gantry setup m
 
 Creates a composite image centered at `loc` with size `x-size` by `y-size`. 
 
-*Format:* `SURVEY loc x-size y-size filename`
+*Format:* `SURVEY loc x-size y-size quality filename`
 
   - `loc`: Center of image
   - `x-size`: Width of composite image in mm
   - `y-size`: Height of composite image in mm
+  - `quality`: Amount to downsample the image. Sometimes necessary when imaging a large area. Options are: `perfect` (no downsampling), `high` (4x downsampling), `medium` (8x), and `low`(16x).
   - `filename`: **Optional**. If supplied, save the image to this file rather than displaying it as a pop up.
 
 #### `FINDFID`
@@ -534,7 +609,7 @@ With these positions specified, the motion to load the tool is as follows:
   2. Move to the "in" position
   3. Move down 2mm
   4. Turn on the vacuum to grab the tool (channel name `gantry_head_outer`)
-  5. Wait 1.5s
+  5. Wait 1500ms, or if specified in flex_config, `tool_exchange_vacuum_delay` ms.
   6. Move up 2mm
   7. Move to "out" position
 

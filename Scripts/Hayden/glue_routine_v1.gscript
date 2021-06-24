@@ -1,0 +1,190 @@
+VERSION v1.2
+LOADCONFIG
+
+#set vaccuums
+SETVAC etl_chuck_4_pos_1 1 #for aluminum piece
+SETVAC etl_chuck_4_pos_2 1 #for the glass
+SETVAC etl_chuck_1 0       #for the glue resevoir
+SETVAC etl_chuck_2 0
+
+
+#------------------------GRAB TARGET LOCATIONS------------------------------------------------#
+#ALL VARIABLES with @CALC need camera offset and picker offset to put it there
+
+#Uses @CALCPICKUP
+COPY $aluminum_center {647.880,110.210,74.650}	  #piece that will be getting stamped double z hieight  @CALC 
+COPY $aluminum_rotation  {0,0,-0.004,1}          #prob wont use for now                                @CALC 
+
+#for 5/28 glueing 
+COPY $aluminum_center_3 {751.745,111.2605,74.650}
+COPY $aluminum_center_4 {804.23,111.580,74.650}
+SETVAC etl_chuck_4_pos_3 1 #for aluminum piece
+SETVAC etl_chuck_4_pos_4 1
+COPY $aluminum_center $aluminum_center_3 #and then change vaccuums actually just turn all on
+#done with 5/28 modifications
+
+COPY $glass_center {699.113,110.388,74.5}        #piece that will be getting put on the stamped piece  @CALC 
+COPY $glass_rotation {0.0003,0.0002,0.0035,1}    #@CALC 
+
+#hard coded global variables for picking up glue tool 
+#  p1 -> p2 -> p3 -> p4 clockwise on rectangle 
+#Uses @CALC_GRABBER
+COPY $glue_tool_center_p1 {671.300,323.471,0}  #                                                       @CALC 
+#here is what it is from calc grabber func {671.621,424.903,0} but just use calc function every run
+COPY $point_2  {714.178,424.903,0}         #gets it far enough away to go down (x direction for now)
+COPY $point_3 {714.178,424.903,67.46788}   #z height offset
+COPY $point_4 {671.318,424.903,67.46788}
+COPY $offset_catch {-2,2,0}                #glue_tool_center but for that 1mm offset so it doesnt catch
+
+#glue resevoir stuff, z is correct but x,y need offset (z is hardcoded with picker tools attatched)
+#Uses @CALC_XYZ
+COPY $glue_resevoir {451.942,318.604,0}             #place where you get glue                          @CALC
+COPY $glue_resevoir_down  {451.942,318.604,65.6559} #glue go down 1mm release, plug in center later    @CALC
+
+#stamping it, z is correct but x,y need offset (z is hardcoded with picker tools attatched)
+#Center is Al piece which also uses calc function
+#Uses @CALC_XY
+COPY $stamp_down {647.880,110.210,63.440} #1mm clearance                                               @CALC
+COPY $stamp_up {647.880,110.210,0} #                                                                   @CALC
+
+#picker_height_glue_tool will be here later, hard code for now with point system
+
+#picker heights
+COPY $grabber_height {0,0,43.3}
+COPY $stamp_height_with_grabber {0,0,55.9} #later you could find each height and then find overlaps
+
+#---------------------------PICK UP PICKER TOOL------------------------------------------------#
+
+loadtool etl_grabber_tool #comment this out to see it working!
+
+#----------------------------PICK UP GLUE TOOL------------------------------------------------#
+
+MOVENAME etl_chuck_2     #goes to glue tool location
+COPY $camera_pos $glue_tool_center_p1
+CALL @CALC_GRABBER    
+MOVETO $grabber_pos_z0
+MOVETO $point_2
+MOVETO $point_3
+MOVETO $point_4
+MOVETO $grabber_pos_z0 
+
+#--------------------------GO TO GLUE RESEVOIR: GET GLUE --------------------------------------------#
+
+MOVENAME etl_chuck_1
+COPY $camera_pos $glue_resevoir
+COPY $get_down_z $glue_resevoir_down
+CALL @CALC_XYZ
+MOVETO $XYZ_pos_z0
+MOVETO $down_z      #accounted for height of stamp
+WAIT 1000
+MOVETO $XYZ_pos_z0
+
+#---------------------------------STAMP IT------------------------------------------------#
+MOVENAME etl_chuck_4
+COPY $camera_pos $aluminum_center
+COPY $get_down_z $stamp_down
+CALL @CALC_XYZ
+MOVETO $XYZ_pos_z0
+ROTATETO -90 30
+#ROTATETO $aluminum_rotation #probably not
+MOVETO $down_z
+WAIT 1000
+MOVETO $XYZ_pos_z0
+ROTATETO 0 30
+
+#---------------------------------PUT GLUE TOOL BACK------------------------------------------------#
+
+MOVENAME etl_chuck_2 #go to glue tool location
+ADD $glue_tool_center_p1_offset $offset_catch $glue_tool_center_p1  #make sure its add and not subtract!!
+ADD $point_4 $offset_catch $point_4
+COPY $camera_pos $glue_tool_center_p1_offset
+CALL @CALC_GRABBER 
+MOVETO $grabber_pos_z0 #plus offset for catching
+#rotation potentially but later
+MOVETO $point_4
+MOVETO $point_3
+MOVETO $point_2
+#ADD $grabber_pos_z0 $grabber_pos_z0 $offset_catch #add wrong here prob should be subtract
+MOVETO $grabber_pos_z0
+
+#---------------------------------PUT GRABBER TOOL BACK------------------------------------------------#
+
+unloadtool
+
+#---------------------------------PICK AND PLACE OF GLASS PIECE TO ALUMINUM-----------------------------------#
+
+
+COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+
+ADD $picker_height_cup_5 $picker_height_cup_5 {0,0,0}          #FOR CALIBRATION BETWEEN PICKERTOOLS
+
+COPY $picker_height $picker_height_cup_5 #UPDATE WHEN CHANGING SUCTION CUPS
+
+#start by loading the picker tool to then pick up part
+loadtool etl_picker_tool
+
+#Step: pickup part
+MOVENAME etl_chuck_4    #move to glass piece which is chuck 4                
+COPY $camera_pos $glass_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50 
+
+#ROTATETO $glass_rotation 30
+MOVETO $pickup_pos 50      
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC etl_chuck_4_pos_2 0           
+WAIT 500
+MOVETO $pickup_pos_z0 50
+
+
+#Step: place part
+#MOVENAME etl_chuck_1       #already at chuck 4    
+COPY $camera_pos $aluminum_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50    
+
+#ROTATETO $aluminum_rotation 30
+ADD $pickup_pos $pickup_pos {0,0,-0.02}  # Account for thickness of aluminum
+MOVETO $pickup_pos 50        
+#SETVAC etl_chuck_4 1      #chuck 4 but aluminum part should be on probably already on
+WAIT 500
+SETVAC gantry_head_inner 0
+WAIT 500
+MOVETO $pickup_pos_z0 50   
+
+
+unloadtool
+
+END
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+#  $picker_height - height of picker tool
+@CALCPICKUP 
+            FLEXREAD $ghco geometry.tool_holder_offset
+            #COPY $correction {-1.23,0.907,0}   
+            #ADD $ghco $ghco $correction
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $camera_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+@CALC_GRABBER 
+            FLEXREAD $ghco geometry.tool_holder_offset
+            ADD $netoffset $grabber_height $ghco
+            SUB $grabber_pos $camera_pos $netoffset
+            COPY $grabber_pos_z0 $grabber_pos
+            COPY $grabber_pos_z0.z 0
+            GOTO $RET
+
+@CALC_XYZ
+        FLEXREAD $ghco geometry.tool_holder_offset
+        SUB $XYZ_pos $camera_pos $ghco
+        COPY $XYZ_pos_z0 $XYZ_pos
+        COPY $XYZ_pos_z0.z 0
+        COPY $down_z $XYZ_pos
+        COPY $down_z.z $get_down_z.z
+        GOTO $RET

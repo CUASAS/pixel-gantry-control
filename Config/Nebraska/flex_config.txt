@@ -19,8 +19,13 @@ vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
 vacuum.module_chuck_0_slot_1: 1
 vacuum.module_chuck_0_slot_2: 2
-vacuum.etl_chuck_1: 3
-vacuum.etl_chuck_2: 5
+vacuum.etl_chuck_1: 5
+vacuum.etl_chuck_2: 3
+vacuum.etl_chuck_3: 8
+vacuum.etl_chuck_4_pos_1: 9
+vacuum.etl_chuck_4_pos_2: 6
+vacuum.etl_chuck_4_pos_3: 7
+vacuum.etl_chuck_4_pos_4: 4
 vacuum.gelpak_release: 0
 
 manifold.reset_on_start: false
@@ -55,12 +60,16 @@ manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
 
-motion.travel_speed: 50  # mm/s
+motion.travel_speed: 100  # mm/s
 
 tool_rack.0: picker_tool
-tool_rack.1: none
+tool_rack.1: etl_grabber_tool
 tool_rack.2: etl_picker_tool
 
+tool_exchange_vacuum_delay: 2500  # ms
+
+survey_image_delay: 0  # ms
+survey_movement_speed: 20  # mm/s
 
 #================================================
 #====== Geometry Definitions
@@ -99,22 +108,25 @@ geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
 
 geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
-
 geometry.GRABBER_TOOL.center_offset: {0,0,43.38}
+
 
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
-geometry.tool_holder_offset: {0.909,-102.339,-43.72}
+
+# geometry.tool_holder_offset: {0.909,-102.339,-43.72}
+geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-vision.debug_enable: True
+vision.debug_enable: False
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
-vision.autofocus.step_size: 0.01234 # mm
-vision.autofocus.delay: 1000 # ms
+#vision.autofocus.step_size: 0.01234 # mm
+vision.autofocus.step_size: 0.005 #0.002 # mm
+vision.autofocus.delay: 500 #1000 # ms
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrinkFactor: 4
@@ -125,7 +137,7 @@ vision.FPIX_HDI.colorGroups: 2
 vision.FPIX_HDI.aspectRatioMin: 0.9
 vision.FPIX_HDI.aspectRatioMax: 1.1
 
-vision.FPIX_HDI.method: find_patches
+vision.FPIX_BBM.method: find_patches
 vision.FPIX_BBM.shrinkFactor: 8
 vision.FPIX_BBM.dilateSize: 3
 vision.FPIX_BBM.sizeMin: 0.01
@@ -133,6 +145,15 @@ vision.FPIX_BBM.sizeMax: 0.02
 vision.FPIX_BBM.colorGroups: 3
 vision.FPIX_BBM.aspectRatioMin: 0.9
 vision.FPIX_BBM.aspectRatioMax: 1.1
+
+vision.ETL_PCB_Mockup.method: find_patches
+vision.ETL_PCB_Mockup.shrinkFactor: 4
+vision.ETL_PCB_Mockup.dilateSize: 5
+vision.ETL_PCB_Mockup.sizeMin: 0.13
+vision.ETL_PCB_Mockup.sizeMax: 0.21
+vision.ETL_PCB_Mockup.colorGroups: 3
+vision.ETL_PCB_Mockup.aspectRatioMin: 0.9
+vision.ETL_PCB_Mockup.aspectRatioMax: 1.1
 
 #================================================
 #====== "Safe" (ie graph-based) motion data
@@ -144,7 +165,7 @@ vision.FPIX_BBM.aspectRatioMax: 1.1
 
 #graph_motion.pos.LABEL: {x,y,z}
 graph_motion.pos.home: {0,0,0}
-graph_motion.pos.module_chuck_0: {269,401,0}
+graph_motion.pos.module_chuck_0:  {272,494,0}
 
 # must be 2mm above tool in z
 #graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,37.541}
@@ -152,31 +173,51 @@ graph_motion.pos.module_chuck_0: {269,401,0}
 graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,38.0}
 graph_motion.pos.tool_rack_pos_0_out: {651.182,158,38.0}
 
-graph_motion.pos.tool_rack_pos_2_in:  {956.400,16.280,37.080}
-graph_motion.pos.tool_rack_pos_2_out: {956.400,158,37.080}
+graph_motion.pos.tool_rack_pos_1_in:  {803.572,16.105,37.086}
+graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.086}
 
-graph_motion.pos.front_load_position: {433,314,0}
+graph_motion.pos.tool_rack_pos_2_in:  {955.975,16.800,35.024}
+graph_motion.pos.tool_rack_pos_2_out: {955.975,158,35.024}
 
-graph_motion.pos.etl_chuck_1:  {496,398,0}
-graph_motion.pos.etl_chuck_2: {725,346,0}
+graph_motion.pos.etl_chuck_1: {475,494,0}
+graph_motion.pos.etl_chuck_2: {629,494,0}
+graph_motion.pos.etl_chuck_3: {793,494,0}
+graph_motion.pos.etl_chuck_4: {726,242,0}
 
-graph_motion.pos.home2: {0,10,10}
+#ADDED THESE 4 POSITIONS FOR SAFE TRAVEL ROADS AROUND GANTRY ENVIRONMENT (part of severing connections below, delete the commented out lines if approved)
+graph_motion.pos.etl_road_point_1: {475,345.37,0}
+graph_motion.pos.etl_road_point_2: {629,345.37,0}
+graph_motion.pos.etl_road_point_3: {793,345.37,0}
+graph_motion.pos.etl_road_point_4: {955.975,345.37,0}
+
 
 #graph_motion.edge.LABEL1.LABEL2 True/False
 graph_motion.edge.home.module_chuck_0: True
-graph_motion.edge.home.front_load_position: True
 graph_motion.edge.home.tool_rack_pos_0_out: True
 graph_motion.edge.tool_rack_pos_0_out.tool_rack_pos_0_in: True
+graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_1_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_0_out: True
-graph_motion.edge.tool_rack_pos_0_out.module_chuck_0: True
+graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_0_out: True
 
-graph_motion.edge.etl_chuck_1.home: True
+# Connections for ETL chucks
 graph_motion.edge.etl_chuck_1.etl_chuck_2: True
-graph_motion.edge.etl_chuck_2.module_chuck_0: True
+graph_motion.edge.etl_chuck_2.etl_chuck_3: True
+graph_motion.edge.etl_chuck_1.module_chuck_0: True
 
-graph_motion.edge.tool_rack_pos_2_out.etl_chuck_2: True
-graph_motion.edge.tool_rack_pos_2_out.etl_chuck_1: True
+#Safe Roads Connections
+graph_motion.edge.etl_chuck_1.etl_road_point_1: True
+graph_motion.edge.etl_chuck_2.etl_road_point_2: True
+graph_motion.edge.etl_chuck_3.etl_road_point_3: True
+graph_motion.edge.etl_chuck_3.etl_road_point_4: True
+graph_motion.edge.etl_road_point_3.etl_chuck_4: True
+graph_motion.edge.etl_road_point_1.etl_road_point_2: True
+graph_motion.edge.etl_road_point_2.etl_road_point_3: True
+graph_motion.edge.etl_road_point_3.etl_road_point_4: True
+graph_motion.edge.etl_road_point_4.tool_rack_pos_2_out: True
+graph_motion.edge.module_chuck_0.etl_road_point_1: True
+graph_motion.edge.etl_road_point_1.tool_rack_pos_0_out: True
+graph_motion.edge.home.etl_road_point_1: True
 
 #================================================
 #====== Potting procedure parameters
