@@ -89,8 +89,8 @@ geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
 #geometry.PICKER_TOOL.center_offset: {0,0,46.10} #larger number  increases separation
 geometry.PICKER_TOOL.center_offset: {0,0,47.26} #Small Suction Cups
-#geometry.PICKER_TOOL.center_offset: {0,0,53.90} #Medium Suction Cups
-#geometry.PICKER_TOOL.center_offset: {0,0,59.67}  #Large Suction Cups
+#geometry.PICKER_TOOL.center_offset: {0,0,54.00} #Medium Suction Cups
+#geometry.PICKER_TOOL.center_offset: {0,0,53.45}  #Large Suction Cups
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z

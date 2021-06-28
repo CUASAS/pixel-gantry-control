@@ -1,0 +1,13 @@
+HOME
+COPY $count 20
+COPY $speed 250
+SETVAC purdue_mechanics_right 1
+@LOOP COPY $ref {343.979101,528.727449,68.059728}
+      MOVETO {0.,0.,0.} $speed
+      MOVETO $ref $speed
+      WAIT 1500
+      FINDFID $pos FPIX_MOCK
+      SUB $pos_ $pos $ref
+      PRINT "Delta: %v" $pos_
+      DEC $count $count
+      GOTOIF @LOOP $count

@@ -1,0 +1,171 @@
+LOADCONFIG
+SETLOG pick_and_place_Phase1.txt
+SETERRORMODE prompt
+CLEARLOG
+HOME
+COPY $speed 50
+COPY $fid_speed 20
+COPY $fid_wait 500
+COPY $rspeed 10
+COPY $img_idx 0
+
+COPY $start_tr {732.844236,205.667551,62.400200}
+COPY $start_br {732.817402,248.870435,62.400202}
+COPY $start_bl {715.617345,248.854093,62.403800}
+COPY $start_tl {715.652833,205.654836,62.368201}
+
+FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
+
+PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
+
+COPY $end_tr {732.852674,205.672852,62.400200}
+COPY $end_br {732.817402,248.870435,62.400202}
+COPY $end_bl {715.617345,248.854093,62.403800}
+COPY $end_tl {715.652833,205.654836,62.368201}
+
+FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+
+PRINT "ENDPOS|ROT %v %v" $end_pos $end_rot
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+@PROCESS_START SETVAC module_chuck4_slot4 1
+COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+LOADTOOL picker_tool
+
+
+#Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 25
+ROTATE $start_rot $rspeed
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT $fid_wait 
+SETVAC module_chuck4_slot4 0
+WAIT $fid_wait 
+COPY $pickup_pos_z0_ $pickup_pos_z0
+COPY $pickup_pos_z0_.z 25
+MOVETO $pickup_pos_z0_ 10
+INVERT $start_rot_ $start_rot
+ROTATE $start_rot_ $rspeed
+
+# Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0_ 25
+ROTATE $end_rot $rspeed
+MOVETO $pickup_pos 10
+WAIT $fid_wait
+SETVAC module_chuck4_slot4 1
+SETVAC gantry_head_inner 0
+WAIT $fid_wait
+MOVETO $pickup_pos_z0_ 10
+INVERT $end_rot_ $end_rot
+ROTATE $end_rot_ $rspeed
+
+UNLOADTOOL
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+CALL @SURVEY
+
+SUB $delta $meas_pos $end_pos
+PRINT "Misplacement: %v" $delta
+
+MOVEREL {0,0,-60} $speed
+SETVAC module_chuck4_slot4 0
+
+CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
+GOTOIF @PROCESS_START $choice
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MPGON
+        MOVETO $pos $speed
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $tl_meas FPIX_MOCK
+        GETPOS $tl_meas
+        MOVETO $tl_meas $fid_speed
+        VIDEO
+        #PRINT "tl_meas %v" $tl_meas
+        CALL @SAVE_SNAPSHOT 
+
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $tr_meas FPIX_MOCK
+        GETPOS $tr_meas
+        MOVETO $tr_meas $fid_speed
+        VIDEO
+        #PRINT "tr_meas %v" $tr_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $br_meas FPIX_MOCK
+        GETPOS $br_meas
+        MOVETO $br_meas $fid_speed
+        VIDEO
+        #PRINT "br_meas %v" $br_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $bl_meas FPIX_MOCK
+        GETPOS $bl_meas
+        MOVETO $bl_meas $fid_speed
+        VIDEO
+        #PRINT "bl_meas %v" $bl_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+
+# SAVE_SNAPSHOT
+# Arguments:
+#  $img_idx - numerical suffix of image filename, get's incremented each time
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
+               INC $img_idx $img_idx
+               GOTO $RET
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
