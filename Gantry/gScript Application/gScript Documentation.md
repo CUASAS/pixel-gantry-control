@@ -296,10 +296,10 @@ Applies a coordinate tranformation to convert a global (ie gantry) coordinate to
 
 Applies a coordinate tranformation to convert a local coordinate to a global (ie gantry) coordinate. The transformation is described by the offset and rotation between the gantry's coordinate system and the local coordinate system.
 
-*Format:* `TRANSFORMG2L local global offset rotation`
+*Format:* `TRANSFORMG2L global local offset rotation`
 
-  - `local`: Writable location for the local coordinate
-  - `global`: Readable location for the global coordinate
+  - `global`: Writable location for the global coordinate
+  - `local`: Readable location for the local coordinate
   - `offset`: Readable location for the coordinate transform offset
   - `rotation`: Readable location for the coordinate transform rotation
   
