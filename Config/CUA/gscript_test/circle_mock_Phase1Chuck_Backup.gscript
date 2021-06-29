@@ -1,0 +1,219 @@
+#FINDFID $pos FPIX_MOCK
+#PRINT "FIDPOS %v" $pos
+#GETPOS $position
+#PRINT "GetPos %v" $position
+
+LOADCONFIG
+SETLOG pick_and_place_Phase1.txt
+SETERRORMODE prompt
+CLEARLOG
+HOME
+COPY $speed 50
+COPY $fid_speed 50
+COPY $fid_wait 500
+COPY $rspeed 10
+COPY $img_idx 0
+
+# PO37 VACCUM SYMMETRY
+#COPY $start_tr {731.029001,223.166669,62.456176}
+#COPY $start_br {730.852923,266.367819,62.456176}
+#COPY $start_bl {713.652920,266.294660,62.456176}
+#COPY $start_tl {713.827971,223.093634,62.456176}
+
+# PO37 ALIGNMENT TOP RIGHT
+COPY $start_tr {702.893357,205.544120,62.448015}
+COPY $start_br {703.040499,248.743339,62.469454}
+COPY $start_bl {685.847792,248.795281,62.471920}
+COPY $start_tl {685.702610,205.600255,62.450478}
+
+# P038
+#COPY $start_tr {732.787153,205.680577,62.430089}
+#COPY $start_br {732.765411,248.878204,62.451100}
+#COPY $start_bl {715.567692,248.869298,62.436112}
+#COPY $start_tl {715.585091,205.667463,62.465100}
+
+FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
+
+PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
+
+#purdue mechanics left
+#COPY $end_tr {268.352769,529.959400,68.052584}
+#COPY $end_br {269.081430,573.150819,68.086184}
+#COPY $end_bl {251.880174,573.441334,68.104584}
+#COPY $end_tl {251.149906,530.246742,68.062184}
+
+# PHASE 1 SLOT 3 VACUUM SYMMETRY
+#COPY $end_tr {701.446043,223.522192,62.456176}
+#COPY $end_br {701.432102,266.723824,62.480176}
+#COPY $end_bl {684.237502,266.715367,62.480176}
+#COPY $end_tl {684.251215,223.514776,62.480176}
+
+#PHASE 1 SLOT 2 PO37 TOP RIGHT/ ANY POS
+COPY $end_tr {671.915877,209.434293,62.453774}
+COPY $end_br {671.378093,252.626877,62.402426}
+COPY $end_bl {654.183808,252.415855,62.453775}
+COPY $end_tl {654.720467,209.221171,62.453774}
+
+#PHASE 1 SLOT 3 PO37 TOP RIGHT
+#COPY $end_tr {702.893357,205.544120,62.448015}
+#COPY $end_br  {703.040499,248.743339,62.469454}
+#COPY $end_bl {685.847792,248.795281,62.471920}
+#COPY $end_tl {685.702610,205.600255,62.450478}
+
+#PHASE 1 SLOT 3 PO38
+#COPY $end_tr {702.766569,205.725594,62.452403}
+#COPY $end_br {702.747948,248.923235,62.454000}
+#COPY $end_bl {685.554920,248.914988,62.461198}
+#COPY $end_tl {685.572838,205.716093,62.430424}
+
+FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+
+PRINT "ENDPOS|ROT %v %v" $end_pos $end_rot
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+@PROCESS_START SETVAC module_chuck4_slot3 1
+COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+PRINT "MEAS_POS|ROT %v %v" $meas_pos $meas_rot
+SUB $delta_start $start_pos $meas_pos
+PRINT "DELTA START %v" $delta_start
+
+LOADTOOL picker_tool
+
+#Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 25
+ROTATE $start_rot $rspeed
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT $fid_wait 
+SETVAC module_chuck4_slot3 0
+WAIT $fid_wait
+MOVETO $pickup_pos_z0 10
+INVERT $start_rot_ $start_rot
+ROTATE $start_rot_ $rspeed
+
+# Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 25
+ROTATE $end_rot $rspeed
+MOVETO $pickup_pos 10
+WAIT $fid_wait
+SETVAC module_chuck4_slot2 1
+#SETVAC purdue_mechanics_left 1
+SETVAC gantry_head_inner 0
+WAIT $fid_wait
+MOVETO $pickup_pos_z0 10
+INVERT $end_rot_ $end_rot
+ROTATE $end_rot_ $rspeed
+
+UNLOADTOOL
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+CALL @SURVEY
+
+PRINT "MEAS_POS for END_POS %v" $meas_pos
+
+SUB $delta $meas_pos $end_pos
+PRINT "Misplacement: %v" $delta
+
+MOVEREL {0,0,-60} $speed
+SETVAC module_chuck4_slot2 0
+#SETVAC purdue_mechanics_left 0
+
+CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
+GOTOIF @PROCESS_START $choice
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MPGON
+        MOVETO $pos $speed
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $tl_meas FPIX_MOCK
+        GETPOS $tl_meas
+        MOVETO $tl_meas $fid_speed
+        VIDEO
+        PRINT "      tl_meas %v" $tl_meas
+        CALL @SAVE_SNAPSHOT 
+
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $tr_meas FPIX_MOCK
+        GETPOS $tr_meas
+        MOVETO $tr_meas $fid_speed
+        VIDEO
+        PRINT "      tr_meas %v" $tr_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $br_meas FPIX_MOCK
+        GETPOS $br_meas
+        MOVETO $br_meas $fid_speed
+        VIDEO
+        PRINT "      br_meas %v" $br_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $fid_speed
+        VIDEO
+        WAIT $fid_wait
+        #FINDFID $bl_meas FPIX_MOCK
+        GETPOS $bl_meas
+        MOVETO $bl_meas $fid_speed
+        VIDEO
+        PRINT "      bl_meas %v" $bl_meas
+        CALL @SAVE_SNAPSHOT
+
+
+        MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+
+# SAVE_SNAPSHOT
+# Arguments:
+#  $img_idx - numerical suffix of image filename, get's incremented each time
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
+               INC $img_idx $img_idx
+               GOTO $RET
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
