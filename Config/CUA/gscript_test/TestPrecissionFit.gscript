@@ -1,0 +1,34 @@
+LOADCONFIG
+HOME
+COPY $count 20
+COPY $speed 300
+COPY $wtime 2000
+SETVAC purdue_mechanics_right 1
+COPY $start_tr {343.979101,528.727449,68.059728}
+COPY $start_tl {326.778151,528.780355,68.072529}
+COPY $start_bl {326.927251,571.979184,68.128528}
+COPY $start_br {344.126383,571.924074,68.110930}
+
+FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
+
+@LOOP COPY $ref $start_pos
+      MOVETO {0.,0.,0.} $speed
+      MOVETO $ref $speed
+      WAIT $wtime
+      MOVETO $start_tr $speed
+      WAIT $wtime
+      FINDFID $end_tr FPIX_MOCK
+      MOVETO $start_tl $speed
+      WAIT $wtime
+      FINDFID $end_tl FPIX_MOCK
+      MOVETO $start_bl $speed
+      WAIT $wtime
+      FINDFID $end_bl FPIX_MOCK
+      MOVETO $start_br $speed
+      WAIT $wtime
+      FINDFID $end_br FPIX_MOCK
+      FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+      SUB $delta $start_pos $end_pos
+      PRINT "Delta: %v" $delta
+      DEC $count $count
+      GOTOIF @LOOP $count
