@@ -1,0 +1,16 @@
+LOADCONFIG
+CLEARLOG
+HOME
+SETVAC module_chuck4_slot4 1
+COPY $bl {715.576187,248.865178,62.463000}
+COPY $speed 10
+MOVETO $bl $speed
+GETPOS $pos
+PRINT "%v" $pos
+
+COPY $count 50
+@LOOP GETPOS $pos
+      PRINT "%v" $pos
+      WAIT 100
+      DEC $count $count
+      GOTOIF @LOOP $count
