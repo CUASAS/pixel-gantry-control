@@ -1,3 +1,4 @@
+######################## MOCK MODULES ASSEMBLY #############################
 # Steps: 
 # 1. Ask if the HDI is placed properly for surveillance
 # 2. Move the gantry to the Module Assembly Station (MAS)
@@ -19,7 +20,7 @@
 # 11. Surveys Glass Slide and HDI bond pad alignment
 #     i. Returns change in x and y distances between top/bottom bond pads
 
-HOME
+#HOME
 
 # Useful Constants
 COPY $fastSpeed 50
@@ -30,8 +31,8 @@ INVERT $inv_PI $PI
 
 # Module Relative Locations
 COPY $center2TL {-10.082,-20.813,0}    #glass
-COPY $G_bond2HDI_bond {1.240,0,-0.377} #glass -> HDI
-COPY $Delta 8.883                #HDI -> Glass
+COPY $G_bond2HDI_bond {1.240,0,-0.430} #glass -> HDI
+COPY $Delta 8.883                      #HDI -> Glass
 COPY $TL2TM {0.044,19.658,0}           #HDI
 COPY $TM2BM {0.009,2.19,0}             #HDI
 COPY $BM2BL {0.037,19.652,0}           #HDI
@@ -52,6 +53,8 @@ FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
 FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
 FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
 
+
+
 # Step 1. Ask if the HDI is placed properly for surveillance
 @STEP_ONE CHOICEPOPUP $choice "Did you place the HDI and the Weight Tool on the Mock Module?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_ONE $choice
@@ -68,18 +71,15 @@ MOVEREL $center2TL
 MOVEREL $G_bond2HDI_bond
 VIDEO
 GETPOS $tl_top
-
-  # top middle
+#   Top Middle
 MOVEREL $TL2TM
 VIDEO
 GETPOS $bl_topMiddle
-
-  #bottom middle
+#   Bottom Middle
 MOVEREL $TM2BM
 VIDEO
 GETPOS $tl_bottomMiddle
-
-  #bottom left
+#   Bottom Left
 MOVEREL $BM2BL
 VIDEO
 GETPOS $bl_bottom
@@ -148,7 +148,7 @@ UNLOADTOOL
 
 
 # Step 8. Ask if the glue has been deposited on the Glass Slide
-@STEP_EIGHT CHOICEPOPUP $choice "Did you deposit the glue?" "Yes" "No"
+@STEP_EIGHT CHOICEPOPUP $glueChoice1 "Did you deposit the glue?" "Yes" "No"
 
 
 # Step 9. Ask if the HDI has been place on the Glass Slide
@@ -163,8 +163,20 @@ GOTOIFN @STEP_TEN $choice
 
 # Step 11. Surveys Glass Slide and HDI bond pad alignment
 #     i. Returns change in x and y distances between top/bottom bond pads
-CALL @CHECK_ALIGNMENT
+@STEP_ELEVEN CALL @CHECK_ALIGNMENT
 
+# Step 12. Make sure the module has been glued
+GOTOIF $glueChoice1 @END_STEP
+@STEP_TWELVE CHOICEPOPUP $glueChoice2 "Do you want to deposit the glue?" "Yes" "No"
+GOTOIF $glueChoice2 @STEP_EIGHT
+
+# Step 13. Check to see if the vacuum should be turned off
+@STEP_THIRTEEN CHOICEPOPUP $choice "Do you want to turn off the vacuum?" "Yes" "No"
+GOTOIFN @END_STEP $choice
+SETVAC module_chuck_0_slot_1 0
+
+
+@END_STEP PASS
 END
 
 
@@ -278,7 +290,7 @@ END
             GETPOS $bottom_HDI
 
             #Bottom Glass Fiducial
-            MUL $neg_G_2_HDI $G_bond2HDI_bond -1.0
+            INVERT $neg_G_2_HDI $G_bond2HDI_bond
             MOVEREL $neg_G_2_HDI
             VIDEO
             GETPOS $bottom_glass
@@ -286,8 +298,10 @@ END
             #Math
             SUB $delta_top $top_glass $top_HDI
             SUB $delta_bottom $bottom_glass $bottom_HDI
-            SUB $total_delta $delta_top $delta_bottom
-            PRINT "Difference in distances between the top module-HDI bondpads and the bottom module-HDI bondpads %v um" $total_delta
+            SUB $total_delta_x $delta_top.x $delta_bottom.x
+            ADD $total_delta_y $delta_top.y $delta_bottom.y
+            SUB $total_delta_z $delta_top.z $delta_bottom.z
+            PRINT "Difference in distances between the top module-HDI bondpads and the bottom module-HDI bondpads Delta x %f um, Delta y %f um, Delta z %f um" $total_delta_x $total_delta_y $total_delta_z
 
             GOTO $RET
 

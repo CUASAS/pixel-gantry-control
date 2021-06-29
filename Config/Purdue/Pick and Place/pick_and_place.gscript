@@ -91,37 +91,21 @@ END
 
         TRANSFORML2G $tl_global $tl_local $pos $rot
         MOVETO $tl_global $speed
-#        WAIT 500
-#        FINDFID $fidpos FPIX_Glass
-#        MOVETO $fidpos $speed
-#        CALL @SAVE_SNAPSHOT
         VIDEO
         GETPOS $tl_meas
 
         TRANSFORML2G $tr_global $tr_local $pos $rot
         MOVETO $tr_global $speed
-#        WAIT 500
-#        FINDFID $fidpos FPIX_Glass
-#        MOVETO $fidpos $speed
-#        CALL @SAVE_SNAPSHOT
         VIDEO
         GETPOS $tr_meas
 
         TRANSFORML2G $br_global $br_local $pos $rot
         MOVETO $br_global $speed
-#        WAIT 500
-#        FINDFID $fidpos FPIX_Glass
-#        MOVETO $fidpos $speed
-#        CALL @SAVE_SNAPSHOT
         VIDEO
         GETPOS $br_meas
 
         TRANSFORML2G $bl_global $bl_local $pos $rot
         MOVETO $bl_global $speed
-#        WAIT 500
-#        FINDFID $fidpos FPIX_Glass
-#        MOVETO $fidpos $speed
-#        CALL @SAVE_SNAPSHOT
         VIDEO
         GETPOS $bl_meas
 
@@ -141,10 +125,3 @@ END
             COPY $pickup_pos_z0 $pickup_pos
             COPY $pickup_pos_z0.z 0
             GOTO $RET
-
-# SAVE_SNAPSHOT
-# Arguments:
-#  $img_idx - numerical suffix of image filename, get's incremented each time
-@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
-               INC $img_idx $img_idx
-               GOTO $RET
