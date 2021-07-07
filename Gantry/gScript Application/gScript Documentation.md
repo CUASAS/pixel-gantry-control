@@ -636,6 +636,38 @@ Unloads the current tool. Has the same configuration pre-requisites as `LOADTOOL
 *Format:* `UNLOADTOOL`
 
 
+#### **Grabber Tool**
+
+#### `LOADSTAMP`
+
+*Description of Command*
+
+*Format:* **TBD**
+
+  - `arg1`: desc
+  - `arg2`: desc
+  - `arg3`: desc
+
+#### `UNLOADSTAMP`
+
+*Description of Command*
+
+*Format:* **TBD**
+
+  - `arg1`: desc
+  - `arg2`: desc
+  - `arg3`: desc
+
+#### `APPLYSTAMP`
+
+*Description of Command*
+
+*Format:* **TBD**
+
+  - `arg1`: desc
+  - `arg2`: desc
+  - `arg3`: desc
+
 #### **Syringe Tool**
 
 #### `POTLINE`
