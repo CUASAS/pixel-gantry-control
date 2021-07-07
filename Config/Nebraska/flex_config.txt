@@ -244,3 +244,18 @@ potting.sylgard.tip_height: 0.180
 # Height of the needle as it moves between pot-lines. Must be high enough to clear
 # any obstacles on the module.
 potting.sylgard.safe_height_offset: 5 # mm
+
+
+#Hayden Messing around 
+
+position: {0,0,0}
+
+stamp_chuck: etl_chuck_2
+stamp_1_rot: 90
+stamp_1_pos1: {1,1,1}
+stamp_1_pos2: {2,2,2}
+stamp_1_pos3: {3,3,3}
+stamp_1_pos4: {4,4,4}
+
+
+
