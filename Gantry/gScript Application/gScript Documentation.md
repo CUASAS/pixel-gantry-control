@@ -640,33 +640,72 @@ Unloads the current tool. Has the same configuration pre-requisites as `LOADTOOL
 
 #### `LOADSTAMP`
 
-*Description of Command*
+*LOADSTAMP will pick up any stamp as long as it is given the correct parameters in the config. It will go the named position, perform movement (described below) and return to that named position
+These are (for example with stamp_number(see format of command below) = 1 and the stamp is at etl_chuck_2):
 
-*Format:* **TBD**
+stamp_info.chuck: etl_chuck_2
 
-  - `arg1`: desc
-  - `arg2`: desc
-  - `arg3`: desc
+stamp.1.rot: 90              #comment: this rotation is 90 deg or 0 deg usually, its just so the grabber tool is in the correct orientation before it goes to pos1,pos2 etc...
+stamp.1.pos1: {1,1,1}        #not relevant position vectors just place holders and to show they are vectors
+stamp.1.pos2: {2,2,2}
+stamp.1.pos3: {3,3,3}
+stamp.1.pos4: {4,4,4}
+
+The order is like this (clockwise starting at pos1, all movement should roughly be in the same plane as drawn in this picture):
+
+        pos1(GRABBER TOOL !NOT CAMERA! directly above stamp)                pos2(pos2 to gain clearance)
+        
+        
+        
+        
+        
+        pos4(where stamp is sitting)                                        pos3(directly below pos2 and in a position it can now slide into pos4 to pick up the stamp)
+
+To obtain these values you will load the grabber tool and grab these positions manually to put in the config. For example, with the grabber tool loaded:
+
+1. You would bring the grabber tool directly overhead of the center of the stamp (pos1)
+2. Move gantry over to a safe location (pos2)
+3. Bring gantry down such that it can now slide in and pick up the stamp without crashing (pos3)
+4. Where grabber tool and stamp will be safely combined (pos4)
+And now the grabber tool has picked up the stamp when it moves up to pos 1
+
+*
+
+*Format:* **LOADSTAMP stamp_number**
+
+  - `stamp_number`: Stamp number tells "LOADSTAMP" what stamp you are loading and should match rot,pos1,pos2,pos3,pos4 in the config
+
 
 #### `UNLOADSTAMP`
 
-*Description of Command*
+*Takes current stamp and unloads it back to where it was resting before the stamp was loaded. 
+In order for the stamp to not catch on the side of where you are unloading it, you can supply an offset in the config.
 
-*Format:* **TBD**
+Example of correct config format:
+stamp.1.return_offset: {1.0,1,0}*
 
-  - `arg1`: desc
-  - `arg2`: desc
-  - `arg3`: desc
+*Format:* **UNLOADSTAMP**
+
+  - no arguments
 
 #### `APPLYSTAMP`
 
-*Description of Command*
+*Takes loaded stamp and stamps a determined target. There are some important parameters to specify in the config, the list is:
 
-*Format:* **TBD**
+geometry.etl_grabber_tool.Zg: {0,0,43.5}
+geometry.stamp_1.Zs: {0,0,12.5}
 
-  - `arg1`: desc
-  - `arg2`: desc
-  - `arg3`: desc
+stamp_info.apply_gap: {0,0,1}
+stamp_info.apply_time: 1000 #default time for how long you want to stamp the object
+
+![image](https://user-images.githubusercontent.com/70072888/124952714-1732c580-dfda-11eb-8b0f-488ef5755fad.png)
+*
+
+*Format:* **APPLYSTAMP center rot wait**
+
+  - `center`: Center of the object the user wishes to stamp (in camera coordinates, ie measured with the camera)
+  - `rot`: rotation of the object the user wishes to stamp
+  - `wait`: **Optional** Tells you how long to apply the stamp, if not given it has a default value in the config
 
 #### **Syringe Tool**
 
