@@ -640,16 +640,23 @@ Unloads the current tool. Has the same configuration pre-requisites as `LOADTOOL
 
 #### `LOADSTAMP`
 
-*LOADSTAMP will pick up any stamp as long as it is given the correct parameters in the config. It will go the named position, perform movement (described below) and return to that named position
-These are (for example with stamp_number(see format of command below) = 1 and the stamp is at etl_chuck_2):
+`LOADSTAMP` will pick up any stamp as long as it is given the correct parameters in the config. It will go the named position, perform movement (described below) and return to that named position.
 
+These are (for example with `stamp_number`=1 and the stamp is at `etl_chuck_2`):
+
+
+```
 stamp_info.chuck: etl_chuck_2
 
-stamp.1.rot: 90              #comment: this rotation is 90 deg or 0 deg usually, its just so the grabber tool is in the correct orientation before it goes to pos1,pos2 etc...
-stamp.1.pos1: {1,1,1}        #not relevant position vectors just place holders and to show they are vectors
+stamp.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, 
+                             #  its just so the grabber tool is in the correct 
+                             #  orientation before it goes to pos1,pos2 etc...
+stamp.1.pos1: {1,1,1}        # Not relevant position vectors just place holders 
+                             #  and to show they are vectors
 stamp.1.pos2: {2,2,2}
 stamp.1.pos3: {3,3,3}
 stamp.1.pos4: {4,4,4}
+```
 
 The order is like this (clockwise starting at pos1, all movement should roughly be in the same plane as drawn in this picture):
 
@@ -669,7 +676,6 @@ To obtain these values you will load the grabber tool and grab these positions m
 4. Where grabber tool and stamp will be safely combined (pos4)
 And now the grabber tool has picked up the stamp when it moves up to pos 1
 
-*
 
 *Format:* **LOADSTAMP stamp_number**
 
@@ -678,7 +684,7 @@ And now the grabber tool has picked up the stamp when it moves up to pos 1
 
 #### `UNLOADSTAMP`
 
-*Takes current stamp and unloads it back to where it was resting before the stamp was loaded. 
+Takes current stamp and unloads it back to where it was resting before the stamp was loaded. 
 In order for the stamp to not catch on the side of where you are unloading it, you can supply an offset in the config.
 
 Example of correct config format:
@@ -690,7 +696,7 @@ stamp.1.return_offset: {1.0,1,0}*
 
 #### `APPLYSTAMP`
 
-*Takes loaded stamp and stamps a determined target. There are some important parameters to specify in the config, the list is:
+Takes loaded stamp and stamps a determined target. There are some important parameters to specify in the config, the list is:
 
 geometry.etl_grabber_tool.Zg: {0,0,43.5}
 geometry.stamp_1.Zs: {0,0,12.5}
@@ -699,7 +705,7 @@ stamp_info.apply_gap: {0,0,1}
 stamp_info.apply_time: 1000 #default time for how long you want to stamp the object
 
 ![image](https://user-images.githubusercontent.com/70072888/124952714-1732c580-dfda-11eb-8b0f-488ef5755fad.png)
-*
+
 
 *Format:* **APPLYSTAMP center rot wait**
 
