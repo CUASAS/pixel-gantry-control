@@ -467,7 +467,7 @@ Reads the current position of the gantry and saves it into `pos`.
 
 #### `ROTATE`
 
-Rotates the gantry head by `rot` degrees. This is a relative motion.
+Rotates the gantry head by `rot` degrees. If `rot` is a quaternion, the yaw component is used. This is a relative motion.
 
 *Format:* `ROTATE rot speed`
 
@@ -476,7 +476,7 @@ Rotates the gantry head by `rot` degrees. This is a relative motion.
 
 #### `ROTATETO`
 
-Rotates the gantry head to position `pos`, where `pos` is an absolute coordinate.
+Rotates the gantry head to position `pos`, where `pos` is an absolute coordinate.  If `pos` is a quaternion, the yaw component is used.
 
 *Format:* `ROTATE pos speed`
 
