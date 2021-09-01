@@ -110,7 +110,7 @@ geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
 geometry.etl_grabber_tool.Zg: {0,0,43.5}
 
-geometry.stamp_1.Zs: {0,0,12.5}
+geometry.stamp.Zs: {0,0,12.5}
 
 
 # The offset between the camera and the
@@ -119,20 +119,7 @@ geometry.stamp_1.Zs: {0,0,12.5}
 
 # geometry.tool_holder_offset: {0.909,-102.339,-43.72}
 geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
-#================================================
-#====== Stamp parameters
-#================================================
 
-stamp_info.chuck: etl_chuck_2
-stamp_info.apply_gap: {0,0,1}
-stamp_info.apply_time: 1000
-
-stamp.1.rot: 90
-stamp.1.pos1: {1,1,1}
-stamp.1.pos2: {2,2,2}
-stamp.1.pos3: {3,3,3}
-stamp.1.pos4: {4,4,4}
-stamp.1.return_offset: {1.0,1,0}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -262,11 +249,21 @@ potting.sylgard.tip_height: 0.180
 potting.sylgard.safe_height_offset: 5 # mm
 
 
-#Hayden Messing around 
-
-position: {0,0,0}
-
-
-
+#================================================
+#====== Gluing procedure parameters
+#================================================
+stamp_chuck: etl_chuck_2
 
 
+#====== Stamp parameters
+
+stamp_info.chuck: etl_chuck_2
+stamp_info.apply_gap: {0,0,1}
+stamp_info.apply_time: 1000
+
+stamp.1.rot: 90
+stamp.1.pos1: {1,1,1}
+stamp.1.pos2: {2,2,2}
+stamp.1.pos3: {3,3,3}
+stamp.1.pos4: {4,4,4}
+stamp.1.offset: {1,1,0}
