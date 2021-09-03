@@ -108,34 +108,19 @@ geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
 
 geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
-geometry.GRABBER_TOOL.center_offset: {0,0,43.38}
+
+geometry.etl_grabber_tool.Zg: {0,0,43.5}
+
+geometry.stamp.Zs: {0,0,12.5}
 
 
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
 
-# geometry.tool_holder_offset: {0.909,-102.339,-43.72}
-# geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
 geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 
-#geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
-#LOADSTAMP:
-stamp_info.chuck: etl_chuck_2
-stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-stamp.1.pos1: {670.258053,424.512024,33.852022}        
-stamp.1.pos2: {704.138055,424.512009,33.852009}
-stamp.1.pos3: {704.138057,424.512005,67.892004}
-stamp.1.pos4: {670.818054,424.512005,67.892023}
 
-#UNLOADSTAMP:
-stamp.1.return_offset: {1.0,1,0}
-
-#APPLYSTAMP:
-geometry.etl_grabber_tool.Zg: {0,0,43.5} 
-geometry.stamp_1.Zs: {0,0,12.5}
-stamp_info.apply_gap: {0,0,0.1}
-stamp_info.apply_time: 1000
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -263,3 +248,29 @@ potting.sylgard.tip_height: 0.180
 # Height of the needle as it moves between pot-lines. Must be high enough to clear
 # any obstacles on the module.
 potting.sylgard.safe_height_offset: 5 # mm
+
+
+#================================================
+#====== Gluing procedure parameters
+#================================================
+
+#geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
+#LOADSTAMP:
+stamp_info.chuck: etl_chuck_2
+stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+stamp.1.pos1: {670.258053,424.512024,33.852022}        
+stamp.1.pos2: {704.138055,424.512009,33.852009}
+stamp.1.pos3: {704.138057,424.512005,67.892004}
+stamp.1.pos4: {670.818054,424.512005,67.892023}
+
+#UNLOADSTAMP:
+stamp.1.return_offset: {1.0,1,0}
+
+#APPLYSTAMP:
+geometry.etl_grabber_tool.Zg: {0,0,43.5} 
+geometry.stamp_1.Zs: {0,0,12.5}
+stamp_info.apply_gap: {0,0,0.1}
+stamp_info.apply_time: 1000
+
+
+
