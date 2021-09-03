@@ -90,7 +90,7 @@ DFS ReadIncr
 		$Active = 1        
 	' X100
 	ELSE IF( MultX100 )           
-		Incr = BaseIncr * 100
+		Incr = BaseIncr * 50
 		' pendant is active
 		$Active = 1  
 	' X0
