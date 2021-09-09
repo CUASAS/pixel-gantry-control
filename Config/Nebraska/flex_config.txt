@@ -63,7 +63,7 @@ manifold.port.29: cDAQ1Mod1/port0/line29
 motion.travel_speed: 100  # mm/s
 
 tool_rack.0: picker_tool
-tool_rack.1: etl_grabber_tool
+tool_rack.1: grabber_tool
 tool_rack.2: etl_picker_tool
 
 tool_exchange_vacuum_delay: 2500  # ms
@@ -108,15 +108,19 @@ geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
 
 geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
-geometry.GRABBER_TOOL.center_offset: {0,0,43.38}
+
+geometry.etl_grabber_tool.Zg: {0,0,43.5}
+
+geometry.stamp.Zs: {0,0,12.5}
 
 
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
 
-# geometry.tool_holder_offset: {0.909,-102.339,-43.72}
-geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
+geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
+
+
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -170,14 +174,14 @@ graph_motion.pos.module_chuck_0:  {272,494,0}
 # must be 2mm above tool in z
 #graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,37.541}
 #graph_motion.pos.tool_rack_pos_0_out: {651.182,158,37.541}
-graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,38.0}
-graph_motion.pos.tool_rack_pos_0_out: {651.182,158,38.0}
+graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,39.113} #{651.182,16.677,38.0}
+graph_motion.pos.tool_rack_pos_0_out: {651.288,158,39.113}
 
-graph_motion.pos.tool_rack_pos_1_in:  {803.572,16.105,37.086}
-graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.086}
+graph_motion.pos.tool_rack_pos_1_in:  {803.368,16.121,37.918} #{803.572,16.105,37.086}
+graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.918}
 
-graph_motion.pos.tool_rack_pos_2_in:  {955.975,16.800,35.024}
-graph_motion.pos.tool_rack_pos_2_out: {955.975,158,35.024}
+graph_motion.pos.tool_rack_pos_2_in:  {955.610,16.633,36.115} #{955.975,16.800,35.024}
+graph_motion.pos.tool_rack_pos_2_out: {955.610,158,36.115}
 
 graph_motion.pos.etl_chuck_1: {475,494,0}
 graph_motion.pos.etl_chuck_2: {629,494,0}
@@ -246,16 +250,27 @@ potting.sylgard.tip_height: 0.180
 potting.sylgard.safe_height_offset: 5 # mm
 
 
-#Hayden Messing around 
+#================================================
+#====== Gluing procedure parameters
+#================================================
 
-position: {0,0,0}
+#geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
+#LOADSTAMP:
+stamp_info.chuck: etl_chuck_2
+stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+stamp.1.pos1: {670.258053,424.512024,33.852022}        
+stamp.1.pos2: {704.138055,424.512009,33.852009}
+stamp.1.pos3: {704.138057,424.512005,67.892004}
+stamp.1.pos4: {670.818054,424.512005,67.892023}
 
-stamp_chuck: etl_chuck_2
-stamp_1_rot: 90
-stamp_1_pos1: {1,1,1}
-stamp_1_pos2: {2,2,2}
-stamp_1_pos3: {3,3,3}
-stamp_1_pos4: {4,4,4}
+#UNLOADSTAMP:
+stamp.1.return_offset: {1.0,1,0}
+
+#APPLYSTAMP:
+geometry.etl_grabber_tool.Zg: {0,0,43.5} 
+geometry.stamp_1.Zs: {0,0,12.5}
+stamp_info.apply_gap: {0,0,0.1}
+stamp_info.apply_time: 1000
 
 
 
