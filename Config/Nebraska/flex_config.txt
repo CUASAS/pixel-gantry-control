@@ -109,11 +109,6 @@ geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
 geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
 
-geometry.etl_grabber_tool.Zg: {0,0,43.5}
-
-geometry.stamp.Zs: {0,0,12.5}
-
-
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
@@ -257,20 +252,32 @@ potting.sylgard.safe_height_offset: 5 # mm
 #geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
 #LOADSTAMP:
 stamp_info.chuck: etl_chuck_2
+
 stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
 stamp.1.pos1: {670.258053,424.512024,33.852022}        
 stamp.1.pos2: {704.138055,424.512009,33.852009}
 stamp.1.pos3: {704.138057,424.512005,67.892004}
 stamp.1.pos4: {670.818054,424.512005,67.892023}
 
+weight_info.chuck: etl_chuck_2
+weight.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+weight.1.pos1: {599.811229,411.137997,17.079606}       
+weight.1.pos2: {599.811229,375.298006,17.079606}
+weight.1.pos3: {599.811229,375.297992,68.159608}
+weight.1.pos4: {599.811229,411.137997,68.159608}
+
 #UNLOADSTAMP:
-stamp.1.return_offset: {1.0,1,0}
+stamp.1.return_offset: {-1.0,1,0}
+weight.1.return_offset: {1.0,-1,0}
 
 #APPLYSTAMP:
-geometry.etl_grabber_tool.Zg: {0,0,43.5} 
-geometry.stamp_1.Zs: {0,0,12.5}
-stamp_info.apply_gap: {0,0,0.1}
+geometry.grabber_tool.Zg: {0,0,43.5} 
+geometry.stamp.1.Zs: {0,0,12.5}
+geometry.weight.1.Zs: {0,0,5.8}
+stamp_info.apply_gap: {0,0,0.5}
+weight_info.apply_gap: {0,0,0.5}
 stamp_info.apply_time: 1000
 
-
+weight.horizontal: {30,0,0}
+weight.vertical: {0,0,-50}
 
