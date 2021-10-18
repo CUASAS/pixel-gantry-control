@@ -70,6 +70,31 @@ The interpreter has three error-handling modes
   
 Upon startup, the error handling mode is `default`. The `SETERRORMODE` command can be used to change the error mode.
 
+### Functions
+
+`gScript` has support for reusable code in the form of functions. Following is a minimal example showing how this works.
+
+```
+CALL @add_function 10 10 -> $result
+PRINT "%d" $result
+END
+
+@add_function(A,B)
+    ADD $sum $A $B
+    RETURN $sum
+```
+
+There are three essential elements here. First, the invocation of `CALL` requires the function to call (in this case "`@add_function`") followed by the arguments to that function. Here we pass two arguments, 10 and 10. If you wish to use the return value of the function, add a `->` after the arguments followed by the variables where you would like the results saved.
+
+The second important thing is the actual declaration of the function. The syntax for this is an `@` followed by the name of the function, then, if the function has arguments, a comma-separated list surrounded by parenthases. Note that there must not be any whitespace in the declaration. In the above example, the value passed in `CALL` are bound to the variables specified in the function declaration (ie `$A=10`, `$B=10`).
+
+Finally, the `RETURN` statement takes a list of values and binds them to the variables specified in the preceeding `CALL`. In this case, `$result` will receive the value of `$sum`, which is itself just `10+10=20`.
+
+It's important to note that a `CALL` creates a new namespace (aka a new stack frame) so any new variables defined in a function will not overwrite those in the calling context. This also means that any variables not given to `RETURN` will be lost.
+
+Finally, if a variable is read that is not defined in the current function, then the interpreter will search down the stack until it finds it. This could be useful if, for example, you have a script which relies on several unchanging configuration variables that are set once near the start of execution and then not modified further. In this case, it would be annoying to have to pass these variables into every function that needs them. So instead they can just be referenced directly using this mechanism.
+
+
 ## Command Listing
 
 ### General Commands
@@ -139,11 +164,21 @@ Same as `GOTOIF`, except it goes to the command at `dest` if `cond` is evaluated
 
 #### `CALL`
 
-Similar to `GOTO`, except in addition to moving to the the specified line, it also saves the current line plus 1 to the variable `$RET`. 
+Used to call a function. See [Functions](#functions) for more details
 
-*Format:* `CALL dest`
+*Format:* `CALL dest arg1 arg2 -> ret1 ret2`
 
   - `dest`: The address of the statement to execute next. Can be a Label.
+  - `argn`: Arguments to pass to the function. Should match the number of arguments specified in the function declaration.
+  - `ret1`: **Optional** Variables to save any values passed from the function's `RETURN`
+
+#### `RETURN`
+
+Used in functions to return results to the calling context. See [Functions](#functions) for more details
+
+*Format:* `RETURN arg1 arg2`
+
+  - `argn`: Results to return to the calling function.
 
 #### `END`
 
