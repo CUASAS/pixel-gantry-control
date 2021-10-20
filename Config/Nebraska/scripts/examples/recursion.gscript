@@ -5,18 +5,15 @@ COPY $count 0
     CALL recursive_fibb $count -> $result
     PRINT "F(%d) = %d" $count $result
     INC $count $count
-    SUB $test $count 8
-    GOTOIF @loop $test
+    GOTOIF @loop `$count<i=8`
 END
 
-@recursive_fibb(N) 
-    SUB $Nm1 $N 1
-    SUB $Nm2 $N 2
-    GOTOIFN @case0 $N
-    GOTOIFN @case1 $Nm1
+@recursive_fibb(N)
+    GOTOIF @case0 `$N=i=0`
+    GOTOIF @case1 `$N=i=1`
 
-    CALL recursive_fibb $Nm1 -> $F_Nm1
-    CALL recursive_fibb $Nm2 -> $F_Nm2
+    CALL recursive_fibb `$N-1` -> $F_Nm1
+    CALL recursive_fibb `$N-2` -> $F_Nm2
     ADD $F_N $F_Nm1 $F_Nm2
     RETURN $F_N
     
