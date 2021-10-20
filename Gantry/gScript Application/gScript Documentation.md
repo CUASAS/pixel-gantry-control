@@ -60,6 +60,29 @@ CHOICEPOPUP "You are at {$curr:%v}. Is this correct?"
 
 This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
 
+### Tick Expressions
+
+It is often convenient to be able to do simple calculations and pass the result to a command, a function call, or to determine whether a `GOTOIF` get's executed. To help with this, "Tick Expressions" were added in `gScript v2.1`. They allow you to put a simple calculation in any place where you would normally put a variable, constant, or main memory access. Take a simple example. We have a variable and we want to print out double the number. Without using tick expressions this would be done like:
+
+```
+COPY $N 10
+MUL $2N 2 $N
+PRINT "%d" $2N
+```
+
+Now, using a tick expression:
+
+```
+COPY $N 10
+PRINT "%d" `$N*2`
+```
+
+Note that this eliminates one line of code and the awkward `$2N` variable. The normal arithmetic operations are supported (`*`, `/`, `%`, `+`, `-`). There is also `//` for integer division. Comparison operations are also supported (`==`, `!=`, `>`, `<`, `>=`, `<=`). Since integers are stored internally as floating point numbers, comparison is subject to floating-point error. To account for this, integer versions of the comparison functions are supplied (`=i=`, `!i=`, `>i=`, `<i=`) and should be used when the inputs are integers.
+
+**Caveats:**
+  - Only expressions of the form `{value}{operation}{value}` are supported. More complex expressions must be broken up and performed one at a time.
+  - Only scalar numbers are supported. If a vector or quaternion is supplied, the `.x` component will be used.
+
 ### Error Handling
 
 The interpreter has three error-handling modes
