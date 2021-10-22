@@ -1,0 +1,167 @@
+# Steps: 
+# 1. Locate Glass Piece
+# 2. Record/Locate target position
+# 3. Pickup and place glass piece
+# 4. Record final position
+SETLOG dry_run_after.txt
+# CLEARLOG
+COPY $speed 50
+COPY $img_idx 0
+
+COPY $start_pos {308.871103,397.731020,77.831420}
+COPY $start_rot {-0.000670,0.000412,-0.004562,0.999989}
+
+#from Caleb
+#COPY $end_pos {232.732261,396.215568,77.655460}
+#COPY $end_rot {-0.000300,0.000640,-0.001178,0.999999}
+
+#from five HDI position measurement 25 x 5 = 125 times
+#COPY $end_pos {231.746,397.175,77.8266}
+#COPY $end_rot -0.018516
+
+#shift origin for bonding pad alignment
+#COPY $end_pos {231.746,397.155,77.8266}
+#COPY $end_rot -0.018516
+
+#from five pick-and-place and HDI position correction
+COPY $end_pos {231.73847,397.091263,77.3749}
+COPY $end_rot 0.0732412
+
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+HOME
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+#CALL @SURVEY
+
+#SUB $delta $meas_pos $end_pos
+#PRINT "Misplacement: %v" $delta
+
+# HDI measurement
+#HOME
+CHOICEPOPUP $answer_st "HDI, weight are installed?"
+COPY $speed 50 # speed for most motions
+# $refcenter and $refrotation need to be set to roughly (O(mm)) the
+# correct values for each HDI location.
+COPY $refcenter {231.766653,397.185549,77.931687}
+COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
+FLEXREAD $fid_tl_local geometry.TFPX_HDI_V2.fid_tl
+FLEXREAD $fid_tr_local geometry.TFPX_HDI_V2.fid_tr
+FLEXREAD $fid_br_local geometry.TFPX_HDI_V2.fid_br
+FLEXREAD $fid_bl_local geometry.TFPX_HDI_V2.fid_bl
+# Convert local coordinates to global coordinates using reference
+# Center and Rotation
+TRANSFORML2G $fid_tl_global $fid_tl_local $refcenter $refrotation
+TRANSFORML2G $fid_tr_global $fid_tr_local $refcenter $refrotation
+TRANSFORML2G $fid_br_global $fid_br_local $refcenter $refrotation
+TRANSFORML2G $fid_bl_global $fid_bl_local $refcenter $refrotation
+
+#LOADTOOL CAMERA
+MPGON
+COPY $focus_range .5 # mm
+COPY $focus_samples 10
+
+## measure HDI position
+# Go to HDI_TL Reference
+MOVETO $fid_tl_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_tl
+
+# Go to HDI_BL Reference
+MOVETO $fid_bl_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_bl
+
+
+## measure Glass position
+COPY $pad_offset {-1.2575,0.0,0.0}
+
+# Go to Glass_TR Reference
+ADD $fid_tr_global $fid_tl_global $pad_offset
+MOVETO $fid_tr_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_tr
+
+# Go to Glass_BR Reference
+ADD $fid_br_global $fid_bl_global $pad_offset
+MOVETO $fid_br_global $speed
+AUTOFOCUS $_ $focus_range $focus_samples
+VIDEO "gantryhead"
+GETPOS $fid_br
+
+MOVEREL {0,0,-50} $speed
+UNLOADTOOL
+MPGOFF
+PRINT "HDI located at tl : %v, bl : %v" $fid_tl $fid_bl
+PRINT "Glass located at tr : %v, br : %v" $fid_tr $fid_br
+
+CHOICEPOPUP $choice "Want to repeat or quit" "Rerun" "Quit" 
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MOVENAME module_chuck_0
+        MPGON
+        MOVETO $pos $speed
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $speed
+#        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $tl_meas
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $speed
+#        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $tr_meas
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $speed
+#        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $br_meas
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $speed
+#        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $bl_meas
+
+        MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+# SAVE_SNAPSHOT
+# Arguments:
+#  $img_idx - numerical suffix of image filename, get's incremented each time
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
+               INC $img_idx $img_idx
+               GOTO $RET

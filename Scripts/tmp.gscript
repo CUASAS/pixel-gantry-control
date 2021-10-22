@@ -1,0 +1,13 @@
+# Steps: 
+# 1. Locate Glass Piece
+# 2. Record/Locate target position
+# 3. Pickup and place glass piece
+# 4. Record final position
+SETLOG pick_and_place_for_dry_run.txt
+# CLEARLOG
+COPY $speed 50
+COPY $img_idx 0
+
+
+COPY $rrr {0,0,-0.383,0.9238795}
+ROTATE $rrr

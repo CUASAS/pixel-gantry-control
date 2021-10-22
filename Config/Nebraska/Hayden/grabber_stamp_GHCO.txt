@@ -1,0 +1,17 @@
+
+
+#give picture of variables and code in gScript
+
+@calc_stamp
+	FLEXREAD $ghco geometry.tool_holder_offset
+	ADD  $ghco $gcho $camera_pos
+	COPY $Zg {0,0,43.5}
+	COPY $Zs {0,0,12.5}
+	COPY $c {0,0,1}
+	ADD  $Z $Zg $Zs
+	SUB  $final $Z $c
+	COPY $final_z0 $final
+	COPY $final_z0.z 0
+	GOTO $RET
+
+#now you can measure center with cam and call calc_stamp

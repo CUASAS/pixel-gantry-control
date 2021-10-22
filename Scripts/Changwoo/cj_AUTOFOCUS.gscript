@@ -1,0 +1,8 @@
+COPY $speed 50 # speed for most motions
+
+#SETVAC module_chuck_0_slot_1 1
+#MPGON
+
+COPY $focus_range .1 # mm
+AUTOFOCUS $_ $focus_range
+VIDEO "gantryhead"

@@ -1,0 +1,39 @@
+#HOME
+loadconfig
+setlight 100
+clearlog
+
+COPY $start_position {579.801,298.997,56.95}
+COPY $n_row 21
+COPY $n_col 39
+COPY $dx 1.055   #1.044092
+COPY $dy 1.062   #1.047428
+
+
+COPY $row 0
+@Outer
+  COPY $col 0
+  @Inner
+  MUL $Dx $dx $col
+  MUL $Dy $dy $row
+
+  COPY $delta {$Dx,$Dy,0}
+ 
+  ADD $pos $start_position $delta
+  MOVETO $pos 40
+  video
+  AUTOFOCUS $res 0.1
+  GETPOS $pos
+  PRINT %v $pos
+
+  #INC $col $col
+  ADD $col $col 10
+  SUB $col_check $n_col $col
+  ADD $col_check $col_check 1
+  GOTOIF @Inner $col_check
+
+#INC $row $row
+ADD $row $row 1
+SUB $row_check $n_row $row
+ADD $row_check $row_check 1
+GOTOIF @Outer $row_check

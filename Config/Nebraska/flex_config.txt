@@ -102,9 +102,14 @@ geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-18.88,-9.14,0}
 geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-18.88,9.14,0}
 geometry.ETL_Sensor_PCB_Mockup.fid_br: {18.88,9.14,0}
 
-geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
+geometry.ETL_mock_base.fid_tr: {27.25, -20.55, 0}
+geometry.ETL_mock_base.fid_tl: {-27.25, -20.55, 0}
+geometry.ETL_mock_base.fid_bl: {-27.25, 20.55, 0}
+geometry.ETL_mock_base.fid_br: {27.25, 20.55, 0}
+
+#geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
-geometry.PICKER_TOOL.center_offset: {0,0,59.0} #middle suction cup -500um
+geometry.PICKER_TOOL.center_offset: {0,0,49.5} #phase1 suction cup
 
 geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
@@ -116,7 +121,6 @@ geometry.etl_picker_tool.center_offset: {0,0,60.1}
 geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 
 
-
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
@@ -124,7 +128,7 @@ geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 vision.debug_enable: False
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
 #vision.autofocus.step_size: 0.01234 # mm
-vision.autofocus.step_size: 0.005 #0.002 # mm
+vision.autofocus.step_size: 0.01 #0.002 # mm
 vision.autofocus.delay: 500 #1000 # ms
 
 vision.FPIX_HDI.method: find_patches
@@ -169,8 +173,10 @@ graph_motion.pos.module_chuck_0:  {272,494,0}
 # must be 2mm above tool in z
 #graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,37.541}
 #graph_motion.pos.tool_rack_pos_0_out: {651.182,158,37.541}
-graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,39.113} #{651.182,16.677,38.0}
-graph_motion.pos.tool_rack_pos_0_out: {651.288,158,39.113}
+#graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,39.113} #{651.182,16.677,38.0}
+#graph_motion.pos.tool_rack_pos_0_out: {651.288,158,39.113}
+graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,40.00}
+graph_motion.pos.tool_rack_pos_0_out: {651.288,158,40.00}
 
 graph_motion.pos.tool_rack_pos_1_in:  {803.368,16.121,37.918} #{803.572,16.105,37.086}
 graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.918}
@@ -254,17 +260,18 @@ potting.sylgard.safe_height_offset: 5 # mm
 stamp_info.chuck: etl_chuck_2
 
 stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-stamp.1.pos1: {670.258053,424.512024,33.852022}        
-stamp.1.pos2: {704.138055,424.512009,33.852009}
-stamp.1.pos3: {704.138057,424.512005,67.892004}
-stamp.1.pos4: {670.818054,424.512005,67.892023}
+stamp.1.pos1: {670.654066,423.841117,19.443268}        
+stamp.1.pos2: {704.214053,423.841101,19.443290}
+stamp.1.pos3: {704.214054,423.841116,68.638757}
+stamp.1.pos4: {670.694054,423.841106,68.638756}
 
 weight_info.chuck: etl_chuck_2
 weight.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-weight.1.pos1: {599.811229,411.137997,17.079606}       
-weight.1.pos2: {599.811229,375.298006,17.079606}
-weight.1.pos3: {599.811229,375.297992,68.159608}
-weight.1.pos4: {599.811229,411.137997,68.159608}
+
+weight.1.pos1: {600.331994,410.041112,13.887786}       
+weight.1.pos2: {600.331993,369.761113,13.887789}
+weight.1.pos3: {600.331993,369.761115,68.443401}
+weight.1.pos4: {600.331995,410.041112,68.443401}
 
 #UNLOADSTAMP:
 stamp.1.return_offset: {-1.0,1,0}
@@ -273,7 +280,7 @@ weight.1.return_offset: {1.0,-1,0}
 #APPLYSTAMP:
 geometry.grabber_tool.Zg: {0,0,43.5} 
 geometry.stamp.1.Zs: {0,0,12.5}
-geometry.weight.1.Zs: {0,0,5.8}
+geometry.weight.1.Zs: {0,0,11.8}
 stamp_info.apply_gap: {0,0,0.5}
 weight_info.apply_gap: {0,0,0.5}
 stamp_info.apply_time: 1000
