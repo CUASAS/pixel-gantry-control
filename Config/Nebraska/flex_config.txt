@@ -101,6 +101,8 @@ geometry.ETL_Sensor_PCB_Mockup.fid_tr: {18.88,-9.14,0}
 geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-18.88,-9.14,0}
 geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-18.88,9.14,0}
 geometry.ETL_Sensor_PCB_Mockup.fid_br: {18.88,9.14,0}
+geometry.ETL_Sensor_PCB_Mockup.size_x: 45
+geometry.ETL_Sensor_PCB_Mockup.size_y: 20
 
 geometry.ETL_mock_base.fid_tr: {27.25, -20.55, 0}
 geometry.ETL_mock_base.fid_tl: {-27.25, -20.55, 0}
@@ -120,6 +122,9 @@ geometry.etl_picker_tool.center_offset: {0,0,60.1}
 
 geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 
+
+# Alignment corner
+geometry.chuck.1.pos.1: {}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -171,10 +176,6 @@ graph_motion.pos.home: {0,0,0}
 graph_motion.pos.module_chuck_0:  {272,494,0}
 
 # must be 2mm above tool in z
-#graph_motion.pos.tool_rack_pos_0_in:  {651.182,16.677,37.541}
-#graph_motion.pos.tool_rack_pos_0_out: {651.182,158,37.541}
-#graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,39.113} #{651.182,16.677,38.0}
-#graph_motion.pos.tool_rack_pos_0_out: {651.288,158,39.113}
 graph_motion.pos.tool_rack_pos_0_in:  {651.288,16.720,40.00}
 graph_motion.pos.tool_rack_pos_0_out: {651.288,158,40.00}
 
@@ -189,7 +190,6 @@ graph_motion.pos.etl_chuck_2: {629,494,0}
 graph_motion.pos.etl_chuck_3: {793,494,0}
 graph_motion.pos.etl_chuck_4: {726,242,0}
 
-#ADDED THESE 4 POSITIONS FOR SAFE TRAVEL ROADS AROUND GANTRY ENVIRONMENT (part of severing connections below, delete the commented out lines if approved)
 graph_motion.pos.etl_road_point_1: {475,345.37,0}
 graph_motion.pos.etl_road_point_2: {629,345.37,0}
 graph_motion.pos.etl_road_point_3: {793,345.37,0}
@@ -225,6 +225,22 @@ graph_motion.edge.etl_road_point_1.tool_rack_pos_0_out: True
 graph_motion.edge.home.etl_road_point_1: True
 
 #================================================
+#====== Default positions and rotations
+#================================================
+
+# default.part_type.chuck_id.pos_id.pos/rot
+default.ETL_mock_base.3.1.pos: {10,10,10}
+default.ETL_mock_base.3.1.rot: {0,0,0,1}
+default.ETL_mock_base.3.2.pos: {10,10,10}
+default.ETL_mock_base.3.2.rot: {0,0,0,1}
+
+default.ETL_Sensor_PCB_Mockup.4.1.pos: {10,10,10}
+default.ETL_Sensor_PCB_Mockup.4.1.rot: {0,0,0,1}
+default.ETL_Sensor_PCB_Mockup.4.2.pos: {10,10,10}
+default.ETL_Sensor_PCB_Mockup.4.2.rot: {0,0,0,1}
+
+
+#================================================
 #====== Potting procedure parameters
 #================================================
 # The curing parameters are used to adjust the speed of the needle to
@@ -257,7 +273,7 @@ potting.sylgard.safe_height_offset: 5 # mm
 
 #geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
 #LOADSTAMP:
-stamp_info.chuck: etl_chuck_2
+stamp_info.chuck: 2
 
 stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
 stamp.1.pos1: {670.654066,423.841117,19.443268}        
@@ -265,13 +281,32 @@ stamp.1.pos2: {704.214053,423.841101,19.443290}
 stamp.1.pos3: {704.214054,423.841116,68.638757}
 stamp.1.pos4: {670.694054,423.841106,68.638756}
 
-weight_info.chuck: etl_chuck_2
-weight.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+weight_info.chuck: 2
+weight.1.rot: 90 # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
 
 weight.1.pos1: {600.331994,410.041112,13.887786}       
 weight.1.pos2: {600.331993,369.761113,13.887789}
 weight.1.pos3: {600.331993,369.761115,68.443401}
 weight.1.pos4: {600.331995,410.041112,68.443401}
+
+reservoir.chuck: 1
+reservoir.1.pos: {10,10,10}
+reservoir.1.rot: 90
+reservoir.2.pos: {10,10,10}
+reservoir.2.rot: 90
+reservoir.3.pos: {10,10,10}
+reservoir.3.rot: 90
+reservoir.4.pos: {10,10,10}
+reservoir.4.rot: 90
+reservoir.5.pos: {10,10,10}
+reservoir.5.rot: 90
+reservoir.6.pos: {10,10,10}
+reservoir.6.rot: 90
+reservoir.7.pos: {10,10,10}
+reservoir.7.rot: 90
+reservoir.8.pos: {10,10,10}
+reservoir.8.rot: 90
+
 
 #UNLOADSTAMP:
 stamp.1.return_offset: {-1.0,1,0}
