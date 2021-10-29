@@ -1,5 +1,5 @@
 ######################## MOCK MODULES ASSEMBLY #############################
-# Steps: 
+# Steps:
 # 1. Ask if the HDI is placed properly for surveillance
 # 2. Move the gantry to the Module Assembly Station (MAS)
 # 3. Survey the HDI's 4 bond pads
@@ -7,7 +7,7 @@
 # 5. Move gantry to home/out of the way
 # 6. Ask if the Glass Slide is on the launchpad
 #    i. Is the MAS is clear?
-#    ii. Is the Pickup Tool ready? 
+#    ii. Is the Pickup Tool ready?
 # 7. Gantry surveys the Glass Slide with ~*automatic fiducial finder*~
 #    i. Get the Pickup Tool
 #    ii. Pick up the Glass Slide
@@ -67,7 +67,7 @@ MOVETO $end_pos $fastSpeed
 
 # Step 3. Survey the HDI's 4 bond pads
 #   Top Left
-MOVEREL $center2TL 
+MOVEREL $center2TL
 MOVEREL $G_bond2HDI_bond
 VIDEO
 GETPOS $tl_top
@@ -96,7 +96,7 @@ SETVAC module_chuck_0_slot_1 0
 
 # Step 6. Ask if the Glass Slide is on the launchpad
 #    i. Is the MAS is clear?
-#    ii. Is the Pickup Tool ready? 
+#    ii. Is the Pickup Tool ready?
 @GLASS_SLIDE_CHECK CHOICEPOPUP $choice "Is the Glass Slide on the Launchpad?" "Yes, continue" "No, ask me again"
 GOTOIFN @GLASS_SLIDE_CHECK $choice
 
@@ -120,7 +120,7 @@ MOVENAME stagingArea
 COPY $target_pos $meas_pos
 CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
-ROTATE $meas_rot 
+ROTATE $meas_rot
 MOVETO $pickup_pos 10
 SETVAC gantry_head_inner 1
 WAIT 500
@@ -136,9 +136,9 @@ CALL @CALCPICKUP
 MOVETO $pickup_pos_z0 50
 ROTATE $end_rot
 MOVETO $pickup_pos 10
-SETVAC gantry_head_inner 0
-WAIT 500
 SETVAC module_chuck_0_slot_1 1
+WAIT 500
+SETVAC gantry_head_inner 0
 WAIT 2000
 MOVETO $pickup_pos_z0 10
 INVERT $neg_end_rot $end_rot
@@ -198,7 +198,7 @@ END
         MOVETO $avg_pos
         VIDEO
         GETPOS $tl_meas
-        
+
         #Top Right
         TRANSFORML2G $tr_global $tr_local $pos $rot
         COPY $current_fid_pos $tr_global
@@ -275,7 +275,7 @@ END
 #  $G_bond2HDI_bond - glass bond pad to HDI bond pad
 @CHECK_ALIGNMENT MOVETO $end_pos $speed
             #Top Glass Fiducial
-            MOVEREL $center2TL 
+            MOVEREL $center2TL
             VIDEO
             GETPOS $top_glass
 
@@ -285,7 +285,7 @@ END
             GETPOS $top_HDI
 
             #Bottom HDI Fiducial
-            MOVEREL $TL2BL 
+            MOVEREL $TL2BL
             VIDEO
             GETPOS $bottom_HDI
 
@@ -344,11 +344,11 @@ END
             MUL $threeThree $three $three
             MUL $fiveFive $five $five
             MUL $sevenSeven $seven $seven
-     
+
             ADD $xx $oneOne $threeThree
             ADD $xx $xx $fiveFive
             ADD $xx $xx $sevenSeven
-            
+
             #find slope (n)
             INVERT $inv_xy $xy
             MUL $n $xx $inv_xy
@@ -359,11 +359,11 @@ END
             MUL $nCubed $nCubed -0.5
             ADD $sin_theta $n $nCubed
             MUL $sin_theta $sin_theta -1
-            
+
             #Theta in degrees
             MUL $theta $sin_theta $inv_PI
             MUL $theta $theta 180
-            
+
             # Calculate target position and orientation for the centroid of the glass piece
             ADD $end_pos.x $x_bar $Delta
             MUL $y_disp $Delta $sin_theta
