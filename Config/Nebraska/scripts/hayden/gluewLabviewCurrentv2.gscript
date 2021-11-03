@@ -1,0 +1,275 @@
+VERSION v1.3
+LOADCONFIG
+
+#set vaccuums
+SETVAC etl_chuck_4_pos_1 1 #for top piece
+SETVAC etl_chuck_1 1       #for the glue resevoir
+SETVAC etl_chuck_2 1       #for glue stamp
+setvac etl_chuck_3 1
+
+COPY $stamp_number 1 #change this according to what stamp you will be using
+COPY $weight_number 1
+
+#------------------------GRAB TARGET LOCATIONS------------------------------------------------#
+
+#Uses @CALCPICKUP  #think about the thickeness of the pieces as it gets put on
+COPY $bottom_center {776.211566,318.647663,78.942527}                #CHANGE THIS TO THE MOCKUP BASE CENTER
+COPY $bottom_rotation  {0.000487,0.000002,-0.003824,-0.999993}                          
+COPY $bottom_thickness {0,0,-0.6}
+
+COPY $top_center {646.167729,110.076103,75.537859}     #CHANGE THIS TO THE PIECE THAT WILL BE GETTING PICKED UP!!
+COPY $top_rotation {0.000000,-0.000000,0.002087,0.999998}                      
+
+
+#after glued
+#COPY $weight_location {776.349770,318.736380,79.644699} #manually
+COPY $weight_location $bottom_center
+COPY $weight_rotation $bottom_rotation
+
+#------------------Ensure the weights of the bottom piece are measured------------------#
+setvac etl_chuck_3 0
+choicepopup $choice measure_weight_of_bottom_piece
+setvac etl_chuck_1 3
+
+#---------------------------MEASURE Bottom's fiducials--------------------------------------------#
+setlight 40
+#geometry from config
+
+flexread $tr_local geometry.ETL_mock_base.fid_tr  
+flexread $tl_local geometry.ETL_mock_base.fid_tl
+flexread $bl_local geometry.ETL_mock_base.fid_bl
+flexread $br_local geometry.ETL_mock_base.fid_br
+
+#converts the local coordinates to global gantry coordinates usint start location and orientation
+TRANSFORML2G $tr_global $tr_local $bottom_center $bottom_rotation
+TRANSFORML2G $tl_global $tl_local $bottom_center $bottom_rotation
+TRANSFORML2G $bl_global $bl_local $bottom_center $bottom_rotation
+TRANSFORML2G $br_global $br_local $bottom_center $bottom_rotation
+
+#this is to get corrected centers and orientation, the code above gives general area
+MOVENAME etl_chuck_4                                                                   
+#Routine to set up inital position of metal piece
+moveto $tl_global 50
+# video #for you to make correction
+# getpos $tl_corrected
+WAIT 100
+FINDFID $tl_corrected ETL_PCB_Mockup
+
+moveto $tr_global 50
+# video #for you to make correction
+# getpos $tr_corrected
+WAIT 100
+FINDFID $tr_corrected ETL_PCB_Mockup
+
+moveto $bl_global 50
+# video #for you to make correction
+# getpos $bl_corrected
+WAIT 100
+FINDFID $bl_corrected ETL_PCB_Mockup
+
+moveto $br_global 50
+# video #for you to make correction
+# getpos $br_corrected
+WAIT 100
+FINDFID $br_corrected ETL_PCB_Mockup
+
+#turns measured corners or fiducials into center and orientation
+fit $bottom_center $bottom_rotation ETL_mock_base $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+TRANSFORML2G $bottom_r {12.05,0,0} $bottom_center $bottom_rotation #new code to try out
+TRANSFORML2G $bottom_l {-12.05,0,0} $bottom_center $bottom_rotation
+
+#---------------glue procedure of right side------------------------------#
+#defining variables this function uses:
+COPY $bottom_center $bottom_r
+COPY $bottom_rotation $bottom_rotation
+COPY $top_center $top_center
+COPY $top_rotation $top_rotation
+COPY $glue_resevoir {451.703700,319.453258,77.592240}            
+COPY $glue_rotation 0
+COPY $stamp_number 1
+COPY $soak_time 1000
+COPY $bottom_thickness $bottom_thickness
+CALL @glue_procedure
+
+setvac etl_chuck_1 0
+choicepopup $choice clean_stamp_replace_PCB
+setvac etl_chuck_1 1
+
+#---------------glue procedure of left side------------------------------#
+COPY $bottom_center $bottom_l
+COPY $bottom_rotation $bottom_rotation
+COPY $top_center $top_center
+COPY $top_rotation $top_rotation
+COPY $glue_resevoir {451.703700,319.453258,77.592240}             
+COPY $glue_rotation 0
+COPY $stamp_number 1
+COPY $soak_time 1000
+COPY $bottom_thickness $bottom_thickness
+CALL @glue_procedure
+
+
+#---------------------------------PUT WEIGHT ON-----------------------------------#
+
+loadtool grabber_tool
+
+#pickup weight
+MOVENAME etl_chuck_2
+
+loadweight $weight_number
+
+MOVENAME etl_chuck_3
+
+ADD $pickup_pos2 $weight_location $bottom_thickness #account for both thicknessess
+
+QUAT2EULER $yaw $pitch $roll $weight_rotation #angle needs to be an euler angle for apply weight
+ADD $yaw $yaw -90
+
+applyweight $weight_location $yaw 
+
+unloadtool
+
+SETVAC etl_chuck_1 0
+SETVAC etl_chuck_4_pos_1 0
+
+
+END
+
+#variables this function uses:
+#$stamp number - what stamp you are using
+#$glue_resevoir - glue reservoir location
+#$glue_rotation - glue reservoir rotation
+#$bottom_center - where you are applying the glue to
+#$bottom_rotation - rotation of the bottom piece
+#$top_center - piece that will be glued on top of the bottom location
+#$top_rotation - rotation of the top piece
+#$soak_time - how long the stamp, stamps
+#$bottom_thickness - thickness of the bottom piece
+
+#Functionalities to consider adding:
+#customizing the chuck locations
+#stamp center offset of the rubber and the physical stamp
+#remembering that the stamp when put back has an offset
+#being able to fix the 360 deg rotation thing
+
+@glue_procedure
+ COPY $RET2 $RET
+	#---------------------------PICK UP GRABBER TOOL------------------------------------------------------#
+	loadtool grabber_tool
+	#----------------------------PICK UP GLUE TOOL--------------------------------------------------------#
+	LOADSTAMP $stamp_number 
+	#--------------------------GO TO GLUE RESEVOIR: GET GLUE ---------------------------------------------#
+	MOVENAME etl_chuck_1
+	APPLYSTAMP $glue_resevoir $glue_rotation $soak_time  #same rotation as stamp, based off eye
+	#---------------------------------STAMP IT------------------------------------------------------------#
+	MOVENAME etl_chuck_4
+
+	#flexread $stamp_center_offset "geometry.stamp_{$stamp_number}.center_offset" #gets rotation of the stamp
+	#SUB $bottom_center $bottom_center $stamp_center_offset      #subtract these I guess
+
+	#adding 90 deg to the $bottom rotation
+	#COMPOSE $bottom_rotation1 $bottom_rotation {0.000000,0.000000,-0.707107,0.707107} #-90 deg
+
+	APPLYSTAMP $bottom_center $bottom_rotation $soak_time 
+	#---------------------------------PUT GLUE TOOL BACK---------------------------------------------------#
+	MOVENAME etl_chuck_2
+
+	UNLOADSTAMP
+	#---------------------------------PUT GRABBER TOOL BACK------------------------------------------------#
+	unloadtool
+	#-------------------------GET CORRECTED LOCATION OF TOP PIECE------------------------------------------#
+	setlight 40
+	#geometry from config
+
+	flexread $tr_local geometry.ETL_Sensor_PCB_Mockup.fid_tr  
+	flexread $tl_local geometry.ETL_Sensor_PCB_Mockup.fid_tl
+	flexread $bl_local geometry.ETL_Sensor_PCB_Mockup.fid_bl
+	flexread $br_local geometry.ETL_Sensor_PCB_Mockup.fid_br
+
+	#converts the local coordinates to global gantry coordinates usint start location and orientation
+	TRANSFORML2G $tr_global $tr_local $top_center $top_rotation
+	TRANSFORML2G $tl_global $tl_local $top_center $top_rotation
+	TRANSFORML2G $bl_global $bl_local $top_center $top_rotation
+	TRANSFORML2G $br_global $br_local $top_center $top_rotation
+
+	#this is to get corrected centers and orientation, the code above gives general area
+	MOVENAME etl_chuck_4                                                                   
+	#Routine to set up inital position of metal piece
+	moveto $tl_global 50
+	# video #for you to make correction
+	# getpos $tl_corrected
+	WAIT 100
+	FINDFID $tl_corrected ETL_PCB_Mockup
+
+	moveto $tr_global 50
+	# video #for you to make correction
+	# getpos $tr_corrected
+	WAIT 100
+	FINDFID $tr_corrected ETL_PCB_Mockup
+
+	moveto $bl_global 50
+	# video #for you to make correction
+	# getpos $bl_corrected
+	WAIT 100
+	FINDFID $bl_corrected ETL_PCB_Mockup
+
+	moveto $br_global 50
+	# video #for you to make correction
+	# getpos $br_corrected
+	WAIT 100
+	FINDFID $br_corrected ETL_PCB_Mockup
+
+	#turns measured corners or fiducials into center and orientation
+	fit $top_center $top_rotation ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+	#---------------------------------PICK AND PLACE OF TOP PIECE TO BOTTOM PIECE--------------------------#
+
+	COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+	COPY $picker_height $picker_height_cup_5	
+
+	loadtool etl_picker_tool
+	
+	#Step: pickup part
+	MOVENAME etl_chuck_4            
+	COPY $camera_pos $top_center
+	CALL @CALCPICKUP
+	MOVETO $pickup_pos_z0 50
+	ROTATETO $top_rotation 
+
+	MOVETO $pickup_pos 50     #goes down 
+	SETVAC gantry_head_inner 1
+	WAIT 500
+	SETVAC etl_chuck_4_pos_1 0           
+	WAIT 500
+	MOVETO $pickup_pos_z0 50
+
+	#Step: place part 
+	COPY $camera_pos $bottom_center
+	CALL @CALCPICKUP
+	MOVETO $pickup_pos_z0 50    
+
+	ROTATETO $bottom_rotation
+	ADD $pickup_pos $pickup_pos $bottom_thickness  #Account for thickness of bottom
+	MOVETO $pickup_pos 50        
+	WAIT 500
+	SETVAC gantry_head_inner 0
+	WAIT 500
+	MOVETO $pickup_pos_z0 50   
+	ROTATETO 0
+
+	unloadtool
+
+	GOTO $RET2
+
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+#  $picker_height - height of picker tool
+@CALCPICKUP       #for gantry picker tool
+        FLEXREAD $ghco geometry.tool_holder_offset     #gets gantry head camera offset (gcho)
+        ADD $netoffset $picker_height $ghco           #adds the height of the picker tool to this offset
+        SUB $pickup_pos $camera_pos $netoffset       #brings gantry head to camera position (grabber pos)
+        COPY $pickup_pos_z0 $pickup_pos
+        COPY $pickup_pos_z0.z 0
+        GOTO $RET

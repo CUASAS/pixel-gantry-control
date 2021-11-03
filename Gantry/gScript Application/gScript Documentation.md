@@ -60,6 +60,29 @@ CHOICEPOPUP "You are at {$curr:%v}. Is this correct?"
 
 This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
 
+### Tick Expressions
+
+It is often convenient to be able to do simple calculations and pass the result to a command, a function call, or to determine whether a `GOTOIF` get's executed. To help with this, "Tick Expressions" were added in `gScript v2.1`. They allow you to put a simple calculation in any place where you would normally put a variable, constant, or main memory access. Take a simple example. We have a variable and we want to print out double the number. Without using tick expressions this would be done like:
+
+```
+COPY $N 10
+MUL $2N 2 $N
+PRINT "%d" $2N
+```
+
+Now, using a tick expression:
+
+```
+COPY $N 10
+PRINT "%d" `$N*2`
+```
+
+Note that this eliminates one line of code and the awkward `$2N` variable. The normal arithmetic operations are supported (`*`, `/`, `%`, `+`, `-`). There is also `//` for integer division. Comparison operations are also supported (`==`, `!=`, `>`, `<`, `>=`, `<=`). Since integers are stored internally as floating point numbers, comparison is subject to floating-point error. To account for this, integer versions of the comparison functions are supplied (`=i=`, `!i=`, `>i=`, `<i=`) and should be used when the inputs are integers.
+
+**Caveats:**
+  - Only expressions of the form `{value}{operation}{value}` are supported. More complex expressions must be broken up and performed one at a time.
+  - Only scalar numbers are supported. If a vector or quaternion is supplied, the `.x` component will be used.
+
 ### Error Handling
 
 The interpreter has three error-handling modes
@@ -69,6 +92,31 @@ The interpreter has three error-handling modes
   - `setvar`: If a command returns an error, the variable `$ERR` is set to the error code. Subsequent code can read this value and act accordingly.
   
 Upon startup, the error handling mode is `default`. The `SETERRORMODE` command can be used to change the error mode.
+
+### Functions
+
+`gScript` has support for reusable code in the form of functions. Following is a minimal example showing how this works.
+
+```
+CALL @add_function 10 10 -> $result
+PRINT "%d" $result
+END
+
+@add_function(A,B)
+    ADD $sum $A $B
+    RETURN $sum
+```
+
+There are three essential elements here. First, the invocation of `CALL` requires the function to call (in this case "`@add_function`") followed by the arguments to that function. Here we pass two arguments, 10 and 10. If you wish to use the return value of the function, add a `->` after the arguments followed by the variables where you would like the results saved.
+
+The second important thing is the actual declaration of the function. The syntax for this is an `@` followed by the name of the function, then, if the function has arguments, a comma-separated list surrounded by parenthases. Note that there must not be any whitespace in the declaration. In the above example, the value passed in `CALL` are bound to the variables specified in the function declaration (ie `$A=10`, `$B=10`).
+
+Finally, the `RETURN` statement takes a list of values and binds them to the variables specified in the preceeding `CALL`. In this case, `$result` will receive the value of `$sum`, which is itself just `10+10=20`.
+
+It's important to note that a `CALL` creates a new namespace (aka a new stack frame) so any new variables defined in a function will not overwrite those in the calling context. This also means that any variables not given to `RETURN` will be lost.
+
+Finally, if a variable is read that is not defined in the current function, then the interpreter will search down the stack until it finds it. This could be useful if, for example, you have a script which relies on several unchanging configuration variables that are set once near the start of execution and then not modified further. In this case, it would be annoying to have to pass these variables into every function that needs them. So instead they can just be referenced directly using this mechanism.
+
 
 ## Command Listing
 
@@ -139,11 +187,21 @@ Same as `GOTOIF`, except it goes to the command at `dest` if `cond` is evaluated
 
 #### `CALL`
 
-Similar to `GOTO`, except in addition to moving to the the specified line, it also saves the current line plus 1 to the variable `$RET`. 
+Used to call a function. See [Functions](#functions) for more details
 
-*Format:* `CALL dest`
+*Format:* `CALL dest arg1 arg2 -> ret1 ret2`
 
   - `dest`: The address of the statement to execute next. Can be a Label.
+  - `argn`: Arguments to pass to the function. Should match the number of arguments specified in the function declaration.
+  - `ret1`: **Optional** Variables to save any values passed from the function's `RETURN`
+
+#### `RETURN`
+
+Used in functions to return results to the calling context. See [Functions](#functions) for more details
+
+*Format:* `RETURN arg1 arg2`
+
+  - `argn`: Results to return to the calling function.
 
 #### `END`
 
@@ -467,7 +525,7 @@ Reads the current position of the gantry and saves it into `pos`.
 
 #### `ROTATE`
 
-Rotates the gantry head by `rot` degrees. This is a relative motion.
+Rotates the gantry head by `rot` degrees. If `rot` is a quaternion, the yaw component is used. This is a relative motion.
 
 *Format:* `ROTATE rot speed`
 
@@ -476,7 +534,7 @@ Rotates the gantry head by `rot` degrees. This is a relative motion.
 
 #### `ROTATETO`
 
-Rotates the gantry head to position `pos`, where `pos` is an absolute coordinate.
+Rotates the gantry head to position `pos`, where `pos` is an absolute coordinate.  If `pos` is a quaternion, the yaw component is used.
 
 *Format:* `ROTATE pos speed`
 
@@ -535,10 +593,11 @@ Displays a popup windows showing a video stream from a specified camera. If no c
 
 Takes a series of images spaced roughly 20 um apart within `range`. For each image, the focus is calculated. The focus values are then fit using a gaussian. The center of the gaussian is used as the focal position. Finally, the gantry moves to the focal position. The default image spacing can be overridden by setting the flex_config entry `vision.autofocus.step_size` to a different value. By default, there is no delay between the end of motion and grabbing an image. For low-framerate (<10fps) cameras, this can result in getting an old image from before motion ended. To remedy this, one can add a delay by setting the `vision.autofocus.delay` entry in the flex_config.
 
-*Format:* `AUTOFOCUS res range mode`
+*Format:* `AUTOFOCUS res range crop_factor mode`
 
   - `res`: Writable location to save the position of max focus in the specified range.
   - `range`: Size of window to search for maximum focus centered around the current position.
+  - `crop_factor`: **Optional** A value in the range \[0,1) to crop the image before calculating focus. Use this if the field of view contains objects at different heights and you wish to focus specifically on the central area of the image. For example, if `crop_factor=x` the autofocus will crop `x/2` from the top, bottom, left, and right of the image, leaving a cropped image that has `1-x` of the original's height and width.
   - `mode`: **Optional** specify `autoclose` to close the monitor popup when finished. Otherwise window will remain open until close button is pressed.
 
 #### `SETLIGHT`
@@ -635,6 +694,83 @@ Unloads the current tool. Has the same configuration pre-requisites as `LOADTOOL
 
 *Format:* `UNLOADTOOL`
 
+
+#### **Grabber Tool**
+
+#### `LOADSTAMP`
+
+`LOADSTAMP` will pick up any stamp as long as it is given the correct parameters in the config. It will go the named position, perform movement (described below) and return to that named position.
+
+These are (for example with `stamp_number`=1 and the stamp is at `etl_chuck_2`):
+
+
+```
+stamp_info.chuck: etl_chuck_2
+
+stamp.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, 
+                             #  its just so the grabber tool is in the correct 
+                             #  orientation before it goes to pos1,pos2 etc...
+stamp.1.pos1: {1,1,1}        # Not relevant position vectors just place holders 
+                             #  and to show they are vectors
+stamp.1.pos2: {2,2,2}
+stamp.1.pos3: {3,3,3}
+stamp.1.pos4: {4,4,4}
+```
+
+The order is like this (clockwise starting at pos1, all movement should roughly be in the same plane as drawn in this picture):
+
+        pos1(GRABBER TOOL !NOT CAMERA! directly above stamp)                pos2(pos2 to gain clearance)
+        
+        
+        
+        
+        
+        pos4(where stamp is sitting)                                        pos3(directly below pos2 and in a position it can now slide into pos4 to pick up the stamp)
+
+To obtain these values you will load the grabber tool and grab these positions manually to put in the config. For example, with the grabber tool loaded:
+
+1. You would bring the grabber tool directly overhead of the center of the stamp (pos1)
+2. Move gantry over to a safe location (pos2)
+3. Bring gantry down such that it can now slide in and pick up the stamp without crashing (pos3)
+4. Where grabber tool and stamp will be safely combined (pos4)
+And now the grabber tool has picked up the stamp when it moves up to pos 1
+
+
+*Format:* **LOADSTAMP stamp_number**
+
+  - `stamp_number`: Stamp number tells "LOADSTAMP" what stamp you are loading and should match rot,pos1,pos2,pos3,pos4 in the config
+
+
+#### `UNLOADSTAMP`
+
+Takes current stamp and unloads it back to where it was resting before the stamp was loaded. 
+In order for the stamp to not catch on the side of where you are unloading it, you can supply an offset in the config.
+
+Example of correct config format:
+stamp.1.return_offset: {1.0,1,0}*
+
+*Format:* **UNLOADSTAMP**
+
+  - no arguments
+
+#### `APPLYSTAMP`
+
+Takes loaded stamp and stamps a determined target. There are some important parameters to specify in the config, the list is:
+
+geometry.etl_grabber_tool.Zg: {0,0,43.5}
+geometry.stamp_1.Zs: {0,0,12.5}
+
+stamp_info.apply_gap: {0,0,1}
+stamp_info.apply_time: 1000 #default time for how long you want to stamp the object
+
+![image](https://user-images.githubusercontent.com/70072888/124952714-1732c580-dfda-11eb-8b0f-488ef5755fad.png)
+
+
+*Format:* **APPLYSTAMP center rot wait**
+
+  - `center`: Center of the object the user wishes to stamp (in camera coordinates, ie measured with the camera)
+  - `rot`: rotation of the object the user wishes to stamp
+  - `wait`: **Optional** Tells you how long to apply the stamp, if not given it has a default value in the config
 
 #### **Syringe Tool**
 

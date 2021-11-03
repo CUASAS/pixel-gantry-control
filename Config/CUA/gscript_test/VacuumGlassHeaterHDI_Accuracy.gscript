@@ -1,0 +1,50 @@
+SETLOG "HDI_107_SouvikMethod.log"
+LOADCONFIG
+CLEARLOG
+HOME
+SETVAC purdue_mechanics_left 1
+
+COPY $speed 100
+
+COPY $reft1 {250.026933,529.669420,67.635644}
+COPY $reft2 {250.105104,549.320229,67.635644}
+COPY $reft3 {250.113648,551.979905,67.635644}
+COPY $reft4 {250.189612,571.170469,67.635645}
+
+COPY $counter 0
+
+@LOOP MPGON
+      SETVAC purdue_mechanics_left 1
+      MOVETO $reft1 $speed
+      VIDEO
+      GETPOS $fidt1
+      PRINT "    T1: %v" $fidt1
+
+      MOVETO $reft2 $speed
+      VIDEO
+      GETPOS $fidt2
+      PRINT "    T2: %v" $fidt2
+
+      MOVETO $reft3 $speed
+      VIDEO
+      GETPOS $fidt3
+      PRINT "    T3: %v" $fidt3
+
+      MOVETO $reft4 $speed
+      VIDEO
+      GETPOS $fidt4
+      PRINT "    t4: %v" $fidt4
+
+      MOVEREL {0,0,-50} $speed
+
+      MPGOFF
+
+      INC $counter $counter
+      PRINT "HDI MH0107 (%d)" $counter
+
+      SETVAC purdue_mechanics_left 0
+
+      CHOICEPOPUP $answer "Run Again?"
+      GOTOIF @LOOP $answer
+
+PRINT "Done."

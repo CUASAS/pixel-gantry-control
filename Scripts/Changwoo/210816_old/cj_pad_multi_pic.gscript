@@ -1,0 +1,29 @@
+COPY $start {221.624,417.826,77.699}
+COPY $end {221.64,398.135,77.719}
+#SUB $delta $end $start
+#PRINT "%v" $delta
+#ABS $delta_len $delta
+#INV $delta_len_inv $delta_len
+#COPY $delta_len_inv 0.05078457946
+#MUL $delta_unit $delta $delta_len_inv
+#PRINT "%v" $delta_unit
+#MUL $step $delta_unit .1
+#PRINT "%v" $step
+
+#HOME
+#MPGON
+#VIDEO "gantryhead"
+#GOTO {221.624,417.826,77.699}
+
+COPY $tot_num 99
+
+MOVETO {223.22575,417.79575,77.3356}
+COPY $step {0.0000715175809,-0.199998915,-0.0006548967051}
+COPY $counter $tot_num
+@LOOP
+    SUB $num $tot_num $counter
+    SNAPSHOT gantryhead "wbp_{$num}.png"
+    MOVEREL $step
+    PRINT "aa"
+    DEC $counter $counter
+    GOTOIF @LOOP $counter

@@ -1,0 +1,19 @@
+COPY $N 20
+COPY $step .05
+
+sCOPY $i $N
+MUL $back $step $N
+MUL $back $back -0.5
+MOVEREL {0,0,$back}
+
+@LOOP
+GETPOS $cur_pos
+SNAPSHOT gantryhead "img_{$cur_pos.z:%f}.png"
+MOVEREL {0,0,$step}
+DEC $i $i
+GOTOIF @LOOP $i
+
+
+MOVEREL {0,0,$back}
+
+END

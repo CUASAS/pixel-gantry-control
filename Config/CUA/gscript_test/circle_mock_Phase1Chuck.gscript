@@ -14,7 +14,7 @@ COPY $fid_wait 1000
 COPY $rspeed 10
 COPY $img_idx 0
 
-
+COPY $counter 0
 # PO37 ALIGNMENT TOP RIGHT
 COPY $start_tr {702.856606,205.544923,62.561755}
 COPY $start_br {703.021653,248.741570,62.605701}
@@ -25,10 +25,11 @@ FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_t
 
 PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
 
-COPY $end_tr {702.900756,205.556900,62.603010}
-COPY $end_br {703.024434,248.754527,62.639454}
-COPY $end_bl {685.819257,248.804725,62.586922}
-COPY $end_tl {685.690320,205.606042,62.605479}
+#PHASE 1 SLOT 2 PO37 TOP RIGHT/ ANY POS
+COPY $end_tr {671.908526,209.405673,62.538774}
+COPY $end_br {671.397080,252.598253,62.552426}
+COPY $end_bl {654.191174,252.394643,62.563775}
+COPY $end_tl {654.702590,209.196787,62.578774}
 
 FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
 
@@ -62,7 +63,7 @@ WAIT $fid_wait
 SETVAC module_chuck4_slot3 0
 WAIT $fid_wait
 MOVETO $pickup_pos_z0 10
-WAIT 5000
+
 INVERT $start_rot_ $start_rot
 ROTATE $start_rot_ $rspeed
 
@@ -73,12 +74,11 @@ MOVETO $pickup_pos_z0 25
 ROTATE $end_rot $rspeed
 MOVETO $pickup_pos 10
 WAIT $fid_wait
-SETVAC module_chuck4_slot3 1
+SETVAC module_chuck4_slot2 1
 #SETVAC purdue_mechanics_left 1
 SETVAC gantry_head_inner 0
 WAIT $fid_wait
 MOVETO $pickup_pos_z0 10
-WAIT 5000
 INVERT $end_rot_ $end_rot
 ROTATE $end_rot_ $rspeed
 
@@ -95,13 +95,14 @@ SUB $delta_tl $end_tl $tl_meas
 SUB $delta_tr $end_tr $tr_meas
 SUB $delta_bl $end_bl $bl_meas 
 SUB $delta_br $end_br $br_meas
-PRINT "Misplacement: %v" $delta
+INC $counter $counter
+PRINT "%v Misplacement: %v" $counter $delta
 PRINT "    delta_tl:    %v " $delta_tl
 PRINT "    delta_tr:    %v " $delta_tr
 PRINT "    delta_bl:    %v " $delta_bl
 PRINT "    delta_br:    %v " $delta_br
 MOVEREL {0,0,-60} $speed
-SETVAC module_chuck4_slot3 0
+SETVAC module_chuck4_slot2 0
 #SETVAC purdue_mechanics_left 0
 
 CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 

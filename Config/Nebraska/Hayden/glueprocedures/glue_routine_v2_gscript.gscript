@@ -26,8 +26,8 @@ SETVAC etl_chuck_4_pos_4 0
 COPY $bottom_center $bottom_center
 #done with 5/28 modifications
 
-#COPY $plastic_center {647.8,113.029,74.97}
-COPY $bottom_center $bottom_center
+COPY $plastic_center {647.8,113.029,74.97}
+COPY $bottom_center $plastic_center
  
 
 COPY $top_center {699.113,110.388,74.5}       #piece that will be getting picked up (going to have to add more)
@@ -45,6 +45,7 @@ COPY $stamp_up {646.949962,110.051089,0}
 COPY $grabber_height {0,0,43.3}
 COPY $stamp_height_with_grabber {0,0,55.9} 
 
+GOTO @COMMENT
 #---------------------------MEASURE PCBs fiducials--------------------------------------------#
 setlight 40
 #geometry from config
@@ -88,7 +89,7 @@ FINDFID $br_corrected ETL_PCB_Mockup
 
 #turns measured corners or fiducials into center and orientation
 fit $bottom_center $bottom_rotation ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
-
+@COMMENT
 #---------------------------PICK UP GRABBER TOOL------------------------------------------------#
 
 loadtool etl_grabber_tool
@@ -123,6 +124,9 @@ MOVETO $down_z     #goes down to stamp
 WAIT 1000
 MOVETO $XYZ_pos_z0 30 #moves back
 
+setvac etl_chuck_1 0
+setvac etl_chuck_4_pos_1 0
+END
 #---------------------------------STAMP IT------------------------------------------------#
 MOVENAME etl_chuck_4
 

@@ -1,0 +1,7 @@
+#normal survey
+setlight 50
+copy $loc  {753.293350,459.065168,67.402131}
+copy $x_size 26    #23, 42.1
+copy $y_size 45.1  #remember long side so u might have to switch these
+
+survey $loc $x_size $y_size medium ok_wet.png
