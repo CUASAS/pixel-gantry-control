@@ -1,26 +1,27 @@
 VERSION v2.1
 LOADCONFIG
 
-COPY $bot_chuck_num 1
+COPY $bot_chuck_num 3
 COPY $bot_pos_num 1
 
-COPY $topA_chuck_num 1
+COPY $topA_chuck_num 4
 COPY $topA_pos_num 1
-COPY $topB_chuck_num 1
-COPY $topB_pos_num 1
+COPY $topB_chuck_num 4
+COPY $topB_pos_num 2
 
 COPY $stampA_num 1
 COPY $resA_num 1
 COPY $weightA_num 1
 
 COPY $stampB_num 2
-COPY $resB_num 1
+COPY $resB_num 2
 COPY $weightB_num 2
 
+COPY $top_thickness {0,0,-0.6}
 
 #set vaccuums
-SETVAC "etl_chuck_{$topA_chuck}_pos_{$topA_pos}" 1 #for top piece A
-SETVAC "etl_chuck_{$topB_chuck}_pos_{$topB_pos}" 1 #for top piece B
+SETVAC "etl_chuck_{$topA_chuck_num}_pos_{$topA_pos_num}" 1 #for top piece A
+SETVAC "etl_chuck_{$topB_chuck_num}_pos_{$topB_pos_num}" 1 #for top piece B
 
 # Chucks 1,2, and 3 are for the glue reservoir, stamp/weight staging, 
 # and assembly plate, respectively. 
@@ -33,15 +34,18 @@ CALL @SURVEY_PART $topA_chuck_num $topA_pos_num 1 -> $topA_pos $topA_rot
 CALL @SURVEY_PART $topB_chuck_num $topB_pos_num 1 -> $topB_pos $topB_rot
 
 # TODO: Adjust "bot_pos" to place the top parts in the correct positions
+TRANSFORML2G $bot_pos_1 {12.05,0,0} $bot_pos $bot_rot #new code to try out
+TRANSFORML2G $bot_pos_2 {-12.05,0,0} $bot_pos $bot_rot
 
-CALL @APPLY_GLUE $stampA_num $resA_num $bot_chuck_num $bot_pos $bot_rot
-CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos $bot_rot $topA_chuck_num $topA_pos $topA_pos $top_thickness
+CALL @APPLY_GLUE $stampA_num $resA_num $bot_chuck_num $bot_pos_1 $bot_rot
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_1 $bot_rot $topA_chuck_num $topA_pos_num $topA_pos $top_thickness
 
-CALL @APPLY_GLUE $stampB_num $resB_num $bot_chuck_num $bot_pos $bot_rot
-CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos $bot_rot $topB_chuck_num $topB_pos $topB_pos $top_thickness
+#ROTATION PROBLEM HERE?
+CALL @APPLY_GLUE $stampB_num $resB_num $bot_chuck_num $bot_pos_2 $bot_rot
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_2 $bot_rot $topB_chuck_num $topB_pos_num $topB_pos $top_thickness
 
-CALL @APPLY_WEIGHT $weightA_num $bot_chuck_num $bot_pos $bot_rot
-CALL @APPLY_WEIGHT $weightB_num $bot_chuck_num $bot_pos $bot_rot
+#CALL @APPLY_WEIGHT $weightA_num $bot_chuck_num $bot_pos $bot_rot
+#CALL @APPLY_WEIGHT $weightB_num $bot_chuck_num $bot_pos $bot_rot
 
 SETVAC etl_chuck_1 0
 SETVAC etl_chuck_4_pos_1 0
@@ -120,11 +124,12 @@ END
     MOVENAME "etl_chuck_{$bot_chuck_num}"
 
     FLEXREAD $stamp_center_offset "geometry.stamp_{$stamp_num}.center_offset"
+    FLEXREAD $stamp_center_rotation "geometry.stamp_{$stamp_num}.center_rotation"
     SUB $bot_pos_adj $bot_center $stamp_center_offset      #subtract these I guess
 
-    #adding 90 deg to the $bot rotation
-    #COMPOSE $bot_rotation1 $bot_rotation {0.000000,0.000000,-0.707107,0.707107} #-90 deg
-
+    EULER2QUAT $quat $stamp_center_rotation 0 0
+    COMPOSE $bot_rot $bot_rot $quat
+    
     APPLYSTAMP $bot_pos_adj $bot_rot
     UNLOADSTAMP
     UNLOADTOOL
