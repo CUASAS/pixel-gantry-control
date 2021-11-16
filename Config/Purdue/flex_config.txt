@@ -114,7 +114,8 @@ geometry.PICKER_TOOL.center_offset: {0,0,55} #tiny suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,58} #middle suction cup -1000um
-geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
+#geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
+geometry.PICKER_TOOL.center_to_suction: {0,12.084,0} #center of picker tool to top suction cup
 
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
@@ -168,6 +169,7 @@ vision.FPIX_RD53A_HDI.houghGradientParam2: 50
 
 #graph_motion.pos.LABEL: {x,y,z}
 graph_motion.pos.home: {0,0,0}
+graph_motion.pos.safeUnload: {190,90,0}
 graph_motion.pos.stagingArea: {590,337,0}
 
 # must be 2mm above tool in z
@@ -175,7 +177,10 @@ graph_motion.pos.tool_rack_pos_2_in:  {602.638,17.164,38.708}
 graph_motion.pos.tool_rack_pos_2_out: {602.638,117.164,38.708}
 
 #graph_motion.edge.LABEL1.LABEL2 True/False
-graph_motion.edge.home.tool_rack_pos_2_out: True
+graph_motion.edge.home.tool_rack_pos_2_out: False
+graph_motion.edge.tool_rack_pos_2_out.home: False
+graph_motion.edge.home.safeUnload: True
+graph_motion.edge.safeUnload.tool_rack_pos_2_out: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.stagingArea: True
 

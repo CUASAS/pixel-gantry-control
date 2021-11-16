@@ -1,4 +1,4 @@
-VERSION 1.3
+VERSION v2.1
 
 ######################## RD53A Multiple Sensor Assembly #############################
 # Steps:
@@ -48,16 +48,16 @@ COPY $pos_BRsenRoc_launch_tr {654.030,219.431,88.569}
 COPY $pos_BLsenRoc_launch_tr {633.359,219.069,88.584}
 COPY $pos_TLsenRoc_launch_tr {633.624,193.763,88.601}
 
-# Rough positions of the HDI on Chuck 1
-COPY $pos_chuck1_tr {410.391,528.560,99.619}
-COPY $pos_chuck1_br {410.430,568.240,99.619}
-COPY $pos_chuck1_bl {390.753,568.246,99.619}
-COPY $pos_chuck1_tl {390.705,528.560,99.619}
+# Rough positions of the HDI on Chuck 1 (on top of the glass)
+COPY $pos_chuck1_tr {410.391,528.560,93.206}
+COPY $pos_chuck1_br {410.430,568.240,93.206}
+COPY $pos_chuck1_bl {390.753,568.246,93.208}
+COPY $pos_chuck1_tl {390.705,528.560,93.221}
 
 # Rough positions of the SensorROC on Chuck 1
-COPY $pos_senRoc1_tr {412.500,528.000,99.800}
-COPY $pos_senRoc1_br {412.500,569.000,99.800}
-COPY $pos_senRoc1_bl {389.000,569.000,99.800}
+COPY $pos_senRoc1_tr {412.500,528.000,93.407}
+COPY $pos_senRoc1_br {412.500,569.000,93.399}
+COPY $pos_senRoc1_bl {389.000,569.000,93.399}
 COPY $pos_senRoc1_tl {389.000,528.000,99.800}
 
 # HDI pick and place translation vector and rotation angle measured independently
@@ -88,29 +88,22 @@ SETVAC rd53a_chuck_2 1
 # Step 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
 
 MOVESAFE $pos_chuck2_tr 100
-COPY $x_corner $pos_chuck2_tr
 @HDI_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
 GOTOIFN @HDI_0 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck2_tr $x_corner
+CALL @SURVEYCORNERS $pos_chuck2_tr -> $pos_chuck2_tr
 
-COPY $x_corner $pos_chuck2_br
 @HDI_1 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
 GOTOIFN @HDI_1 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck2_br $x_corner
+CALL @SURVEYCORNERS $pos_chuck2_br -> $pos_chuck2_br
 
-COPY $x_corner $pos_chuck2_bl
+
 @HDI_2 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
 GOTOIFN @HDI_2 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck2_bl $x_corner
+CALL @SURVEYCORNERS $pos_chuck2_bl -> $pos_chuck2_bl
 
-COPY $x_corner $pos_chuck2_tl
 @HDI_3 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
 GOTOIFN @HDI_3 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck2_tl $x_corner
+CALL @SURVEYCORNERS $pos_chuck2_tl -> $pos_chuck2_tl
 
 # Step 4. Compute would-be position and rotation of the HDI on Chuck 1
 
@@ -123,6 +116,15 @@ ADD $rot_hdi $rot_hdi $rot_hdi_translation
 
 ADD $pos_hdi_center_withError $pos_hdi_center $v_senRoc_error
 ADD $rot_hdi_withError $rot_hdi $rot_senRoc_error
+
+PRINT "HDI"
+PRINT "Rot: %f Center: %v" $rot_hdi $pos_hdi_center
+PRINT ""
+
+CHOICEPOPUP $choice "Are angles and positions reasonable (See console)?" "Yes, continue" "No"
+GOTOIF @ANGLE_CHECK $choice
+END
+@ANGLE_CHECK
 
 MOVESAFE {350,150,0} 100
 
@@ -184,28 +186,16 @@ GOTOIFN @STEP_SIX_ii $choice
 # Step 7. Survey the SensorROC
 
   #TR Sensor
-COPY $launch_tr $pos_TRsenRoc_launch_tr
-CALL @FINDSENSORCENTERS
-COPY $pos_TRsenRoc_launch $pos_senRoc_center
-COPY $rot_TRsenRoc_launch $rot_senRoc
+CALL @FINDSENSORCENTERS $pos_TRsenRoc_launch_tr $len_senRoc $wid_senRoc -> $pos_TRsenRoc_launch $rot_TRsenRoc_launch
 
   #BR Sensor
-COPY $launch_tr $pos_BRsenRoc_launch_tr
-CALL @FINDSENSORCENTERS
-COPY $pos_BRsenRoc_launch $pos_senRoc_center
-COPY $rot_BRsenRoc_launch $rot_senRoc
+CALL @FINDSENSORCENTERS $pos_BRsenRoc_launch_tr $len_senRoc $wid_senRoc -> $pos_BRsenRoc_launch $rot_BRsenRoc_launch
 
   #BL Sensor
-COPY $launch_tr $pos_BLsenRoc_launch_tr
-CALL @FINDSENSORCENTERS
-COPY $pos_BLsenRoc_launch $pos_senRoc_center
-COPY $rot_BLsenRoc_launch $rot_senRoc
+CALL @FINDSENSORCENTERS $pos_BLsenRoc_launch_tr $len_senRoc $wid_senRoc -> $pos_BLsenRoc_launch $rot_BLsenRoc_launch
 
   #TL Sensor
-COPY $launch_tr $pos_TLsenRoc_launch_tr
-CALL @FINDSENSORCENTERS
-COPY $pos_TLsenRoc_launch $pos_senRoc_center
-COPY $rot_TLsenRoc_launch $rot_senRoc
+CALL @FINDSENSORCENTERS $pos_TLsenRoc_launch_tr $len_senRoc $wid_senRoc -> $pos_TLsenRoc_launch $rot_TLsenRoc_launch
 
 # Step 8. Pick up the SensorROCs and place them on Chuck 1 at positions computed in Step 5
 @STEP_EIGHT PASS
@@ -214,59 +204,43 @@ MOVENAME stagingArea
 
 ##################
 # Pickup Step TR #
-COPY $target_pos $pos_TRsenRoc_launch
-COPY $target_rot $rot_TRsenRoc_launch
-CALL @CALCPICKUP_4SENSORS
-CALL @PICKUPSTEP
+CALL @CALCPICKUP_4SENSORS $pos_TRsenRoc_launch $rot_TRsenRoc_launch -> $pos $pos_z0
+CALL @PICKUPSTEP $pos $pos_z0 $rot_TRsenRoc_launch
 
 # Place Step TR
-COPY $target_pos $pos_TRsenRoc_center
-COPY $target_rot $rot_hdi_withError
-CALL @CALCPICKUP_4SENSORS
-COPY $vacIndex @TURNON_chuck1_TR
-CALL @PLACESTEP
+CALL @CALCPICKUP_4SENSORS $pos_TRsenRoc_center $rot_hdi_withError -> $pos $pos_z0
+COPY $vac @TURNON_chuck1_TR
+CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
 
 ##################
 # Pickup Step BR #
-COPY $target_pos $pos_BRsenRoc_launch
-copy $target_rot $rot_BRsenRoc_launch
-CALL @CALCPICKUP_4SENSORS
-CALL @PICKUPSTEP
+CALL @CALCPICKUP_4SENSORS $pos_BRsenRoc_launch $rot_BRsenRoc_launch -> $pos $pos_z0
+CALL @PICKUPSTEP $pos $pos_z0 $rot_BRsenRoc_launch
 
 # Place Step BR
-COPY $target_pos $pos_BRsenRoc_center
-COPY $target_rot $rot_hdi_withError
-CALL @CALCPICKUP_4SENSORS
-COPY $vacIndex @TURNON_chuck1_BR
-CALL @PLACESTEP
+CALL @CALCPICKUP_4SENSORS $pos_BRsenRoc_center $rot_hdi_withError -> $pos $pos_z0
+COPY $vac @TURNON_chuck1_BR
+CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
 
 ##################
 # Pickup Step BL #
-COPY $target_pos $pos_BLsenRoc_launch
-copy $target_rot $rot_BLsenRoc_launch
-CALL @CALCPICKUP_4SENSORS
-CALL @PICKUPSTEP
+CALL @CALCPICKUP_4SENSORS $pos_BLsenRoc_launch $rot_BLsenRoc_launch -> $pos $pos_z0
+CALL @PICKUPSTEP $pos $pos_z0 $rot_BLsenRoc_launch
 
 # Place Step BL
-COPY $target_pos $pos_BLsenRoc_center
-COPY $target_rot $rot_hdi_withError
-CALL @CALCPICKUP_4SENSORS
-COPY $vacIndex @TURNON_chuck1_BL
-CALL @PLACESTEP
+CALL @CALCPICKUP_4SENSORS $pos_BLsenRoc_center $rot_hdi_withError -> $pos $pos_z0
+COPY $vac @TURNON_chuck1_BL
+CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
 
 ##################
 # Pickup Step TL #
-COPY $target_pos $pos_TLsenRoc_launch
-copy $target_rot $rot_TLsenRoc_launch
-CALL @CALCPICKUP_4SENSORS
-CALL @PICKUPSTEP
+CALL @CALCPICKUP_4SENSORS $pos_TLsenRoc_launch $rot_TLsenRoc_launch -> $pos $pos_z0
+CALL @PICKUPSTEP $pos $pos_z0 $rot_TLsenRoc_launch
 
 # Place Step TL
-COPY $target_pos $pos_TLsenRoc_center
-COPY $target_rot $rot_hdi_withError
-CALL @CALCPICKUP_4SENSORS
-COPY $vacIndex @TURNON_chuck1_TL
-CALL @PLACESTEP
+CALL @CALCPICKUP_4SENSORS $pos_TLsenRoc_center $rot_hdi_withError -> $pos $pos_z0
+COPY $vac @TURNON_chuck1_TL
+CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
 
 ROTATETO 0 10
 UNLOADTOOL
@@ -302,56 +276,41 @@ GOTOIFN @STEP_FOURTEEN $choice
 # Step 15. Move gantry head to Chuck 1 and survey for Module accuracy
 
 MOVESAFE $pos_chuck1_tr 100
-COPY $x_corner $pos_chuck1_tr
 @ACC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_0 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck1_tr $x_corner
+CALL @SURVEYCORNERS $pos_chuck1_tr -> $pos_chuck1_tr
 
-COPY $x_corner $pos_senRoc1_tr
 @ACC_1 CHOICEPOPUP $choice "Ready to find the Top Right marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_1 $choice
-CALL @SURVEYCORNERS
-COPY $pos_senRoc1_tr $x_corner
+CALL @SURVEYCORNERS $pos_senRoc1_tr -> $pos_senRoc1_tr
 
 
-COPY $x_corner $pos_chuck1_br
 @ACC_2 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_2 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck1_br $x_corner
+CALL @SURVEYCORNERS $pos_chuck1_br -> $pos_chuck1_br
 
-COPY $x_corner $pos_senRoc1_br
 @ACC_3 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_3 $choice
-CALL @SURVEYCORNERS
-COPY $pos_senRoc1_br $x_corner
+CALL @SURVEYCORNERS $pos_senRoc1_br -> $pos_senRoc1_br
 
 
-COPY $x_corner $pos_chuck1_bl
 @ACC_4 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_4 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck1_bl $x_corner
+CALL @SURVEYCORNERS $pos_chuck1_bl -> $pos_chuck1_bl
 
-COPY $x_corner $pos_senRoc1_bl
+
 @ACC_5 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_5 $choice
-CALL @SURVEYCORNERS
-COPY $pos_senRoc1_bl $x_corner
+CALL @SURVEYCORNERS $pos_senRoc1_bl -> $pos_senRoc1_bl
 
 
-COPY $x_corner $pos_chuck1_tl
 @ACC_6 CHOICEPOPUP $choice "Ready to find the Top Left marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_6 $choice
-CALL @SURVEYCORNERS
-COPY $pos_chuck1_tl $x_corner
+CALL @SURVEYCORNERS $pos_chuck1_tl -> $pos_chuck1_tl
 
-COPY $x_corner $pos_senRoc1_tl
 @ACC_7 CHOICEPOPUP $choice "Ready to find the Top Left marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_7 $choice
-CALL @SURVEYCORNERS
-COPY $pos_senRoc1_tl $x_corner
+CALL @SURVEYCORNERS $pos_senRoc1_tl -> $pos_senRoc1_tl
 
 
 FIT $pos_hdi_center_final $rot_hdi_final TFPX_RD53ASENSORROC $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
@@ -443,126 +402,132 @@ HOME
 END
 
 #FINDSENSORCENTERS
-# Arguments
-# $launch_tr
-@FINDSENSORCENTERS COPY $RET_FINDSENSORCENTERS $RET
-  MOVESAFE $launch_tr 50
-  COPY $x_corner $launch_tr
+# Arguments:
+#  $tr - approximate position of the top right corner
+#  $len - length of what is being surveyed
+#  $wid - wid of what is being surveyed
+#
+# Returns:
+#  $position - calculated position of the center based on the corners
+#  $rotation - calculated rotation based on the corners
+@FINDSENSORCENTERS(tr,len,wid)
+  MOVESAFE $tr 50
   @ROC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
   GOTOIFN @ROC_0 $choice
-  CALL @SURVEYCORNERS
-  COPY $launch_tr $x_corner
+  CALL @SURVEYCORNERS $tr -> $tr
 
-  COPY $launch_br $launch_tr
-  ADD $launch_br.y $launch_tr.y $len_senRoc
-  COPY $x_corner $launch_br
+  COPY $br $tr
+  ADD $br.y $tr.y $len
   @ROC_1 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
   GOTOIFN @ROC_1 $choice
-  CALL @SURVEYCORNERS
-  COPY $launch_br $x_corner
+  CALL @SURVEYCORNERS $br -> $br
 
-  COPY $launch_bl $launch_br
-  SUB $launch_bl.x $launch_bl.x $wid_senRoc
-  COPY $x_corner $launch_bl
+  COPY $bl $br
+  SUB $bl.x $bl.x $wid
   @ROC_2 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
   GOTOIFN @ROC_2 $choice
-  CALL @SURVEYCORNERS
-  COPY $launch_bl $x_corner
+  CALL @SURVEYCORNERS $bl -> $bl
 
-  COPY $launch_tl $launch_tr
-  SUB $launch_tl.x $launch_tl.x $wid_senRoc
-  COPY $x_corner $launch_tl
+  COPY $tl $tr
+  SUB $tl.x $tl.x $wid
   @ROC_3 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
   GOTOIFN @ROC_3 $choice
-  CALL @SURVEYCORNERS
-  COPY $launch_tl $x_corner
+  CALL @SURVEYCORNERS $tl -> $tl
 
   # Calculate the orientation of the SensorROC
-  FIT $pos_senRoc_center $rot_senRoc TFPX_RD53ASENSORROC $launch_tr $launch_br $launch_bl $launch_tl
+  FIT $position $rotation TFPX_RD53AQUARTERSENSORROC $tr $br $bl $tl
 
-  QUAT2EULER $rot_senRoc $trash0 $trash1 $rot_senRoc
+  QUAT2EULER $rotation $trash0 $trash1 $rotation
 
   PRINT "Sen Roc"
-  PRINT "Rot: %f Center: %v" $rot_senRoc $pos_senRoc_center
-  PRINT "HDI"
-  PRINT "Rot: %f Center: %v" $rot_hdi $pos_hdi_center
+  PRINT "Rot: %f Center: %v" $rotation $position
   PRINT ""
 
-  CHOICEPOPUP $choice "Are the angles and positions reasonable (See console)?" "Yes, continue" "No"
-  GOTOIF @ANGLE_CHECK $choice
+  CHOICEPOPUP $choice "Are angles and positions reasonable (See console)?" "Yes, continue" "No"
+  GOTOIF @ANGLE_CHECK_2 $choice
   END
-  @ANGLE_CHECK
-  GOTO $RET_FINDSENSORCENTERS
+  @ANGLE_CHECK_2
+  RETURN $position $rotation
 
 
-# SURVEYCORNERS
-# Arguments
-# $x_corner - Approximate position of an object that you would like to know the precise position. Returns with precise position written in this location
-@SURVEYCORNERS COPY $RET_SURVEYCORNERS $RET
-  MOVETO $x_corner 10
-  @SURCORNPOP VIDEO
-  CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
-  GOTOIFN @SURCORNPOP $choice
-  GETPOS $x_corner
-  GOTO $RET_SURVEYCORNERS
+  # SURVEYCORNERS
+  # Arguments:
+  # $x_corner - Approximate position of an object that you would like to know the precise position. Returns with precise position written in this location
+  #
+  # Returns:
+  # $x_corner - Updated position of the corner that is being looked for
+  @SURVEYCORNERS(x_corner)
+    MOVESAFE $x_corner 50
+    @SURCORNPOP VIDEO
+    CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+    GOTOIFN @SURCORNPOP $choice
+    GETPOS $x_corner
+    RETURN $x_corner
 
 # CALCPICKUP_4SENSORS
 # Arguments:
 #  $target_pos - center of piece to pickup/place
 #  $target_rot - rotation of piece to pickup/place
-@CALCPICKUP_4SENSORS COPY $RET_CALCPICKUP_4SENSORS $RET
+#
+# Returns:
+#  $pickup_pos - pickup position
+#  $pickup_pos_z0 - pickup position with z = 0
+@CALCPICKUP_4SENSORS(target_pos,target_rot)
   FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
   FLEXREAD $ghco geometry.tool_holder_offset
+  FLEXREAD $center2topSuction geometry.PICKER_TOOL.center_to_suction
   ADD $netoffset $picker_height $ghco
   SUB $pickup_pos $target_pos $netoffset
-  COPY $pickup_pos_z0 $pickup_pos
-  COPY $pickup_pos_z0.z 0
   # X & Y Correction
   SIN $sin_theta $target_rot
   COS $cos_theta $target_rot
-  FLEXREAD $center2topSuction geometry.PICKER_TOOL.center_to_suction
-  MUL $x_correction $center2topSuction.y $cos_theta
-  MUL $y_correction $center2topSuction.y $sin_theta
+  MUL $x_correction $center2topSuction.y $sin_theta
+  MUL $y_correction $center2topSuction.y $cos_theta
   SUB $pickup_pos.x $pickup_pos.x $x_correction
-  SUB $pickup_pos.y $pickup_pos.y $y_correction
-  SUB $pickup_pos_z0.x $pickup_pos_z0.x $x_correction
-  SUB $pickup_pos_z0.y $pickup_pos_z0.y $y_correction
-  #Rotation + 90 degrees
-  ADD $total_rot $target_rot 90
-  GOTO $RET_CALCPICKUP_4SENSORS
+  ADD $pickup_pos.y $pickup_pos.y $y_correction
+  COPY $pickup_pos_z0 $pickup_pos
+  COPY $pickup_pos_z0.z 0
+  RETURN $pickup_pos $pickup_pos_z0
 
 # PICKUPSTEP
 # takes place directly after CALCPICKUP_4SENSORS
 # Arguments:
-# variables from CALCPICKUP_4SENSORS
-@PICKUPSTEP COPY $RET_PICKUPSTEP $RET
-  MOVETO $pickup_pos_z0 50
-  ROTATETO $total_rot 10
-  SUB $pickup_pos.z $pickup_pos.z 5
-  MOVETO $pickup_pos 10
-  ADD $pickup_pos.z $pickup_pos.z 5
-  MOVETO $pickup_pos 1
+#  $pick_pos - pickup position
+#  $pick_pos_z0 - pickup position with z = 0
+#  $pick_rot - rotation of the what is being picked up
+#
+# No Returns
+@PICKUPSTEP(pick_pos,pick_pos_z0,pick_rot)
+  MOVETO $pick_pos_z0 100
+  ROTATETO $pick_rot 10
+  SUB $pick_pos.z $pick_pos.z 5
+  MOVETO $pick_pos 10
+  ADD $pick_pos.z $pick_pos.z 5
+  MOVETO $pick_pos 1
   WAIT 500
   SETVAC gantry_head_inner 1
-  WAIT 1000
-  SETVAC launchpad 0
   WAIT 2000
-  MOVETO $pickup_pos_z0 10
-#  ROTATETO 0 10
-  GOTO $RET_PICKUPSTEP
+  SETVAC launchpad 0
+  WAIT 1000
+  MOVETO $pick_pos_z0 10
+  RETURN
 
 # PLACESTEP
 # takes place directly after CALCPICKUP_4SENSORS
 # Arguments:
-#  Variables from CALCPICKUP_4SENSORS
-#  Vacuum index: $vacIndex = {TURNONVAC0, TURNONVAC1, TURNONVAC2, TURNONVAC3}
-@PLACESTEP COPY $RET_PLACESTEP $RET
-  MOVETO $pickup_pos_z0 50
-  ROTATETO $total_rot 10
-  SUB $pickup_pos.z $pickup_pos.z 5
-  MOVETO $pickup_pos 10
-  ADD $pickup_pos.z $pickup_pos.z 5
-  MOVETO $pickup_pos 1
+#  $place_pos - pickup position
+#  $place_pos_z0 - pickup position with z = 0
+#  $place_rot - rotation of the what is being picked up
+#  $vacIndex - current vacuum that needs to be turned on (passed as number)
+#
+# No Returns
+@PLACESTEP(place_pos,place_pos_z0,place_rot,vacIndex)
+  MOVETO $place_pos_z0 50
+  ROTATETO $place_rot 10
+  SUB $place_pos.z $place_pos.z 5
+  MOVETO $place_pos 10
+  ADD $place_pos.z $place_pos.z 5
+  MOVETO $place_pos 1
   WAIT 500
   GOTO $vacIndex
   @TURNON_chuck1_TR SETVAC rd53a_chuck_1_TR 1
@@ -576,6 +541,5 @@ END
   WAIT 1000
   SETVAC gantry_head_inner 0
   WAIT 2000
-  MOVETO $pickup_pos_z0 10
-#  ROTATETO 0 10
-  GOTO $RET_PLACESTEP
+  MOVETO $place_pos_z0 10
+  RETURN
