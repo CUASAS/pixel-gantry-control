@@ -1,11 +1,11 @@
-VERSION v2.0
+VERSION v2.1
 CLEARLOG
 COPY $count 0
 @loop
     CALL recursive_fibb $count -> $result
     PRINT "F(%d) = %d" $count $result
     INC $count $count
-    GOTOIF @loop `$count<i=8`
+    GOTOIF @loop `$count<i=10`
 END
 
 @recursive_fibb(N)
