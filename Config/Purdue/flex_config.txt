@@ -122,6 +122,7 @@ geometry.PICKER_TOOL.center_to_suction: {0,12.084,0} #center of picker tool to t
 geometry.tool_holder_offset: {0.909,-103,-23.5}
 
 # Site Geometry
+# These are geometrical parameters, like the positions of chucks, specific to a site
  #Positions of HDI on Chuck 2
 siteGeometry.pos_chuck2_tr: {460.391,528.560,100.354}
 siteGeometry.pos_chuck2_br: {460.430,568.240,100.269}
