@@ -32,7 +32,7 @@ SETVAC rd53a_chuck_1_BR 0
 SETVAC rd53a_chuck_2 0
 SETVAC rd53a_chuck_3 0
 SETVAC launchpad 0
-SETLOG "LOG_Assembly_RD53A_SingleSensor_DataGeneration.txt"
+SETLOG "LOG_Assembly_RD53A_SingleGlass_DataGeneration.txt"
 SETERRORMODE prompt
 
 # Rough positions of the HDI on Chuck 2
