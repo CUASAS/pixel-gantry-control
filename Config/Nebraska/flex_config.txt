@@ -27,6 +27,11 @@ vacuum.etl_chuck_4_pos_2: 6
 vacuum.etl_chuck_4_pos_3: 7
 vacuum.etl_chuck_4_pos_4: 4
 vacuum.gelpak_release: 0
+vacuum.twobytwo_10: 10
+vacuum.twobytwo_11: 11
+vacuum.twobytwo_12: 12
+vacuum.twobytwo_13: 13
+
 
 manifold.reset_on_start: false
 manifold.port.00: cDAQ1Mod1/port0/line0
@@ -123,9 +128,9 @@ geometry.etl_picker_tool.center_offset: {0,0,60.1}
 geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 
 geometry.stamp_1.center_offset: {-2.160744, 0.350103,0}
-geometry.stamp_1.center_rotation: -25.633 #deg
+geometry.stamp_1.center_rotation: 0.5272 #deg
 geometry.stamp_2.center_offset: {-2.009,-.2384,0}
-geometry.stamp_2.center_rotation: -28.109 #deg
+geometry.stamp_2.center_rotation: -.0296 #deg
 
 # Alignment corner
 geometry.chuck.1.pos.1: {}
