@@ -69,11 +69,6 @@ tool_rack.2: picker_tool
 #====== Geometry Definitions
 #================================================
 
-#geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.845,0}
-#geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.795,0}
-#geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.755,0}
-#geometry.TFPX_HDI_V2.fid_br: {2.90,21.555,0}
-
 geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.825,0}
 geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.775,0}
 geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.775,0}
@@ -223,7 +218,7 @@ graph_motion.edge.tool_rack_pos_2_out.stagingArea: True
 # The curing parameters are used to adjust the speed of the needle to
 # compensate for the increasing viscosity of the encapsulant as time passes.
 # v = v_nom * (1 - A*t^2 - B*t)
-# For depositing a dot instead of a line, this value scales how long the 
+# For depositing a dot instead of a line, this value scales how long the
 # dispenser is active
 potting.sylgard.curing_param_a: 4e-9
 potting.sylgard.curing_param_b: 2e-5
