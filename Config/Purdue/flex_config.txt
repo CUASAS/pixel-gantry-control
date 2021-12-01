@@ -69,11 +69,6 @@ tool_rack.2: picker_tool
 #====== Geometry Definitions
 #================================================
 
-#geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.845,0}
-#geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.795,0}
-#geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.755,0}
-#geometry.TFPX_HDI_V2.fid_br: {2.90,21.555,0}
-
 geometry.TFPX_HDI_V2.fid_tr: {2.90,-20.825,0}
 geometry.TFPX_HDI_V2.fid_tl: {-8.77,-20.775,0}
 geometry.TFPX_HDI_V2.fid_bl: {-8.77,20.775,0}
@@ -109,12 +104,12 @@ geometry.TFPX_RD53AHDI.fid_br: {9.841,19.8415,0}
 geometry.TFPX_RD53AHDI.fid_bl: {-9.841,19.8415,0}
 geometry.TFPX_RD53AHDI.fid_tl: {-9.841,-19.8415,0}
 
-geometry.PICKER_TOOL.center_offset: {0,0,55} #tiny suction cup
-#geometry.PICKER_TOOL.center_offset: {0,0,53.6} #small suction cup
+#geometry.PICKER_TOOL.center_offset: {0,0,55} #tiny suction cup
+geometry.PICKER_TOOL.center_offset: {0,0,56.86} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,58} #middle suction cup -1000um
-#geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
-geometry.PICKER_TOOL.center_to_suction: {0,12.084,0} #center of picker tool to top suction cup
+geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
+
 
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
@@ -130,10 +125,10 @@ siteGeometry.pos_chuck2_bl: {440.753,568.246,100.364}
 siteGeometry.pos_chuck2_tl: {440.705,528.560,100.364}
 
  #Positions of SensorROC on Launch
-siteGeometry.pos_senRoc_launch_tr: {572.531,199.625,87.952}
-siteGeometry.pos_senRoc_launch_br: {572.449,240.370,87.952}
-siteGeometry.pos_senRoc_launch_bl: {549.212,240.418,87.952}
-siteGeometry.pos_senRoc_launch_tl: {549.226,199.595,87.952}
+siteGeometry.pos_senRoc_launch_tr: {567.840,196.094,87.952}
+siteGeometry.pos_senRoc_launch_br: {567.718,239.293,87.952}
+siteGeometry.pos_senRoc_launch_bl: {550.516,239.238,87.952}
+siteGeometry.pos_senRoc_launch_tl: {550.640,196.037,87.952}
 
  #Positions of the HDI on Chuck 1
 siteGeometry.pos_chuck1_tr: {410.391,528.560,99.619}
@@ -213,6 +208,7 @@ graph_motion.edge.home.tool_rack_pos_2_out: False
 graph_motion.edge.tool_rack_pos_2_out.home: False
 graph_motion.edge.home.safeUnload: True
 graph_motion.edge.safeUnload.tool_rack_pos_2_out: True
+graph_motion.edge.stagingArea.tool_rack_pos_2_out: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.stagingArea: True
 
@@ -222,7 +218,7 @@ graph_motion.edge.tool_rack_pos_2_out.stagingArea: True
 # The curing parameters are used to adjust the speed of the needle to
 # compensate for the increasing viscosity of the encapsulant as time passes.
 # v = v_nom * (1 - A*t^2 - B*t)
-# For depositing a dot instead of a line, this value scales how long the 
+# For depositing a dot instead of a line, this value scales how long the
 # dispenser is active
 potting.sylgard.curing_param_a: 4e-9
 potting.sylgard.curing_param_b: 2e-5

@@ -17,8 +17,9 @@ VERSION v2.1
 # 11. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
 # 12. Release vacuum of Vacuum Tool
 # 13. Prompt replacement of Vacuum Tool on Chuck 3
-# 14. Move gantry head to Chuck 1 and survey for Module accuracy
-# 15. End program with vacuums on or off
+# 14. Calculate the placement of the HDI and glass piece
+# 15. Move gantry head to Chuck 1 and survey for Module accuracy
+# 16. End program with vacuums on or off
 
 #Initialize the system
 LOADCONFIG
@@ -47,17 +48,10 @@ FLEXREAD $pos_senRoc_launch_br siteGeometry.pos_senRoc_launch_br
 FLEXREAD $pos_senRoc_launch_bl siteGeometry.pos_senRoc_launch_bl
 FLEXREAD $pos_senRoc_launch_tl siteGeometry.pos_senRoc_launch_tl
 
-# Rough positions of the HDI on Chuck 1
-FLEXREAD $pos_chuck1_tr siteGeometry.pos_chuck1_tr
-FLEXREAD $pos_chuck1_br siteGeometry.pos_chuck1_br
-FLEXREAD $pos_chuck1_bl siteGeometry.pos_chuck1_bl
-FLEXREAD $pos_chuck1_tl siteGeometry.pos_chuck1_tl
-
-# Rough positions of the MockROC on Chuck 1
-FLEXREAD $pos_senRoc1_tr siteGeometry.pos_senRoc1_tr
-FLEXREAD $pos_senRoc1_br siteGeometry.pos_senRoc1_br
-FLEXREAD $pos_senRoc1_bl siteGeometry.pos_senRoc1_bl
-FLEXREAD $pos_senRoc1_tl siteGeometry.pos_senRoc1_tl
+# Dimensions of the HDI and MockROC (bond pads or corners)
+FLEXREAD $dim_HDI geometry.TFPX_RD53AHDI.fid_br
+FLEXREAD $dim_senRoc geometry.TFPX_RD53ASENSORROC.fid_br
+COPY $dim_HDI.z 0.241     # The change in z from senRoc -> HDI
 
 # HDI pick and place translation vector and rotation angle measured independently
 FLEXREAD $v_hdi_translation siteGeometry.v_hdi_translation
@@ -155,10 +149,11 @@ END
 ADD $pos_hdi_center_withError $pos_hdi_center $v_senRoc_error
 ADD $rot_hdi_withError $rot_hdi $rot_senRoc_error
 
+MOVENAME stagingArea
 LOADTOOL picker_tool
 MOVENAME stagingArea
 
-# Pickup Ste
+# Pickup Step
 CALL @CALCPICKUP $pos_senRoc_center -> $pickup_pos $pickup_pos_z0
 MOVETO $pickup_pos_z0 50
 ROTATE $rot_senRoc
@@ -225,7 +220,14 @@ SETVAC rd53a_chuck_3 0
 @STEP_THIRTEEN CHOICEPOPUP $choice "Did you place the Vacuum Tool on Chuck 3?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_THIRTEEN $choice
 
-# Step 14. Move gantry head to Chuck 1 and survey for Module accuracy
+# Step 14. Calculate the placement of the HDI and the senRoc
+
+CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_senRoc -> $pos_senRoc1_tr $pos_senRoc1_br $pos_senRoc1_bl $pos_senRoc1_tl
+SUB $pos_hdi_center_withError.z $pos_hdi_center_withError.z $dim_HDI.z
+CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_HDI -> $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
+
+
+# Step 15. Move gantry head to Chuck 1 and survey for Module accuracy
 
 MOVESAFE $pos_chuck1_tr 100
 @ACC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker of HDI?" "Yes" "No"
@@ -332,7 +334,7 @@ POW $dist_dev $dist_dev 0.5
 PRINT "Distance Standard Deviation: %f" $dist_dev
 PRINT "--------------------"
 
-# Step 15. End program with vacuums on or off
+# Step 16. End program with vacuums on or off
 CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
 GOTOIF @STEP_FIFTEEN $choice
 
@@ -365,6 +367,49 @@ END
   GOTOIFN @SURCORNPOP $choice
   GETPOS $corner
   RETURN $corner
+
+  # CALCCORNERS
+  # Arguments:
+  #  $center - center of object
+  #  $rotation - rotation of the object
+  #  $dimensions - dimensions of object (as a vector)
+  #
+  # Returns
+  #  $topRight - position of the top right corner
+  #  $botRight - position of the bottom right corner
+  #  $botLeft - position of the bottom left corner
+  #  $topLeft - position of the top left corner
+  @CALCCORNERS(center,rotation,dimensions)
+    SIN $sin_angle $rotation
+    COS $cos_angle $rotation
+    COPY $width $dimensions.x
+    COPY $length $dimensions.y
+    MUL $w_cos $width $cos_angle
+    MUL $w_sin $width $sin_angle
+    MUL $l_cos $length $cos_angle
+    MUL $l_sin $length $sin_angle
+
+    ADD $d_x_TR $l_sin $w_cos
+    ADD $topRight $center.x $d_x_TR
+    SUB $d_y_TR $w_sin $l_cos
+    ADD $topRight.y $center.y $d_y_TR
+
+    SUB $d_x_BR $w_cos $l_sin
+    ADD $botRight $center.x $d_x_BR
+    ADD $d_y_BR $w_sin $l_cos
+    ADD $botRight.y $center.y $d_y_BR
+
+    ADD $d_x_BL $w_cos $l_sin
+    SUB $botLeft $center.x $d_x_BL
+    SUB $d_y_BL $l_cos $w_sin
+    ADD $botLeft.y $center.y $d_y_BL
+
+    SUB $d_x_TL $l_sin $w_cos
+    ADD $topLeft $center.x $d_x_TL
+    ADD $d_y_TL $l_cos $w_sin
+    SUB $topLeft.y $center.y $d_y_TL
+
+    RETURN $topRight $botRight $botLeft $topLeft
 
 # CALCPICKUP
 # Arguments:
