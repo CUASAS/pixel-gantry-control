@@ -31,6 +31,14 @@ vacuum.module_chuck2_slot1:  14
 vacuum.module_chuck2_slot2:  14
 vacuum.module_chuck2_slot3:  14
 vacuum.module_chuck2_slot4:  14
+vacuum.launchpad:  9
+
+vacuum.rd53a_chuck_1_TL: 4
+vacuum.rd53a_chuck_1_TR: 6
+vacuum.rd53a_chuck_1_BL: 12
+vacuum.rd53a_chuck_1_BR: 11
+vacuum.rd53a_chuck_2: 8
+vacuum.rd53a_chuck_3: 10
 
 # Purdue Mechanics vacuum
 vacuum.purdue_mechanics_left: 15
@@ -72,8 +80,14 @@ graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_1_in: True
 graph_motion.pos.home: {0,0,0}
 graph_motion.pos.tool_rack_pos_1_in: {677.112,18.533,43.047} #2mm before sucking it
 graph_motion.pos.tool_rack_pos_1_out: {677.112,106.640,40.01}
-graph_motion.pos.hdi_position: {721.430,342.000,59.152}
+graph_motion.pos.hdi_position: {721.430,342.000,61.432001}
 graph_motion.pos.home_safe: {0,450.000,0}
+
+
+graph_motion.pos.safeUnload: {190,90,0}
+graph_motion.pos.stagingArea: {590,337,0}
+graph_motion.edge.tool_rack_pos_1_out.stagingArea: True
+
 
 
 #================================================
@@ -87,8 +101,8 @@ geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
 #geometry.PICKER_TOOL.center_offset: {0,0,46.75}
 
-#geometry.PICKER_TOOL.center_offset: {0,0,46.10} #larger number  increases separation
-geometry.PICKER_TOOL.center_offset: {0,0,47.26} #Small Suction Cups
+geometry.PICKER_TOOL.center_offset: {0,0,44.5} #larger number  increases separation
+#geometry.PICKER_TOOL.center_offset: {0,0,47.26} #Small Suction Cups
 #geometry.PICKER_TOOL.center_offset: {0,0,54.00} #Medium Suction Cups
 #geometry.PICKER_TOOL.center_offset: {0,0,53.45}  #Large Suction Cups
 # The offset between the camera and the
@@ -96,6 +110,16 @@ geometry.PICKER_TOOL.center_offset: {0,0,47.26} #Small Suction Cups
 # and the bottom surface of the tool-holder in z
 geometry.tool_holder_offset: {0.482,-102.362,-43.72}
 #geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
+
+geometry.TFPX_RD53ASENSORROC.fid_tr: {12.0,-20.5,0}
+geometry.TFPX_RD53ASENSORROC.fid_br: {12.0,20.5,0}
+geometry.TFPX_RD53ASENSORROC.fid_bl: {-12.0,20.5,0}
+geometry.TFPX_RD53ASENSORROC.fid_tl: {-12.0,-20.5,0}
+
+geometry.TFPX_RD53AHDI.fid_tr: {9.841,-19.8415,0}
+geometry.TFPX_RD53AHDI.fid_br: {9.841,19.8415,0}
+geometry.TFPX_RD53AHDI.fid_bl: {-9.841,19.8415,0}
+geometry.TFPX_RD53AHDI.fid_tl: {-9.841,-19.8415,0}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -147,4 +171,33 @@ vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.method: find_rects
 vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalWidth: 0.574219
 vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalHeight:0.612971
 vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.tolerance: 0.24
+
+#
+siteGeometry.pos_chuck2_tr: {611.405658,529.223939,69.410398}
+siteGeometry.pos_chuck2_br: {611.604957,568.212558,69.235410}
+siteGeometry.pos_chuck2_bl: {591.915651,569.014745,69.420410}
+siteGeometry.pos_chuck2_tl: {591.718703,529.324191,69.325398}
+
+
+#Chuck 4 Slot 4
+siteGeometry.pos_senRoc_launch_tl: {711.725926,212.454066,62.521772}   
+siteGeometry.pos_senRoc_launch_br: {735.274014,253.590323,62.521772}
+siteGeometry.pos_senRoc_launch_bl: {711.662899,253.547910,62.521772}
+siteGeometry.pos_senRoc_launch_tr: {735.333300,212.502835,62.521772}
+
+siteGeometry.pos_chuck1_tr: {561.153536,528.698241,62.102025}
+siteGeometry.pos_chuck1_br: {561.762922,568.389308,62.102024}
+siteGeometry.pos_chuck1_bl: {542.085604,568.684087,62.102025}
+siteGeometry.pos_chuck1_tl: {541.474903,528.999977,62.032023}
+
+siteGeometry.pos_senRoc1_tr: {561.991920,528.490580,62.291772}
+siteGeometry.pos_senRoc1_br: {562.267060,569.628674,62.291772}
+siteGeometry.pos_senRoc1_bl: {538.653552,569.781342,62.291772}
+siteGeometry.pos_senRoc1_tl: {538.369876,528.657561,62.291772}
+
+siteGeometry.v_hdi_translation: {-50.16,0.08749,-7.266}
+siteGeometry.rot_hdi_translation: -0.02222
+
+siteGeometry.v_senRoc_error: {0.,0.,0.}#{-0.003,0.007,0}
+siteGeometry.rot_senRoc_error: 0.      #-0.007
 
