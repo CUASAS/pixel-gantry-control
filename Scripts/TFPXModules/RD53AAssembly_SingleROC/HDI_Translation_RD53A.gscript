@@ -32,16 +32,16 @@ PRINT "Run Number: %d" $count
 
 
 # Rough positions of fiducials on Chuck 2
-COPY $pos_chuck2_tr {460.391,528.560,100.400}
-COPY $pos_chuck2_br {460.430,568.240,100.400}
-COPY $pos_chuck2_bl {440.753,568.246,100.400}
-COPY $pos_chuck2_tl {440.705,528.560,100.400}
+FLEXREAD $pos_chuck2_tr siteGeometry.pos_chuck2_tr
+FLEXREAD $pos_chuck2_br siteGeometry.pos_chuck2_br
+FLEXREAD $pos_chuck2_bl siteGeometry.pos_chuck2_bl
+FLEXREAD $pos_chuck2_tl siteGeometry.pos_chuck2_tl
 
 # Rough positions of fiducials on Chuck 1
-COPY $pos_chuck1_tr {410.391,528.560,100.100}
-COPY $pos_chuck1_br {410.430,568.240,100.100}
-COPY $pos_chuck1_bl {390.753,568.246,100.100}
-COPY $pos_chuck1_tl {390.705,528.560,100.100}
+FLEXREAD $pos_chuck1_tr siteGeometry.pos_chuck1_tr
+FLEXREAD $pos_chuck1_br siteGeometry.pos_chuck1_br
+FLEXREAD $pos_chuck1_bl siteGeometry.pos_chuck1_bl
+FLEXREAD $pos_chuck1_tl siteGeometry.pos_chuck1_tl
 
 
 # Step 1. Prompt placement of HDI on Chuck 2
