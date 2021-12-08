@@ -144,10 +144,10 @@ siteGeometry.pos_chuck2_br: {278.916,415.944,79.839}
 siteGeometry.pos_chuck2_bl: {259.241,415.961,79.910}
 siteGeometry.pos_chuck2_tl: {259.216,376.274,79.909}
 
-siteGeometry.pos_chuck1_tr: {0,0,0}
-siteGeometry.pos_chuck1_br: {0,0,0}
-siteGeometry.pos_chuck1_bl: {0,0,0}
-siteGeometry.pos_chuck1_tl: {0,0,0}
+siteGeometry.pos_chuck1_tr: {228.808,376.066,72.840}
+siteGeometry.pos_chuck1_br: {228.787,415.752,72.935}
+siteGeometry.pos_chuck1_bl: {209.098,415.741,72.990}
+siteGeometry.pos_chuck1_tl: {209.134,376.054,72.945}
 
 siteGeometry.pos_senRoc_launch_tr: {244.182,74.211,78.785}
 siteGeometry.pos_senRoc_launch_br: {244.050,115.306,78.785}
@@ -230,8 +230,9 @@ graph_motion.pos.module_chuck_0:  {272,494,0}
 graph_motion.pos.stagingArea: {273,115,0}
 
 # must be 2mm above tool in z
-graph_motion.pos.tool_rack_pos_0_in:  {651.20,16.60,39.70}
-graph_motion.pos.tool_rack_pos_0_out: {651.20,158,39.70}
+graph_motion.pos.tool_rack_pos_0_in:  {651.200,16.400,37.100}
+graph_motion.pos.tool_rack_pos_0_out: {651.200,158,37.70}
+
 
 graph_motion.pos.tool_rack_pos_1_in:  {803.368,16.121,37.918}
 graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.918}
