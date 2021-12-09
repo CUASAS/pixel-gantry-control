@@ -89,7 +89,7 @@ geometry.TFPX_RD53ASENSORROC.fid_br: {12.0,20.5,0}
 geometry.TFPX_RD53ASENSORROC.fid_bl: {-12.0,20.5,0}
 geometry.TFPX_RD53ASENSORROC.fid_tl: {-12.0,-20.5,0}
 
-geometry.TFPX_RD53AGLASSDIM: {20.044,11.859, 0} #(length, width)
+geometry.TFPX_RD53AGLASSDIM: {11.859,20.044,0} #(width,length)
 
 geometry.TFPX_RD53AQUARTERSENSORROC.fid_tr:{5.930,-10.022,0}
 geometry.TFPX_RD53AQUARTERSENSORROC.fid_br:{5.930,10.022,0}
@@ -163,6 +163,8 @@ siteGeometry.rot_hdi_translation: -0.026
 siteGeometry.v_senRoc_error: {-0.003,0.007,0}
 siteGeometry.rot_senRoc_error: -0.007
 
+ #Z correction for the surveillence
+siteGeometry.correctForZ: -0.542
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
@@ -211,6 +213,7 @@ vision.FPIX_RD53A_HDI.houghGradientParam2: 50
 graph_motion.pos.home: {0,0,0}
 graph_motion.pos.safeUnload: {190,90,0}
 graph_motion.pos.stagingArea: {590,337,0}
+graph_motion.pos.standAside: {350,150,0}
 
 # must be 2mm above tool in z
 graph_motion.pos.tool_rack_pos_2_in:  {602.638,17.164,38.708}
@@ -218,12 +221,18 @@ graph_motion.pos.tool_rack_pos_2_out: {602.638,117.164,38.708}
 
 #graph_motion.edge.LABEL1.LABEL2 True/False
 graph_motion.edge.home.tool_rack_pos_2_out: False
-graph_motion.edge.tool_rack_pos_2_out.home: False
 graph_motion.edge.home.safeUnload: True
-graph_motion.edge.safeUnload.tool_rack_pos_2_out: True
-graph_motion.edge.stagingArea.tool_rack_pos_2_out: True
+
+graph_motion.edge.tool_rack_pos_2_out.home: False
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.stagingArea: True
+graph_motion.edge.safeUnload.stagingArea: True
+graph_motion.edge.safeUnload.tool_rack_pos_2_out: True
+graph_motion.edge.stagingArea.tool_rack_pos_2_out: True
+graph_motion.edge.standAside.safeUnload: True
+graph_motion.edge.standAside.stagingArea: True
+graph_motion.edge.standAside.tool_rack_pos_2_out: True
+
 
 #================================================
 #====== Potting procedure parameters
