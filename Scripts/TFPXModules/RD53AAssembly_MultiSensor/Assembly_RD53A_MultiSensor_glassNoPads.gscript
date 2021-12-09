@@ -1,5 +1,4 @@
 VERSION v2.1
-
 ######################## RD53A Multiple Sensor Assembly #############################
 # Steps:
 # 1. Prompt placement of HDI on Chuck 2
@@ -51,9 +50,10 @@ FLEXREAD $pos_TLsenRoc_launch_tr siteGeometry.pos_TLsenRoc_launch_tr
 
 # Dimensions of the HDI and MockROC (bond pads or corners)
 FLEXREAD $dim_HDI geometry.TFPX_RD53AHDI.fid_br
-FLEXREAD $dim_senRoc geometry.TFPX_RD53ASENSORROC.fid_br
+FLEXREAD $dim_senRoc geometry.TFPX_RD53AQUARTERSENSORROC.fid_br
+MUL $dim_senRoc $dim_senRoc 2
 COPY $dim_HDI.z 0.241     # The change in z from senRoc -> HDI
-COPY $correctForZ -0.542
+FLEXREAD $correctForZ siteGeometry.correctForZ
 
 # HDI pick and place translation vector and rotation angle measured independently
 FLEXREAD $v_hdi_translation siteGeometry.v_hdi_translation
@@ -64,9 +64,8 @@ FLEXREAD $v_senRoc_error siteGeometry.v_senRoc_error
 FLEXREAD $rot_senRoc_error siteGeometry.rot_senRoc_error
 
 # SensorROC dimensions
-FLEXREAD $senRoc_dims geometry.TFPX_RD53AGLASSDIM
-COPY $len_senRoc $senRoc_dims.x #mm
-COPY $wid_senRoc $senRoc_dims.y #mm
+COPY $len_senRoc $dim_senRoc.y #mm
+COPY $wid_senRoc $dim_senRoc.x #mm
 COPY $delta_len 0.1 #mm
 COPY $delta_wid 0.1 #mm
 
@@ -289,29 +288,35 @@ MOVESAFE $pos_chuck1_tr 100
 @ACC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_0 $choice
 CALL @SURVEYCORNERS $pos_chuck1_tr -> $pos_chuck1_tr
+COPY $pos_chuck1_br.z $pos_chuck1_tr.z
 
 @ACC_1 CHOICEPOPUP $choice "Ready to find the Top Right marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_1 $choice
 CALL @SURVEYCORNERS $pos_senRoc1_tr -> $pos_senRoc1_tr
+COPY $pos_senRoc1_br.z $pos_senRoc1_tr.z
 
 
 @ACC_2 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_2 $choice
 CALL @SURVEYCORNERS $pos_chuck1_br -> $pos_chuck1_br
+COPY $pos_chuck1_bl.z $pos_chuck1_br.z
 
 @ACC_3 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_3 $choice
 CALL @SURVEYCORNERS $pos_senRoc1_br -> $pos_senRoc1_br
+COPY $pos_senRoc1_bl.z $pos_senRoc1_br.z
 
 
 @ACC_4 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of HDI?" "Yes" "No"
 GOTOIFN @ACC_4 $choice
 CALL @SURVEYCORNERS $pos_chuck1_bl -> $pos_chuck1_bl
+COPY $pos_chuck1_tl.z $pos_chuck1_bl.z
 
 
 @ACC_5 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of SensorROC?" "Yes" "No"
 GOTOIFN @ACC_5 $choice
 CALL @SURVEYCORNERS $pos_senRoc1_bl -> $pos_senRoc1_bl
+COPY $pos_senRoc1_tl.z $pos_senRoc1_bl.z
 
 
 @ACC_6 CHOICEPOPUP $choice "Ready to find the Top Left marker of HDI?" "Yes" "No"
@@ -322,74 +327,25 @@ CALL @SURVEYCORNERS $pos_chuck1_tl -> $pos_chuck1_tl
 GOTOIFN @ACC_7 $choice
 CALL @SURVEYCORNERS $pos_senRoc1_tl -> $pos_senRoc1_tl
 
+  #Calculating delta(delta(x)) and avg(Delta(y))
+ADD $pos_HDI_upperPad $pos_chuck1_tr $pos_chuck1_tl
+MUL $pos_HDI_upperPad $pos_HDI_upperPad {0.5,0.5,0.5}
+ADD $pos_HDI_lowerPad $pos_chuck1_br $pos_chuck1_bl
+MUL $pos_HDI_lowerPad $pos_HDI_lowerPad {0.5,0.5,0.5}
 
-FIT $pos_hdi_center_final $rot_hdi_final TFPX_RD53ASENSORROC $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
-FIT $pos_senRoc_final $rot_senRoc_final TFPX_RD53ASENSORROC $pos_senRoc1_tr $pos_senRoc1_br $pos_senRoc1_bl $pos_senRoc1_tl
-QUAT2EULER $rot_hdi_final $trash0 $trash1 $rot_hdi_final
-QUAT2EULER $rot_senRoc_final $trash0 $trash1 $rot_senRoc_final
+ADD $pos_senROC_upperPad $pos_senRoc1_tr $pos_senRoc1_tl
+MUL $pos_senROC_upperPad $pos_senROC_upperPad {0.5,0.5,0.5}
+ADD $pos_senROC_lowerPad $pos_senRoc1_br $pos_senRoc1_bl
+MUL $pos_senROC_lowerPad $pos_senROC_lowerPad {0.5,0.5,0.5}
 
-PRINT "Final Centers and Rotations:"
-PRINT "HDI Center: %v HDI Rotation: %f" $pos_hdi_center_final $rot_hdi_final
-PRINT "SensorROC Center: %v SensorROC Rotation: %f" $pos_senRoc_final $rot_senRoc_final
+CALL @SURVEYCALC $pos_HDI_upperPad $pos_HDI_lowerPad $pos_senROC_upperPad -> $delta_upper_x $delta_upper_y
+CALL @SURVEYCALC $pos_HDI_lowerPad $pos_HDI_upperPad $pos_senROC_lowerPad -> $delta_lower_x $delta_lower_y
+SUB $deltaDeltaX $delta_upper_x $delta_lower_x
+ADD $avgDeltaY $delta_upper_y $delta_lower_y
+MUL $avgDeltaY $avgDeltaY 0.5
 
-
-SUB $pos_final_diff $pos_hdi_center_final $pos_senRoc_final
-SUB $rot_final_diff $rot_hdi_final $rot_senRoc_final
-
-PRINT "Differences between Centers and Rotations:"
-PRINT "Center: %v Rotation: %f" $pos_final_diff $rot_final_diff
-PRINT ""
-
-COPY $pos_chuck1_tr.z 0
-COPY $pos_chuck1_br.z 0
-COPY $pos_chuck1_bl.z 0
-COPY $pos_chuck1_tl.z 0
-COPY $pos_senRoc1_tr.z 0
-COPY $pos_senRoc1_br.z 0
-COPY $pos_senRoc1_bl.z 0
-COPY $pos_senRoc1_tl.z 0
-
-SUB $dist_tr $pos_chuck1_tr $pos_senRoc1_tr
-ABS $dist_tr $dist_tr
-SUB $dist_br $pos_chuck1_br $pos_senRoc1_br
-ABS $dist_br $dist_br
-SUB $dist_bl $pos_chuck1_bl $pos_senRoc1_bl
-ABS $dist_bl $dist_bl
-SUB $dist_tl $pos_chuck1_tl $pos_senRoc1_tl
-ABS $dist_tl $dist_tl
-
-PRINT "Distance between HDI and SensorROC"
-PRINT "TR: %f BR: %f BL: %f TL: %f" $dist_tr $dist_br $dist_bl $dist_tl
-
-
-ADD $dist_mean $dist_tr $dist_br
-ADD $dist_mean $dist_mean $dist_bl
-ADD $dist_mean $dist_mean $dist_tl
-MUL $dist_mean $dist_mean 0.25
-
-PRINT "Distance Mean: %f" $dist_mean
-
-
-COPY $dist_dev 0
-
-SUB $stddev_temp $dist_mean $dist_tr
-MUL $stddev_temp $stddev_temp $stddev_temp
-ADD $dist_dev $dist_dev $stddev_temp
-SUB $stddev_temp $dist_mean $dist_br
-MUL $stddev_temp $stddev_temp $stddev_temp
-ADD $dist_dev $dist_dev $stddev_temp
-SUB $stddev_temp $dist_mean $dist_bl
-MUL $stddev_temp $stddev_temp $stddev_temp
-ADD $dist_dev $dist_dev $stddev_temp
-SUB $stddev_temp $dist_mean $dist_tl
-MUL $stddev_temp $stddev_temp $stddev_temp
-ADD $dist_dev $dist_dev $stddev_temp
-
-MUL $dist_dev $dist_dev 0.25
-POW $dist_dev $dist_dev 0.5
-
-PRINT "Distance Standard Deviation: %f" $dist_dev
-PRINT "--------------------"
+PRINT "Delta(delta(X)): %f" $deltaDeltaX
+PRINT "Avg(delta(Y)): %f" $avgDeltaY
 
 # Step 17. End program with vacuums on or off
 CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
@@ -602,3 +558,64 @@ END
   COPY $topLeft.z $center.z
 
   RETURN $topRight $botRight $botLeft $topLeft
+
+# SURVEYCALC
+# Arguments:
+#  $near_hdi - Center position for the nearest HDI bond pad
+#  $far_hdi - Center position for the furthest HDI bond pad
+#  $not_hdi - Center position for the current glass/sensor bond pad
+#
+# Returns:
+#  $delta_x
+#  $delta_y
+@SURVEYCALC(near_hdi,far_hdi,not_hdi)
+  #Variables
+  COPY $a $near_hdi.x
+  COPY $b $near_hdi.y
+  COPY $c $far_hdi.x
+  COPY $d $far_hdi.y
+  COPY $e $not_hdi.x
+  COPY $f $not_hdi.y
+
+  #Slope
+  SUB $b_min_d $b $d
+  SUB $a_min_c $a $c
+  INVERT $a_min_c $a_min_c
+  MUL $slope $b_min_d $a_min_c
+
+  #Calulating numerator for x
+  MUL $slope_2 $slope $slope
+  MUL $top_one $a $slope_2
+  SUB $f_min_b $f $b
+  MUL $top_two $f_min_b $slope
+  ADD $top_oneTwo $top_one $top_two
+  ADD $top $top_oneTwo $e
+
+  #Calculating denomenator for x
+  ADD $bottom $slope_2 1
+  INVERT $bottom $bottom
+
+  #Calculating x and y
+  MUL $x $top $bottom
+  INVERT $inv_slope $slope
+  MUL $inv_slope $inv_slope -1
+  SUB $x_min_e $x $e
+  MUL $y_one $inv_slope $x_min_e
+  ADD $y $y_one $f
+
+  #Calculating deltas
+  SUB $a_min_x $a $x
+  SUB $b_min_y $b $y
+  SUB $e_min_x $e $x
+  SUB $f_min_y $f $y
+
+  POW $a_min_x_2 $a_min_x 2
+  POW $b_min_y_2 $b_min_y 2
+  ADD $delta_y_2 $a_min_x_2 $b_min_y_2
+  POW $delta_y $delta_y_2 0.5
+
+  POW $e_min_x_2 $e_min_x 2
+  POW $f_min_y_2 $f_min_y 2
+  ADD $delta_x_2 $e_min_x_2 $f_min_y_2
+  POW $delta_x $delta_x_2 0.5
+  RETURN $delta_x $delta_y
