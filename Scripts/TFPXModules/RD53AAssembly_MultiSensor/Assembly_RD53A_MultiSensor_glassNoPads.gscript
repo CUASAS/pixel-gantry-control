@@ -50,7 +50,7 @@ FLEXREAD $pos_TLsenRoc_launch_tr siteGeometry.pos_TLsenRoc_launch_tr
 
 # Dimensions of the HDI and MockROC (bond pads or corners)
 FLEXREAD $dim_HDI geometry.TFPX_RD53AHDI.fid_br
-FLEXREAD $dim_senRoc geometry.TFPX_RD53AQUARTERSENSORROC.fid_br
+FLEXREAD $dim_senRoc geometry.TFPX_QUARTERGLASS.fid_br
 MUL $dim_senRoc $dim_senRoc 2
 COPY $dim_HDI.z 0.241     # The change in z from senRoc -> HDI
 FLEXREAD $correctForZ siteGeometry.correctForZ
@@ -401,7 +401,7 @@ END
   CALL @SURVEYCORNERS $tl -> $tl
 
   # Calculate the orientation of the SensorROC
-  FIT $position $rotation TFPX_RD53AQUARTERSENSORROC $tr $br $bl $tl
+  FIT $position $rotation TFPX_QUARTERGLASS $tr $br $bl $tl
 
   QUAT2EULER $rotation $trash0 $trash1 $rotation
 
