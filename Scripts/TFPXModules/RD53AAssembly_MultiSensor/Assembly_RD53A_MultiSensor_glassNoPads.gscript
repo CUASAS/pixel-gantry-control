@@ -51,7 +51,7 @@ FLEXREAD $pos_TLsenRoc_launch_tr siteGeometry.pos_TLsenRoc_launch_tr
 # Dimensions of the HDI and MockROC (bond pads or corners)
 FLEXREAD $dim_HDI geometry.TFPX_RD53AHDI.fid_br
 FLEXREAD $dim_senRoc geometry.TFPX_QUARTERGLASS.fid_br
-MUL $dim_senRoc $dim_senRoc 2
+MUL $dim_senRoc $dim_senRoc {2,2,0}
 COPY $dim_HDI.z 0.241     # The change in z from senRoc -> HDI
 FLEXREAD $correctForZ siteGeometry.correctForZ
 
