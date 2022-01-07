@@ -269,6 +269,7 @@ graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_1_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_0_out: True
 graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_0_out: True
+graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_2_out: True
 
 # Connections for ETL chucks
 graph_motion.edge.etl_chuck_1.etl_chuck_2: True

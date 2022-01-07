@@ -426,6 +426,12 @@ Clears the current log. If a log file has been specified, it is cleared as well.
 
 *Format:* `CLEARLOG`
 
+#### `CLEARVARS`
+
+Clears the variable table, including the bottom frame.
+
+*Format:* `CLEARVARS`
+
 #### `DUMPSTATE`
 
 Dumps the internal state of the application to the log.
