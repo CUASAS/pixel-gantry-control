@@ -1,0 +1,26 @@
+VERSION v2.1
+COPY $glass_top {2,4,0}
+COPY $HDI_top {4,5,0}
+COPY $glass_bot {0,0,0}
+COPY $HDI_bot {0,0,0}
+
+CALL @OPENINGANGLE $glass_top $glass_bot $HDI_top $HDI_bot -> $theta
+END
+
+# OPENINGANGLE
+# Arguments:
+#  $top_glass - Center position for the top glass/sensor bond pad
+#  $bot_glass - Center position for the bottom glass/sensor bond pad
+#  $top_hdi - Center position for the top HDI bond pad
+#  $bot_hdi - Center position for the bottom HDI bond pad
+#
+# Returns:
+#  $theta_3 - the opening angle
+@OPENINGANGLE(top_glass,bot_glass,top_hdi,bot_hdi)
+  SUB $delta_glass $top_glass $bot_glass
+  ATAN2 $theta_1 $delta_glass.x $delta_glass.y
+  SUB $delta_hdi $top_hdi $bot_hdi
+  ATAN2 $theta_2 $delta_hdi.x $delta_hdi.y
+
+  SUB $theta_3 $theta_1 $theta_2
+  RETURN $theta_3

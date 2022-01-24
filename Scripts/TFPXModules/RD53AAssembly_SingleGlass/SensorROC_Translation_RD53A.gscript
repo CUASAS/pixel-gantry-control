@@ -1,0 +1,217 @@
+VERSION 1.3
+
+######################## RD53A SensorROC Translation Measurement #############################
+# Steps:
+# 1. Prompt placement of SensorROC on Launchpad
+# 2. Turn on Launchpad's vacuum
+# 3. Survey the SensorROC
+# 4. Pick up the SensorROC and place on Chuck 1 at position {400.752224,548.468940,100.107375} with rotation of -0.1
+# 5. Move gantry head to Chuck 1 and survey for Module accuracy
+# 6. Calculate translations and rotations, and print them out
+# 7. Turn off vacuums and prompt re-run
+
+#Initialize the system
+HOME
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC launchpad 0
+SETLOG "LOG_Assembly_RD53A_SensorROC_Vector.txt"
+SETERRORMODE prompt
+
+# Counter to keep track of multiple runs
+COPY $count 0
+
+@RERUN ADD $count $count 1
+PRINT "Run Number: %d" $count
+
+
+# Rough positions of the SensorROC on Launchpad
+COPY $pos_senRoc_launch_tr {572.531,199.625,87.952}
+COPY $pos_senRoc_launch_br {572.449,240.370,87.952}
+COPY $pos_senRoc_launch_bl {549.212,240.418,87.952}
+COPY $pos_senRoc_launch_tl {549.226,199.595,87.952}
+
+# Rough positions of the SensorROC on Chuck 1
+COPY $pos_senRoc1_tr {412.500,528.000,99.800}
+COPY $pos_senRoc1_br {412.500,569.000,99.800}
+COPY $pos_senRoc1_bl {389.000,569.000,99.800}
+COPY $pos_senRoc1_tl {389.000,528.000,99.800}
+
+
+# Step 1. Prompt placement of SensorROC on Launchpad
+@STEP_ONE CHOICEPOPUP $choice "Have you placed the SensorROC on Launchpad?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+# Step 2. Turn on Launchpad's vacuum
+SETVAC launchpad 1
+
+# Step 3. Survey the SensorROC
+
+MOVESAFE $pos_senRoc_launch_tr 100
+COPY $x_corner $pos_senRoc_launch_tr
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc_launch_tr $x_corner
+
+COPY $x_corner $pos_senRoc_launch_br
+@ROC_1 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
+GOTOIFN @ROC_1 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc_launch_br $x_corner
+
+COPY $x_corner $pos_senRoc_launch_bl
+@ROC_2 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
+GOTOIFN @ROC_2 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc_launch_bl $x_corner
+
+COPY $x_corner $pos_senRoc_launch_tl
+@ROC_3 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
+GOTOIFN @ROC_3 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc_launch_tl $x_corner
+
+# Calculate the orientation of the SensorROC
+FIT $pos_senRoc_center $rot_senRoc TFPX_RD53ASENSORROC $pos_senRoc_launch_tr $pos_senRoc_launch_br $pos_senRoc_launch_bl $pos_senRoc_launch_tl
+
+QUAT2EULER $rot_senRoc $trash0 $trash1 $rot_senRoc
+
+# Step 4. Pick up the SensorROC and place on Chuck 1 at position {400.752224,548.468940,100.107375} with rotation -0.1
+
+LOADTOOL picker_tool
+MOVENAME stagingArea
+
+# Pickup Step
+COPY $target_pos $pos_senRoc_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $rot_senRoc
+SUB $pickup_pos.z $pickup_pos.z 5
+MOVETO $pickup_pos 10
+ADD $pickup_pos.z $pickup_pos.z 5.5
+MOVETO $pickup_pos 1
+WAIT 500
+SETVAC gantry_head_inner 1
+WAIT 1000
+SETVAC launchpad 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+MUL $neg_rot_senRoc $rot_senRoc -1.0
+ROTATE $neg_rot_senRoc
+
+# Place Step
+COPY $target_pos {400.752224,548.468940,100.107375}
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE -0.1
+SUB $pickup_pos.z $pickup_pos.z 5
+MOVETO $pickup_pos 10
+ADD $pickup_pos.z $pickup_pos.z 5
+MOVETO $pickup_pos 1
+WAIT 500
+SETVAC rd53a_chuck_1_TR 1
+SETVAC rd53a_chuck_1_BL 1
+SETVAC rd53a_chuck_1_TL 1
+SETVAC rd53a_chuck_1_BR 1
+WAIT 1000
+SETVAC gantry_head_inner 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+ROTATE 0.1
+
+UNLOADTOOL
+
+# Step 5. Move gantry head to Chuck 1 and survey for Module accuracy
+
+MOVESAFE $pos_senRoc1_tr 100
+COPY $x_corner $pos_senRoc1_tr
+@ACC_1 CHOICEPOPUP $choice "Ready to find the Top Right marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_1 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_tr $x_corner
+
+COPY $x_corner $pos_senRoc1_br
+@ACC_3 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_3 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_br $x_corner
+
+COPY $x_corner $pos_senRoc1_bl
+@ACC_5 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_5 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_bl $x_corner
+
+COPY $x_corner $pos_senRoc1_tl
+@ACC_7 CHOICEPOPUP $choice "Ready to find the Top Left marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_7 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_tl $x_corner
+
+FIT $pos_senRoc_final $rot_senRoc_final TFPX_RD53ASENSORROC $pos_senRoc1_tr $pos_senRoc1_br $pos_senRoc1_bl $pos_senRoc1_tl
+QUAT2EULER $rot_senRoc_final $trash0 $trash1 $rot_senRoc_final
+
+# Step 6. Calculate translations and rotations, and print them out
+
+SUB $v_senRoc_translation $pos_senRoc_final $pos_senRoc_center
+SUB $rot_senRoc_translation $rot_senRoc_final $rot_senRoc
+
+SUB $pos_exp_diff {400.752224,548.468940,100.107375} $pos_senRoc_final
+SUB $rot_exp_diff -0.1 $rot_senRoc_final
+
+PRINT "--------------------"
+
+PRINT "Launchpad Pos: %v Rot: %f" $pos_senRoc_center $rot_senRoc
+PRINT "Chuck 1 Pos: %v Rot: %f" $pos_senRoc_final $rot_senRoc_final
+PRINT "Expected Pos: %v Rot: %f" {400.752224,548.468940,100.107375} -0.1
+
+PRINT "Positional Difference (Chuck1 center - Launchpad center): %v" $v_senRoc_translation
+PRINT "Rotational Difference (Chuck1 rotation - Launchpad rotation): %f" $rot_senRoc_translation
+
+PRINT "Expectation Error Positional Difference (Expectation - Measured): %v" $pos_exp_diff
+PRINT "Expectation Error Rotational Difference (Expectation - Measured): %f" $rot_exp_diff
+
+PRINT "--------------------"
+
+# Step 7. Turn off vacuums and prompt re-run
+
+MOVESAFE {350,150,0} 100
+
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+
+CHOICEPOPUP $choice "Would you like to do another measurement?" "Yes, re-run this program" "No, shut down"
+GOTOIF @RERUN $choice
+
+HOME
+
+END
+
+# SURVEYCORNERS
+# Arguments
+# $x_corner - Approximate position of the SensorROC corer. Returns with precise position
+@SURVEYCORNERS PASS
+  MOVESAFE $x_corner 10
+  @SURCORNPOP VIDEO
+  CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+  GOTOIFN @SURCORNPOP $choice
+  GETPOST $x_corner
+  GOTO $RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+  FLEXREAD $ghco geometry.tool_holder_offset
+  ADD $netoffset $picker_height $ghco
+  SUB $pickup_pos $target_pos $netoffset
+  COPY $pickup_pos_z0 $pickup_pos
+  COPY $pickup_pos_z0.z 0
+  GOTO $RET

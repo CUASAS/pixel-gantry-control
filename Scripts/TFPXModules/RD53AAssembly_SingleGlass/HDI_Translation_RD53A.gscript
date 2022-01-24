@@ -1,0 +1,156 @@
+VERSION v2.1
+
+######################## RD53A HDI Translation Measurement #############################
+# Steps:
+# 1. Prompt placement of HDI on Chuck 2
+# 2. Turn on Chuck 2's vacuum
+# 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
+# 4. Prompt placement of Vacuum Tool on HDI
+# 5. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+# 6. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+# 7. Turn on vacuum of Chuck 1 to simulate glue and then release vacuum of Vacuum Tool
+# 8. Move gantry head camera to Chuck 1 survey the 4 corners of HDI (defined by bond pads)
+# 9. Calculate translations and rotations, and print them out
+# 10. Turn off vacuums and prompt re-run
+
+#Initialize the system
+HOME
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+SETLOG "LOG_Assembly_RD53A_HDI_Vector.txt"
+SETERRORMODE prompt
+
+# Counter to keep track of multiple runs
+COPY $count 0
+
+@RERUN ADD $count $count 1
+PRINT "Run Number: %d" $count
+
+
+# Rough positions of fiducials on Chuck 2
+FLEXREAD $pos_chuck2_tr siteGeometry.pos_chuck2_tr
+FLEXREAD $pos_chuck2_br siteGeometry.pos_chuck2_br
+FLEXREAD $pos_chuck2_bl siteGeometry.pos_chuck2_bl
+FLEXREAD $pos_chuck2_tl siteGeometry.pos_chuck2_tl
+
+# Rough positions of fiducials on Chuck 1
+FLEXREAD $pos_chuck1_tr siteGeometry.pos_chuck1_tr
+FLEXREAD $pos_chuck1_br siteGeometry.pos_chuck1_br
+FLEXREAD $pos_chuck1_bl siteGeometry.pos_chuck1_bl
+FLEXREAD $pos_chuck1_tl siteGeometry.pos_chuck1_tl
+
+
+# Step 1. Prompt placement of HDI on Chuck 2
+@STEP_ONE
+CHOICEPOPUP $choice "Have you placed the RD53A HDI on Chuck 2?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+# Step 2. Turn on Chuck 2's vacuum
+SETVAC rd53a_chuck_2 1
+
+
+# Step 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
+
+MOVESAFE $pos_chuck2_tr 100
+CALL @SURVEYCORNERS $pos_chuck2_tr -> $pos_chuck2_tr
+CALL @SURVEYCORNERS $pos_chuck2_br -> $pos_chuck2_br
+CALL @SURVEYCORNERS $pos_chuck2_bl -> $pos_chuck2_bl
+CALL @SURVEYCORNERS $pos_chuck2_tl -> $pos_chuck2_tl
+MOVESAFE {430,540,0} 50
+
+
+# Step 4. Prompt placement of Vacuum Tool on HDI
+@STEP_FOUR
+
+CHOICEPOPUP $choice "Have you placed the Vacuum Tool on the HDI in Chuck 2 such that the fiducials are visible through its viewing holes?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FOUR $choice
+
+
+# Step 5. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+
+SETVAC rd53a_chuck_3 1
+WAIT 2000
+SETVAC rd53a_chuck_2 0
+
+
+# Step 6. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+@STEP_SIX 
+
+CHOICEPOPUP $choice "Have you placed the Vacuum Tool bearing the HDI on Chuck 1?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_SIX $choice
+
+
+# Step 7. Turn on vacuum of Chuck 1 to simulate glue and then release vacuum of Vacuum Tool
+
+SETVAC rd53a_chuck_1_TL 1
+SETVAC rd53a_chuck_1_BR 1
+SETVAC rd53a_chuck_1_BL 1
+SETVAC rd53a_chuck_1_TR 1
+Wait 2000
+SETVAC rd53a_chuck_3 0
+
+# Step 8. Move gantry head camera to survey the fiducials
+@STEP_EIGHT 
+
+CHOICEPOPUP $choice "Did you return Vacuum Tool to Chuck 3?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_EIGHT $choice
+
+MOVESAFE $pos_chuck1_tr 100
+CALL @SURVEYCORNERS $pos_chuck1_tr -> $pos_chuck1_tr
+CALL @SURVEYCORNERS $pos_chuck1_br -> $pos_chuck1_br
+CALL @SURVEYCORNERS $pos_chuck1_bl -> $pos_chuck1_bl
+CALL @SURVEYCORNERS $pos_chuck1_tl -> $pos_chuck1_tl
+
+# Step 9. Calculate translations and rotations, and print them out
+
+FIT $pos_chuck2_center $rot_chuck2 TFPX_RD53AHDI $pos_chuck2_tr $pos_chuck2_br $pos_chuck2_bl $pos_chuck2_tl
+QUAT2EULER $rot_chuck2 $_ $_ $rot_chuck2
+
+FIT $pos_chuck1_center $rot_chuck1 TFPX_RD53AHDI $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
+QUAT2EULER $rot_chuck1 $_ $_ $rot_chuck1
+
+SUB $v_hdi_translation $pos_chuck1_center $pos_chuck2_center
+SUB $rot_hdi_translation $rot_chuck1 $rot_chuck2
+
+PRINT "--------------------"
+
+PRINT "Chuck 2 Pos: %v Rot: %f" $pos_chuck2_center $rot_chuck2
+PRINT "Chuck 1 Pos: %v Rot: %f" $pos_chuck1_center $rot_chuck1
+
+PRINT "Positional Difference (Chuck1 center - Chuck2 center): %v" $v_hdi_translation
+PRINT "Rotational Difference (Chuck1 rotation - Chuck2 rotation): %f" $rot_hdi_translation
+
+PRINT "--------------------"
+
+# Step 10. Turn off vacuums and prompt re-run
+
+MOVESAFE {430,540,0} 50
+
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+
+CHOICEPOPUP $choice "Would you like to do another measurement?" "Yes, re-run this program" "No, shut down"
+GOTOIF @RERUN $choice
+
+HOME
+
+END
+
+@SURVEYCORNERS(x_corner)
+# Arguments
+#   $x_corner - Approximate position of the SensorROC corer. Returns with precise position
+  MOVESAFE $x_corner 10
+  @SURCORNPOP
+    VIDEO
+    CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+    GOTOIFN @SURCORNPOP $choice
+  GETPOS $x_corner_corrected
+  RETURN $x_corner_corrected
