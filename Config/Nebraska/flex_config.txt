@@ -269,6 +269,7 @@ graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_1_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_2_in: True
 graph_motion.edge.tool_rack_pos_2_out.tool_rack_pos_0_out: True
 graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_0_out: True
+graph_motion.edge.tool_rack_pos_1_out.tool_rack_pos_2_out: True
 
 # Connections for ETL chucks
 graph_motion.edge.etl_chuck_1.etl_chuck_2: True
@@ -299,15 +300,15 @@ graph_motion.edge.tool_rack_pos_0_out.stagingArea: True
 #================================================
 
 # default.part_type.chuck_id.pos_id.pos/rot
-default.ETL_mock_base.3.1.pos: {776.211566,318.647663,78.942527}
-default.ETL_mock_base.3.1.rot: {0.000487,0.000002,-0.003824,-0.999993}
+#default.ETL_mock_base.3.1.pos: {776.211566,318.647663,78.942527}
+#default.ETL_mock_base.3.1.rot: {0.000487,0.000002,-0.003824,-0.999993}
 default.ETL_mock_base.3.2.pos: {10,10,10}
 default.ETL_mock_base.3.2.rot: {0,0,0,1}
 
-default.ETL_Sensor_PCB_Mockup.4.1.pos: {646.167729,110.076103,75.537859}
-default.ETL_Sensor_PCB_Mockup.4.1.rot: {0.000000,-0.000000,0.002087,0.999998}
-default.ETL_Sensor_PCB_Mockup.4.2.pos: {698.352939,110.146967,75.706145}
-default.ETL_Sensor_PCB_Mockup.4.2.rot: {0.001161,0.000101,-0.001915,-0.999997}
+#default.ETL_Sensor_PCB_Mockup.4.1.pos: {646.167729,110.076103,75.537859}
+#default.ETL_Sensor_PCB_Mockup.4.1.rot: {0.000000,-0.000000,0.002087,0.999998}
+#default.ETL_Sensor_PCB_Mockup.4.2.pos: {698.352939,110.146967,75.706145}
+#default.ETL_Sensor_PCB_Mockup.4.2.rot: {0.001161,0.000101,-0.001915,-0.999997}
 
 
 #================================================

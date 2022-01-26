@@ -1,0 +1,315 @@
+VERSION v2.1
+CLEARLOG
+LOADCONFIG
+LOADCONFIG "" Scripts\Nebraska\ETL\assembly_positions.txt
+
+COPY $bot_chuck_num 3
+COPY $bot_pos_num 1
+
+COPY $topA_chuck_num 4
+COPY $topA_pos_num 1
+COPY $topB_chuck_num 4
+COPY $topB_pos_num 2
+COPY $topC_chuck_num 4
+COPY $topC_pos_num 3
+COPY $topD_chuck_num 4
+COPY $topD_pos_num 4
+
+COPY $stampA_num 2
+COPY $resA_num 1
+COPY $stampB_num 2
+COPY $resB_num 2
+COPY $weightA_num 1
+
+COPY $top_thickness {0,0,0.6}
+
+# HOME
+
+#set vaccuums
+SETVAC "etl_chuck_{$topA_chuck_num}_pos_{$topA_pos_num}" 1 #for top piece A
+SETVAC "etl_chuck_{$topB_chuck_num}_pos_{$topB_pos_num}" 1 #for top piece B
+SETVAC "etl_chuck_{$topC_chuck_num}_pos_{$topC_pos_num}" 1 #for top piece C
+SETVAC "etl_chuck_{$topD_chuck_num}_pos_{$topD_pos_num}" 1 #for top piece D
+
+# Chucks 1,2, and 3 are for the glue reservoir, stamp/weight staging, 
+# and assembly plate, respectively. 
+SETVAC etl_chuck_1 1       #for the glue resevoir
+SETVAC etl_chuck_2 1       #for glue stamp
+SETVAC etl_chuck_3 1
+
+CALL @SURVEY_PART $bot_chuck_num $bot_pos_num 0 -> $bot_pos $bot_rot
+
+CALL @SURVEY_PART $topA_chuck_num $topA_pos_num 1 -> $topA_pos $topA_rot
+CALL @SURVEY_PART $topB_chuck_num $topB_pos_num 1 -> $topB_pos $topB_rot
+CALL @SURVEY_PART $topC_chuck_num $topC_pos_num 1 -> $topC_pos $topC_rot
+CALL @SURVEY_PART $topD_chuck_num $topD_pos_num 1 -> $topD_pos $topD_rot
+
+# TODO: Adjust "bot_pos" to place the top parts in the correct positions
+TRANSFORML2G $bot_pos_A {-11.6,10.75,0}  $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_B {-11.6,-10.75,0} $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_C {11.6,10.75,0}   $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_D {11.6,-10.75,0}  $bot_pos $bot_rot
+
+ADD $glue_target_A $bot_pos_A $bot_pos_B
+MUL $glue_target_A $glue_target_A {0.5,0.5,0.5}
+ADD $glue_target_B $bot_pos_C $bot_pos_D
+MUL $glue_target_B $glue_target_B {0.5,0.5,0.5}
+
+EULER2QUAT $target_rotA 90 0 0
+EULER2QUAT $target_rotB 90 0 0
+
+LOADTOOL grabber_tool
+LOADSTAMP $stampA_num 
+CALL @APPLY_GLUE $stampA_num $resA_num $bot_chuck_num $glue_target_A $bot_rot $target_rotA
+CALL @APPLY_GLUE $stampB_num $resB_num $bot_chuck_num $glue_target_B $bot_rot $target_rotB
+UNLOADSTAMP
+UNLOADTOOL
+
+EULER2QUAT $targetA_rot -90 0 0
+EULER2QUAT $targetB_rot -90 0 0
+EULER2QUAT $targetC_rot 90 0 0
+EULER2QUAT $targetD_rot 90 0 0
+
+LOADTOOL etl_picker_tool
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_A $bot_rot $topA_chuck_num $topA_pos_num $topA_pos $topA_rot $top_thickness $targetA_rot
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_B $bot_rot $topB_chuck_num $topB_pos_num $topB_pos $topB_rot $top_thickness $targetB_rot
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_C $bot_rot $topC_chuck_num $topC_pos_num $topC_pos $topC_rot $top_thickness $targetC_rot
+CALL @PICK_AND_PLACE $bot_chuck_num $bot_pos_D $bot_rot $topD_chuck_num $topD_pos_num $topD_pos $topD_rot $top_thickness $targetD_rot
+UNLOADTOOL
+
+#CALL @APPLY_WEIGHT $weightA_num $bot_chuck_num $bot_pos $bot_rot
+#CALL @APPLY_WEIGHT $weightB_num $bot_chuck_num $bot_pos $bot_rot
+
+SETVAC etl_chuck_1 0
+SETVAC etl_chuck_2 0
+
+
+PRINT %v $bot_pos_A
+PRINT %q $targetA_rot
+CALL @SURVEY_CORRECTED 3 $bot_pos_A $targetA_rot -> $posA $rotA
+PRINT %v $posA
+PRINT %q $rotA
+
+PRINT %v $bot_pos_B
+PRINT %q $targetB_rot
+CALL @SURVEY_CORRECTED 3 $bot_pos_B $targetB_rot -> $posB $rotB
+PRINT %v $posB
+PRINT %q $rotB
+
+PRINT %v $bot_pos_C
+PRINT %q $targetC_rot
+CALL @SURVEY_CORRECTED 3 $bot_pos_C $targetC_rot -> $posC $rotC
+PRINT %v $posC
+PRINT %q $rotC
+
+PRINT %v $bot_pos_D
+PRINT %q $targetD_rot
+CALL @SURVEY_CORRECTED 3 $bot_pos_D $targetD_rot -> $posD $rotD
+PRINT %v $posD
+PRINT %q $rotD
+
+END
+
+
+
+@SURVEY_CORRECTED(chuck_num,target_pos,target_rot)
+# Arguments:
+    #  $chuck_num - 
+    #  $pos - 
+    #  $rot -
+    FLEXREAD $tr_local geometry.ETL_Sensor_PCB_Mockup.fid_tr  
+    FLEXREAD $tl_local geometry.ETL_Sensor_PCB_Mockup.fid_tl
+    FLEXREAD $bl_local geometry.ETL_Sensor_PCB_Mockup.fid_bl
+    FLEXREAD $br_local geometry.ETL_Sensor_PCB_Mockup.fid_br
+
+    TRANSFORML2G $tr_global $tr_local $target_pos $target_rot
+    TRANSFORML2G $tl_global $tl_local $target_pos $target_rot
+    TRANSFORML2G $bl_global $bl_local $target_pos $target_rot
+    TRANSFORML2G $br_global $br_local $target_pos $target_rot
+
+    #this is to get corrected centers and orientation, the code above gives general area
+    MOVENAME "etl_chuck_{$chuck_num}"
+    #Routine to set up inital position of metal piece
+    CALL @ACQUIREFIDUCIAL $tl_global -> $tl_corrected
+    CALL @ACQUIREFIDUCIAL $tr_global -> $tr_corrected
+    CALL @ACQUIREFIDUCIAL $bl_global -> $bl_corrected
+    CALL @ACQUIREFIDUCIAL $br_global -> $br_corrected
+    
+    FIT $pos $rot ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+    RETURN $pos $rot
+
+
+
+
+@SURVEY_PART(chuck_num,pos_num,is_top)
+    # Arguments:
+    #  $chuck_num - 
+    #  $pos_num - 
+	#  $is_top - 1 for survey position of top, 0 for bottom
+	
+    SETLIGHT 40
+	
+	GOTOIF @LOAD_TOP_DATA $is_top
+    FLEXREAD $tr_local geometry.ETL_mock_base.fid_tr  
+    FLEXREAD $tl_local geometry.ETL_mock_base.fid_tl
+    FLEXREAD $bl_local geometry.ETL_mock_base.fid_bl
+    FLEXREAD $br_local geometry.ETL_mock_base.fid_br
+
+    FLEXREAD $pos_default "default.ETL_mock_base.{$chuck_num}.{$pos_num}.pos"
+    FLEXREAD $rot_default "default.ETL_mock_base.{$chuck_num}.{$pos_num}.rot"
+    GOTO @END_LOAD
+	
+	@LOAD_TOP_DATA
+    FLEXREAD $tr_local geometry.ETL_Sensor_PCB_Mockup.fid_tr  
+    FLEXREAD $tl_local geometry.ETL_Sensor_PCB_Mockup.fid_tl
+    FLEXREAD $bl_local geometry.ETL_Sensor_PCB_Mockup.fid_bl
+    FLEXREAD $br_local geometry.ETL_Sensor_PCB_Mockup.fid_br
+
+    FLEXREAD $pos_default "default.ETL_Sensor_PCB_Mockup.{$chuck_num}.{$pos_num}.pos"
+    FLEXREAD $rot_default "default.ETL_Sensor_PCB_Mockup.{$chuck_num}.{$pos_num}.rot"
+    @END_LOAD
+	
+    #converts the local coordinates to global gantry coordinates usint start location and orientation
+    TRANSFORML2G $tr_global $tr_local $pos_default $rot_default
+    TRANSFORML2G $tl_global $tl_local $pos_default $rot_default
+    TRANSFORML2G $bl_global $bl_local $pos_default $rot_default
+    TRANSFORML2G $br_global $br_local $pos_default $rot_default
+
+    #this is to get corrected centers and orientation, the code above gives general area
+    MOVENAME "etl_chuck_{$chuck_num}"
+    #Routine to set up inital position of metal piece
+    CALL @ACQUIREFIDUCIAL $tl_global -> $tl_corrected
+    CALL @ACQUIREFIDUCIAL $tr_global -> $tr_corrected
+    CALL @ACQUIREFIDUCIAL $bl_global -> $bl_corrected
+    CALL @ACQUIREFIDUCIAL $br_global -> $br_corrected
+
+    #turns measured corners or fiducials into center and orientation
+	GOTOIFN @FIT_TOP $is_top
+    FIT $pos $rot ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+    RETURN $pos $rot
+	@FIT_TOP
+	FIT $pos $rot ETL_mock_base $tr_corrected $br_corrected $bl_corrected $tl_corrected
+    RETURN $pos $rot
+
+@APPLY_GLUE(stamp_num,res_num,bot_chuck_num,bot_pos,bot_rot,target_rot)
+    # Arguments:
+    #  $stamp_num - what stamp you are using
+    #  $res_num - which glue reservoir
+    #  $bot_chuck_num - Chuck number of bottom piece
+    #  $bot_pos - center position of bottom piece
+    #  $bot_rot - rotation of bottom piece
+    
+    # => DIP STAMP IN GLUE <=
+    #LOADTOOL grabber_tool
+    #LOADSTAMP $stamp_num 
+
+    FLEXREAD $res_chuck "reservoir.chuck"
+    MOVENAME "etl_chuck_{$res_chuck}"
+    FLEXREAD $res_pos "reservoir.{$res_num}.pos"
+    FLEXREAD $res_rot "reservoir.{$res_num}.rot"
+    APPLYSTAMP $res_pos $res_rot
+    
+    # => APPLY STAMP TO BOTTOM <=
+    MOVENAME "etl_chuck_{$bot_chuck_num}"
+    
+    FLEXREAD $stamp_center_offset "geometry.stamp_{$stamp_num}.center_offset"
+    
+    COMPOSE $stamp_rot $bot_rot $target_rot
+
+    TRANSFORML2G $stamp_center_offset_g $stamp_center_offset {0,0,0} $stamp_rot
+
+    ADD $bot_pos_adj $bot_pos $stamp_center_offset_g
+
+    APPLYSTAMP $bot_pos_adj $stamp_rot
+    #UNLOADSTAMP
+    #UNLOADTOOL
+    RETURN
+
+@PICK_AND_PLACE(bot_chuck_num,bot_pos,bot_rot,top_chuck_num,top_position_num,top_pos,top_rot,top_thickness,end_rot)
+    # Arguments:
+    #  $stamp_num - what stamp you are using
+    #  $res_num - which glue reservoir
+    #  $bot_chuck_num - 
+    #  $bot_pos_num - 
+    #  $top_chuck_num - 
+    #  $top_pos_num - 
+    #  $top_thickness - thickness of the top piece
+    
+    COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+    COPY $picker_height $picker_height_cup_5    
+
+    #LOADTOOL etl_picker_tool
+    
+    # => PICK PART <=
+    MOVENAME "etl_chuck_{$top_chuck_num}"
+    CALL @CALCPICKUP $top_pos $picker_height -> $pickup_pos $pickup_pos_z0
+    
+    MOVETO $pickup_pos_z0 50
+    ROTATETO $top_rot 25
+    MOVETO $pickup_pos 50
+    SETVAC gantry_head_inner 1
+    WAIT 500
+    SETVAC "etl_chuck_{$top_chuck_num}_pos_{$top_position_num}" 0           
+    WAIT 500
+    MOVETO $pickup_pos_z0 25
+
+    # => PLACE PART <=
+    MOVENAME "etl_chuck_{$bot_chuck_num}"
+    CALL @CALCPICKUP $bot_pos $picker_height -> $place_pos $place_pos_z0
+    
+    MOVETO $place_pos_z0 50
+    COMPOSE $target_rot $bot_rot $end_rot
+    ROTATETO $target_rot 25
+    ADD $place_pos $place_pos $top_thickness
+    MOVETO $place_pos 50
+    WAIT 2000
+    SETVAC gantry_head_inner 0
+    WAIT 4000
+    MOVETO $place_pos_z0 10   
+    ROTATETO 0 25
+
+    #UNLOADTOOL
+    RETURN
+
+@APPLY_WEIGHT(weight_num,assembly_chuck_num,assembly_pos,assembly_rot)
+    # Arguments:
+    #  $weight_num - 
+    #  $assembly_chuck_num - 
+	#  $assembly_pos - 
+	#  $assembly_rot - 
+	
+    LOADTOOL grabber_tool
+    LOADWEIGHT $weight_num
+    MOVENAME "etl_chuck_{$assembly_chuck_num}"
+    APPLYWEIGHT $assembly_pos $assembly_rot
+    UNLOADTOOL
+    RETURN
+
+@ACQUIREFIDUCIAL(start_pos)
+    # Arguments:
+    #  $start_pos - Position to initially search for the fiducial
+	
+    MOVETO $start_pos 50
+    WAIT 100
+    SETERRORMODE setvar
+    FINDFID $fid_position ETL_PCB_Mockup
+    GOTOIF @manual_fiducial_acquisition $ERR
+    SETERRORMODE default
+    RETURN $fid_position
+    
+    @manual_fiducial_acquisition
+    SETERRORMODE default
+    VIDEO
+    getpos $fid_position
+    RETURN $fid_position
+
+@CALCPICKUP(camera_pos,tool_height)
+    # Arguments:
+    #  $camera_pos - center of piece to pickup/place
+    #  $picker_height - height of picker tool
+	
+    FLEXREAD $ghco geometry.tool_holder_offset     #gets gantry head camera offset (gcho)
+    ADD $netoffset $tool_height $ghco           #adds the height of the picker tool to this offset
+    SUB $pickup_pos $camera_pos $netoffset       #brings gantry head to camera position (grabber pos)
+    RETURN $pickup_pos {$pickup_pos.x,$pickup_pos.y,0}
+

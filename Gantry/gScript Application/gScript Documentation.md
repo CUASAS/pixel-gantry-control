@@ -426,6 +426,12 @@ Clears the current log. If a log file has been specified, it is cleared as well.
 
 *Format:* `CLEARLOG`
 
+#### `CLEARVARS`
+
+Clears the variable table, including the bottom frame.
+
+*Format:* `CLEARVARS`
+
 #### `DUMPSTATE`
 
 Dumps the internal state of the application to the log.
@@ -500,11 +506,12 @@ Moves the gantry through the displacement specified by the vector `dis`
 
 Moves the gantry to the named position `pos_name`. It must be one of the named positions found in the `graph_motion.pos` namespace of `flex_config.txt`.
 
-*Format:* `MOVENAME pos_name speed`
+*Format:* `MOVENAME pos_name speed direct`
 
   - `pos_name`: A string literal for the name 
   - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, fall back to `motion.travel_speed` from the flex_config. If that is not specified either, move at 50 mm/s.
-
+  - `direct` **Optional** If you include the string "direct", the gantry does not return to it's current named position prior to moving on.
+  
 #### `MOVESAFE`
 
 Moves to coordinate `pos` in two separate vertical and horizontal motions. By default, the vertical motion is performed first if `pos` is higher (ie smaller z) than the current position. If `pos` is lower (larger z), then the horizontal motion is performed first. This behavior can be overridden by supplying the optional `order` argument which can be one of `vertical_first`, `horizontal_first`, or `auto` (for the default behavior). 
