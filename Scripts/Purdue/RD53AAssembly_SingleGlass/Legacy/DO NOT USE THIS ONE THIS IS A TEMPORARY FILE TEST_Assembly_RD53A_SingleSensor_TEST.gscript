@@ -1,0 +1,584 @@
+######################## RD53A Vacuum Pick and Place Resolution #############################
+# Steps:
+# 1. Prompt placement of HDI on Chuck 2
+# 2. Turn on Chuck 2
+# 3. Move gantry head to Chuck 2 and survey 3 fiducials
+# 4. Compute would-be position and rotation of HDI on Chuck 1
+# 5. Prompt placement of SensorROC is on the launchpad
+#    i. Is Chuck 1 clear?
+#    ii. Is the Pickup Tool ready?
+# 6. Survey the SensorROC on the launchpad
+# 7. Pick up the SensorROC and place on Chuck 1 at position computed in Step 4
+# 8. Prompt placement of vacuum tool on HDI on Chuck 2
+# 9. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+# 10. Check that HDI was moved to Chuck 3 and the adhesive was applied
+# 11. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+# 12. Release vacuum of Vacuum Tool
+# 13. Prompt replacement of Vacuum Tool on Chuck 3
+# 14. Move gantry head to Chuck 1 and survey for Module accuracy
+
+#Initialize the system
+HOME
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+SETLOG "LOG_Assembly_RD53A_SingleSensor.txt"
+SETERRORMODE prompt
+
+# Rough positions of fiducials on Chuck 2
+COPY $chuck2_x1 {444.926,572.961,100.450}
+COPY $chuck2_x2 {456.521,572.953,100.450}
+COPY $chuck2_x3 {450.209,539.098,100.450}
+
+# Rough positions of fiducials on Chuck 1
+COPY $chuck1_x1 {395.077,572.730,93.684}
+COPY $chuck1_x2 {406.676,572.581,93.8}
+COPY $chuck1_x3 {399.936,538.801,93.812}
+
+# Rough positions of the corners of the SensorROC
+COPY $sen_roc_tr {572.531,199.625,87.952}
+COPY $sen_roc_br {572.449,240.370,87.952}
+COPY $sen_roc_bl {549.212,240.418,87.952}
+COPY $sen_roc_tl {549.226,199.595,87.952}
+
+# Distance from the 3rd fiducial to the middle of the HDI. This is needed for
+# some math later. This value *should* be a constant between all chips.
+# This value was calculated from measuring the HDI with use of the gantry
+# and using the script fitCircle.
+COPY $distance_x3_to_center 10.768
+
+# HDI pick and place translation vector and rotation angle measured independently
+COPY $v_translation {-49.984,-0.304,0}
+COPY $rotation 0.00353107
+
+# Step 1. Prompt placement of HDI on Chuck 2
+@STEP_ONE CHOICEPOPUP $choice "Have you placed the RD53A HDI on Chuck 2?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+# Step 2. Turn on Chuck 2
+SETVAC rd53a_chuck_2 1
+
+# Step 3. Move gantry head to Chuck 2 and survey 3 fiducials
+
+MOVESAFE $chuck2_x1 100
+COPY $x_fid $chuck2_x1
+CALL @SURVEYFID
+COPY $chuck2_x1 $x_fid
+COPY $x_fid $chuck2_x2
+CALL @SURVEYFID
+COPY $chuck2_x2 $x_fid
+COPY $x_fid $chuck2_x3
+CALL @SURVEYFID
+COPY $chuck2_x3 $x_fid
+
+# Step 4. Compute would-be position and rotation of the HDI on Chuck 1
+#  Calculates the vector between 1 and 2 and stores it under $chuck2_x1x2
+CALL @Vect_x1x2
+#  Calculates the rotation of the HDI and stores it under $theta
+CALL @Get_rotation
+#  Calculates the distance from $chuck2_x1x2 to chuck $chuck2_x3 and stores under $dist_x1x2_to_x3
+CALL @Get_distx1x2_x3
+#  Calculates the new location of the 3rd fiducials when moved to chuck1 and stores under $chuck1_x3
+CALL @Get_chuck1_x3
+# Calculates the center of the HDI and stores under $centerpos
+CALL @Get_center
+
+MOVESAFE $chuck2_x1
+VIDEO
+GETPOS $hdi_4
+MOVESAFE $chuck2_x2
+VIDEO
+GETPOS $hdi_2
+
+MUL $hdi_4 $hdi_4 {0.5,0.5,0.5}
+MUL $hdi_2 $hdi_2 {0.5,0.5,0.5}
+ADD $centerpos $hdi_2 $hdi_4
+ADD $centerpos $centerpos $v_translation
+
+
+MOVESAFE {350,150,0} 100
+
+# Step 5. Prompt placement of SensorROC
+@STEP_FIVE CHOICEPOPUP $choice "Have you placed the SensorROC on the launchpad?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE $choice
+@STEP_FIVE_i CHOICEPOPUP $choice "Is Chuck 1 clear?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE_i $choice
+@STEP_FIVE_ii CHOICEPOPUP $choice "Is pickup tool ready?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE_ii $choice
+
+# Step 6. Survey the SensorROC
+
+MOVESAFE $sen_roc_tr 100
+COPY $x_roc $sen_roc_tr
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYROC
+COPY $sen_roc_tr $x_roc
+
+COPY $x_roc $sen_roc_br
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYROC
+COPY $sen_roc_br $x_roc
+
+COPY $x_roc $sen_roc_bl
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYROC
+COPY $sen_roc_bl $x_roc
+
+COPY $x_roc $sen_roc_tl
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYROC
+COPY $sen_roc_tl $x_roc
+
+# Calculate the orientation of the SensorROC
+FIT $sen_roc_center $sen_roc_rot TFPX_RD53AHDI $sen_roc_tr $sen_roc_br $sen_roc_bl $sen_roc_br
+
+COPY $sen_roc_rot.z 0
+COPY $sen_roc_rot.w 0
+
+PRINT " NEW RUN: Rotation %d %f %r %q" $sen_roc_rot $sen_roc_rot $sen_roc_rot $sen_roc_rot
+
+QUAT2EULER $sen_roc_theta $trash0 $trash1 $sen_roc_rot
+
+PRINT "Theta %f" $sen_roc_theta
+
+PRINT "new_angle %f" $new_angle
+
+PRINT "Center from FIT %v" $sen_roc_center
+
+ADD $rightx $sen_roc_tr.x $sen_roc_br.x
+MUL $rightx $rightx 0.5
+ADD $leftx $sen_roc_tl.x $sen_roc_bl.x
+MUL $leftx $leftx 0.5
+SUB $newx $rightx $leftx
+MUL $newx $newx 0.5
+ADD $newx $newx $leftx
+
+ADD $topy $sen_roc_tr.y $sen_roc_tl.y
+MUL $topy $topy 0.5
+ADD $boty $sen_roc_br.y $sen_roc_bl.y
+MUL $boty $boty 0.5
+SUB $newy $boty $topy
+MUL $newy $newy 0.5
+ADD $newy $newy $topy
+
+PRINT "Center that I got %v" {$newx,$newy,87.925}
+
+MUL $vect_2 $sen_roc_br {0.5,0.5,0.5}
+MUL $vect_4 $sen_roc_tl {0.5,0.5,0.5}
+ADD $vect_cent $vect_2 $vect_4
+COPY $vect_cent.z 87.925
+
+PRINT "Center from vectors %v" $vect_cent
+
+COPY $sen_roc_center $vect_cent
+
+CHOICEPOPUP $choice "Are angles ok?" "Yes, continue" "No"
+GOTOIF @ANGLE_CHECK $choice
+END
+@ANGLE_CHECK
+
+# 7. Pick up the SensorROC and place on Chuck 1 at position computed in Step 4
+
+LOADTOOL picker_tool
+MOVENAME stagingArea
+
+# Pickup Step
+COPY $target_pos $sen_roc_center
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $sen_roc_theta
+ADD $pickup_pos.z $pickup_pos.z 0.5
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 1000
+# In principle, we should turn off the vacuum that is holding the SensorROC on launchpad
+MOVETO $pickup_pos_z0 10
+MUL $neg_sen_roc_theta $sen_roc_theta -1.0
+ROTATE $neg_sen_roc_theta
+
+# Place Step
+COPY $target_pos $centerpos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $new_angle
+SUB $pickup_pos.z $pickup_pos.z 0.6
+MOVETO $pickup_pos 10
+SETVAC rd53a_chuck_1_TR 1
+SETVAC rd53a_chuck_1_BL 1
+SETVAC rd53a_chuck_1_TL 1
+SETVAC rd53a_chuck_1_BR 1
+WAIT 1000
+SETVAC gantry_head_inner 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+MUL $neg_new_angle $new_angle -1.0
+ROTATE $neg_new_angle
+
+UNLOADTOOL
+
+HOME
+
+# 8. Prompt placement of vacuum tool on HDI on Chuck 2
+@STEP_EIGHT CHOICEPOPUP $choice "Have you placed the Vacuum Tool on the HDI in Chuck 2 such that the fiducials are visible through its viewing holes?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_EIGHT $choice
+
+# 9. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+SETVAC rd53a_chuck_3 1
+WAIT 2000
+SETVAC rd53a_chuck_2 0
+
+# 10. Check that HDI was moved to Chuck 3 and the adhesive was applied
+@STEP_TEN CHOICEPOPUP $choice "Did you move the HDI to Chuck 3 and apply the adhesive?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_TEN $choice
+
+# 11. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+@STEP_ELEVEN CHOICEPOPUP $choice "Did you place the HDI on the SensorROC on Chuck 1 (With adhesive between them)?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ELEVEN $choice
+
+# 12. Release vacuum of Vacuum Tool
+SETVAC rd53a_chuck_3 0
+
+# 13. Prompt replacement of Vacuum Tool on Chuck 3
+@STEP_THIRTEEN CHOICEPOPUP $choice "Did you place the Vacuum Tool on Chuck 3?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_THIRTEEN $choice
+
+# 14. Move gantry head to Chuck 1 and survey for Module accuracy
+
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_BR 0
+
+END
+
+# Step 8. Move gantry head camera to survey the fiducials
+
+MOVETO $chuck1_x1 100
+
+COPY $x_fid $chuck1_x1
+CALL @SURVEYFID
+COPY $chuck1_x1 $x_fid
+PRINT "chuck1_x1_L, chuck1_x1_R, chuck1_x1_T, chuck1_x1_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x2
+CALL @SURVEYFID
+COPY $chuck1_x2 $x_fid
+PRINT "chuck1_x2_L, chuck1_x2_R, chuck1_x2_T, chuck1_x2_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x3
+CALL @SURVEYFID
+COPY $chuck1_x3 $x_fid
+PRINT "chuck1_x3_L, chuck1_x3_R, chuck1_x3_T, chuck1_x3_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+PRINT "==="
+
+# Step 9. Calculate translations and rotations, and print them out
+
+#COPY $translation {0,0,0}
+#ADD $translation $chuck1_x1 $chuck1_x2
+#SUB $translation $translation $chuck2_x1
+#SUB $translation $translation $chuck2_x2
+#MUL $translation $translation {0.5,0.5,0.5}
+
+END
+
+# SURVEYFID
+# Arguments
+#  $x_fid - Approximate position of the fiducial. Returned with precise position
+@SURVEYFID PASS
+  COPY $SURVEYFID_RET $RET
+  MOVETO $x_fid 10
+  @STEP_0 CHOICEPOPUP $choice "Ready to find the Left Edge of the fiducial?" "Yes" "No"
+  GOTOIFN @STEP_0 $choice
+  @STEP_1 VIDEO
+  CHOICEPOPUP $choice "Did you locate the Left Edge of the fiducial?" "Yes, move to Right Edge" "No, Repeat"
+  GOTOIFN @STEP_1 $choice
+  GETPOS $circlepoint1
+  MOVEREL {1.0,0,0} 1
+  @STEP_2 VIDEO
+  CHOICEPOPUP $choice "Did you locate the Right Edge of the fiducial?" "Yes, move to Top Edge" "No, Repeat"
+  GOTOIFN @STEP_2 $choice
+  GETPOS $circlepoint2
+  MOVEREL {-0.5,-0.5,0} 1
+  @STEP_3 VIDEO
+  CHOICEPOPUP $choice "Did you locate the Top Edge of the fiducial?" "Yes, move to Bottom Edge" "No, Repeat"
+  GOTOIFN @STEP_3 $choice
+  GETPOS $circlepoint3
+  MOVEREL {0,1.0,0} 1
+  @STEP_4 VIDEO
+  CHOICEPOPUP $choice "Did you locate the Bottom Edge of the fiducial?" "Yes, continue" "No, Repeat"
+  GOTOIFN @STEP_4 $choice
+  GETPOS $circlepoint4
+
+  CALL @Fit_Circle
+
+  COPY $x_fid {$xc,$yc,$zc}
+  GOTO $SURVEYFID_RET
+
+# SURVEYROC
+# Arguments
+# $x_roc - Approximate position of the SensorROC corer. Returns with precise position
+@SURVEYROC PASS
+  MOVETO $x_roc 10
+  @ROC_1 VIDEO
+  CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+  GOTOIFN @ROC_1 $choice
+  GETPOST $x_roc
+  GOTO $RET
+
+# Vect_x1x2
+# Arguments
+#  $chuck2_x1, $chuck2_x2, $chuck2_x3 - Calculates the vector in between points 1 and 2
+@Vect_x1x2 PASS
+  COPY $chuck2_x1x2 $chuck2_x1
+  ADD $chuck2_x1x2 $chuck2_x1x2 $chuck2_x2
+  MUL $chuck2_x1x2 $chuck2_x1x2 {0.5,0.5,0.5}
+  GOTO $RET
+
+# Get_rotation
+# Arguments
+#  $chuck2_x1x2, $chuck2_x3 - Calculate the angle theta for starting orientation
+@Get_rotation PASS
+  SUB $vec_x1x2_to_x3 $chuck2_x3 $chuck2_x1x2
+  ATAN2 $theta $vec_x1x2_to_x3.x $vec_x1x2_to_x3.y
+  ADD $theta $theta 90.0
+  GOTO $RET
+
+# Get_distx1x2_x3
+# Arguments
+#  $vec_x1x2_to_x3 -  Calculate the distance from the mid point of points 1 and 2 to the point 3
+@Get_distx1x2_x3 PASS
+  ABS $dist_x1x2_to_x3 $vec_x1x2_to_x3
+  GOTO $RET
+
+# Get_chuck1_x3
+# Arguments
+#  $chuck2_x3, $theta, $v_translation, $rotation, $dist_x1x2_to_x3 - Gets the new position of point 3 when moved to chuck 1
+@Get_chuck1_x3 PASS
+  ADD $new_angle $theta $rotation
+  SIN $xprime $new_angle
+  MUL $xprime $xprime $dist_x1x2_to_x3
+  MUL $xprime $xprime -1
+  COS $yprime $new_angle
+  MUL $yprime $yprime $dist_x1x2_to_x3
+  MUL $yprime $yprime -1
+  ADD $xpos $chuck2_x1x2.x $v_translation.x
+  ADD $ypos $chuck2_x1x2.y $v_translation.y
+  ADD $xprime $xprime $xpos
+  ADD $yprime $yprime $ypos
+  COPY $chuck1_x3 {$xprime,$yprime,$chuck2_x3.z}
+  GOTO $RET
+
+# Get_center
+# Arguments
+#  $chuck1_x3, $new_angle, $distance_x3_to_center - Gets the center of the HDI for the placement of the SensorROC
+@Get_center PASS
+  SIN $xcenter $new_angle
+  COS $ycenter $new_angle
+  MUL $xcenter $xcenter $distance_x3_to_center
+  MUL $ycenter $ycenter $distance_x3_to_center
+  ADD $xcenter $xcenter $chuck1_x3.x
+  ADD $ycenter $ycenter $chuck1_x3.y
+  COPY $centerpos {$xcenter,$ycenter,$chuck1_x3.z}
+  GOTO $RET
+
+# Fit_Circle
+# Arguments
+# $circlepoint1 $circlepoint2 $circlepoint3 $circlepoint4 - This is based on the python script fitCircle. This finds the center of a circle based on 4 points on the edge.
+@Fit_Circle PASS
+  # Setting variables
+  COPY $mx 0
+  COPY $my 0
+  COPY $mz 0
+  COPY $mxx 0
+  COPY $myy 0
+  COPY $mxy 0
+  COPY $mxz 0
+  COPY $myz 0
+
+  # For Loop. Must be written out explicitly due to language limitations.
+  # i = 1
+  COPY $temp_x $circlepoint1.x
+  COPY $temp_y $circlepoint1.y
+  MUL $temp_xx $temp_x $temp_x
+  MUL $temp_yy $temp_y $temp_y
+  ADD $temp_z $temp_xx $temp_yy
+  ADD $mx $mx $temp_x
+  ADD $my $my $temp_y
+  ADD $mz $mz $temp_z
+  MUL $temp_xy $temp_x $temp_y
+  MUL $temp_xz $temp_x $temp_z
+  MUL $temp_yz $temp_y $temp_z
+  ADD $mxx $mxx $temp_xx
+  ADD $myy $myy $temp_yy
+  ADD $mxy $mxy $temp_xy
+  ADD $mxz $mxz $temp_xz
+  ADD $myz $myz $temp_yz
+
+  # i = 2
+  COPY $temp_x $circlepoint2.x
+  COPY $temp_y $circlepoint2.y
+  MUL $temp_xx $temp_x $temp_x
+  MUL $temp_yy $temp_y $temp_y
+  ADD $temp_z $temp_xx $temp_yy
+  ADD $mx $mx $temp_x
+  ADD $my $my $temp_y
+  ADD $mz $mz $temp_z
+  MUL $temp_xy $temp_x $temp_y
+  MUL $temp_xz $temp_x $temp_z
+  MUL $temp_yz $temp_y $temp_z
+  ADD $mxx $mxx $temp_xx
+  ADD $myy $myy $temp_yy
+  ADD $mxy $mxy $temp_xy
+  ADD $mxz $mxz $temp_xz
+  ADD $myz $myz $temp_yz
+
+  # i = 3
+  COPY $temp_x $circlepoint3.x
+  COPY $temp_y $circlepoint3.y
+  MUL $temp_xx $temp_x $temp_x
+  MUL $temp_yy $temp_y $temp_y
+  ADD $temp_z $temp_xx $temp_yy
+  ADD $mx $mx $temp_x
+  ADD $my $my $temp_y
+  ADD $mz $mz $temp_z
+  MUL $temp_xy $temp_x $temp_y
+  MUL $temp_xz $temp_x $temp_z
+  MUL $temp_yz $temp_y $temp_z
+  ADD $mxx $mxx $temp_xx
+  ADD $myy $myy $temp_yy
+  ADD $mxy $mxy $temp_xy
+  ADD $mxz $mxz $temp_xz
+  ADD $myz $myz $temp_yz
+
+  # i = 4
+  COPY $temp_x $circlepoint4.x
+  COPY $temp_y $circlepoint4.y
+  MUL $temp_xx $temp_x $temp_x
+  MUL $temp_yy $temp_y $temp_y
+  ADD $temp_z $temp_xx $temp_yy
+  ADD $mx $mx $temp_x
+  ADD $my $my $temp_y
+  ADD $mz $mz $temp_z
+  MUL $temp_xy $temp_x $temp_y
+  MUL $temp_xz $temp_x $temp_z
+  MUL $temp_yz $temp_y $temp_z
+  ADD $mxx $mxx $temp_xx
+  ADD $myy $myy $temp_yy
+  ADD $mxy $mxy $temp_xy
+  ADD $mxz $mxz $temp_xz
+  ADD $myz $myz $temp_yz
+
+  # End of for loop. All of these values appear in the form (for example) mxx * n meaning we can just multiply them here instead.
+  MUL $mxx $mxx 4
+  MUL $myy $myy 4
+  MUL $mxy $mxy 4
+  MUL $mxz $mxz 4
+  MUL $myz $myz 4
+
+  # This is what the code below is doing:
+  # 1. xc = xc * ((((temp1)*(temp2) - Not defined yet) / Not defined yet)
+  # 2. xc = xc * ((((temp1) - Not defined yet) / Not defined yet)
+  # 3. xc = xc * (((temp1) - (temp2)*(temp3)) / Not defined yet)
+  # 4. xc = xc * (((temp1) - (temp2)) / Not defined yet)
+  # 5. xc = xc * ((temp1) / Not defined yet)
+  # 6. xc = xc * ((temp1) / ((temp2)*(temp3) - Not defined yet))
+  # 7. xc = xc * ((temp1) / ((temp2) - Not defined yet))
+  # 8. xc = xc * ((temp1) / ((temp2) - (temp3)))
+  # 9. xc = xc * (temp1 / temp2)
+  # 0. xc = xc * temp1
+  # I use x as an example, but y follows the same form with only minor differences, so I won't write that one out.
+
+  # This is the calculation of the x position of the center.
+  #1
+  MUL $temp1 $mx $my
+  SUB $temp1 $mxy $temp1
+  MUL $temp2 $my $mz
+  SUB $temp2 $temp2 $myz
+  #2
+  MUL $temp1 $temp1 $temp2
+  #3
+  MUL $temp2 $my $my
+  SUB $temp2 $myy $temp2
+  MUL $temp3 $mx $mz
+  SUB $temp3 $temp3 $mxz
+  #4
+  MUL $temp2 $temp2 $temp3
+  #5
+  SUB $temp1 $temp1 $temp2
+  #6
+  MUL $temp2 $mx $mx
+  SUB $temp2 $mxx $temp2
+  MUL $temp3 $my $my
+  SUB $temp3 $myy $temp3
+  #7
+  MUL $temp2 $temp2 $temp3
+  #8
+  MUL $temp3 $mx $my
+  SUB $temp3 $mxy $temp3
+  MUL $temp3 $temp3 $temp3
+  #9
+  SUB $temp2 $temp2 $temp3
+  #0
+  INVERT $temp2 $temp2
+  MUL $temp1 $temp1 $temp2
+  MUL $xc 0.5 $temp1
+
+  # This is the calculation of the y position of the center.
+  #1
+  MUL $temp1 $mx $my
+  SUB $temp1 $mxy $temp1
+  MUL $temp2 $mx $mz
+  SUB $temp2 $temp2 $mxz
+  #2
+  MUL $temp1 $temp1 $temp2
+  #3
+  MUL $temp2 $mx $mx
+  SUB $temp2 $mxx $temp2
+  MUL $temp3 $my $mz
+  SUB $temp3 $temp3 $myz
+  #4
+  MUL $temp2 $temp2 $temp3
+  #5
+  SUB $temp1 $temp1 $temp2
+  #6
+  MUL $temp2 $mx $mx
+  SUB $temp2 $mxx $temp2
+  MUL $temp3 $my $my
+  SUB $temp3 $myy $temp3
+  #7
+  MUL $temp2 $temp2 $temp3
+  #8
+  MUL $temp3 $mx $my
+  SUB $temp3 $mxy $temp3
+  MUL $temp3 $temp3 $temp3
+  #9
+  SUB $temp2 $temp2 $temp3
+  #0
+  INVERT $temp2 $temp2
+  MUL $temp1 $temp1 $temp2
+  MUL $yc 0.5 $temp1
+
+  ADD $zc $circlepoint1.z $circlepoint2.z
+  ADD $zc $zc $circlepoint3.z
+  ADD $zc $zc $circlepoint4.z
+  MUL $zc $zc 0.25
+
+  GOTO $RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+  FLEXREAD $ghco geometry.tool_holder_offset
+  ADD $netoffset $picker_height $ghco
+  SUB $pickup_pos $target_pos $netoffset
+  COPY $pickup_pos_z0 $pickup_pos
+  COPY $pickup_pos_z0.z 0
+  GOTO $RET

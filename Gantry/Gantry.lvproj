@@ -301,7 +301,6 @@
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>
 				<Item Name="IMAQ ReadFile 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile 2"/>
-				<Item Name="IMAQ Rounding Mode.ctl" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/IMAQ Rounding Mode.ctl"/>
 				<Item Name="IMAQ SetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ SetImageSize"/>
 				<Item Name="IMAQ WindDraw" Type="VI" URL="/&lt;vilib&gt;/vision/Display.llb/IMAQ WindDraw"/>
 				<Item Name="IMAQ WindLastEvent" Type="VI" URL="/&lt;vilib&gt;/vision/ROI Display.llb/IMAQ WindLastEvent"/>
@@ -353,7 +352,12 @@
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
 			</Item>
+			<Item Name="Add Stack Frame.vi" Type="VI" URL="../gScript Application/gScript Interpreter/Add Stack Frame.vi"/>
 			<Item Name="Camera Enum.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Camera Enum.ctl"/>
+			<Item Name="Clear Stack.vi" Type="VI" URL="../gScript Application/gScript Interpreter/Clear Stack.vi"/>
+			<Item Name="CMD_APPLYSTAMP.vi" Type="VI" URL="../gScript Application/gScript Interpreter/CMD_APPLYSTAMP.vi"/>
+			<Item Name="CMD_UNLOADSTAMP.vi" Type="VI" URL="../gScript Application/gScript Interpreter/CMD_UNLOADSTAMP.vi"/>
+			<Item Name="Current Stamp.vi" Type="VI" URL="../Shared Components/FlexWorktable/Current Stamp.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>

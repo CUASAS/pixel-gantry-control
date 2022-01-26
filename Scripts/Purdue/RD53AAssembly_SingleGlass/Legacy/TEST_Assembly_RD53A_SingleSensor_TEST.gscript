@@ -1,0 +1,268 @@
+######################## RD53A Vacuum Pick and Place Resolution #############################
+# Steps:
+# 1. Prompt placement of HDI on Chuck 2
+# 2. Turn on Chuck 2
+# 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
+# 4. Compute would-be position and rotation of HDI on Chuck 1
+# 5. Prompt placement of SensorROC is on the launchpad
+#    i. Is Chuck 1 clear?
+#    ii. Is the Pickup Tool ready?
+# 6. Survey the SensorROC on the launchpad
+# 7. Pick up the SensorROC and place on Chuck 1 at position computed in Step 4
+# 8. Prompt placement of vacuum tool on HDI on Chuck 2
+# 9. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+# 10. Check that HDI was moved to Chuck 3 and the adhesive was applied
+# 11. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+# 12. Release vacuum of Vacuum Tool
+# 13. Prompt replacement of Vacuum Tool on Chuck 3
+# 14. Move gantry head to Chuck 1 and survey for Module accuracy
+
+#Initialize the system
+HOME
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+SETLOG "LOG_Assembly_RD53A_SingleSensor.txt"
+SETERRORMODE prompt
+
+# Rough positions of fiducials on Chuck 2
+COPY $chuck2_tr {460.391,528.560,100.447}
+COPY $chuck2_br {460.430,568.240,100.523}
+COPY $chuck2_bl {440.753,568.246,100.478}
+COPY $chuck2_tl {440.705,528.560,100.523}
+
+# Rough positions of fiducials on Chuck 1
+COPY $chuck1_tr {410.391,528.560,100.447}
+COPY $chuck1_br {410.430,568.240,100.523}
+COPY $chuck1_bl {390.753,568.246,100.478}
+COPY $chuck1_tl {390.705,528.560,100.523}
+
+# Rough positions of the corners of the SensorROC
+COPY $sen_roc_tr {572.531,199.625,87.952}
+COPY $sen_roc_br {572.449,240.370,87.952}
+COPY $sen_roc_bl {549.212,240.418,87.952}
+COPY $sen_roc_tl {549.226,199.595,87.952}
+
+# HDI pick and place translation vector and rotation angle measured independently
+COPY $v_translation {-49.984,-0.304,0}
+COPY $rotation 0.00353107
+
+# Step 1. Prompt placement of HDI on Chuck 2
+@STEP_ONE CHOICEPOPUP $choice "Have you placed the RD53A HDI on Chuck 2?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+# Step 2. Turn on Chuck 2
+SETVAC rd53a_chuck_2 1
+
+# Step 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
+
+MOVESAFE $chuck2_tr 100
+COPY $x_corner $chuck2_tr
+@HDI_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
+GOTOIFN @HDI_0 $choice
+CALL @SURVEYCORNERS
+COPY $chuck2_tr $x_corner
+
+COPY $x_corner $chuck2_br
+@HDI_1 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
+GOTOIFN @HDI_1 $choice
+CALL @SURVEYCORNERS
+COPY $chuck2_br $x_corner
+
+COPY $x_corner $chuck2_bl
+@HDI_2 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
+GOTOIFN @HDI_2 $choice
+CALL @SURVEYCORNERS
+COPY $chuck2_bl $x_corner
+
+COPY $x_corner $chuck2_tl
+@HDI_3 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
+GOTOIFN @HDI_3 $choice
+CALL @SURVEYCORNERS
+COPY $chuck2_tl $x_corner
+
+# Step 4. Compute would-be position and rotation of the HDI on Chuck 1
+FIT $pos_hdi $rot_hdi TFPX_RD53AHDI $chuck2_tr $chuck2_br $chuck2_bl $chuck2_tl
+
+ADD $pos_hdi $pos_hdi $v_translation
+
+QUAT2EULER $rot_hdi $trash0 $trash1 $rot_hdi
+ADD $rot_hdi $rot_hdi $rotation
+
+MOVESAFE {350,150,0} 100
+
+# Step 5. Prompt placement of SensorROC
+@STEP_FIVE CHOICEPOPUP $choice "Have you placed the SensorROC on the launchpad?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE $choice
+@STEP_FIVE_i CHOICEPOPUP $choice "Is Chuck 1 clear?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE_i $choice
+@STEP_FIVE_ii CHOICEPOPUP $choice "Is pickup tool ready?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FIVE_ii $choice
+
+# Step 6. Survey the SensorROC
+MOVESAFE $sen_roc_tr 100
+COPY $x_corner $sen_roc_tr
+@ROC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker?" "Yes" "No"
+GOTOIFN @ROC_0 $choice
+CALL @SURVEYCORNERS
+COPY $sen_roc_tr $x_corner
+
+COPY $x_corner $sen_roc_br
+@ROC_1 CHOICEPOPUP $choice "Ready to find the Bottom Right marker?" "Yes" "No"
+GOTOIFN @ROC_1 $choice
+CALL @SURVEYCORNERS
+COPY $sen_roc_br $x_corner
+
+COPY $x_corner $sen_roc_bl
+@ROC_2 CHOICEPOPUP $choice "Ready to find the Bottom Left marker?" "Yes" "No"
+GOTOIFN @ROC_2 $choice
+CALL @SURVEYCORNERS
+COPY $sen_roc_bl $x_corner
+
+COPY $x_corner $sen_roc_tl
+@ROC_3 CHOICEPOPUP $choice "Ready to find the Top Left marker?" "Yes" "No"
+GOTOIFN @ROC_3 $choice
+CALL @SURVEYCORNERS
+COPY $sen_roc_tl $x_corner
+
+# Calculate the orientation of the SensorROC
+FIT $pos_senRoc $rot_senRoc TFPX_RD53ASENSORROC $sen_roc_tr $sen_roc_br $sen_roc_bl $sen_roc_tl
+
+QUAT2EULER $rot_senRoc $trash0 $trash1 $rot_senRoc
+
+PRINT "Sen Roc Rot: %f Center: %v" $rot_senRoc $pos_senRoc
+PRINT "HDI Rot: %f Center: %v" $rot_hdi $pos_hdi
+
+CHOICEPOPUP $choice "Are angles ok?" "Yes, continue" "No"
+GOTOIF @ANGLE_CHECK $choice
+END
+@ANGLE_CHECK
+
+# 7. Pick up the SensorROC and place on Chuck 1 at position computed in Step 4
+
+LOADTOOL picker_tool
+MOVENAME stagingArea
+
+# Pickup Step
+COPY $target_pos $pos_senRoc
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $rot_senRoc
+ADD $pickup_pos.z $pickup_pos.z 0.5
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 1000
+# In principle, we should turn off the vacuum that is holding the SensorROC on launchpad
+MOVETO $pickup_pos_z0 10
+MUL $neg_rot_senRoc $rot_senRoc -1.0
+ROTATE $neg_rot_senRoc
+
+# Place Step
+COPY $target_pos $pos_hdi
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $rot_hdi
+SUB $pickup_pos.z $pickup_pos.z 0.6
+MOVETO $pickup_pos 10
+SETVAC rd53a_chuck_1_TR 1
+SETVAC rd53a_chuck_1_BL 1
+SETVAC rd53a_chuck_1_TL 1
+SETVAC rd53a_chuck_1_BR 1
+WAIT 1000
+SETVAC gantry_head_inner 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+MUL $neg_rot_hdi $rot_hdi -1.0
+ROTATE $neg_rot_hdi
+
+UNLOADTOOL
+
+HOME
+
+# 8. Prompt placement of vacuum tool on HDI on Chuck 2
+@STEP_EIGHT CHOICEPOPUP $choice "Have you placed the Vacuum Tool on the HDI in Chuck 2 such that the fiducials are visible through its viewing holes?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_EIGHT $choice
+
+# 9. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+SETVAC rd53a_chuck_3 1
+WAIT 2000
+SETVAC rd53a_chuck_2 0
+
+# 10. Check that HDI was moved to Chuck 3 and the adhesive was applied
+@STEP_TEN CHOICEPOPUP $choice "Did you move the HDI to Chuck 3 and apply the adhesive?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_TEN $choice
+
+# 11. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+@STEP_ELEVEN CHOICEPOPUP $choice "Did you place the HDI on the SensorROC on Chuck 1 (With adhesive between them)?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ELEVEN $choice
+
+# 12. Release vacuum of Vacuum Tool
+SETVAC rd53a_chuck_3 0
+
+# 13. Prompt replacement of Vacuum Tool on Chuck 3
+@STEP_THIRTEEN CHOICEPOPUP $choice "Did you place the Vacuum Tool on Chuck 3?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_THIRTEEN $choice
+
+# 14. Move gantry head to Chuck 1 and survey for Module accuracy
+
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_BR 0
+
+END
+
+# Step 8. Move gantry head camera to survey the fiducials
+
+MOVETO $chuck1_x1 100
+
+COPY $x_fid $chuck1_x1
+CALL @SURVEYFID
+COPY $chuck1_x1 $x_fid
+PRINT "chuck1_x1_L, chuck1_x1_R, chuck1_x1_T, chuck1_x1_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x2
+CALL @SURVEYFID
+COPY $chuck1_x2 $x_fid
+PRINT "chuck1_x2_L, chuck1_x2_R, chuck1_x2_T, chuck1_x2_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x3
+CALL @SURVEYFID
+COPY $chuck1_x3 $x_fid
+PRINT "chuck1_x3_L, chuck1_x3_R, chuck1_x3_T, chuck1_x3_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+PRINT "==="
+
+# Step 9. Calculate translations and rotations, and print them out
+
+#COPY $translation {0,0,0}
+#ADD $translation $chuck1_x1 $chuck1_x2
+#SUB $translation $translation $chuck2_x1
+#SUB $translation $translation $chuck2_x2
+#MUL $translation $translation {0.5,0.5,0.5}
+
+END
+
+# SURVEYCORNERS
+# Arguments
+# $x_corner - Approximate position of the SensorROC corer. Returns with precise position
+@SURVEYCORNERS PASS
+  MOVETO $x_corner 10
+  @SURCORNPOP VIDEO
+  CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+  GOTOIFN @SURCORNPOP $choice
+  GETPOST $x_corner
+  GOTO $RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+  FLEXREAD $ghco geometry.tool_holder_offset
+  ADD $netoffset $picker_height $ghco
+  SUB $pickup_pos $target_pos $netoffset
+  COPY $pickup_pos_z0 $pickup_pos
+  COPY $pickup_pos_z0.z 0
+  GOTO $RET
