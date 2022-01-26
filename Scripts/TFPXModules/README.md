@@ -20,4 +20,16 @@ This script computes the translation and rotation vector for moving the HDI from
 
 This script computes the translation and rotation vector for moving the Single Glass Piece from the Launchpad to Chuck 1 using the gantry.
 
+## RD53A Assembly for HDI to Four Small Glass Pieces
 
+Scripts used to assemble an HDI to Four Small Glass Pieces. The Small Glass Pieces are substitues for RD53A ROCs that may be individually glued to the HDI.
+
+Folder name: RD53AAssembly_MultiGlass
+
+* Script: Assembly_RD53A_MultiGlass_glassNoPads.gscript
+
+This script assembles four glass pieces without bond pads to the HDI.
+
+* Script: Assembly_RD53A_MultiGlass_glassPadsOne.gscript
+
+This script assembles four glass pieces to the HDI where one of them has bond pads.
