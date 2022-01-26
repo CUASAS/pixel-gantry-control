@@ -1,0 +1,132 @@
+######################## RD53A Vacuum Pick and Place Resolution #############################
+# Steps:
+# 1. Prompt placement of HDI on Chuck 2
+# 2. Turn on Chuck 2
+# 3. Move gantry head to Chuck 2 and survey 3 fiducials
+# 4. Prompt placement of Vacuum Tool on HDI
+# 5. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+# 6. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+# 7. Turn on vacuum on Chuck 1 and release vacuum of Vacuum Tool to simulate glue
+# 8. Move gantry head camera to Chuck 1 survey the fiducials
+# 9. Calculate translations and rotations, and print them out
+
+#Initialize the system
+HOME
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+SETLOG "LOG_Assembly_RD53A_SingleSensor.txt"
+
+# Rough positions of fiducials on Chuck 2
+COPY $chuck2_x1 {444.926,572.961,100.103}
+COPY $chuck2_x2 {456.521,572.953,100.103}
+COPY $chuck2_x3 {450.209,539.098,100.359}
+
+# Rough positions of fiducials on Chuck 1
+COPY $chuck1_x1 {395.077,572.730,93.684}
+COPY $chuck1_x2 {406.676,572.581,93.8}
+COPY $chuck1_x3 {399.936,538.801,93.812}
+
+# Step 1. Prompt placement of HDI on Chuck 2
+@STEP_ONE CHOICEPOPUP $choice "Have you placed the RD53A HDI on Chuck 2?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+# Step 2. Turn on Chuck 2
+SETVAC rd53a_chuck_2 1
+
+# Step 3. Move gantry head to Chuck 2 and survey 3 fiducials
+MOVETO $chuck2_x1 100
+COPY $x_fid $chuck2_x1
+CALL @SURVEYFID
+COPY $chuck2_x1 $x_fid
+COPY $x_fid $chuck2_x2
+CALL @SURVEYFID
+COPY $chuck2_x2 $x_fid
+COPY $x_fid $chuck2_x3
+CALL @SURVEYFID
+COPY $chuck2_x3 $x_fidB
+
+# Step 4. Prompt placement of Vacuum Tool on HDI
+@STEP_FOUR CHOICEPOPUP $choice "Have you placed the Vacuum Tool on the HDI in Chuck 2 such that the fiducials are visible through its viewing holes?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_FOUR $choice
+
+# Step 5. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+SETVAC rd53a_chuck_3 1
+SETVAC rd53a_chuck_2 0
+
+# Step 6. Prompt placement of Vacuum Tool bearing HDI on Chuck 1
+@STEP_SIX CHOICEPOPUP $choice "Have you placed the Vacuum Tool bearing the HDI on Chuck 1?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_SIX $choice
+
+# Step 7. Release vacuum of Vacuum Tool and turn on vacuum of Chuck 1 to simulate glue
+SETVAC rd53a_chuck_3 0
+SETVAC rd53a_chuck_1_TL 1
+SETVAC rd53a_chuck_1_TR 1
+SETVAC rd53a_chuck_1_BL 1
+SETVAC rd53a_chuck_1_BR 1
+
+# Step 8. Move gantry head camera to survey the fiducials
+
+MOVETO $chuck1_x1 100
+
+COPY $x_fid $chuck1_x1
+CALL @SURVEYFID
+COPY $chuck1_x1 $x_fid
+PRINT "chuck1_x1_L, chuck1_x1_R, chuck1_x1_T, chuck1_x1_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x2
+CALL @SURVEYFID
+COPY $chuck1_x2 $x_fid
+PRINT "chuck1_x2_L, chuck1_x2_R, chuck1_x2_T, chuck1_x2_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+
+COPY $x_fid $chuck1_x3
+CALL @SURVEYFID
+COPY $chuck1_x3 $x_fid
+PRINT "chuck1_x3_L, chuck1_x3_R, chuck1_x3_T, chuck1_x3_B = %v, %v, %v, %v" $x_fid_L $x_fid_R $x_fid_T $x_fid_B
+PRINT "==="
+
+# Step 9. Calculate translations and rotations, and print them out
+
+#COPY $translation {0,0,0}
+#ADD $translation $chuck1_x1 $chuck1_x2
+#SUB $translation $translation $chuck2_x1
+#SUB $translation $translation $chuck2_x2
+#MUL $translation $translation {0.5,0.5,0.5}
+
+END
+
+# SURVEYFID
+# Arguments
+#  $x_fid - approximate position of the fiducial. returned with precise position
+@SURVEYFID COPY $SURVEYFID_RET $RET
+  MOVETO $x_fid 10
+  @STEP_0 CHOICEPOPUP $choice "Ready to find the Left Edge of the fiducial?" "Yes" "No"
+  GOTOIFN @STEP_0 $choice
+  @STEP_1 VIDEO
+  CHOICEPOPUP $choice "Repeat locating fiducial, Left Edge? If not, find Right Edge next." "Yes" "No"
+  GOTOIF @STEP_1 $choice
+  GETPOS $x_fid_L
+  MOVEREL {1.0,0,0} 1
+  @STEP_2 VIDEO
+  CHOICEPOPUP $choice "Repeat locating fiducial, Right Edge? If not, find Top Edge next." "Yes" "No"
+  GOTOIF @STEP_2 $choice
+  GETPOS $x_fid_R
+  MOVEREL {-0.5,-0.5,0} 1
+  @STEP_3 VIDEO
+  CHOICEPOPUP $choice "Repeat locating fiducial, Top Edge? If not, find Bottom Edge next." "Yes" "No"
+  GOTOIF @STEP_3 $choice
+  GETPOS $x_fid_T
+  MOVEREL {0,1.0,0} 1
+  @STEP_4 VIDEO
+  CHOICEPOPUP $choice "Repeat locating fiducial, Bottom Edge?" "Yes" "No"
+  GOTOIF @STEP_4 $choice
+  GETPOS $x_fid_B
+  COPY $centroid {0,0,0}
+  ADD $centroid $x_fid_L $x_fid_R
+  ADD $centroid $centroid $x_fid_T
+  ADD $centroid $centroid $x_fid_B
+  MUL $x_fid $centroid {0.25,0.25,0.25}
+  GOTO $RET

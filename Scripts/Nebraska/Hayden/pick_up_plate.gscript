@@ -1,0 +1,147 @@
+VERSION v1.0
+SETLOG "45degrees.txt" #text file for degrees
+CLEARLOG
+HOME
+
+
+
+@START_OF_SCRIPT 
+COPY $target_position {313.918600,397.659547,77.872346}
+COPY $target_degrees 45 #change degrees
+EULER2QUAT $target_rotation $target_degrees 0 0
+
+#manually measured start position and orientation (used fit)
+COPY $start_location {698.118622,318.410200,69.769984}
+COPY $start_orientation {-0.000766,0.000371,0.000837,0.999999}
+
+#geometry from config
+flexread $tr_local geometry.ETL_Sensor_PCB_Mockup.fid_tr
+flexread $tl_local geometry.ETL_Sensor_PCB_Mockup.fid_tl
+flexread $bl_local geometry.ETL_Sensor_PCB_Mockup.fid_bl
+flexread $br_local geometry.ETL_Sensor_PCB_Mockup.fid_br
+
+
+COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+COPY $picker_height $picker_height_cup_5 #UPDATE WHEN CHANGING SUCTION CUPS
+
+#converts the local coordinates to global gantry coordinates usint start location and orientation
+TRANSFORML2G $tr_global $tr_local $start_location $start_orientation
+TRANSFORML2G $tl_global $tl_local $start_location $start_orientation
+TRANSFORML2G $bl_global $bl_local $start_location $start_orientation
+TRANSFORML2G $br_global $br_local $start_location $start_orientation
+
+#this is to get corrected centers and orientation, above gives general area
+MOVENAME etl_chuck_2
+SETVAC etl_chuck_2 1
+#Routine to set up inital position of metal piece
+moveto $tl_global 50
+video #for you to make correction
+getpos $tl_corrected
+
+moveto $tr_global 50
+video #for you to make correction
+getpos $tr_corrected
+
+moveto $bl_global 50
+video #for you to make correction
+getpos $bl_corrected
+
+moveto $br_global 50
+video #for you to make correction
+getpos $br_corrected
+
+#turns measured corners or fiducials into center and orientation
+fit $center_corrected $orientation_corrected ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+#start by loading the picker tool to then pick up part
+loadtool etl_picker_tool
+
+#Step: pickup part
+MOVENAME etl_chuck_2
+COPY $camera_pos $center_corrected
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATETO $orientation_corrected
+MOVETO $pickup_pos
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC etl_chuck_2 0
+WAIT 500
+MOVETO $pickup_pos_z0 20
+ROTATETO 0
+
+#Step: place part
+MOVENAME module_chuck_0
+COPY $camera_pos $target_position
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATETO $target_rotation 30
+MOVETO $pickup_pos
+SETVAC module_chuck_0_slot_2 1
+WAIT 500
+SETVAC gantry_head_inner 0
+WAIT 500
+MOVETO $pickup_pos_z0 20
+ROTATETO 0 30
+
+unloadtool
+
+
+TRANSFORML2G $tr_global $tr_local $target_position $target_rotation
+TRANSFORML2G $tl_global $tl_local $target_position $target_rotation
+TRANSFORML2G $bl_global $bl_local $target_position $target_rotation
+TRANSFORML2G $br_global $br_local $target_position $target_rotation
+
+MOVENAME module_chuck_0
+moveto $tl_global 50
+video #for you to make correction
+getpos $tl_corrected
+
+moveto $tr_global 50
+video #for you to make correction
+getpos $tr_corrected
+
+moveto $bl_global 50
+video #for you to make correction
+getpos $bl_corrected
+
+moveto $br_global 50
+video #for you to make correction
+getpos $br_corrected
+
+MOVENAME module_chuck_0
+
+fit $center_corrected $orientation_corrected ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+
+print "target: %v (%r)" $target_position $target_rotation
+print "measured: %v (%r)" $center_corrected $orientation_corrected
+
+SUB $delta $center_corrected $target_position
+
+INVERT $target_inv $target_rotation
+COMPOSE $delta_rot $orientation_corrected $target_inv
+
+print "delta: %v (%r)" $delta $delta_rot
+
+SETVAC module_chuck_0_slot_2 0
+
+CHOICEPOPUP $choice "Move the PCB back to starting position or end" "I moved it" "Stop!"
+GOTOIF @START_OF_SCRIPT $choice
+
+END
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+@CALCPICKUP 
+            FLEXREAD $ghco geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $camera_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+
+
+

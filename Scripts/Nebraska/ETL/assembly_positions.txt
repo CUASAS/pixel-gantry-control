@@ -1,0 +1,41 @@
+# Load this file with the line:
+#
+# LOADCONFIG "" Scripts\Nebraska\ETL\assembly_positions.txt
+#
+
+#tr == 1, br == 2, bl == 3, tl == 4
+# geometry.ETL_Sensor_PCB_Mockup.fid_tr: {-10.9, 9.95,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-10.9, 8.01,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-10.9,-7.58,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_br: {-10.9,-9.52,0}
+
+# geometry.ETL_Sensor_PCB_Mockup.fid_tr: {-10.89,-9.64,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-10.89,9.74,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-10.40,9.74,0}
+# geometry.ETL_Sensor_PCB_Mockup.fid_br: {-10.40,-9.64,0}
+
+geometry.ETL_Sensor_PCB_Mockup.fid_tr: {9.64,-10.89,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_tl: {-9.74,-10.89,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_bl: {-9.74,-10.40,0}
+geometry.ETL_Sensor_PCB_Mockup.fid_br: {9.64,-10.40,0}
+
+
+geometry.ETL_mock_base.fid_tr: {27.25,-20.55,0}
+geometry.ETL_mock_base.fid_tl: {-27.25,-20.55,0}
+geometry.ETL_mock_base.fid_bl: {-27.25,20.55,0}
+geometry.ETL_mock_base.fid_br: {27.25,20.55,0}
+
+#bottom
+default.ETL_mock_base.3.1.pos: {780.055810,472.550143,76.252911}
+default.ETL_mock_base.3.1.rot: {-0.004378,0.001062,-0.001599,0.999989}
+
+#top
+default.ETL_Sensor_PCB_Mockup.4.1.pos: {635.865988,110.395161,75.980164}
+default.ETL_Sensor_PCB_Mockup.4.2.pos: {688.150346,110.455319,76.025035}
+default.ETL_Sensor_PCB_Mockup.4.3.pos: {740.342273,110.360841,76.025015}
+default.ETL_Sensor_PCB_Mockup.4.4.pos: {792.557311,110.419579,76.025031}
+
+default.ETL_Sensor_PCB_Mockup.4.1.rot: {-0.000002,-0.001549,-0.000475,0.999999}
+default.ETL_Sensor_PCB_Mockup.4.2.rot: {-0.000000,-0.000000,-0.001503,-0.999999}
+default.ETL_Sensor_PCB_Mockup.4.3.rot: {-0.000001,0.000000,0.000262,1.000000}
+default.ETL_Sensor_PCB_Mockup.4.4.rot: {-0.000000,-0.000000,0.000715,-1.000000}

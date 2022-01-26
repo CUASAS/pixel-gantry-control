@@ -1,0 +1,140 @@
+# Steps: 
+# 1. Locate Glass Piece
+# 2. Record/Locate target position
+# 3. Pickup and place glass piece
+# 4. Record final position
+SETLOG pick_and_place_for_dry_run.txt
+# CLEARLOG
+COPY $speed 50
+COPY $img_idx 0
+
+COPY $start_pos {308.871103,397.731020,77.831420}
+COPY $start_rot {-0.000670,0.000412,-0.004562,0.999989}
+
+#COPY $end_pos {232.732261,396.215568,77.655460}
+#COPY $end_rot {-0.000300,0.000640,-0.001178,0.999999}
+COPY $end_pos {231.749,397.096,77.3749}
+# From Caleb: $end_rot should be a quaternion. Doing INVERT on just a number takes 1/x instead of -x.
+COPY $end_rot 0.0222312
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+HOME
+
+@PROCESS_START SETVAC module_chuck_0_slot_2 1
+COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+
+LOADTOOL picker_tool
+
+MOVENAME module_chuck_0
+
+#Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $meas_rot
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 2000
+SETVAC module_chuck_0_slot_2 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $meas_rot_invert $meas_rot
+ROTATE $meas_rot_invert
+
+# Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $end_rot
+MOVETO $pickup_pos 10
+#SETVAC gantry_head_inner 0
+SETVAC module_chuck_0_slot_1 1
+WAIT 2000
+#SETVAC module_chuck_0_slot_1 1
+SETVAC gantry_head_inner 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $end_rot_invert $end_rot
+ROTATE $end_rot_invert
+
+UNLOADTOOL
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+CALL @SURVEY
+
+SUB $delta $meas_pos $end_pos
+PRINT "Misplacement: %v" $delta
+
+MOVEREL {0,0,-60} $speed
+SETVAC module_chuck_0_slot_1 0
+
+CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
+GOTOIF @PROCESS_START $choice
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MOVENAME module_chuck_0
+        MPGON
+        MOVETO $pos $speed
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $speed
+        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $tl_meas
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $speed
+        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $tr_meas
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $speed
+        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $br_meas
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $speed
+        CALL @SAVE_SNAPSHOT
+        VIDEO
+        GETPOS $bl_meas
+
+        MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+# SAVE_SNAPSHOT
+# Arguments:
+#  $img_idx - numerical suffix of image filename, get's incremented each time
+@SAVE_SNAPSHOT SNAPSHOT gantryhead "fiducial_on_glass_{$img_idx}.png"
+               INC $img_idx $img_idx
+               GOTO $RET

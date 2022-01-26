@@ -1,0 +1,375 @@
+VERSION 1.3
+
+######################## MOCK MODULES ASSEMBLY #############################
+# Steps:
+# 1. Ask if the HDI is placed properly for surveillance
+# 2. Move the gantry to the Module Assembly Station (MAS)
+# 3. Survey the HDI's 4 bond pads
+# 4. Calculate the centroid and angle of HDI bond pad line
+# 5. Move gantry to home/out of the way
+# 6. Ask if the Glass Slide is on the launchpad
+#    i. Is the MAS is clear?
+#    ii. Is the Pickup Tool ready?
+# 7. Gantry surveys the Glass Slide with ~*automatic fiducial finder*~
+#    i. Get the Pickup Tool
+#    ii. Pick up the Glass Slide
+#    iii. Place Glass Slide onto MAS
+#    iv. Return Pickup Tool
+#    v. Wait by the pickup tool
+# 8. Ask if the glue has been deposited on the Glass Slide
+# 9. Ask if the HDI has been place on the Glass Slide
+# 10. Ask if the Weight Tool has been placed on the Module
+# 11. Surveys Glass Slide and HDI bond pad alignment
+#     i. Returns change in x and y distances between top/bottom bond pads
+
+#HOME
+
+# Useful Constants
+COPY $fastSpeed 50
+COPY $mediumSpeed 20
+COPY $slowSpeed 5
+COPY $PI 3.14159265359
+INVERT $inv_PI $PI
+
+# Module Relative Locations
+COPY $center2TL {-10.082,-20.813,0}    #glass
+COPY $G_bond2HDI_bond {1.240,0,-0.430} #glass -> HDI
+COPY $Delta 8.883                      #HDI -> Glass
+COPY $TL2TM {0.044,19.658,0}           #HDI
+COPY $TM2BM {0.009,2.19,0}             #HDI
+COPY $BM2BL {0.037,19.652,0}           #HDI
+COPY $TL2BL {0.09,41.626,0}            #HDI
+
+# Approximate Launchpad Position of Glass Piece
+COPY $start_pos {559.363,218.562,87.957}
+COPY $start_rot {0.001415,0.000010,-0.006911,-0.999975}
+
+# Approximate MAS Position of Glass Piece
+COPY $end_pos {107.641,549.548,99.656033}
+EULER2QUAT $end_rot 0.12864 0 0
+####COPY $end_rot {-0.000400,-0.000003,0.006354,0.999980}
+
+# Getting the geometry of the Glass Slide from the Flex Config
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+
+
+# Step 1. Ask if the HDI is placed properly for surveillance
+@STEP_ONE CHOICEPOPUP $choice "Did you place the HDI and the Weight Tool on the Mock Module?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+SETVAC module_chuck_0_slot_1 1
+
+
+# Step 2. Move the gantry to the Module Assembly Station (MAS)
+MOVETO $end_pos $fastSpeed
+
+
+# Step 3. Survey the HDI's 4 bond pads
+#   Top Left
+MOVEREL $center2TL
+MOVEREL $G_bond2HDI_bond
+VIDEO
+GETPOS $tl_top
+#   Top Middle
+MOVEREL $TL2TM
+VIDEO
+GETPOS $bl_topMiddle
+#   Bottom Middle
+MOVEREL $TM2BM
+VIDEO
+GETPOS $tl_bottomMiddle
+#   Bottom Left
+MOVEREL $BM2BL
+VIDEO
+GETPOS $bl_bottom
+
+
+# Step 4. Calculate the centroid and angle of HDI bond pad line
+CALL @CALC_CENTROID_THETA
+
+
+# Step 5. Move gantry to home/out of the way
+HOME
+SETVAC module_chuck_0_slot_1 0
+
+
+# Step 6. Ask if the Glass Slide is on the launchpad
+#    i. Is the MAS is clear?
+#    ii. Is the Pickup Tool ready?
+@GLASS_SLIDE_CHECK CHOICEPOPUP $choice "Is the Glass Slide on the Launchpad?" "Yes, continue" "No, ask me again"
+GOTOIFN @GLASS_SLIDE_CHECK $choice
+
+@MAS_CHECK CHOICEPOPUP $choice "Is the Module Assembly Station clear for slide placement?" "Yes, continue" "No, ask me again"
+GOTOIFN @MAS_CHECK $choice
+
+@PICKUP_TOOL_CHECK CHOICEPOPUP $choice "Is the Pickup Tool correctly placed for the Gantry?" "Yes, continue" "No, ask me again"
+GOTOIFN @PICKUP_TOOL_CHECK $choice
+
+# Step 7. Gantry surveys the Glass Slide with ~*automatic fiducial finder*~
+@PROCESS_START COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+
+LOADTOOL picker_tool
+
+MOVENAME stagingArea
+
+  # Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $meas_rot
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC module_chuck_0_slot_2 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $neg_meas_rot $meas_rot
+ROTATE $neg_meas_rot
+
+  # Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $end_rot
+MOVETO $pickup_pos 10
+SETVAC module_chuck_0_slot_1 1
+WAIT 500
+SETVAC gantry_head_inner 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $neg_end_rot $end_rot
+ROTATE $neg_end_rot
+
+UNLOADTOOL
+
+
+# Step 8. Ask if the glue has been deposited on the Glass Slide
+@STEP_EIGHT CHOICEPOPUP $glueChoice1 "Did you deposit the glue?" "Yes" "No"
+
+
+# Step 9. Ask if the HDI has been place on the Glass Slide
+@STEP_NINE CHOICEPOPUP $choice "Did you place the HDI on the glass slide?" "Yes" "No, ask again"
+GOTOIFN @STEP_NINE $choice
+
+
+# Step 10. Ask if the Weight Tool has been placed on the Module
+@STEP_TEN CHOICEPOPUP $choice "Did you Place the Weight Tool on the HDI?" "Yes" "No, ask again"
+GOTOIFN @STEP_TEN $choice
+
+
+# Step 11. Surveys Glass Slide and HDI bond pad alignment
+#     i. Returns change in x and y distances between top/bottom bond pads
+@STEP_ELEVEN CALL @CHECK_ALIGNMENT
+
+# Step 12. Make sure the module has been glued
+GOTOIF $glueChoice1 @END_STEP
+@STEP_TWELVE CHOICEPOPUP $glueChoice2 "Do you want to deposit the glue?" "Yes" "No"
+GOTOIF $glueChoice2 @STEP_EIGHT
+
+# Step 13. Check to see if the vacuum should be turned off
+@STEP_THIRTEEN CHOICEPOPUP $choice "Do you want to turn off the vacuum?" "Yes" "No"
+GOTOIFN @END_STEP $choice
+SETVAC module_chuck_0_slot_1 0
+
+
+@END_STEP PASS
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        COPY $speed $fastSpeed
+        MOVENAME stagingArea
+        # MPGON
+        MOVETO $pos $speed
+
+        #Top Left
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        COPY $current_fid_pos $tl_global
+        CALL @AUTOMATICFID
+        MOVETO $avg_pos
+        VIDEO
+        GETPOS $tl_meas
+
+        #Top Right
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        COPY $current_fid_pos $tr_global
+        CALL @AUTOMATICFID
+        MOVETO $avg_pos
+        VIDEO
+        GETPOS $tr_meas
+
+        #Bottom Right
+        TRANSFORML2G $br_global $br_local $pos $rot
+        COPY $current_fid_pos $br_global
+        CALL @AUTOMATICFID
+        MOVETO $avg_pos
+        VIDEO
+        GETPOS $br_meas
+
+        #Bottom Left
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        COPY $current_fid_pos $bl_global
+        CALL @AUTOMATICFID
+        MOVETO $avg_pos
+        VIDEO
+        GETPOS $bl_meas
+
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+# AUTOMATICFID
+# Arguments
+#  $current_fid_pos - approximate position of the fiducial that is going to be located
+@AUTOMATICFID COPY $fid_pos $current_fid_pos
+        @FINDFIDFOCUS COPY $sum {0,0,0}
+              COPY $count 9          # number of iterations
+              COPY $found_count 0.0  # count of positions w/ found fids
+              MOVETO $fid_pos
+              MOVEREL {0,0,.025}     # 25um down (extra 5um to make loop simple)
+              SETERRORMODE setvar
+        @LOOPSTART    GOTOIFN @LOOPEND $count # if count==0, exit loop
+              DEC $count $count
+              MOVEREL {0,0,-0.005}   # 5um up
+              FINDFID $found_pos FPIX_Glass
+              GOTOIF @LOOPSTART $ERR # if no fid found, go to start of loop, else continue
+              ADD $sum $sum $found_pos
+              INC $found_count $found_count
+              GOTO @LOOPSTART
+        @LOOPEND      SETERRORMODE default
+              INVERT $inv_found_count $found_count #prepare the vector to divide the sum to get average
+              COPY $inv_count_vec {0,0,0}
+              COPY $inv_count_vec.x $inv_found_count
+              COPY $inv_count_vec.y $inv_found_count
+              COPY $inv_count_vec.z $inv_found_count
+              MUL $avg_pos $sum $inv_count_vec
+        GOTO $RET
+              # Now we're done. Just use $avg_pos as the fiducial position.
+
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+# CHECK_ALIGNMENT
+# Arguments
+#  Relative locations of the bond pads:
+#  $center2TL - center of glass to top left of glass bond pad
+#  $G_bond2HDI_bond - glass bond pad to HDI bond pad
+@CHECK_ALIGNMENT MOVETO $end_pos $speed
+            #Top Glass Fiducial
+            MOVEREL $center2TL
+            VIDEO
+            GETPOS $top_glass
+
+            #Top HDI Fiducial
+            MOVEREL $G_bond2HDI_bond
+            VIDEO
+            GETPOS $top_HDI
+
+            #Bottom HDI Fiducial
+            MOVEREL $TL2BL
+            VIDEO
+            GETPOS $bottom_HDI
+
+            #Bottom Glass Fiducial
+            INVERT $neg_G_2_HDI $G_bond2HDI_bond
+            MOVEREL $neg_G_2_HDI
+            VIDEO
+            GETPOS $bottom_glass
+
+            #Math
+            SUB $delta_top $top_glass $top_HDI
+            SUB $delta_bottom $bottom_glass $bottom_HDI
+            SUB $total_delta_x $delta_top.x $delta_bottom.x
+            ADD $total_delta_y $delta_top.y $delta_bottom.y
+            SUB $total_delta_z $delta_top.z $delta_bottom.z
+            PRINT "Difference in distances between the top module-HDI bondpads and the bottom module-HDI bondpads Delta x %f um, Delta y %f um, Delta z %f um" $total_delta_x $total_delta_y $total_delta_z
+
+            GOTO $RET
+
+# CALC_CENTROID_THETA
+# Arguments
+#  $tl_top - top left corner of top HDI bond pad
+#  $bl_topMiddle - bottom left corner of 2nd from the top HDI bond pad
+#  $tl_bottomMiddle - top left corner of 3rd from the top HDI bond pad
+#  $bl_bottom - bottom left corner of bottom HDI bond pad
+@CALC_CENTROID_THETA PASS
+            #Find X_bar and Y_bar
+            ADD $avePos $tl_top $bl_topMiddle
+            ADD $avePos $avePos $tl_bottomMiddle
+            ADD $avePos $avePos $bl_bottom
+            MUL $x_bar $avePos.x .25
+            MUL $y_bar $avePos.y .25
+
+            #Find (x-x_bar)(y-y_bar)'s
+            SUB $one $tl_top.x $x_bar
+            SUB $two $tl_top.y $y_bar
+            SUB $three $bl_topMiddle.x $x_bar
+            SUB $four $bl_topMiddle.y $y_bar
+            SUB $five $tl_bottomMiddle.x $x_bar
+            SUB $six $tl_bottomMiddle.y $y_bar
+            SUB $seven $bl_bottom.x $x_bar
+            SUB $eight $bl_bottom.y $y_bar
+
+            #(x - x_bar) * (y - y_bar)
+            MUL $oneTwo $one $two
+            MUL $threeFour $three $four
+            MUL $fiveSix $five $six
+            MUL $sevenEight $seven $eight
+
+            ADD $xy $oneTwo $threeFour
+            ADD $xy $xy $fiveSix
+            ADD $xy $xy $sevenEight
+
+            #(x - x_bar) * (x - x_bar)
+            MUL $oneOne $one $one
+            MUL $threeThree $three $three
+            MUL $fiveFive $five $five
+            MUL $sevenSeven $seven $seven
+
+            ADD $xx $oneOne $threeThree
+            ADD $xx $xx $fiveFive
+            ADD $xx $xx $sevenSeven
+
+            #find slope (n)
+            INVERT $inv_xy $xy
+            MUL $n $xx $inv_xy
+
+            #find sin(theta)
+            MUL $nCubed $n $n
+            MUL $nCubed $nCubed $n
+            MUL $nCubed $nCubed -0.5
+            ADD $sin_theta $n $nCubed
+            MUL $sin_theta $sin_theta -1
+
+            #Theta in degrees
+            MUL $theta $sin_theta $inv_PI
+            MUL $theta $theta 180
+
+            # Calculate target position and orientation for the centroid of the glass piece
+            ADD $end_pos.x $x_bar $Delta
+            MUL $y_disp $Delta $sin_theta
+            ADD $end_pos.y $y_bar $y_disp
+            EULER2QUAT $end_rot $theta 0 0
+
+            GOTO $RET

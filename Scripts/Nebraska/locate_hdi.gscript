@@ -1,0 +1,76 @@
+SETLOG "locating_hdi.log"
+CLEARLOG
+COPY $speed 50 # speed for most motions
+
+# $refcenter and $refrotation need to be set to roughly (O(mm)) the
+# correct values for each HDI location.
+COPY $refcenter {231.766653,397.185549,77.931687}
+COPY $refrotation {-0.000165,-0.000607,0.000001,1.000000}
+
+# Load local fiducial coordinates from "geometry_definitions.ini"
+LOADGEODEF $fid_tl_local %v TFPX_HDI_V2 fid_tl
+LOADGEODEF $fid_tr_local %v TFPX_HDI_V2 fid_tr
+LOADGEODEF $fid_br_local %v TFPX_HDI_V2 fid_br
+LOADGEODEF $fid_bl_local %v TFPX_HDI_V2 fid_bl
+
+# Convert local coordinates to global coordinates using reference
+# Center and Rotation
+TRANSFORML2G $fid_tl_global $fid_tl_local $refcenter $refrotation
+TRANSFORML2G $fid_tr_global $fid_tr_local $refcenter $refrotation
+TRANSFORML2G $fid_br_global $fid_br_local $refcenter $refrotation
+TRANSFORML2G $fid_bl_global $fid_bl_local $refcenter $refrotation
+
+
+# With these calculations out of the way, we can proceed with the
+# measurements.
+@LOOP LOADTOOL CAMERA
+      SETVAC module_chuck_0_slot_1 1
+      MPGON
+
+      # Each measurement procedes in three steps
+      #  1. Automatically move to a best guess position based on
+      #     $refcenter and $refrotation
+      #  2. Perform an autofocus
+      #  3. Turn on a video feed and use the hand controller to locate the
+      #     fiducial position
+      #  4. Record the new position and move to the next fiducial
+
+      COPY $focus_range .5 # mm
+      COPY $focus_samples 10
+
+      # Go to TL Reference
+      MOVETO $fid_tl_global $speed
+      AUTOFOCUS $_ $focus_range $focus_samples
+      VIDEO "GANTRY HEAD"
+      GETPOS $fid_tl
+
+      # Go to TR Reference
+      MOVETO $fid_tr_global $speed
+      AUTOFOCUS $_ $focus_range $focus_samples
+      VIDEO "GANTRY HEAD"
+      GETPOS $fid_tr
+
+      # Go to BR Reference
+      MOVETO $fid_br_global $speed
+      AUTOFOCUS $_ $focus_range $focus_samples
+      VIDEO "GANTRY HEAD"
+      GETPOS $fid_br
+
+      # Go to BL Reference
+      MOVETO $fid_bl_global $speed
+      AUTOFOCUS $_ $focus_range $focus_samples
+      VIDEO "GANTRY HEAD"
+      GETPOS $fid_bl
+
+      MOVEREL {0,0,-50} $speed
+
+      UNLOADTOOL
+      SETVAC module_chuck_0_slot_1 0
+      MPGOFF
+
+      FIT $center $rotation TFPX_HDI_V2 $fid_tr $fid_br $fid_bl $fid_tl
+      PRINT "HDI located at: %v, rotated by %r degrees" $center $rotation
+
+      CHOICEPOPUP $answer "Run Again?"
+      GOTOIF @LOOP $answer
+PRINT "Done."

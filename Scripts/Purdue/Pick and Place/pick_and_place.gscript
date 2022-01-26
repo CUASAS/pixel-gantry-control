@@ -1,0 +1,127 @@
+# Steps: 
+# 1. Locate Glass Piece
+# 2. Record/Locate target position
+# 3. Pickup and place glass piece
+# 4. Record final position
+HOME
+SETLOG pick_and_place.txt
+# CLEARLOG
+COPY $speed 50
+COPY $img_idx 0
+
+COPY $start_pos {590.544664,337.891457,100.102483}
+COPY $start_rot {0.001415,0.000010,-0.006911,-0.999975}
+
+COPY $end_pos {108.211873,547.545008,99.656033}
+COPY $end_rot {-0.000400,-0.000003,0.006354,0.999980}
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+
+@PROCESS_START COPY $pos $start_pos
+COPY $rot $start_rot
+CALL @SURVEY
+
+
+LOADTOOL picker_tool
+
+MOVENAME stagingArea
+
+#Pickup Step
+COPY $target_pos $meas_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $meas_rot 
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC module_chuck_0_slot_2 0
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $neg_meas_rot $meas_rot
+ROTATE $neg_meas_rot
+
+# Place Step
+COPY $target_pos $end_pos
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATE $end_rot
+MOVETO $pickup_pos 10
+SETVAC gantry_head_inner 0
+WAIT 500
+SETVAC module_chuck_0_slot_1 1
+WAIT 2000
+MOVETO $pickup_pos_z0 10
+INVERT $neg_end_rot $end_rot
+ROTATE $neg_end_rot
+
+UNLOADTOOL
+
+COPY $pos $end_pos
+COPY $rot $end_rot
+CALL @SURVEY
+
+SUB $delta $end_pos $meas_pos
+PRINT "Misplacement Position: %v" $delta
+INVERT $neg_meas_rot $meas_rot
+COMPOSE $delta_theta $end_rot $neg_meas_rot
+PRINT "Misplacement Angle: %r" $delta_theta
+
+MOVEREL {0,0,-60} $speed
+SETVAC module_chuck_0_slot_1 0
+
+CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
+GOTOIF @PROCESS_START $choice
+
+END
+
+
+# SURVEY
+# Arguments:
+#  $pos - expected position of piece
+#  $rot - expected orientation of piece
+#  $**_local - local coordinates of the fiducials
+@SURVEY COPY $SURVEY_RET $RET
+        MOVENAME stagingArea
+        # MPGON
+        MOVETO $pos $speed
+
+        TRANSFORML2G $tl_global $tl_local $pos $rot
+        MOVETO $tl_global $speed
+        VIDEO
+        GETPOS $tl_meas
+
+        TRANSFORML2G $tr_global $tr_local $pos $rot
+        MOVETO $tr_global $speed
+        VIDEO
+        GETPOS $tr_meas
+
+        TRANSFORML2G $br_global $br_local $pos $rot
+        MOVETO $br_global $speed
+        VIDEO
+        GETPOS $br_meas
+
+        TRANSFORML2G $bl_global $bl_local $pos $rot
+        MOVETO $bl_global $speed
+        VIDEO
+        GETPOS $bl_meas
+
+        # MPGOFF
+        FIT $meas_pos $meas_rot TFPX_1X2_MOCKUP $tr_meas $br_meas $bl_meas $tl_meas
+        PRINT "Measured position: %v" $meas_pos
+        PRINT "Measured rotation: %q (%r)" $meas_rot $meas_rot
+        GOTO $SURVEY_RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $target_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET

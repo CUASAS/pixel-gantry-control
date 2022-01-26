@@ -1,0 +1,24 @@
+
+#haydens config box for glueing
+#getting glue tool locations for stamp 1 ( p1 -> p2 -> p3 -> p4 clockwise on rectangle)
+geometry.stamp_1.point_1: {671.300,323.471,0} #center of stamp tool
+geometry.stamp_1.point_2: {714.178,424.903,0}
+geometry.stamp_1.point_3: {714.178,424.903,67.46788}
+geometry.stamp_1.point_4: {671.318,424.903,67.46788}
+geometry.stamp_1.offset_catch: {-2,2,0}
+
+#stamp rotation, rotation offset, center offset for stamp 1 (rubber part)
+geometry.stamp_1.center_offset: {0,0,0} #{-0.590413,-0.172786,0.049955} #(bottom - glue)
+geometry.stamp_1.rotation: -90
+geometry.stamp_1.rotation_offset: 0 #{0.0207,0.0232,-0.0025,1} #(bottom - glue)
+#gets rotation of the stamp, make sure its in the same orientation with piece getting stamped
+
+
+#geometry of stamp 1 rubber
+geometry.ETL_rubber_stamp_1.fid_tr: {10.583,-20.595,0}
+geometry.ETL_rubber_stamp_1.fid_tl: {-10.583,-20.595,0}
+geometry.ETL_rubber_stamp_1.fid_bl: {-10.583,20.595,0}
+geometry.ETL_rubber_stamp_1.fid_br: {10.583,20.595,0}
+
+#config box closed
+

@@ -1,0 +1,172 @@
+VERSION v1.3
+LOADCONFIG
+SETLOG "GHCO_calibrationACTUAL.txt" #text file only when taking actual data not calibration
+CLEARLOG
+HOME
+SETLIGHT 35 gantryhead
+COPY $counter 0
+
+COPY $target_degrees -36 #change degrees
+@START_OF_SCRIPT 
+
+ADD $counter $counter 1
+PRINT %d $counter
+
+COPY $target_position  {818.851336,316.257386,75.440009}       
+COPY $target_rotation  {-0.001499,0.001593,0.707146,-0.707064}
+
+#Use this code to rotate piece in euler degrees
+#COPY $target_degrees 0 #change degrees
+ADD $target_degrees $target_degrees 36
+EULER2QUAT $target_rotation $target_degrees 0 0
+
+#manually measured start position and orientation (used fit)
+COPY $start_location     {646.199657,110.301178,75.242509}           
+COPY $start_orientation  {-0.000273,0.000199,0.001853,-0.999998}
+
+#geometry from config
+flexread $tr_local geometry.ETL_Sensor_PCB_Mockup.fid_tr
+flexread $tl_local geometry.ETL_Sensor_PCB_Mockup.fid_tl
+flexread $bl_local geometry.ETL_Sensor_PCB_Mockup.fid_bl
+flexread $br_local geometry.ETL_Sensor_PCB_Mockup.fid_br
+
+
+COPY $picker_height_cup_5 {0,0,50.0} #measured with calipers
+#ADD $picker_height_cup_5 $picker_height_cup_5 {0,0,.4}       #FOR CALIBRATION BETWEEN PICKERTOOLS
+
+
+COPY $picker_height $picker_height_cup_5 #UPDATE WHEN CHANGING SUCTION CUPS
+
+#converts the local coordinates to global gantry coordinates usint start location and orientation
+TRANSFORML2G $tr_global $tr_local $start_location $start_orientation
+TRANSFORML2G $tl_global $tl_local $start_location $start_orientation
+TRANSFORML2G $bl_global $bl_local $start_location $start_orientation
+TRANSFORML2G $br_global $br_local $start_location $start_orientation
+
+#this is to get corrected centers and orientation, the code above gives general area
+MOVENAME etl_chuck_4                                  
+SETVAC etl_chuck_4_pos_1 1                                  
+#Routine to set up inital position of metal piece
+moveto $tl_global 50
+# video #for you to make correction
+# getpos $tl_corrected
+WAIT 100
+FINDFID $tl_corrected ETL_PCB_Mockup
+
+moveto $tr_global 50
+# video #for you to make correction
+# getpos $tr_corrected
+WAIT 100
+FINDFID $tr_corrected ETL_PCB_Mockup
+
+moveto $bl_global 50
+# video #for you to make correction
+# getpos $bl_corrected
+WAIT 100
+FINDFID $bl_corrected ETL_PCB_Mockup
+
+moveto $br_global 50
+# video #for you to make correction
+# getpos $br_corrected
+WAIT 100
+FINDFID $br_corrected ETL_PCB_Mockup
+
+#turns measured corners or fiducials into center and orientation
+fit $center_corrected $orientation_corrected ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+#start by loading the picker tool to then pick up part
+loadtool etl_picker_tool
+
+#Step: pickup part
+MOVENAME etl_chuck_4                
+COPY $camera_pos $center_corrected
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATETO $orientation_corrected 30
+MOVETO $pickup_pos 50
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC etl_chuck_4_pos_1 0               
+WAIT 500
+MOVETO $pickup_pos_z0 50
+ROTATETO 0 30
+
+#Step: place part
+MOVENAME etl_chuck_3          
+COPY $camera_pos $target_position
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+ROTATETO $target_rotation 30
+MOVETO $pickup_pos 50
+SETVAC etl_chuck_3 1      
+WAIT 500
+SETVAC gantry_head_inner 0
+WAIT 500
+MOVETO $pickup_pos_z0 50
+ROTATETO 0 30
+
+unloadtool
+
+
+TRANSFORML2G $tr_global $tr_local $target_position $target_rotation
+TRANSFORML2G $tl_global $tl_local $target_position $target_rotation
+TRANSFORML2G $bl_global $bl_local $target_position $target_rotation
+TRANSFORML2G $br_global $br_local $target_position $target_rotation
+
+MOVENAME etl_chuck_3             
+moveto $tl_global 50
+video #for you to make correction
+getpos $tl_corrected
+WAIT 100
+#FINDFID $tl_corrected ETL_PCB_Mockup
+
+moveto $tr_global 50
+video #for you to make correction
+getpos $tr_corrected
+WAIT 100
+#FINDFID $tr_corrected ETL_PCB_Mockup
+
+moveto $bl_global 50
+video #for you to make correction
+getpos $bl_corrected
+WAIT 100
+#FINDFID $bl_corrected ETL_PCB_Mockup
+
+moveto $br_global 50
+video #for you to make correction
+getpos $br_corrected
+WAIT 100
+#FINDFID $br_corrected ETL_PCB_Mockup
+
+MOVENAME etl_chuck_3              
+
+fit $center_corrected $orientation_corrected ETL_Sensor_PCB_Mockup $tr_corrected $br_corrected $bl_corrected $tl_corrected
+
+print "target: %v (%r)" $target_position $target_rotation
+print "measured: %v (%r)" $center_corrected $orientation_corrected
+
+SUB $delta $center_corrected $target_position
+INVERT $target_inv $target_rotation
+COMPOSE $delta_rot $orientation_corrected $target_inv
+print "delta: %v (%r)" $delta $delta_rot
+
+
+SETVAC etl_chuck_3 0
+CHOICEPOPUP $choice "Move the PCB back to starting position or end" "I moved it" "Stop!"
+GOTOIF @START_OF_SCRIPT $choice
+
+END
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+@CALCPICKUP 
+            FLEXREAD $ghco geometry.tool_holder_offset
+            #COPY $correction {-1.23,0.907,0} #old correction
+            #COPY $correction {-0.356,-0.013,0} #new correction
+            #ADD $ghco $ghco $correction
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $camera_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET

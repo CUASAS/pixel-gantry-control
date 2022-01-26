@@ -1,0 +1,6 @@
+# Load this file with the line:
+#
+# LOADCONFIG "" Scripts\TFPXModules\tfpx_modules_config.txt
+#
+
+tasty.pi: 3.14159

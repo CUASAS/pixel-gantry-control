@@ -1,0 +1,96 @@
+# Steps: 
+
+#HOME
+SETLOG pick_and_place.txt
+# CLEARLOG
+
+MOVETO {98,529,90} 50
+COPY $D 8.883
+
+MOVETO {98.808,529.779,99.349} 5
+#VIDEO
+#GETPOS $tl_top
+
+MOVETO {98.751,548.441,99.349} 5
+#VIDEO
+#GETPOS $bl_topMiddle
+
+MOVETO {98.750,550.627,99.349} 5
+#VIDEO
+#GETPOS $tl_bottomMiddle
+
+MOVETO {98.698,570.296,99.349} 5
+#VIDEO
+#GETPOS $bl_bottom
+
+
+#PRINT "1. Top Left: %v" $tl_top
+#PRINT "2. Bottom Left: %v" $bl_topMiddle
+#PRINT "3. Top Left: %v" $tl_bottomMiddle
+#PRINT "4. Bottom Left: %v" $bl_bottom
+
+#Math 
+            #Find X_bar and Y_bar
+            ADD $avePos $tl_top $bl_topMiddle
+            ADD $avePos $avePos $tl_bottomMiddle
+            ADD $avePos $avePos $bl_bottom
+            MUL $x_bar $avePos.x .25
+            MUL $y_bar $avePos.y .25
+
+            #Find (x-x_bar)(y-y_bar)'s
+            SUB $one $tl_top.x $x_bar
+            SUB $two $tl_top.y $y_bar
+            SUB $three $bl_topMiddle.x $x_bar
+            SUB $four $bl_topMiddle.y $y_bar
+            SUB $five $tl_bottomMiddle.x $x_bar
+            SUB $six $tl_bottomMiddle.y $y_bar
+            SUB $seven $bl_bottom.x $x_bar
+            SUB $eight $bl_bottom.y $y_bar
+
+            #(x - x_bar) * (y - y_bar)
+            MUL $oneTwo $one $two
+            MUL $threeFour $three $four
+            MUL $fiveSix $five $six
+            MUL $sevenEight $seven $eight
+
+            ADD $xy $oneTwo $threeFour
+            ADD $xy $xy $fiveSix
+            ADD $xy $xy $sevenEight
+
+            #(x - x_bar) * (x - x_bar)
+            MUL $oneOne $one $one
+            MUL $threeThree $three $three
+            MUL $fiveFive $five $five
+            MUL $sevenSeven $seven $seven     
+            
+     
+            ADD $xx $oneOne $threeThree
+            ADD $xx $xx $fiveFive
+            ADD $xx $xx $sevenSeven
+            INVERT $inv_xx $xx
+
+            #find slope (m)
+            MUL $m $xy $inv_xx
+
+            #find sin(theta)
+            INVERT $inv_m $m
+            MUL $inv_m2 $inv_m $inv_m
+            MUL $inv_m2 $inv_m2 0.5
+            ADD $taylor $inv_m2 1.0
+            MUL $sin_theta $taylor $inv_m
+            MUL $sin_theta $sin_theta -1
+            
+            #correct the centroid (avePos) with sinTheta and D
+            ADD $x_bar $x_bar $D
+            MUL $y_disp $D $sin_theta
+            ADD $y_bar $y_bar $y_disp
+            
+             
+
+
+            
+
+            
+
+
+END

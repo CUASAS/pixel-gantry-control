@@ -6,11 +6,12 @@
 *.aliases
 *.lvlps
 
-#Session Config Files
+#Session Log Files
 Logs/
 
 #gVision API (downloaded separately)
 Gantry/Shared Components/gVision API/
 Gantry/Shared Components/gVision API.zip
 
-
+#Local config selection
+Config/config.txt

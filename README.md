@@ -1,6 +1,9 @@
 # Pixel Gantry Control
 
-This project contains control and automation softare for CMS FPIX module assembly.
+This project contains control and automation softare for particle detector module assembly using Aerotech gantry based systems. The software is currently divided into two parts:
+
+  1. A `Shared Components` section of the code that, among other things, provides a single interface to any relavent hardware. It also provides other useful features such as automatic pattern recognition, graph-based motion, absolute orientation calculations, and configuration management.
+  2. An interpreter based on the [gScript command set](https://github.com/CUASAS/pixel-gantry-control/blob/master/Gantry/gScript%20Application/gScript%20Documentation.md) that allows users to develop routines in a simple text-based language.
 
 ## Setup
 
@@ -19,7 +22,7 @@ git clone git@github.com:CUASAS/pixel-gantry-control.git
 
 I've found that having other versions of Labview (esp 2018+) installed confuses the toolkit installers and they fail to install the support for 2017 that is needed. Therefore if possible start with a fresh system or remove all other National Instruments software prior to following these instructions.
 
-Install [LabVIEW 2017 (64-bit)](http://www.ni.com/download/labview-development-system-2017/6698/en/). Select "I am a current user of LabVIEW Development System" and go through the installer.
+Install [LabVIEW 2017 (64-bit)](http://www.ni.com/download/labview-development-system-2017/6698/en/).
 
 Repeat this process for the three required toolkits:
 
@@ -27,7 +30,7 @@ Repeat this process for the three required toolkits:
   2. Vision Development Module 2017 [link](http://www.ni.com/download/vision-development-module-2017/6640/en/)
   3. NI-DAQmx 18.6 [link](http://www.ni.com/en-us/support/downloads/drivers/download.ni-daqmx.html#291872)
 
-Some of the above steps require an activation key. If you are eligible to use it, the [CERN LabVIEW license](https://readthedocs.web.cern.ch/display/MTA/NI%20products%20activation) covers them. Otherwise, arrange for a license on your own or from your institution.
+Valid licenses for the above packages are required. Newer versions of the toolkits should work, but these have been tested. However, newer versions of LabVIEW **are not** currently supported.
 
 ### Installing the Aerotech Software
 
@@ -36,12 +39,15 @@ Run the Aerotech installer. The installer doesn't put the Aerotech VIs in a plac
 
 ### Installing gVision API
 
-Due to large binary file sizes, the gVision API is no longer included in this repository. Instead, it can be downloaded in compressed form from this url
-
-```
-http://t3.unl.edu/~cfangmeier/gVision_API.zip
-```
-
-Unzip this into `pixel-gantry-control\Gantry\Shared Components\`
+Due to large binary file sizes, the gVision API is not included in the git repository. Instead, you need to download the [latest releast](https://github.com/CUASAS/pixel-gantry-vision/releases). Download the zip archive and unzip it's contents into `pixel-gantry-control\Gantry\Shared Components\gVision API\`. If the zip file contains any redistributable installers, run those now to install any required libraries.
 
 
+### Selecting a Config
+
+Inside the `Config` directory are seveal folders containing configuration files for specific gantries. By default, the `Nebraska` configuration is used, but this can be changed by editing the content of `Config/config.txt` to one of the other configurations.
+
+### Getting Help
+
+If you discover a bug or would like to request a feature, please feel free to open an [issue](https://github.com/CUASAS/pixel-gantry-control/issues). If you have general questions about how to use the software, create a [discussion](https://github.com/CUASAS/pixel-gantry-control/discussions).
+
+There is also a developing set of tutorials on various aspects of `gScript` programming developing [here](https://drive.google.com/drive/folders/1jjhutLgPGgwVizSZdoIk1yHqYb2zJ_WL?usp=sharing).

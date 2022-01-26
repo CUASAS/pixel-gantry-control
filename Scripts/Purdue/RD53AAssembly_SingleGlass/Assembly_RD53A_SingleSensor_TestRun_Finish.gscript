@@ -1,0 +1,206 @@
+VERSION 1.3
+
+######################## RD53A Single Sensor Assembly #############################
+# Steps:
+# 1. Release vacuum of Vacuum Tool
+# 2. Prompt replacement of Vacuum Tool on Chuck 3
+# 3. Move gantry head to Chuck 1 and survey for Module accuracy
+# 4. End program with vacuums on or off
+
+#Initialize the system
+HOME
+SETVAC gantry_head_inner 0
+SETVAC gantry_head_outer 0
+SETVAC rd53a_chuck_2 0
+SETVAC launchpad 0
+SETLOG "LOG_Assembly_RD53A_SingleSensor_Finish.txt"
+SETERRORMODE prompt
+
+# Rough positions of the HDI on Chuck 1
+COPY $pos_chuck1_tr {410.391,528.560,93.319}
+COPY $pos_chuck1_br {410.430,568.240,93.319}
+COPY $pos_chuck1_bl {390.753,568.246,93.319}
+COPY $pos_chuck1_tl {390.705,528.560,93.319}
+
+# Rough positions of the SensorROC on Chuck 1
+COPY $pos_senRoc1_tr {412.500,528.000,93.500}
+COPY $pos_senRoc1_br {412.500,569.000,93.500}
+COPY $pos_senRoc1_bl {389.000,569.000,93.500}
+COPY $pos_senRoc1_tl {389.000,528.000,93.500}
+
+# Step 1. Release vacuum of Vacuum Tool
+@STEP_ONE CHOICEPOPUP $choice "Did you let the adhesive cure for 24 hours? Saying yes will turn off the Vacuum Tool." "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_ONE $choice
+
+SETVAC rd53a_chuck_3 0
+
+# Step 2. Prompt replacement of Vacuum Tool on Chuck 3
+@STEP_THIRTEEN CHOICEPOPUP $choice "Did you place the Vacuum Tool on Chuck 3?" "Yes, continue" "No, ask me again"
+GOTOIFN @STEP_THIRTEEN $choice
+
+# Step 3. Move gantry head to Chuck 1 and survey for Module accuracy
+
+MOVESAFE $pos_chuck1_tr 100
+COPY $x_corner $pos_chuck1_tr
+@ACC_0 CHOICEPOPUP $choice "Ready to find the Top Right marker of HDI?" "Yes" "No"
+GOTOIFN @ACC_0 $choice
+CALL @SURVEYCORNERS
+COPY $pos_chuck1_tr $x_corner
+
+COPY $x_corner $pos_senRoc1_tr
+@ACC_1 CHOICEPOPUP $choice "Ready to find the Top Right marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_1 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_tr $x_corner
+
+
+COPY $x_corner $pos_chuck1_br
+@ACC_2 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of HDI?" "Yes" "No"
+GOTOIFN @ACC_2 $choice
+CALL @SURVEYCORNERS
+COPY $pos_chuck1_br $x_corner
+
+COPY $x_corner $pos_senRoc1_br
+@ACC_3 CHOICEPOPUP $choice "Ready to find the Bottom Right marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_3 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_br $x_corner
+
+
+COPY $x_corner $pos_chuck1_bl
+@ACC_4 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of HDI?" "Yes" "No"
+GOTOIFN @ACC_4 $choice
+CALL @SURVEYCORNERS
+COPY $pos_chuck1_bl $x_corner
+
+COPY $x_corner $pos_senRoc1_bl
+@ACC_5 CHOICEPOPUP $choice "Ready to find the Bottom Left marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_5 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_bl $x_corner
+
+
+COPY $x_corner $pos_chuck1_tl
+@ACC_6 CHOICEPOPUP $choice "Ready to find the Top Left marker of HDI?" "Yes" "No"
+GOTOIFN @ACC_6 $choice
+CALL @SURVEYCORNERS
+COPY $pos_chuck1_tl $x_corner
+
+COPY $x_corner $pos_senRoc1_tl
+@ACC_7 CHOICEPOPUP $choice "Ready to find the Top Left marker of SensorROC?" "Yes" "No"
+GOTOIFN @ACC_7 $choice
+CALL @SURVEYCORNERS
+COPY $pos_senRoc1_tl $x_corner
+
+
+FIT $pos_hdi_center_final $rot_hdi_final TFPX_RD53ASENSORROC $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
+FIT $pos_senRoc_final $rot_senRoc_final TFPX_RD53ASENSORROC $pos_senRoc1_tr $pos_senRoc1_br $pos_senRoc1_bl $pos_senRoc1_tl
+QUAT2EULER $rot_hdi_final $trash0 $trash1 $rot_hdi_final
+QUAT2EULER $rot_senRoc_final $trash0 $trash1 $rot_senRoc_final
+
+PRINT "--------------------"
+
+PRINT "Final Centers and Rotations:"
+PRINT "HDI Center: %v HDI Rotation: %f" $pos_hdi_center_final $rot_hdi_final
+PRINT "SensorROC Center: %v SensorROC Rotation: %f" $pos_senRoc_final $rot_senRoc_final
+
+
+SUB $pos_final_diff $pos_hdi_center_final $pos_senRoc_final
+SUB $rot_final_diff $rot_hdi_final $rot_senRoc_final
+
+PRINT "Differences between Centers and Rotations:"
+PRINT "Center: %v Rotation: %f" $pos_final_diff $rot_final_diff
+PRINT ""
+
+COPY $pos_chuck1_tr.z 0
+COPY $pos_chuck1_br.z 0
+COPY $pos_chuck1_bl.z 0
+COPY $pos_chuck1_tl.z 0
+COPY $pos_senRoc1_tr.z 0
+COPY $pos_senRoc1_br.z 0
+COPY $pos_senRoc1_bl.z 0
+COPY $pos_senRoc1_tl.z 0
+
+SUB $dist_tr $pos_chuck1_tr $pos_senRoc1_tr
+ABS $dist_tr $dist_tr
+SUB $dist_br $pos_chuck1_br $pos_senRoc1_br
+ABS $dist_br $dist_br
+SUB $dist_bl $pos_chuck1_bl $pos_senRoc1_bl
+ABS $dist_bl $dist_bl
+SUB $dist_tl $pos_chuck1_tl $pos_senRoc1_tl
+ABS $dist_tl $dist_tl
+
+PRINT "Distance between HDI and SensorROC"
+PRINT "TR: %f BR: %f BL: %f TL: %f" $dist_tr $dist_br $dist_bl $dist_tl
+
+
+ADD $dist_mean $dist_tr $dist_br
+ADD $dist_mean $dist_mean $dist_bl
+ADD $dist_mean $dist_mean $dist_tl
+MUL $dist_mean $dist_mean 0.25
+
+PRINT "Distance Mean: %f" $dist_mean
+
+
+COPY $dist_dev 0
+
+SUB $stddev_temp $dist_mean $dist_tr
+MUL $stddev_temp $stddev_temp $stddev_temp
+ADD $dist_dev $dist_dev $stddev_temp
+SUB $stddev_temp $dist_mean $dist_br
+MUL $stddev_temp $stddev_temp $stddev_temp
+ADD $dist_dev $dist_dev $stddev_temp
+SUB $stddev_temp $dist_mean $dist_bl
+MUL $stddev_temp $stddev_temp $stddev_temp
+ADD $dist_dev $dist_dev $stddev_temp
+SUB $stddev_temp $dist_mean $dist_tl
+MUL $stddev_temp $stddev_temp $stddev_temp
+ADD $dist_dev $dist_dev $stddev_temp
+
+MUL $dist_dev $dist_dev 0.25
+POW $dist_dev $dist_dev 0.5
+
+PRINT "Distance Standard Deviation: %f" $dist_dev
+PRINT "--------------------"
+
+# Step 4. End program with vacuums on or off
+CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
+GOTOIF @STEP_FIFTEEN $choice
+
+SETVAC gantry_head_inner 0
+SETVAC gantry_head_outer 0
+SETVAC rd53a_chuck_1_TL 0
+SETVAC rd53a_chuck_1_TR 0
+SETVAC rd53a_chuck_1_BL 0
+SETVAC rd53a_chuck_1_BR 0
+SETVAC rd53a_chuck_2 0
+SETVAC rd53a_chuck_3 0
+SETVAC launchpad 0
+
+@STEP_FIFTEEN PASS
+
+HOME
+
+END
+
+# SURVEYCORNERS
+# Arguments
+# $x_corner - Approximate position of an object that you would like to know the precise position. Returns with precise position written in this location
+@SURVEYCORNERS PASS
+  MOVETO $x_corner 10
+  @SURCORNPOP VIDEO
+  CHOICEPOPUP $choice "Did you correctly align the cursor with the marker?" "Yes" "No"
+  GOTOIFN @SURCORNPOP $choice
+  GETPOST $x_corner
+  GOTO $RET
+
+# CALCPICKUP
+# Arguments:
+#  $target_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+  FLEXREAD $ghco geometry.tool_holder_offset
+  ADD $netoffset $picker_height $ghco
+  SUB $pickup_pos $target_pos $netoffset
+  COPY $pickup_pos_z0 $pickup_pos
+  COPY $pickup_pos_z0.z 0
+  GOTO $RET

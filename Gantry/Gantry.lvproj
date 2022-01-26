@@ -25,13 +25,7 @@
 		<Item Name="Commissioning Helpers" Type="Folder" URL="../Commissioning Helpers">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
-		<Item Name="Gluing Application" Type="Folder" URL="../Gluing Application">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
 		<Item Name="gScript Application" Type="Folder" URL="../gScript Application">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
-		<Item Name="Potting Application" Type="Folder" URL="../Potting Application">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="Shared Components" Type="Folder" URL="../Shared Components">
@@ -39,42 +33,42 @@
 		</Item>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
-				<Item Name="AbortMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/AbortMultiple.vi"/>
-				<Item Name="AcknowledgeAll.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/AcknowledgeAll.vi"/>
-				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
-				<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/8.2/Bin/Aerotech.A3200.LabVIEW.dll"/>
-				<Item Name="AxisDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/AxisDiagPacket.ctl"/>
-				<Item Name="Connect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Connect.vi"/>
-				<Item Name="ControllerDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/ControllerDiagPacket.ctl"/>
-				<Item Name="ConvertDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/ConvertDiagPacket.vi"/>
-				<Item Name="Disable.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/Disable.vi"/>
-				<Item Name="DisableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/DisableMultiple.vi"/>
-				<Item Name="DisableSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/DisableSingle.vi"/>
-				<Item Name="Disconnect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Disconnect.vi"/>
-				<Item Name="EnableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/EnableMultiple.vi"/>
-				<Item Name="ExecuteCommand.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/ExecuteCommand.vi"/>
-				<Item Name="ExecuteProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/ExecuteProgram.vi"/>
-				<Item Name="GetAxisIndex.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Utility/GetAxisIndex.vi"/>
-				<Item Name="GetAxisNames.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Utility/GetAxisNames.vi"/>
-				<Item Name="HomeSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/HomeSingle.vi"/>
-				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsMultiple.vi"/>
-				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveAbsSingle.vi"/>
-				<Item Name="MoveIncMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveIncMultiple.vi"/>
-				<Item Name="MoveIncSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/MoveIncSingle.vi"/>
-				<Item Name="Reset.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Initialize/Reset.vi"/>
-				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Status/RetrieveDiagPacket.vi"/>
-				<Item Name="SetAxisParameterFloat.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Parameters/SetAxisParameterFloat.vi"/>
-				<Item Name="SetAxisParameterInteger.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Parameters/SetAxisParameterInteger.vi"/>
-				<Item Name="StopProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Commands/StopProgram.vi"/>
-				<Item Name="WaitMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/WaitMultiple.vi"/>
-				<Item Name="WaitSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/8.2/Motion/WaitSingle.vi"/>
+				<Item Name="AbortMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/AbortMultiple.vi"/>
+				<Item Name="AcknowledgeAll.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/AcknowledgeAll.vi"/>
+				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/2010/Bin/Aerotech.A3200.dll"/>
+				<Item Name="Aerotech.A3200.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/aerotech/2010/Bin/Aerotech.A3200.dll"/>
+				<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="/&lt;userlib&gt;/aerotech/2010/Bin/Aerotech.A3200.LabVIEW.dll"/>
+				<Item Name="AxisDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Status/AxisDiagPacket.ctl"/>
+				<Item Name="Connect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Initialize/Connect.vi"/>
+				<Item Name="ControllerDiagPacket.ctl" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Status/ControllerDiagPacket.ctl"/>
+				<Item Name="ConvertDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Status/ConvertDiagPacket.vi"/>
+				<Item Name="Disable.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/Disable.vi"/>
+				<Item Name="DisableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/DisableMultiple.vi"/>
+				<Item Name="DisableSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/DisableSingle.vi"/>
+				<Item Name="Disconnect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Initialize/Disconnect.vi"/>
+				<Item Name="Disconnect.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/aerotech/2010/Initialize/Disconnect.vi"/>
+				<Item Name="EnableMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/EnableMultiple.vi"/>
+				<Item Name="ExecuteCommand.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/ExecuteCommand.vi"/>
+				<Item Name="ExecuteProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/ExecuteProgram.vi"/>
+				<Item Name="GetAxisIndex.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Utility/GetAxisIndex.vi"/>
+				<Item Name="GetAxisNames.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Utility/GetAxisNames.vi"/>
+				<Item Name="HomeSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/HomeSingle.vi"/>
+				<Item Name="MoveAbsMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/MoveAbsMultiple.vi"/>
+				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/MoveAbsSingle.vi"/>
+				<Item Name="MoveAbsSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/aerotech/2010/Motion/MoveAbsSingle.vi"/>
+				<Item Name="MoveIncMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/MoveIncMultiple.vi"/>
+				<Item Name="MoveIncSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/MoveIncSingle.vi"/>
+				<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Status/RetrieveDiagPacket.vi"/>
+				<Item Name="SetAnalogOutput.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/SetAnalogOutput.vi"/>
+				<Item Name="StopProgram.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Commands/StopProgram.vi"/>
+				<Item Name="WaitMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/WaitMultiple.vi"/>
+				<Item Name="WaitSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/WaitSingle.vi"/>
+				<Item Name="WaitSingle.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/aerotech/2010/Motion/WaitSingle.vi"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
-				<Item Name="3DPC_SurfacePlot.xctl" Type="XControl" URL="/&lt;vilib&gt;/Native 3D Graph/xcontrol/3DPC_SurfacePlot.xctl"/>
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
 				<Item Name="Add File to Zip.vi" Type="VI" URL="/&lt;vilib&gt;/zip/Add File to Zip.vi"/>
-				<Item Name="Base Datatype.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Base Datatype.lvclass"/>
-				<Item Name="Binary Search Sorted Array.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/Binary Search Sorted Array.vi"/>
+				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
 				<Item Name="Check Special Tags.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Check Special Tags.vi"/>
@@ -272,6 +266,11 @@
 				<Item Name="Details Display Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Details Display Dialog.vi"/>
 				<Item Name="DialogType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/DialogType.ctl"/>
 				<Item Name="DialogTypeEnum.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/DialogTypeEnum.ctl"/>
+				<Item Name="Draw Arc.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Arc.vi"/>
+				<Item Name="Draw Circle by Radius.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/Draw Circle by Radius.vi"/>
+				<Item Name="Draw Line.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Line.vi"/>
+				<Item Name="Draw Text at Point.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Text at Point.vi"/>
+				<Item Name="Draw Text in Rect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Text in Rect.vi"/>
 				<Item Name="DTbl Digital Size.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/DTblOps.llb/DTbl Digital Size.vi"/>
 				<Item Name="DTbl Uncompress Digital.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/DTblOps.llb/DTbl Uncompress Digital.vi"/>
 				<Item Name="DWDT Uncompress Digital.vi" Type="VI" URL="/&lt;vilib&gt;/Waveform/DWDTOps.llb/DWDT Uncompress Digital.vi"/>
@@ -291,7 +290,6 @@
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
 				<Item Name="Image Unit" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Unit"/>
 				<Item Name="IMAQ Clear Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Clear Overlay"/>
-				<Item Name="IMAQ Copy" Type="VI" URL="/&lt;vilib&gt;/vision/Management.llb/IMAQ Copy"/>
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
 				<Item Name="IMAQ Dispose" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Dispose"/>
 				<Item Name="IMAQ GetImageInfo" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImageInfo"/>
@@ -302,7 +300,12 @@
 				<Item Name="IMAQ Overlay Multiple Lines 2" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Multiple Lines 2"/>
 				<Item Name="IMAQ Overlay Oval" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Oval"/>
 				<Item Name="IMAQ ReadFile" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile"/>
+				<Item Name="IMAQ ReadFile 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ ReadFile 2"/>
 				<Item Name="IMAQ SetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ SetImageSize"/>
+				<Item Name="IMAQ WindDraw" Type="VI" URL="/&lt;vilib&gt;/vision/Display.llb/IMAQ WindDraw"/>
+				<Item Name="IMAQ WindLastEvent" Type="VI" URL="/&lt;vilib&gt;/vision/ROI Display.llb/IMAQ WindLastEvent"/>
+				<Item Name="IMAQ WindSetup" Type="VI" URL="/&lt;vilib&gt;/vision/Display.llb/IMAQ WindSetup"/>
+				<Item Name="IMAQ WindSize" Type="VI" URL="/&lt;vilib&gt;/vision/Display.llb/IMAQ WindSize"/>
 				<Item Name="IMAQ Write BMP File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write BMP File 2"/>
 				<Item Name="IMAQ Write File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write File 2"/>
 				<Item Name="IMAQ Write Image And Vision Info File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write Image And Vision Info File 2"/>
@@ -311,15 +314,17 @@
 				<Item Name="IMAQ Write PNG File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write PNG File 2"/>
 				<Item Name="IMAQ Write TIFF File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write TIFF File 2"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userdefined/High Color/IMAQdx.ctl"/>
-				<Item Name="Line.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Line/Line.lvclass"/>
+				<Item Name="Is Path and Not Empty.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Is Path and Not Empty.vi"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
 				<Item Name="LVPoint32TypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVPoint32TypeDef.ctl"/>
 				<Item Name="LVRectTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRectTypeDef.ctl"/>
 				<Item Name="LVSelectionTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVSelectionTypeDef.ctl"/>
+				<Item Name="Move Pen.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Move Pen.vi"/>
 				<Item Name="New Zip File.vi" Type="VI" URL="/&lt;vilib&gt;/zip/New Zip File.vi"/>
 				<Item Name="NI_AALBase.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALBase.lvlib"/>
 				<Item Name="NI_AALPro.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALPro.lvlib"/>
+				<Item Name="NI_Data Type.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/Data Type/NI_Data Type.lvlib"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
 				<Item Name="NI_Gmath.lvlib" Type="Library" URL="/&lt;vilib&gt;/gmath/NI_Gmath.lvlib"/>
 				<Item Name="NI_LVConfig.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/config.llb/NI_LVConfig.lvlib"/>
@@ -328,32 +333,31 @@
 				<Item Name="NI_Vision_Acquisition_Software.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/driver/NI_Vision_Acquisition_Software.lvlib"/>
 				<Item Name="NI_Vision_Development_Module.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/NI_Vision_Development_Module.lvlib"/>
 				<Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi"/>
-				<Item Name="Parametric.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Parametric/Parametric.lvclass"/>
 				<Item Name="Path To Command Line String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Path To Command Line String.vi"/>
 				<Item Name="PathToUNIXPathString.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/CFURL.llb/PathToUNIXPathString.vi"/>
+				<Item Name="PCT Pad String.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/PCT Pad String.vi"/>
 				<Item Name="Relative Path To Platform Independent String.vi" Type="VI" URL="/&lt;vilib&gt;/AdvancedString/Relative Path To Platform Independent String.vi"/>
-				<Item Name="RGB to Color.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/colorconv.llb/RGB to Color.vi"/>
 				<Item Name="Search and Replace Pattern.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Search and Replace Pattern.vi"/>
 				<Item Name="Set Bold Text.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set Bold Text.vi"/>
+				<Item Name="Set Pen State.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Set Pen State.vi"/>
 				<Item Name="Set String Value.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set String Value.vi"/>
 				<Item Name="Simple Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Simple Error Handler.vi"/>
 				<Item Name="Space Constant.vi" Type="VI" URL="/&lt;vilib&gt;/dlg_ctls.llb/Space Constant.vi"/>
-				<Item Name="subDisplayMessage.vi" Type="VI" URL="/&lt;vilib&gt;/express/express output/DisplayMessageBlock.llb/subDisplayMessage.vi"/>
 				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
 				<Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi"/>
-				<Item Name="Surface.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Surface/Surface.lvclass"/>
 				<Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi"/>
 				<Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl"/>
 				<Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi"/>
 				<Item Name="Three Button Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog.vi"/>
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
 				<Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl"/>
-				<Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib"/>
 			</Item>
-			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../../Program Files (x86)/National Instruments/LabVIEW 2011/user.lib/aerotech/8.2/Bin/Aerotech.A3200.dll"/>
-			<Item Name="Create (camera only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (camera only).vi"/>
-			<Item Name="Create (dispenser only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (dispenser only).vi"/>
-			<Item Name="Create (vacuum only).vi" Type="VI" URL="../Shared Components/Gantry Class/Create (vacuum only).vi"/>
+			<Item Name="Add Stack Frame.vi" Type="VI" URL="../gScript Application/gScript Interpreter/Add Stack Frame.vi"/>
+			<Item Name="Camera Enum.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Camera Enum.ctl"/>
+			<Item Name="Clear Stack.vi" Type="VI" URL="../gScript Application/gScript Interpreter/Clear Stack.vi"/>
+			<Item Name="CMD_APPLYSTAMP.vi" Type="VI" URL="../gScript Application/gScript Interpreter/CMD_APPLYSTAMP.vi"/>
+			<Item Name="CMD_UNLOADSTAMP.vi" Type="VI" URL="../gScript Application/gScript Interpreter/CMD_UNLOADSTAMP.vi"/>
+			<Item Name="Current Stamp.vi" Type="VI" URL="../Shared Components/FlexWorktable/Current Stamp.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -370,6 +374,8 @@
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
+			<Item Name="Potting Surface Type.ctl" Type="VI" URL="../Shared Components/Config Manager Class/Type Definitions/Potting Surface Type.ctl"/>
+			<Item Name="Read Potting Parameters.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Potting Parameters.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>
 	</Item>

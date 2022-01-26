@@ -1,0 +1,54 @@
+# Steps: 
+#1. Set loop number
+#2. Go to lowest postion value
+#3. Move up and check for a fiducial
+#4. Repeat until top position
+HOME
+
+# CLEARLOG
+COPY $speed 10 
+
+COPY $start_pos {559.363,218.562,87.985}
+COPY $start_rot {0.001415,0.000010,-0.006911,-0.999975}
+
+#Read flex config
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+#Fiducial Locations
+TRANSFORML2G $tl_global $tl_local $start_pos $start_rot
+MOVETO $tl_global 50
+COPY $start_pos $tl_global
+
+#actual Code
+@FINDFIDFOCUS COPY $sum {0,0,0}
+              COPY $count 9       # number of iterations
+              COPY $found_count 0.0 # count of positions w/ found fids
+              MOVETO $start_pos
+              MOVEREL {0,0,.025} # 25um down (extra 5um to make loop simple)
+              SETERRORMODE setvar
+@LOOPSTART    GOTOIFN @LOOPEND $count # if count==0, exit loop
+              DEC $count $count
+              MOVEREL {0,0,-0.005} # 5um up
+              WAIT 500
+              FINDFID $pos FPIX_Glass
+              GOTOIF @LOOPSTART $ERR # if no fid found, go to start of loop, else continue
+              ADD $sum $sum $pos
+              INC $found_count $found_count
+              GOTO @LOOPSTART
+@LOOPEND      SETERRORMODE default
+              INVERT $inv_found_count $found_count #prepare the vector to divide the sum to get average
+              COPY $inv_count_vec {0,0,0}
+              COPY $inv_count_vec.x $inv_found_count
+              COPY $inv_count_vec.y $inv_found_count
+              COPY $inv_count_vec.z $inv_found_count
+              MUL $avg_pos $sum $inv_count_vec
+              # Now we're done. Just use $avg_pos as the fiducial position.
+
+MOVETO $avg_pos 1
+VIDEO
+
+END
+

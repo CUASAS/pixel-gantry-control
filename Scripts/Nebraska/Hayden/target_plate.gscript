@@ -1,0 +1,110 @@
+#CLEARLOG
+
+COPY $target_position {524.444131,390.186173,76.240777}
+COPY $target_rotation {-0.000000,-0.000000,-0.001453,-0.999999}
+
+COPY $start_location {672.24,368.94,69.87}
+COPY $start_orientation {-1.37907E-8,2.5387E-9,0.00627524,0.99998}
+
+flexread $tr_local geometry.ETL_AL_Mockup.fid_tr
+flexread $tl_local geometry.ETL_AL_Mockup.fid_tl
+flexread $bl_local geometry.ETL_AL_Mockup.fid_bl
+flexread $br_local geometry.ETL_AL_Mockup.fid_br
+
+TRANSFORML2G $tr_global $tr_local $start_location $start_orientation
+TRANSFORML2G $tl_global $tl_local $start_location $start_orientation
+TRANSFORML2G $bl_global $bl_local $start_location $start_orientation
+TRANSFORML2G $br_global $br_local $start_location $start_orientation
+
+MOVENAME etl_chuck_2
+SETVAC etl_chuck_2 1
+#Routine to set up inital position of metal piece
+moveto $tl_global 50
+video #for you to make correction
+getpos $tl_corrected
+
+moveto $tr_global 50
+video #for you to make correction
+getpos $tr_corrected
+
+moveto $bl_global 50
+video #for you to make correction
+getpos $bl_corrected
+
+moveto $br_global 50
+video #for you to make correction
+getpos $br_corrected
+
+fit $center_corrected $orientation_corrected ETL_AL_Mockup $tl_corrected $tr_corrected $bl_corrected $br_corrected
+
+loadtool etl_picker_tool
+
+#Step: pickup part
+MOVENAME etl_chuck_2
+COPY $camera_pos $center_corrected
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+MOVETO $pickup_pos
+SETVAC gantry_head_inner 1
+WAIT 500
+SETVAC etl_chuck_2 0
+WAIT 500
+MOVETO $pickup_pos_z0 20
+
+#Step: place part
+MOVENAME etl_chuck_1
+COPY $camera_pos $target_position
+CALL @CALCPICKUP
+MOVETO $pickup_pos_z0 50
+MOVETO $pickup_pos
+SETVAC gantry_head_inner 0
+WAIT 1000
+MOVETO $pickup_pos_z0 20
+
+unloadtool
+
+MOVENAME etl_chuck_1 #goes here then goes to the named places
+
+#Gets the final placement positions
+TRANSFORML2G $target_tr_global $tr_local $target_position $target_rotation
+TRANSFORML2G $target_tl_global $tl_local $target_position $target_rotation
+TRANSFORML2G $target_bl_global $bl_local $target_position $target_rotation
+TRANSFORML2G $target_br_global $br_local $target_position $target_rotation
+
+moveto $target_tl_global 50
+video #for you to make correction
+getpos $target_tl_corrected
+
+moveto $target_tr_global 50
+video #for you to make correction
+getpos $target_tr_corrected
+
+moveto $target_bl_global 50
+video #for you to make correction
+getpos $target_bl_corrected
+
+moveto $target_br_global 50
+video #for you to make correction
+getpos $target_br_corrected
+
+fit $target_position_corrected $target_rotation_corrected ETL_AL_Mockup $target_tl_corrected $target_tr_corrected $target_bl_corrected $target_br_corrected
+
+SUB $delta $target_position_corrected $target_position
+print %v $delta
+
+END
+
+# CALCPICKUP
+# Arguments:
+#  $camera_pos - center of piece to pickup/place
+@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+            FLEXREAD $ghco          geometry.tool_holder_offset
+            ADD $netoffset $picker_height $ghco
+            SUB $pickup_pos $camera_pos $netoffset
+            COPY $pickup_pos_z0 $pickup_pos
+            COPY $pickup_pos_z0.z 0
+            GOTO $RET
+
+
+
+

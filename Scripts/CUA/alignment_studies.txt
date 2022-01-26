@@ -1,0 +1,46 @@
+HOME
+WAIT 1000
+MOVENAME home_safe
+WAIT 1000
+MOVENAME middle_tool_rack_out
+WAIT 1000
+MOVENAME middle_tool_rack_up
+WAIT 1000
+MOVENAME middle_tool_rack
+WAIT 1000
+MOVEREL {0,0,2}
+SETVAC gantry_head_outer 1
+WAIT 1000
+MOVEREL {0,0,-2}
+WAIT 1000
+MOVENAME middle_tool_rack_up
+WAIT 1000
+MOVENAME middle_tool_rack_out
+WAIT 1000
+MOVENAME hdi_position
+WAIT 1000
+MOVEREL {0,0,2.}
+SETVAC gantry_head_inner 1
+WAIT 1000
+MOVEREL {0,0,-20.}
+WAIT 5000
+MOVEREL {0,0,20.}
+WAIT 1000
+SETVAC gantry_head_inner 0
+WAIT 1000
+MOVEREL {0,0,-2.}
+WAIT 1000
+MOVENAME middle_tool_rack_out
+WAIT 1000
+MOVENAME middle_tool_rack_up
+WAIT 1000
+MOVENAME middle_tool_rack
+WAIT 1000
+SETVAC gantry_head_outer 0
+WAIT 1000
+MOVENAME middle_tool_rack_up
+WAIT 1000
+MOVENAME middle_tool_rack_out
+WAIT 1000
+MOVENAME home_safe
+WAIT 1000
