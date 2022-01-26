@@ -11,40 +11,6 @@ HDI dimensions
   width = 19.862 mm
   length = 39.683 mm
 
-
-Writing Code for picking 1/4 glass slide
-- Where $pos_TLsenRoc_center is the position of the center of the top left of the 4 sensors
-	and $rot_TLsenRoc is its rotation (degrees?)
-
-- Also $pos_TLsenRoc_center_target & $rot_TLsenRoc_target are the final positions of the quarter glass slide
-
-- $d_picker is the distance from the center (x,y) position and the top suction for the picker tool
-
-MODIFY @CALCPICKUP
-# CALCPICKUP_4SENSORS
-# Arguments:
-#  $target_pos - center of piece to pickup/place
-#  $target_rot - rotation of piece to pickup/place
-@CALCPICKUP FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
-  FLEXREAD $ghco geometry.tool_holder_offset
-  ADD $netoffset $picker_height $ghco
-  SUB $pickup_pos $target_pos $netoffset
-  COPY $pickup_pos_z0 $pickup_pos
-  COPY $pickup_pos_z0.z 0
-  # X & Y Correction
-  SIN $sin_theta $target_rot
-  COS $cos_theta $target_rot
-  FLEXREAD $center2topSuction IDKWHATITSCALLED
-  MUL $x_correction $center2topSuction $sin_theta
-  MUL $y_correction $center2topSuction $cos_theta
-  SUB $pickup_pos.x $pickup_pos.x $x_correction 
-  SUB $pickup_pos.y $pickup_pos.y $y_correction
-  SUB $pickup_pos_z0.x $pickup_pos_z0.x $x_correction
-  SUB $pickup_pos_z0.y $pickup_pos_z0.y $y_correction
-  #Rotation + 90 degrees
-  ADD $total_rot $target_rot 90
-  GOTO $RET
-
 ====================================
 Measuring $d_picker using the gantry
 - Souvik, 9/21/2021
@@ -107,10 +73,10 @@ TL: {,,}
 
 
 -----------------------------------------------
-Measuring Red Chip thickness
-z1 = 88.326
-z2 = 89.081
-t = 755 um
+Measuring Red Chip dimensions. 1/24/2022
+Width:  (633.426,193.861,88.302) --> (621.900,193.688,88.307) = 11.527 mm
+Length: (621.900,193.688,88.307) --> (621.601,213.736,88.307) = 20.050 mm
+Thickness: 89.081 - 88.326 = 755 um 
 ----------------------------------------------
 Thickness of glass slides = 470 um
 ----------------------------------------------
