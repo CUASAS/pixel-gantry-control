@@ -105,11 +105,17 @@ geometry.PICKER_TOOL.center_offset: {0,0,44.5} #larger number  increases separat
 #geometry.PICKER_TOOL.center_offset: {0,0,47.26} #Small Suction Cups
 #geometry.PICKER_TOOL.center_offset: {0,0,54.00} #Medium Suction Cups
 #geometry.PICKER_TOOL.center_offset: {0,0,53.45}  #Large Suction Cups
+geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
 geometry.tool_holder_offset: {0.482,-102.362,-43.72}
 #geometry.tool_holder_offset: {-0.321,-101.432,-43.72}
+
+geometry.TFPX_QUARTERGLASS.fid_tr:{5.930,-10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_br:{5.930,10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_bl:{-5.930,10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_tl:{-5.930,-10.022,0}
 
 geometry.TFPX_RD53ASENSORROC.fid_tr: {12.0,-20.5,0}
 geometry.TFPX_RD53ASENSORROC.fid_br: {12.0,20.5,0}
@@ -121,6 +127,10 @@ geometry.TFPX_RD53AHDI.fid_br: {9.841,19.8415,0}
 geometry.TFPX_RD53AHDI.fid_bl: {-9.841,19.8415,0}
 geometry.TFPX_RD53AHDI.fid_tl: {-9.841,-19.8415,0}
 
+geometry.TFPX_RD53AGLASSDIM: {20.044,11.859, 0} #(length, width)
+
+#Z correction for the surveillence from purdue
+siteGeometry.correctForZ: -0.542
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
@@ -172,32 +182,45 @@ vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalWidth: 0.574219
 vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.nominalHeight:0.612971
 vision.FPIX_MOCK_HDI_TOP_LEFT_PAD.tolerance: 0.24
 
-#
+# Site Geometry
+# These are geometrical parameters, like the positions of chucks, specific to a site
+#Positions of HDI on Chuck 2
 siteGeometry.pos_chuck2_tr: {611.405658,529.223939,69.410398}
 siteGeometry.pos_chuck2_br: {611.604957,568.212558,69.235410}
 siteGeometry.pos_chuck2_bl: {591.915651,569.014745,69.420410}
 siteGeometry.pos_chuck2_tl: {591.718703,529.324191,69.325398}
 
-
+#Positions of SensorROC on Launch (Phase I launchpad)
 #Chuck 4 Slot 4
 siteGeometry.pos_senRoc_launch_tl: {711.725926,212.454066,62.521772}   
 siteGeometry.pos_senRoc_launch_br: {735.274014,253.590323,62.521772}
 siteGeometry.pos_senRoc_launch_bl: {711.662899,253.547910,62.521772}
 siteGeometry.pos_senRoc_launch_tr: {735.333300,212.502835,62.521772}
 
+#Positions of the HDI on Chuck 1
 siteGeometry.pos_chuck1_tr: {561.153536,528.698241,62.102025}
 siteGeometry.pos_chuck1_br: {561.762922,568.389308,62.102024}
 siteGeometry.pos_chuck1_bl: {542.085604,568.684087,62.102025}
 siteGeometry.pos_chuck1_tl: {541.474903,528.999977,62.032023}
 
+#Positions of SensorRoc on Chuck 1
 siteGeometry.pos_senRoc1_tr: {561.991920,528.490580,62.291772}
 siteGeometry.pos_senRoc1_br: {562.267060,569.628674,62.291772}
 siteGeometry.pos_senRoc1_bl: {538.653552,569.781342,62.291772}
 siteGeometry.pos_senRoc1_tl: {538.369876,528.657561,62.291772}
 
+#Positions of the Top Right corners of the 4 glass slides on Launch
+#measure them now
+siteGeometry.pos_TRsenRoc_launch_tr: {735.351397,212.149743,62.521772}
+siteGeometry.pos_BRsenRoc_launch_tr: {735.397710,232.320420,62.521772}
+siteGeometry.pos_BLsenRoc_launch_tr: {723.571069,232.210150,62.521771}
+siteGeometry.pos_TLsenRoc_launch_tr: {723.507602,212.044947,62.396772}
+
+#HDI pick and place translation vector and rotation angle
 siteGeometry.v_hdi_translation: {-50.16,0.08749,-7.266}
 siteGeometry.rot_hdi_translation: -0.02222
 
+#SensorROC translation correctional terms
 siteGeometry.v_senRoc_error: {0.,0.,0.}#{-0.003,0.007,0}
 siteGeometry.rot_senRoc_error: 0.      #-0.007
 
