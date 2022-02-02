@@ -441,16 +441,8 @@ END
 @CALCPICKUP_4SENSORS(target_pos,target_rot)
   FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
   FLEXREAD $ghco geometry.tool_holder_offset
-  FLEXREAD $center2topSuction geometry.PICKER_TOOL.center_to_suction
   ADD $netoffset $picker_height $ghco
   SUB $pickup_pos $target_pos $netoffset
-  # X & Y Correction
-  SIN $sin_theta $target_rot
-  COS $cos_theta $target_rot
-  MUL $x_correction $center2topSuction.y $sin_theta
-  MUL $y_correction $center2topSuction.y $cos_theta
-  SUB $pickup_pos.x $pickup_pos.x $x_correction
-  ADD $pickup_pos.y $pickup_pos.y $y_correction
   COPY $pickup_pos_z0 $pickup_pos
   COPY $pickup_pos_z0.z 0
   RETURN $pickup_pos $pickup_pos_z0
