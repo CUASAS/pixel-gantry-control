@@ -92,12 +92,13 @@ geometry.TFPX_QUARTERGLASS.fid_tr: {5.930,-10.022,0}
 geometry.TFPX_QUARTERGLASS.fid_br: {5.930,10.022,0}
 geometry.TFPX_QUARTERGLASS.fid_bl: {-5.930,10.022,0}
 geometry.TFPX_QUARTERGLASS.fid_tl: {-5.930,-10.022,0}
+geometry.TFPX_QUARTERGLASS.thickness: 0.470
 
 geometry.TFPX_RD53AROC.fid_tr: {5.7635,-10.025,0}
 geometry.TFPX_RD53AROC.fid_br: {5.7635,10.025,0}
 geometry.TFPX_RD53AROC.fid_bl: {-5.7635,10.025,0}
 geometry.TFPX_RD53AROC.fid_tl: {-5.7635,-10.025,0}
-geometry.TFPX_RD53AROC.thickness: 0.770
+geometry.TFPX_RD53AROC.thickness: 0.755
 
 geometry.TFPX_RD53AHDI.fid_tr: {9.841,-19.8415,0}
 geometry.TFPX_RD53AHDI.fid_br: {9.841,19.8415,0}
@@ -107,7 +108,7 @@ geometry.TFPX_RD53AHDI.thickness: 0.241
 geometry.TFPX_RD53AHDI.dim_bondHDI: {9.843,19.711,0}  #(width,length) # Dimensions of the HDI Bond Pads
 geometry.TFPX_RD53AHDI.len_bondpad_HDI: 0.77
 
-geometry.PICKER_TOOL.center_offset: {0,0,55.45} #tiny suction cup (55.5)
+geometry.PICKER_TOOL.center_offset: {0,0,55.4} #tiny suction cup (55.5)
 #geometry.PICKER_TOOL.center_offset: {0,0,56.86} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,58} #middle suction cup -1000um
@@ -122,10 +123,10 @@ geometry.tool_holder_offset: {0.909,-103,-23.5}
 # Site Geometry
 # These are geometrical parameters, like the positions of chucks, specific to a site
  # Positions of HDI on Chuck 2
-siteGeometry.pos_chuck2_tr: {460.391,528.560,100.354}
-siteGeometry.pos_chuck2_br: {460.430,568.240,100.354}
-siteGeometry.pos_chuck2_bl: {440.753,568.246,100.364}
-siteGeometry.pos_chuck2_tl: {440.705,528.560,100.364}
+siteGeometry.pos_chuck2_tr: {460.304953,528.517400,100.369}
+siteGeometry.pos_chuck2_br: {460.527474,568.197413,100.389}
+siteGeometry.pos_chuck2_bl: {440.848422,568.299221,100.384}
+siteGeometry.pos_chuck2_tl: {440.625658,528.618232,100.319}
 
  # Positions of senRoc on Launch 1
 siteGeometry.pos_senRoc_launch_tr: {572.742,199.531,87.882}
@@ -171,10 +172,10 @@ siteGeometry.rot_ROC_error: 0
 
  # Fine correction for the ROCs to align bond pads with HDI bond pads
  ### DO NOT GO BELOW 0.03 mm ###
-siteGeometry.delta_tr: {0.03,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_br: {0.06,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_bl: {0.06,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_tl: {0.06,0.1,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_tr: {0.1,0.1,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_br: {0.1,0.1,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_bl: {0.1,0.1,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_tl: {0.1,0.1,0} # {length > 0.03,width > 0.03}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
