@@ -17,3 +17,9 @@ Scripts used to assemble an HDI to a Single Large Glass Piece. The Single Glass 
 Scripts used to assemble an HDI to Four Small Glass Pieces. The Small Glass Pieces are substitues for RD53A ROCs that may be individually glued to the HDI.
 
 * **Assembly_RD53A_MultiGlass_twinSucker.gscript.** This script assembles four glass pieces without bond pads to the HDI using the twin sucker tool.
+
+## RD53AAssembly_MultiROC
+
+Scripts used to assemble an HDI to Four RD53A chips.
+
+* **Assembly_RD53A_MultiROC.gscript.** This script assembles four RD53A chips to the HDI using the twin sucker tool.
