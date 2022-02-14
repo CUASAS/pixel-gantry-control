@@ -1,15 +1,15 @@
 VERSION v2.1
-######################## RD53A Multiple ROC Assembly #############################
+######################## RD53A Multiple GLASS Assembly #############################
 # Steps:
 # 1. Prompt placement of HDI on Chuck 2
 # 2. Turn on Chuck 2's vacuum
 # 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
 # 4. Compute would-be position and rotation of HDI on Chuck 1
-# 5. Compute the positions of the centers for all four ROCs
-# 6. Prompt placement of the four ROCs on the launchpad
+# 5. Compute the positions of the centers for all four Glass Slides
+# 6. Prompt placement of the four Glass Slides on the launchpad
 #    i. Is Chuck 1 clear ?
 #    ii. Is the Pickup Tool ready?
-# 7. Survey the four ROCs on the launchpad
+# 7. Survey the four Glass Slides on the launchpad
 # 8. Pick up the ROCs and place them on Chuck 1 at positions computed in Step 5
 # 9. Prompt placement of vacuum tool on HDI on Chuck 2
 # 10. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
@@ -36,7 +36,7 @@ SETVAC rd53a_chuck_3 0
 #SETVAC launchpad2_BR 0
 #SETVAC launchpad2_BL 0
 #SETVAC launchpad2_TL 0
-SETLOG "LOG_Assembly_RD53A_MultiROC_DataGeneration.txt"
+SETLOG "LOG_Assembly_RD53A_MultiGlass_DataGeneration.txt"
 SETERRORMODE prompt
 
 # Rough positions of the HDI on Chuck 2
@@ -45,19 +45,19 @@ FLEXREAD $pos_chuck2_br siteGeometry.pos_chuck2_br
 FLEXREAD $pos_chuck2_bl siteGeometry.pos_chuck2_bl
 FLEXREAD $pos_chuck2_tl siteGeometry.pos_chuck2_tl
 
-# Rough positions of the tr corner of the 4 ROCs on Launchpad 2
-FLEXREAD $pos_TR_ROC_launch2_tr siteGeometry.pos_TR_ROC_launch2_tr
-FLEXREAD $pos_BR_ROC_launch2_tr siteGeometry.pos_BR_ROC_launch2_tr
-FLEXREAD $pos_BL_ROC_launch2_tr siteGeometry.pos_BL_ROC_launch2_tr
-FLEXREAD $pos_TL_ROC_launch2_tr siteGeometry.pos_TL_ROC_launch2_tr
+# Rough positions of the tr corner of the 4 Glass Slidess on Launchpad 2
+FLEXREAD $pos_TR_ROC_launch2_tr siteGeometry.pos_TRsenRoc_launch_tr
+FLEXREAD $pos_BR_ROC_launch2_tr siteGeometry.pos_BRsenRoc_launch_tr
+FLEXREAD $pos_BL_ROC_launch2_tr siteGeometry.pos_BLsenRoc_launch_tr
+FLEXREAD $pos_TL_ROC_launch2_tr siteGeometry.pos_TLsenRoc_launch_tr
 
-# Dimensions of the HDI and MockROC (bond pads or corners)
-FLEXREAD $thickness_HDI geometry.TFPX_RD53AHDI.thickness
-FLEXREAD $dim_bondHDI geometry.TFPX_RD53AHDI.dim_bondHDI
-MUL $dim_bondHDI $dim_bondHDI {0.5,0.5,1}
-FLEXREAD $len_bondpad_HDI geometry.TFPX_RD53AHDI.len_bondpad_HDI
-FLEXREAD $dim_ROC geometry.TFPX_RD53AROC.fid_br
-FLEXREAD $dim_ROC.z geometry.TFPX_RD53AROC.thickness
+# Dimensions of the HDI and Mock Glass Piece (bond pads or corners)
+ #FLEXREAD $thickness_HDI geometry.TFPX_RD53AHDI.thickness
+ #FLEXREAD $dim_bondHDI geometry.TFPX_RD53AHDI.dim_bondHDI
+ #MUL $dim_bondHDI $dim_bondHDI {0.5,0.5,1}
+ #FLEXREAD $len_bondpad_HDI geometry.TFPX_RD53AHDI.len_bondpad_HDI
+FLEXREAD $dim_ROC geometry.TFPX_QUARTERGLASS.fid_br
+FLEXREAD $dim_ROC.z geometry.TFPX_QUARTERGLASS.thickness
 
 # HDI pick and place translation vector and rotation angle measured independently
 # Correct for the thickness of the ROC
@@ -66,18 +66,18 @@ SUB $v_hdi_translation.z $v_hdi_translation.z $dim_ROC.z
 FLEXREAD $rot_hdi_translation siteGeometry.rot_hdi_translation
 
 # ROC translation correctional terms measured independently
-FLEXREAD $v_ROC_error siteGeometry.v_ROC_error
-FLEXREAD $rot_ROC_error siteGeometry.rot_ROC_error
+FLEXREAD $v_ROC_error siteGeometry.v_senRoc_error
+FLEXREAD $rot_ROC_error siteGeometry.rot_senRoc_error
 
 # ROC dimensions
 MUL $len_ROC $dim_ROC.y 2 #mm
 MUL $wid_ROC $dim_ROC.x 2 #mm
 
 # Parameters that can help line up the bond pads
-FLEXREAD $delta_tr siteGeometry.delta_tr
-FLEXREAD $delta_br siteGeometry.delta_br
-FLEXREAD $delta_bl siteGeometry.delta_bl
-FLEXREAD $delta_tl siteGeometry.delta_tl
+COPY $delta_tr {0.1,0.1,0}
+COPY $delta_br {0.1,0.1,0}
+COPY $delta_bl {0.1,0.1,0}
+COPY $delta_tl {0.1,0.1,0}
 
 
 ## Main Function ##
@@ -133,7 +133,7 @@ END
 MOVESAFE {350,150,0} 100
 
 
-# Step 5. Compute the positions of the centers for all four ROCs
+# Step 5. Compute the positions of the centers for all four Glass Slides
 
 COS $cos_rot_hdi $rot_hdi_withError
 SIN $sin_rot_hdi $rot_hdi_withError
@@ -201,7 +201,7 @@ COPY $pos_TR_ROC_center.z $pos_hdi_center_withError.z
 
 
 # Step 6. Prompt placement of ROC
-@STEP_SIX CHOICEPOPUP $choice "Have you placed the four ROCs on the Launchpad?" "Yes, continue" "No, ask me again"
+@STEP_SIX CHOICEPOPUP $choice "Have you placed the four Glass Slides on the Launchpad?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_SIX $choice
 @STEP_SIX_i CHOICEPOPUP $choice "Is Chuck 1 clear?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_SIX_i $choice
@@ -272,6 +272,9 @@ UNLOADTOOL
 
 MOVESAFE {350,150,0} 100
 
+@HDIPLACEMENT CHOICEPOPUP $choice "Do you want to place the HDI or skip the placement step? (There is no surveillance in this script)" "Continue to HDI placement" "Skip Placement"
+GOTOIFN @STEP_SEVENTEEN_1 $choice
+
 
 # Step 9. Prompt placement of vacuum tool on HDI on Chuck 2
 @STEP_NINE CHOICEPOPUP $choice "Have you placed the Vacuum Tool on the HDI in Chuck 2 such that the fiducials are visible through its viewing holes?" "Yes, continue" "No, ask me again"
@@ -301,6 +304,8 @@ SETVAC rd53a_chuck_3 0
 # Step 14. Prompt replacement of Vacuum Tool on Chuck 3
 @STEP_FOURTEEN CHOICEPOPUP $choice "Did you place the Vacuum Tool on Chuck 3?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_FOURTEEN $choice
+
+GOTO @STEP_SEVENTEEN_1
 
 
 # Step 15. Calculate the placement of the ROC and the HDI
@@ -359,8 +364,8 @@ PRINT "Avg(delta(Y)): %f" $TL_dy
 
 
 # Step 17. End program with vacuums on or off
-CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
-GOTOIF @STEP_SIXTEEN $choice
+@STEP_SEVENTEEN_1 CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
+GOTOIF @STEP_SEVENTEEN_2 $choice
 
 SETVAC gantry_head_inner 0
 SETVAC gantry_head_outer 0
@@ -372,7 +377,7 @@ SETVAC rd53a_chuck_2 0
 SETVAC rd53a_chuck_3 0
 SETVAC launchpad 0
 
-@STEP_SIXTEEN PASS
+@STEP_SEVENTEEN_2 PASS
 
 HOME
 
@@ -429,7 +434,7 @@ END
   CALL @SURVEYCORNERS $tl -> $tl
 
   # Calculate the orientation of the ROC
-  FIT $position $rotation TFPX_RD53AROC $tr $br $bl $tl
+  FIT $position $rotation TFPX_QUARTERGLASS $tr $br $bl $tl
 
   QUAT2EULER $rotation $trash0 $trash1 $rotation
 

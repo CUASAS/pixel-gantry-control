@@ -81,6 +81,12 @@ Thickness: 89.081 - 88.326 = 755 um
 Thickness of glass slides = 470 um
 ----------------------------------------------
 
+Measuring distance between extreme bond pads on HDI and ROC
 
+HDI: (410.540, 528.680) --> (410.633, 548.352) = 19.672
+ROC: (412.290, 548.159) --> (412.199, 528.460) = 19.699
 
+------------------------------
 
+Measuring distance between extreme bond pad and edge of ROC
+(412.285351,547.695240,93.115499) --> (412.286431,547.898585,93.115499) = 
