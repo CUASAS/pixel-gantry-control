@@ -108,6 +108,12 @@ geometry.TFPX_RD53AHDI.thickness: 0.241
 geometry.TFPX_RD53AHDI.dim_bondHDI: {9.843,19.711,0}  #(width,length) # Dimensions of the HDI Bond Pads
 geometry.TFPX_RD53AHDI.len_bondpad_HDI: 0.77
 
+geometry.TFPX_GHCOPIECE.fid_tr: {7.978,-10.975,0}
+geometry.TFPX_GHCOPIECE.fid_br: {7.978,10.975,0}
+geometry.TFPX_GHCOPIECE.fid_bl: {-7.978,10.975,0}
+geometry.TFPX_GHCOPIECE.fid_tl: {-7.978,-10.975,0}
+
+
 geometry.PICKER_TOOL.center_offset: {0,0,55.4} #tiny suction cup (55.5)
 #geometry.PICKER_TOOL.center_offset: {0,0,56.86} #small suction cup
 #geometry.PICKER_TOOL.center_offset: {0,0,59.5} #middle suction cup
@@ -118,7 +124,8 @@ geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to t
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
-geometry.tool_holder_offset: {0.909,-103,-23.5}
+# geometry.tool_holder_offset: {0.909,-103,-23.5}
+geometry.tool_holder_offset: {-0.188,-101.813,-23.5} # After GHCO fine calibration
 
 # Site Geometry
 # These are geometrical parameters, like the positions of chucks, specific to a site
@@ -146,18 +153,6 @@ siteGeometry.pos_BRsenRoc_launch_tr: {654.030,219.431,88.569}
 siteGeometry.pos_BLsenRoc_launch_tr: {633.359,219.069,88.641}
 siteGeometry.pos_TLsenRoc_launch_tr: {633.636,193.902,88.602}
 
- # Positions of the HDI on Chuck 1
-siteGeometry.pos_chuck1_tr: {410.391,528.560,99.619}
-siteGeometry.pos_chuck1_br: {410.430,568.240,99.619}
-siteGeometry.pos_chuck1_bl: {390.753,568.246,99.619}
-siteGeometry.pos_chuck1_tl: {390.705,528.560,99.619}
-
- # Positions of Glass on Chuck 1 (MAY NOT NEED)
-siteGeometry.pos_senRoc1_tr: {412.500,528.000,99.800}
-siteGeometry.pos_senRoc1_br: {412.500,569.000,99.800}
-siteGeometry.pos_senRoc1_bl: {389.000,569.000,99.800}
-siteGeometry.pos_senRoc1_tl: {389.000,528.000,99.800}
-
  # HDI pick and place translation vector and rotation angle
 siteGeometry.v_hdi_translation: {-49.833,0.065,-6.350}
 siteGeometry.rot_hdi_translation: -0.026
@@ -172,10 +167,10 @@ siteGeometry.rot_ROC_error: 0
 
  # Fine correction for the ROCs to align bond pads with HDI bond pads
  ### DO NOT GO BELOW 0.03 mm ###
-siteGeometry.delta_tr: {0.1,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_br: {0.1,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_bl: {0.1,0.1,0} # {length > 0.03,width > 0.03}
-siteGeometry.delta_tl: {0.1,0.1,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_tr: {0.06,0.06,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_br: {0.06,0.06,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_bl: {0.06,0.06,0} # {length > 0.03,width > 0.03}
+siteGeometry.delta_tl: {0.06,0.06,0} # {length > 0.03,width > 0.03}
 
 #================================================
 #====== Vision/Pattern Recognition parameters
@@ -228,8 +223,8 @@ graph_motion.pos.stagingArea: {590,337,0}
 graph_motion.pos.standAside: {350,150,0}
 
 # must be 2mm above tool in z
-graph_motion.pos.tool_rack_pos_2_in:  {602.638,17.164,38.708}
-graph_motion.pos.tool_rack_pos_2_out: {602.638,117.164,38.708}
+graph_motion.pos.tool_rack_pos_2_in:  {603.2,16.8,38.708} # {602.638,17.164,38.708}
+graph_motion.pos.tool_rack_pos_2_out: {603.2,116.8,38.708} # {602.638,117.164,38.708}
 
 #graph_motion.edge.LABEL1.LABEL2 True/False
 graph_motion.edge.home.tool_rack_pos_2_out: False

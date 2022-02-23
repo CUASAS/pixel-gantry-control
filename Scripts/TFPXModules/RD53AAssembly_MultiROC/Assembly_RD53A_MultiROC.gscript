@@ -88,10 +88,12 @@ GOTOIFN @STEP_ONE $choice
 
 
 # Step 2. Turn on Chuck 2's vacuum
+@STEP_TWO PASS
 SETVAC rd53a_chuck_2 1
 
 
 # Step 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
+@STEP_THREE PASS
 MOVESAFE $pos_chuck2_tr 100
 @HDI_0 CHOICEPOPUP $choice "Ready to find the top-right corner of the Top Right bond pad?" "Yes" "No"
 GOTOIFN @HDI_0 $choice
@@ -111,6 +113,7 @@ CALL @SURVEYCORNERS $pos_chuck2_tl -> $pos_chuck2_tl
 
 
 # Step 4. Compute would-be position and rotation of the HDI on Chuck 1
+@STEP_FOUR PASS
 FIT $pos_hdi_center $rot_hdi TFPX_RD53AHDI $pos_chuck2_tr $pos_chuck2_br $pos_chuck2_bl $pos_chuck2_tl
 
 ADD $pos_hdi_center $pos_hdi_center $v_hdi_translation
@@ -134,6 +137,7 @@ MOVESAFE {350,150,0} 100
 
 
 # Step 5. Compute the positions of the centers for all four ROCs
+@STEP_FIVE PASS
 
 COS $cos_rot_hdi $rot_hdi_withError
 SIN $sin_rot_hdi $rot_hdi_withError
@@ -162,7 +166,7 @@ MUL $half_wid_sin_br $half_wid_ROC_br $sin_rot_hdi
 MUL $half_len_sin_br $half_len_ROC_br $sin_rot_hdi
 MUL $half_wid_cos_br $half_wid_ROC_br $cos_rot_hdi
 
-SUB $delta_x $half_wid_cos_tr $half_len_sin_br
+SUB $delta_x $half_wid_cos_br $half_len_sin_br
 ADD $delta_y $half_len_cos_br $half_wid_sin_br
 ADD $pos_BR_ROC_center $pos_hdi_center_withError.x $delta_x
 ADD $pos_BR_ROC_center.y $pos_hdi_center_withError.y $delta_y
@@ -210,6 +214,7 @@ GOTOIFN @STEP_SIX_ii $choice
 
 
 # Step 7. Survey the ROC
+@STEP_SEVEN PASS
   #TR ROC
 CALL @FINDROCCENTERS $pos_TR_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_TR_ROC_launch2 $rot_TR_ROC_launch2
 
@@ -224,6 +229,7 @@ CALL @FINDROCCENTERS $pos_TL_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_TL_ROC_lau
 
 
 # Step 8. Pick up the ROCs and place them on Chuck 1 at positions computed in Step 5
+@STEP_EIGHT PASS
 LOADTOOL picker_tool
 MOVENAME stagingArea
 
@@ -279,6 +285,7 @@ GOTOIFN @STEP_NINE $choice
 
 
 # Step 10. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
+@STEP_TEN PASS
 SETVAC rd53a_chuck_3 1
 WAIT 1000
 SETVAC rd53a_chuck_2 0
@@ -295,6 +302,7 @@ GOTOIFN @STEP_TWELVE $choice
 
 
 # Step 13. Release vacuum of Vacuum Tool
+@STEP_THIRTEEN PASS
 SETVAC rd53a_chuck_3 0
 
 
@@ -304,6 +312,7 @@ GOTOIFN @STEP_FOURTEEN $choice
 
 
 # Step 15. Calculate the placement of the ROC and the HDI
+@STEP_FIFTEEN PASS
   #ROC
 CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_ROC -> $pos_TR_ROC_center $pos_BR_ROC_center $pos_BL_ROC_center $pos_TL_ROC_center
 CALL @CALCCORNERS $pos_TR_ROC_center $rot_hdi_withError $dim_ROC -> $pos_TR_ROC_tr $pos_TR_ROC_br $trash_bl $trash_tl
@@ -321,6 +330,7 @@ CALL @CALCCORNERS $pos_TLchuck1_center $rot_hdi_withError $dim_bondHDI -> $trash
 
 
 # Step 16. Move gantry head to Chuck 1 and survey for Module accuracy
+@STEP_SIXTEEN PASS
 @ACC_0 CHOICEPOPUP $choice "Ready to survey the Top Right ROC's accuracy?"
 GOTOIFN @ACC_0 $choice
 CALL @QUARTERSURVEILLENCE $pos_TRchuck1_tr $pos_TRchuck1_br $pos_TR_ROC_tr $pos_TR_ROC_br -1 -> $TR_dx $TR_dy
@@ -359,8 +369,9 @@ PRINT "Avg(delta(Y)): %f" $TL_dy
 
 
 # Step 17. End program with vacuums on or off
+@STEP_SEVENTEEN PASS
 CHOICEPOPUP $choice "Do you want to leave the vacuums on?" "Yes, Leave them on" "No, Turn them off"
-GOTOIF @STEP_SIXTEEN $choice
+GOTOIF @STEP_END $choice
 
 SETVAC gantry_head_inner 0
 SETVAC gantry_head_outer 0
@@ -372,9 +383,7 @@ SETVAC rd53a_chuck_2 0
 SETVAC rd53a_chuck_3 0
 SETVAC launchpad 0
 
-@STEP_SIXTEEN PASS
-
-HOME
+@STEP_END HOME
 
 END
 
@@ -692,6 +701,13 @@ END
   POW $b_min_y_2 $b_min_y 2
   ADD $delta_y_2 $a_min_x_2 $b_min_y_2
   POW $delta_y $delta_y_2 0.5
+
+  ABS $abs_b_min_y $b_min_y
+  INVERT $abs_b_min_y $abs_b_min_y
+  MUL $sign_b_min_y $b_min_y $abs_b_min_y
+  MUL $delta_y $sign_b_min_y $delta_y
+
+  PRINT "Delta y: %f" $delta_y
 
   POW $e_min_x_2 $e_min_x 2
   POW $f_min_y_2 $f_min_y 2
