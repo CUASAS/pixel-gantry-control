@@ -412,6 +412,37 @@ Creates a popup offering the user two options. Typically used to ask the user a 
   - `yeslabel`: **Optional** Label for the "yes" button, Default: "Yes"
   - `nolabel`: **Optional** Label for the "no" button, Default: "No"
 
+
+#### `GETINTPOPUP`
+
+Creates a popup asking the user to supply a single integer value.
+
+*Format:* `GETINTPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a number"
+
+
+#### `GETFLOATPOPUP`
+
+Creates a popup asking the user to supply a single float value.
+
+*Format:* `GETFLOATPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a number"
+
+
+#### `GETVECPOPUP`
+
+Creates a popup asking the user to supply a 3d vector
+
+*Format:* `GETVECPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a vector"
+
+
 #### `SETLOG`
 
 Specifies the log file to use for the session.
