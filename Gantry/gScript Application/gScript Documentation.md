@@ -148,7 +148,8 @@ Used to print to the console on the bottom of the UI. The arguments are any read
 | %f | Equivalent to the `printf` format string `%0.3f`                  |
 | %d | Equivalent to the `printf` format string `%d`                     |
 | %v | Formats the value as a vector. `{x,y,z}`                          |
-| %r | Formats the value as a rotation. `{x,y,z,w}`                      |
+| %q | Formats the value as a quaternion. `{x,y,z,w}`                    |
+| %r | Converts a quaternion to a rotation in x-y plane.                 |
 | %b | Evaluates argument as a boolean. Becomes either `True` or `False` |
 
 *Format:* `PRINT format arg1 arg2 argn`
