@@ -3,6 +3,8 @@ LOADCONFIG
 SETLOG Gluing_Manual_GM0117.txt
 SETERRORMODE prompt
 CLEARLOG
+SETVAC purdue_mechanics_left 0
+SETVAC module_chuck4_slot4 0
 HOME
 COPY $speed 100
 COPY $fid_speed 100
@@ -10,24 +12,28 @@ COPY $fid_wait 500
 COPY $rspeed 10
 COPY $img_idx 0
 COPY $counter 0
-
+WAIT 5000 
 # PH1 Chuck4 slot4
-COPY $start_tr {735.539948,212.751750,62.550400}
-COPY $start_br {735.602102,255.951252,62.550400}
-COPY $start_bl {718.388790,255.974586,62.550400}
-COPY $start_tl {718.330122,212.776263,62.550400}
+COPY $start_tr {730.545614,212.750407,62.620389}
+COPY $start_br {730.779170,255.948207,62.600394}
+COPY $start_bl {713.558069,256.039070,62.550399}
+COPY $start_tl {713.332186,212.836984,62.550400}
 
 FIT $start_pos $start_rot TFPX_1X2_MOCKUP $start_tr $start_br $start_bl $start_tl
 
 PRINT "STARTPOS|ROT %v %v" $start_pos $start_rot
 
 # PM LEFT
-COPY $end_tr {267.336048,524.031112,67.987200}
-COPY $end_br {266.866944,567.225941,68.032800}
-COPY $end_bl {249.663776,567.040392,68.032800}
-COPY $end_tl {250.131837,523.842029,68.032801}
+#COPY $end_tr {267.336048,524.031112,67.987200}
+#COPY $end_br {266.866944,567.225941,68.032800}
+#COPY $end_bl {249.663776,567.040392,68.032800}
+#COPY $end_tl {250.131837,523.842029,68.032801}
 
-FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
+# PM LEFT
+COPY $end_pos {258.885479,550.376843,68.224395} #HDI Centroid
+COPY $end_rot -0.157144 #Degrees
+
+#FIT $end_pos $end_rot TFPX_1X2_MOCKUP $end_tr $end_br $end_bl $end_tl
 
 PRINT "ENDPOS|ROT %v %v" $end_pos $end_rot
 
@@ -61,6 +67,7 @@ MOVETO $pickup_pos_z0 $speed
 
 ROTATE $start_rot $rspeed
 MOVETO $pickup_pos 10
+WAIT $fid_wait
 SETVAC gantry_head_inner 1
 #WAIT $fid_wait 
 SETVAC module_chuck4_slot4 0
@@ -81,42 +88,44 @@ SETVAC purdue_mechanics_left 1
 SETVAC gantry_head_inner 0
 WAIT $fid_wait
 MOVETO $pickup_pos_z0 10
-INVERT $end_rot_ $end_rot
-ROTATE $end_rot_ $rspeed
+#INVERT $end_rot_ $end_rot
+#ROTATE $end_rot_ $rspeed
 
 UNLOADTOOL
 
-COPY $pos $end_pos
-COPY $rot $end_rot
-CALL @SURVEY -> $meas_pos $meas_rot $tr_meas $br_meas $bl_meas $tl_meas
+#COPY $pos $end_pos
+#COPY $rot $end_rot
+#CALL @SURVEY -> $meas_pos $meas_rot $tr_meas $br_meas $bl_meas $tl_meas
 
-PRINT "MEAS_POS for END_POS %v" $meas_pos
+#PRINT "MEAS_POS for END_POS %v" $meas_pos
 
-SUB $delta $meas_pos $end_pos
-SUB $delta_tl $end_tl $tl_meas
-SUB $delta_tr $end_tr $tr_meas
-SUB $delta_bl $end_bl $bl_meas 
-SUB $delta_br $end_br $br_meas
-PRINT "%d Misplacement: %v" $counter $delta
-PRINT "    delta_tl:    %v " $delta_tl
-PRINT "    delta_tr:    %v " $delta_tr
-PRINT "    delta_bl:    %v " $delta_bl
-PRINT "    delta_br:    %v " $delta_br
-INVERT $neg_meas_rot $meas_rot
-COMPOSE $delta_theta $end_rot $neg_meas_rot
-PRINT "Misplacement Angle: %r" $delta_theta
+#SUB $delta $meas_pos $end_pos
+#SUB $delta_tl $end_tl $tl_meas
+#SUB $delta_tr $end_tr $tr_meas
+#SUB $delta_bl $end_bl $bl_meas 
+#SUB $delta_br $end_br $br_meas
+#PRINT "%d Misplacement: %v" $counter $delta
+#PRINT "    delta_tl:    %v " $delta_tl
+#PRINT "    delta_tr:    %v " $delta_tr
+#PRINT "    delta_bl:    %v " $delta_bl
+#PRINT "    delta_br:    %v " $delta_br
+#INVERT $neg_meas_rot $meas_rot
+#COMPOSE $delta_theta $end_rot $neg_meas_rot
+#PRINT "Misplacement Angle: %r" $delta_theta
 
-MOVEREL {0,0,-60} $speed
-SETVAC purdue_mechanics_left 0
+#MOVEREL {0,0,-60} $speed
+#SETVAC purdue_mechanics_left 0
 
 CHOICEPOPUP $choice "Move piece back to launchpad or quit" "I moved it" "Quit" 
 #COPY $start_pos $meas_pos #Update start_pos so not to move the glass heater
+SETVAC purdue_mechanics_left 0
+SETVAC 
 GOTOIF @PROCESS_START $choice
 
 END
 
 @PROCESS_START 
-    SETVAC purdue_mechanics_left 1
+    SETVAC  module_chuck4_slot4 1
     RETURN
 # SURVEY
 # Arguments:
