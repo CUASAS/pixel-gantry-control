@@ -620,7 +620,11 @@ Clears all axis faults and (re-)enables all exes.
 
 Fetches an image from the specified camera. If filename is specified, the image is saved to that location. Otherwise, a pop-up window will display the image until dismissed.
 
-*Format:* `SNAPSHOT cam_name filename`
+*Format:* `SNAPSHOT cam_name filename crosshair`
+
+  - `cam_nam` **Optional:** Name of camera to acquire an image from
+  - `filename` **Optional:** Filename to save the image to within the `Logs\` folder. Only `.png` format is supported.
+  - `crosshair` **Optional:** If the literal string "crosshair" is present, a red crosshair is superimposed on the image.
 
 #### `VIDEO`
 
