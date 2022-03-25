@@ -1,0 +1,6 @@
+LOADCONFIG
+HOME
+MOVENAME stagingArea
+LOADTOOL picker_tool
+MOVENAME stagingArea
+UNLOADTOOL

@@ -1,0 +1,45 @@
+#ETROC top: {802.270841,451.694288,75.999994}
+#ETROC bottom: {802.271397,471.174998,76.009992}
+
+#Module PCB top: {803.691373,451.953533,76.300000}
+#Module PCB bottom: {803.691393,471.425520,76.300000}
+#n = 91 for both
+
+COPY $ETROC_t {756.401873,453.164216,66.782942} 
+COPY $ETROC_b {756.401887,472.648213,66.717988}
+
+COPY $PCB_t {755.001879,453.072205,67.102989} 
+COPY $PCB_b {755.001877,472.548217,67.102987}
+
+COPY $n 90
+
+SUB $dETROC $ETROC_t $ETROC_b
+SUB $dPCB $PCB_t $PCB_b
+
+COPY $E_step `$dETROC.y/$n`
+COPY $P_step `$dPCB.y/$n`
+
+
+#START OF PROCEDURE#
+COPY $minus -1
+COPY $step `$P_step*$minus`
+COPY $start $PCB_t
+COPY $counter 0
+
+MOVETO $start
+@LOOP
+    
+    COPY $dist `$step*$counter`
+    ADD $pos $start {0,$dist,0}
+    MOVETO $pos 10
+    WAIT 500
+    #VIDEO
+    SNAPSHOT gantryhead "PCB_{$counter}.png"
+    COPY $dist 0
+
+    ADD $counter $counter 1
+    SUB $check $n $counter
+    ADD $check $check 1
+    GOTOIF @LOOP $check
+
+END
