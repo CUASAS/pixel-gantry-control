@@ -56,8 +56,8 @@ FLEXREAD $thickness_HDI geometry.TFPX_RD53AHDI.thickness
 FLEXREAD $dim_bondHDI geometry.TFPX_RD53AHDI.dim_bondHDI
 MUL $dim_bondHDI $dim_bondHDI {0.5,0.5,1}
 FLEXREAD $len_bondpad_HDI geometry.TFPX_RD53AHDI.len_bondpad_HDI
-FLEXREAD $dim_ROC geometry.TFPX_RD53AROC.fid_br
-FLEXREAD $dim_ROC.z geometry.TFPX_RD53AROC.thickness
+FLEXREAD $dim_ROC geometry.TFPX_RD53AQUARTERROC.fid_br
+FLEXREAD $dim_ROC.z geometry.TFPX_RD53AQUARTERROC.thickness
 
 # HDI pick and place translation vector and rotation angle measured independently
 # Correct for the thickness of the ROC
@@ -335,32 +335,32 @@ CALL @CALCCORNERS $pos_TLchuck1_center $rot_hdi_withError $dim_bondHDI -> $trash
 GOTOIFN @ACC_0 $choice
 CALL @QUARTERSURVEILLENCE $pos_TRchuck1_tr $pos_TRchuck1_br $pos_TR_ROC_tr $pos_TR_ROC_br -1 -> $TR_dx $TR_dy
 
-@ACC_1 CHOICEPOPUP $choice "Ready to survey the Bottom Right ROC's accuracy?"
-GOTOIFN @ACC_1 $choice
-CALL @QUARTERSURVEILLENCE $pos_BRchuck1_tr $pos_BRchuck1_br $pos_BR_ROC_tr $pos_BR_ROC_br -1 -> $BR_dx $BR_dy
-
-@ACC_2 CHOICEPOPUP $choice "Ready to survey the Bottom Left ROC's accuracy?"
-GOTOIFN @ACC_2 $choice
-CALL @QUARTERSURVEILLENCE $pos_BLchuck1_tl $pos_BLchuck1_bl $pos_BL_ROC_tl $pos_BL_ROC_bl +1 -> $BL_dx $BL_dy
-
-@ACC_3 CHOICEPOPUP $choice "Ready to survey the Top Left ROC's accuracy?"
-GOTOIFN @ACC_3 $choice
-CALL @QUARTERSURVEILLENCE $pos_TLchuck1_tl $pos_TLchuck1_bl $pos_TL_ROC_tl $pos_TL_ROC_bl +1 -> $TL_dx $TL_dy
-
 PRINT "---------------------"
 PRINT "Top Right"
 PRINT "Delta(delta(X)): %f" $TR_dx
 PRINT "Avg(delta(Y)): %f" $TR_dy
+
+@ACC_1 CHOICEPOPUP $choice "Ready to survey the Bottom Right ROC's accuracy?"
+GOTOIFN @ACC_1 $choice
+CALL @QUARTERSURVEILLENCE $pos_BRchuck1_tr $pos_BRchuck1_br $pos_BR_ROC_tr $pos_BR_ROC_br -1 -> $BR_dx $BR_dy
 
 PRINT "---------------------"
 PRINT "Bottom Right"
 PRINT "Delta(delta(X)): %f" $BR_dx
 PRINT "Avg(delta(Y)): %f" $BR_dy
 
+@ACC_2 CHOICEPOPUP $choice "Ready to survey the Bottom Left ROC's accuracy?"
+GOTOIFN @ACC_2 $choice
+CALL @QUARTERSURVEILLENCE $pos_BLchuck1_tl $pos_BLchuck1_bl $pos_BL_ROC_tl $pos_BL_ROC_bl +1 -> $BL_dx $BL_dy
+
 PRINT "---------------------"
 PRINT "Bottom Left"
 PRINT "Delta(delta(X)): %f" $BL_dx
 PRINT "Avg(delta(Y)): %f" $BL_dy
+
+@ACC_3 CHOICEPOPUP $choice "Ready to survey the Top Left ROC's accuracy?"
+GOTOIFN @ACC_3 $choice
+CALL @QUARTERSURVEILLENCE $pos_TLchuck1_tl $pos_TLchuck1_bl $pos_TL_ROC_tl $pos_TL_ROC_bl +1 -> $TL_dx $TL_dy
 
 PRINT "---------------------"
 PRINT "Top Left"
@@ -438,7 +438,7 @@ END
   CALL @SURVEYCORNERS $tl -> $tl
 
   # Calculate the orientation of the ROC
-  FIT $position $rotation TFPX_RD53AROC $tr $br $bl $tl
+  FIT $position $rotation TFPX_RD53AQUARTERROC $tr $br $bl $tl
 
   QUAT2EULER $rotation $trash0 $trash1 $rotation
 
@@ -679,7 +679,7 @@ END
   ADD $top_oneTwo $top_one $top_two
   ADD $top $top_oneTwo $e
 
-  #Calculating denomenator for x
+  #Calculating denominator for x
   ADD $bottom $slope_2 1
   INVERT $bottom $bottom
 
