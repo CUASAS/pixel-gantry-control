@@ -13,7 +13,7 @@ light.gantryhead.hardware_address: Y.0
 # light.gantryhead.control: minidaq
 # light.gantryhead.hardware_address: cDAQ1Mod2/ao0
 
-dispenser.hardware_address: cDAQ1Mod1/port0/line30
+# dispenser.hardware_address: cDAQ1Mod1/port0/line30
 
 vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
@@ -68,6 +68,8 @@ manifold.port.26: cDAQ1Mod1/port0/line26
 manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
+manifold.port.30: cDAQ1Mod1/port0/line30
+manifold.port.31: cDAQ1Mod1/port0/line31
 
 motion.travel_speed: 100  # mm/s
 
@@ -213,8 +215,8 @@ geometry.stamp_2.center_rotation: -.0296 #deg
 
 vision.debug_enable: False
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
-vision.autofocus.step_size: 0.01 # mm
-vision.autofocus.delay: 500 # ms
+vision.autofocus.step_size: 0.05 # mm
+vision.autofocus.delay: 250 # ms
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrinkFactor: 4
