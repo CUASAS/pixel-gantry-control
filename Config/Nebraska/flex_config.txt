@@ -17,24 +17,24 @@ light.gantryhead.hardware_address: Y.0
 
 vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
-vacuum.module_chuck_0_slot_1: 1
-vacuum.module_chuck_0_slot_2: 2
-vacuum.etl_chuck_1: 5
-vacuum.etl_chuck_2: 3
-vacuum.etl_chuck_3: 8
-vacuum.etl_chuck_4_pos_1: 9
-vacuum.etl_chuck_4_pos_2: 6
-vacuum.etl_chuck_4_pos_3: 7
-vacuum.etl_chuck_4_pos_4: 4
-vacuum.gelpak_release: 0
+vacuum.module_chuck_0_slot_1: 4
+# vacuum.module_chuck_0_slot_2: 
+vacuum.etl_chuck_1: 7
+# vacuum.etl_chuck_2: 
+# vacuum.etl_chuck_3: 
+# vacuum.etl_chuck_4_pos_1: 
+# vacuum.etl_chuck_4_pos_2: 
+# vacuum.etl_chuck_4_pos_3: 
+# vacuum.etl_chuck_4_pos_4: 
+# vacuum.gelpak_release: 
 
-vacuum.rd53a_chuck_1_TR: 10 # top right
-vacuum.rd53a_chuck_1_BR: 11 # bottom right
-vacuum.rd53a_chuck_1_TL: 12 # top left
-vacuum.rd53a_chuck_1_BL: 13 # bottom left
-vacuum.rd53a_chuck_2: 1
-vacuum.rd53a_chuck_3: 2
-vacuum.launchpad: 5
+vacuum.rd53a_chuck_1_TR: 2 # top right
+vacuum.rd53a_chuck_1_BR: 3 # bottom right
+vacuum.rd53a_chuck_1_TL: 1 # top left
+vacuum.rd53a_chuck_1_BL: 0 # bottom left
+vacuum.rd53a_chuck_2: 5
+vacuum.rd53a_chuck_3: 6
+vacuum.launchpad: 4
 
 
 manifold.reset_on_start: false
