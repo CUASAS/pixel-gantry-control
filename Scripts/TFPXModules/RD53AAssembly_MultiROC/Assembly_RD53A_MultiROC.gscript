@@ -205,8 +205,10 @@ COPY $pos_TR_ROC_center.z $pos_hdi_center_withError.z
 
 
 # Step 6. Prompt placement of ROC
+SETVAC gelpak_release 1
 @STEP_SIX CHOICEPOPUP $choice "Have you placed the four ROCs on the Launchpad?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_SIX $choice
+SETVAC gelpak_release 0
 @STEP_SIX_i CHOICEPOPUP $choice "Is Chuck 1 clear?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_SIX_i $choice
 @STEP_SIX_ii CHOICEPOPUP $choice "Is the Pickup Tool ready?" "Yes, continue" "No, ask me again"
