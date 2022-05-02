@@ -4,5 +4,5 @@ COPY $speed 50 # speed for most motions
 #MPGON
 
 COPY $focus_range .1 # mm
-AUTOFOCUS $_ $focus_range
+AUTOFOCUS $_ $focus_range 0.9
 VIDEO "gantryhead"

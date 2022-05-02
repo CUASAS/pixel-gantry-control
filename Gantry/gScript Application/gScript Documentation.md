@@ -148,7 +148,8 @@ Used to print to the console on the bottom of the UI. The arguments are any read
 | %f | Equivalent to the `printf` format string `%0.3f`                  |
 | %d | Equivalent to the `printf` format string `%d`                     |
 | %v | Formats the value as a vector. `{x,y,z}`                          |
-| %r | Formats the value as a rotation. `{x,y,z,w}`                      |
+| %q | Formats the value as a quaternion. `{x,y,z,w}`                    |
+| %r | Converts a quaternion to a rotation in x-y plane.                 |
 | %b | Evaluates argument as a boolean. Becomes either `True` or `False` |
 
 *Format:* `PRINT format arg1 arg2 argn`
@@ -412,6 +413,37 @@ Creates a popup offering the user two options. Typically used to ask the user a 
   - `yeslabel`: **Optional** Label for the "yes" button, Default: "Yes"
   - `nolabel`: **Optional** Label for the "no" button, Default: "No"
 
+
+#### `GETINTPOPUP`
+
+Creates a popup asking the user to supply a single integer value.
+
+*Format:* `GETINTPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a number"
+
+
+#### `GETFLOATPOPUP`
+
+Creates a popup asking the user to supply a single float value.
+
+*Format:* `GETFLOATPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a number"
+
+
+#### `GETVECPOPUP`
+
+Creates a popup asking the user to supply a 3d vector
+
+*Format:* `GETVECPOPUP value prompt`
+
+  - `value`: Writable location to store the user's input
+  - `prompt`: The text to be displayed to the user, default is "Please provide a vector"
+
+
 #### `SETLOG`
 
 Specifies the log file to use for the session.
@@ -588,7 +620,11 @@ Clears all axis faults and (re-)enables all exes.
 
 Fetches an image from the specified camera. If filename is specified, the image is saved to that location. Otherwise, a pop-up window will display the image until dismissed.
 
-*Format:* `SNAPSHOT cam_name filename`
+*Format:* `SNAPSHOT cam_name filename crosshair`
+
+  - `cam_nam` **Optional:** Name of camera to acquire an image from
+  - `filename` **Optional:** Filename to save the image to within the `Logs\` folder. Only `.png` format is supported.
+  - `crosshair` **Optional:** If the literal string "crosshair" is present, a red crosshair is superimposed on the image.
 
 #### `VIDEO`
 

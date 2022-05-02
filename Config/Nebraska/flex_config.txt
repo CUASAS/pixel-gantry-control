@@ -13,28 +13,28 @@ light.gantryhead.hardware_address: Y.0
 # light.gantryhead.control: minidaq
 # light.gantryhead.hardware_address: cDAQ1Mod2/ao0
 
-dispenser.hardware_address: cDAQ1Mod1/port0/line30
+# dispenser.hardware_address: cDAQ1Mod1/port0/line30
 
 vacuum.gantry_head_outer: 14
 vacuum.gantry_head_inner: 15
-vacuum.module_chuck_0_slot_1: 1
-vacuum.module_chuck_0_slot_2: 2
-vacuum.etl_chuck_1: 5
-vacuum.etl_chuck_2: 3
-vacuum.etl_chuck_3: 8
-vacuum.etl_chuck_4_pos_1: 9
-vacuum.etl_chuck_4_pos_2: 6
-vacuum.etl_chuck_4_pos_3: 7
-vacuum.etl_chuck_4_pos_4: 4
-vacuum.gelpak_release: 0
+vacuum.module_chuck_0_slot_1: 4
+# vacuum.module_chuck_0_slot_2: 
+vacuum.etl_chuck_1: 7
+# vacuum.etl_chuck_2: 
+# vacuum.etl_chuck_3: 
+# vacuum.etl_chuck_4_pos_1: 
+# vacuum.etl_chuck_4_pos_2: 
+# vacuum.etl_chuck_4_pos_3: 
+# vacuum.etl_chuck_4_pos_4: 
+# vacuum.gelpak_release: 
 
-vacuum.rd53a_chuck_1_TR: 10 # top right
-vacuum.rd53a_chuck_1_BR: 11 # bottom right
-vacuum.rd53a_chuck_1_TL: 12 # top left
-vacuum.rd53a_chuck_1_BL: 13 # bottom left
-vacuum.rd53a_chuck_2: 1
-vacuum.rd53a_chuck_3: 2
-vacuum.launchpad: 5
+vacuum.rd53a_chuck_1_TR: 2 # top right
+vacuum.rd53a_chuck_1_BR: 3 # bottom right
+vacuum.rd53a_chuck_1_TL: 1 # top left
+vacuum.rd53a_chuck_1_BL: 0 # bottom left
+vacuum.rd53a_chuck_2: 5
+vacuum.rd53a_chuck_3: 6
+vacuum.launchpad: 4
 
 
 manifold.reset_on_start: false
@@ -68,6 +68,8 @@ manifold.port.26: cDAQ1Mod1/port0/line26
 manifold.port.27: cDAQ1Mod1/port0/line27
 manifold.port.28: cDAQ1Mod1/port0/line28
 manifold.port.29: cDAQ1Mod1/port0/line29
+manifold.port.30: cDAQ1Mod1/port0/line30
+manifold.port.31: cDAQ1Mod1/port0/line31
 
 motion.travel_speed: 100  # mm/s
 
@@ -100,6 +102,16 @@ geometry.TFPX_1X2_MOCKUP.fid_tl: {-8.600,-21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_bl: {-8.600,21.600,0}
 geometry.TFPX_1X2_MOCKUP.fid_br: {8.600,21.600,0}
 
+geometry.TFPX_SINGLEGLASS.fid_tr: {12.0,-20.5,0}
+geometry.TFPX_SINGLEGLASS.fid_br: {12.0,20.5,0}
+geometry.TFPX_SINGLEGLASS.fid_bl: {-12.0,20.5,0}
+geometry.TFPX_SINGLEGLASS.fid_tl: {-12.0,-20.5,0}
+
+geometry.TFPX_QUARTERGLASS.fid_tr: {5.930,-10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_br: {5.930,10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_bl: {-5.930,10.022,0}
+geometry.TFPX_QUARTERGLASS.fid_tl: {-5.930,-10.022,0}
+geometry.TFPX_QUARTERGLASS.thickness: 0.470
 
 geometry.ETL_AL_Mockup.fid_tr: {21.9,-11.39,0}
 geometry.ETL_AL_Mockup.fid_tl: {-21.9,-11.39,0}
@@ -128,13 +140,7 @@ geometry.etl_picker_tool.center_offset: {0,0,60.1}
 # The offset between the camera and the
 # center-of-rotation of the gantry head in x-y
 # and the bottom surface of the tool-holder in z
-
 geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
-
-geometry.stamp_1.center_offset: {-2.160744, 0.350103,0}
-geometry.stamp_1.center_rotation: 0.5272 #deg
-geometry.stamp_2.center_offset: {-2.009,-.2384,0}
-geometry.stamp_2.center_rotation: -.0296 #deg
 
 # Alignment corner
 geometry.chuck.1.pos.1: {}
@@ -162,8 +168,8 @@ siteGeometry.pos_BLsenRoc_launch_tr: {303.341593,91.877042,78.993873}
 siteGeometry.pos_TLsenRoc_launch_tr: {303.730927,70.461951,78.993867}
 
 # HDI pick and place translation vector and rotation angle
-siteGeometry.v_hdi_translation: {-50.13,-0.288,-6.350}  # Note: Z still needs to be measured
-siteGeometry.rot_hdi_translation: -0.01625
+siteGeometry.v_hdi_translation: {-50.03,-0.2396,-7.019}
+siteGeometry.rot_hdi_translation: -0.01926
 
 # SensorROC translation correctional terms
 siteGeometry.v_senRoc_error: {-0.003,0.007,0}
@@ -188,15 +194,29 @@ geometry.TFPX_RD53AQUARTERSENSORROC.fid_tl:{-5.930,-10.022,0}
 
 geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to top suction cup
 
+#geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
+
+#LOADSTAMP:
+stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+stamp.1.pos1: {670.258053,424.512024,33.852022}        
+stamp.1.pos2: {704.138055,424.512009,33.852009}
+stamp.1.pos3: {704.138057,424.512005,67.892004}
+stamp.1.pos4: {670.818054,424.512005,67.892023}
+
+geometry.stamp_1.center_offset: {-2.160744, 0.350103,0}
+geometry.stamp_1.center_rotation: 0.5272 #deg
+geometry.stamp_2.center_offset: {-2.009,-.2384,0}
+geometry.stamp_2.center_rotation: -.0296 #deg
+
+
 #================================================
 #====== Vision/Pattern Recognition parameters
 #================================================
 
 vision.debug_enable: False
 vision.log_directory: C:\Users\cfang\Desktop\nebraska-silicon-lab\pixel-gantry-control\Logs\
-#vision.autofocus.step_size: 0.01234 # mm
-vision.autofocus.step_size: 0.01 #0.002 # mm
-vision.autofocus.delay: 500 #1000 # ms
+vision.autofocus.step_size: 0.05 # mm
+vision.autofocus.delay: 250 # ms
 
 vision.FPIX_HDI.method: find_patches
 vision.FPIX_HDI.shrinkFactor: 4
@@ -240,9 +260,8 @@ graph_motion.pos.module_chuck_0:  {272,494,0}
 graph_motion.pos.stagingArea: {273,115,0}
 
 # must be 2mm above tool in z
-graph_motion.pos.tool_rack_pos_0_in:  {651.200,16.400,37.100}
-graph_motion.pos.tool_rack_pos_0_out: {651.200,158,37.70}
-
+graph_motion.pos.tool_rack_pos_0_in:  {651.200,16.400,37.1088}
+graph_motion.pos.tool_rack_pos_0_out: {651.200,158,37.1088}
 
 graph_motion.pos.tool_rack_pos_1_in:  {803.368,16.121,37.918}
 graph_motion.pos.tool_rack_pos_1_out: {803.572,158,37.918}

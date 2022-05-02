@@ -1,0 +1,14 @@
+COPY $pos {307.721875,93.248291,79.050036}
+COPY $rot {-0.000319,-0.000647,-0.008152,0.999967}
+
+FLEXREAD $tl_local geometry.TFPX_1X2_MOCKUP.fid_tl
+FLEXREAD $tr_local geometry.TFPX_1X2_MOCKUP.fid_tr
+FLEXREAD $br_local geometry.TFPX_1X2_MOCKUP.fid_br
+FLEXREAD $bl_local geometry.TFPX_1X2_MOCKUP.fid_bl
+
+TRANSFORML2G $tl_global $tl_local $pos $rot
+
+PRINT "pos      : %v" $pos
+PRINT "rot      : %q" $rot
+PRINT "tl_local : %v" $tl_local
+PRINT "tl_global: %v" $tl_global
