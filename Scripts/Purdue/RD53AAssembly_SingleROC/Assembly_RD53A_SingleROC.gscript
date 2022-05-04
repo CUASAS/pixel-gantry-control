@@ -1,16 +1,16 @@
 VERSION v2.1
-######################## RD53A Multiple ROC Assembly #############################
+######################## RD53A Single Sensor ROC Assembly #############################
 # Steps:
 # 1. Prompt placement of HDI on Chuck 2
 # 2. Turn on Chuck 2's vacuum
 # 3. Move gantry head to Chuck 2 and survey 4 corners of HDI (defined by bond pads)
 # 4. Compute would-be position and rotation of HDI on Chuck 1
-# 5. Compute the positions of the centers for all four ROCs
-# 6. Prompt placement of the four ROCs on the launchpad
+# 5. Compute the position of the center of the ROC
+# 6. Prompt placement of the ROC on the launchpad
 #    i. Is Chuck 1 clear ?
 #    ii. Is the Pickup Tool ready?
-# 7. Survey the four ROCs on the launchpad
-# 8. Pick up the ROCs and place them on Chuck 1 at positions computed in Step 5
+# 7. Survey the ROC on the launchpad
+# 8. Pick up the ROC and place it on Chuck 1 at the position computed in Step 5
 # 9. Prompt placement of vacuum tool on HDI on Chuck 2
 # 10. Transfer vacuum from Chuck 2 to Vacuum Tool (Chuck 3)
 # 11. Check that HDI was moved to Chuck 3 and the adhesive was applied
@@ -36,7 +36,7 @@ SETVAC rd53a_chuck_3 0
 #SETVAC launchpad2_BR 0
 #SETVAC launchpad2_BL 0
 #SETVAC launchpad2_TL 0
-SETLOG "LOG_Assembly_RD53A_MultiROC_DataGeneration.txt"
+SETLOG "LOG_Assembly_RD53A_SingleROC_DataGeneration.txt"
 SETERRORMODE prompt
 
 # Rough positions of the HDI on Chuck 2
@@ -45,19 +45,18 @@ FLEXREAD $pos_chuck2_br siteGeometry.pos_chuck2_br
 FLEXREAD $pos_chuck2_bl siteGeometry.pos_chuck2_bl
 FLEXREAD $pos_chuck2_tl siteGeometry.pos_chuck2_tl
 
-# Rough positions of the tr corner of the 4 ROCs on Launchpad 2
-FLEXREAD $pos_TR_ROC_launch2_tr siteGeometry.pos_TR_ROC_launch2_tr
-FLEXREAD $pos_BR_ROC_launch2_tr siteGeometry.pos_BR_ROC_launch2_tr
-FLEXREAD $pos_BL_ROC_launch2_tr siteGeometry.pos_BL_ROC_launch2_tr
-FLEXREAD $pos_TL_ROC_launch2_tr siteGeometry.pos_TL_ROC_launch2_tr
+# Rough positions of the tr corner of the ROC on Launchpad 2
+FLEXREAD $pos_ROC_launch1_tr siteGeometry.pos_ROC_launch1_tr
 
-# Dimensions of the HDI and MockROC (bond pads or corners)
+
+# Dimensions of the HDI and ROC (bond pads or corners)
 FLEXREAD $thickness_HDI geometry.TFPX_RD53AHDI.thickness
 FLEXREAD $dim_bondHDI geometry.TFPX_RD53AHDI.dim_bondHDI
-MUL $dim_bondHDI $dim_bondHDI {0.5,0.5,1}
+#MUL $dim_bondHDI $dim_bondHDI {0.5,0.5,1}
 FLEXREAD $len_bondpad_HDI geometry.TFPX_RD53AHDI.len_bondpad_HDI
-FLEXREAD $dim_ROC geometry.TFPX_RD53AQUARTERROC.fid_br
-FLEXREAD $dim_ROC.z geometry.TFPX_RD53AQUARTERROC.thickness
+
+FLEXREAD $dim_ROC geometry.TFPX_RD53AROC.fid_br
+FLEXREAD $dim_ROC.z geometry.TFPX_RD53AROC.thickness
 
 # HDI pick and place translation vector and rotation angle measured independently
 # Correct for the thickness of the ROC
@@ -74,10 +73,8 @@ MUL $len_ROC $dim_ROC.y 2 #mm
 MUL $wid_ROC $dim_ROC.x 2 #mm
 
 # Parameters that can help line up the bond pads
-FLEXREAD $delta_tr siteGeometry.delta_tr
-FLEXREAD $delta_br siteGeometry.delta_br
-FLEXREAD $delta_bl siteGeometry.delta_bl
-FLEXREAD $delta_tl siteGeometry.delta_tl
+FLEXREAD $delta_ROC siteGeometry.delta_ROC
+
 
 
 ## Main Function ##
@@ -133,80 +130,30 @@ GOTOIF @ANGLE_CHECK $choice
 END
 @ANGLE_CHECK
 
-MOVESAFE {350,150,0} 100
+MOVENAME safeUnload
 
 
-# Step 5. Compute the positions of the centers for all four ROCs
+# Step 5. Compute the position of the center of the ROC
 @STEP_FIVE PASS
 
 COS $cos_rot_hdi $rot_hdi_withError
 SIN $sin_rot_hdi $rot_hdi_withError
 
-MUL $half_len_ROC $len_ROC 0.5
-MUL $half_wid_ROC $wid_ROC 0.5
+MUL $dx_cos $delta_ROC.x $cos_rot_hdi
+MUL $dx_sin $delta_ROC.x $sin_rot_hdi
+MUL $dy_cos $delta_ROC.y $cos_rot_hdi
+MUL $dy_sin $delta_ROC.y $sin_rot_hdi
 
-#TR
-ADD $half_len_ROC_tr $half_len_ROC $delta_tr.x
-ADD $half_wid_ROC_tr $half_wid_ROC $delta_tr.y
-MUL $half_len_cos_tr $half_len_ROC_tr $cos_rot_hdi
-MUL $half_wid_sin_tr $half_wid_ROC_tr $sin_rot_hdi
-MUL $half_len_sin_tr $half_len_ROC_tr $sin_rot_hdi
-MUL $half_wid_cos_tr $half_wid_ROC_tr $cos_rot_hdi
-
-ADD $delta_x $half_len_sin_tr $half_wid_cos_tr
-SUB $delta_y $half_wid_sin_tr $half_len_cos_tr
-ADD $pos_TR_ROC_center $pos_hdi_center_withError.x $delta_x
-ADD $pos_TR_ROC_center.y $pos_hdi_center_withError.y $delta_y
-
-#BR
-ADD $half_len_ROC_br $half_len_ROC $delta_br.x
-ADD $half_wid_ROC_br $half_wid_ROC $delta_br.y
-MUL $half_len_cos_br $half_len_ROC_br $cos_rot_hdi
-MUL $half_wid_sin_br $half_wid_ROC_br $sin_rot_hdi
-MUL $half_len_sin_br $half_len_ROC_br $sin_rot_hdi
-MUL $half_wid_cos_br $half_wid_ROC_br $cos_rot_hdi
-
-SUB $delta_x $half_wid_cos_br $half_len_sin_br
-ADD $delta_y $half_len_cos_br $half_wid_sin_br
-ADD $pos_BR_ROC_center $pos_hdi_center_withError.x $delta_x
-ADD $pos_BR_ROC_center.y $pos_hdi_center_withError.y $delta_y
-
-#BL
-ADD $half_len_ROC_bl $half_len_ROC $delta_bl.x
-ADD $half_wid_ROC_bl $half_wid_ROC $delta_bl.y
-MUL $half_len_cos_bl $half_len_ROC_bl $cos_rot_hdi
-MUL $half_wid_sin_bl $half_wid_ROC_bl $sin_rot_hdi
-MUL $half_len_sin_bl $half_len_ROC_bl $sin_rot_hdi
-MUL $half_wid_cos_bl $half_wid_ROC_bl $cos_rot_hdi
-
-ADD $delta_x $half_len_sin_bl $half_wid_cos_bl
-SUB $delta_y $half_len_cos_bl $half_wid_sin_bl
-SUB $pos_BL_ROC_center $pos_hdi_center_withError.x $delta_x
-ADD $pos_BL_ROC_center.y $pos_hdi_center_withError.y $delta_y
-
-#TL
-ADD $half_len_ROC_tl $half_len_ROC $delta_tl.x
-ADD $half_wid_ROC_tl $half_wid_ROC $delta_tl.y
-MUL $half_len_cos_tl $half_len_ROC_tl $cos_rot_hdi
-MUL $half_wid_sin_tl $half_wid_ROC_tl $sin_rot_hdi
-MUL $half_len_sin_tl $half_len_ROC_tl $sin_rot_hdi
-MUL $half_wid_cos_tl $half_wid_ROC_tl $cos_rot_hdi
-
-SUB $delta_x $half_len_sin_tl $half_wid_cos_tl
-ADD $delta_y $half_len_cos_tl $half_wid_sin_tl
-ADD $pos_TL_ROC_center $pos_hdi_center_withError.x $delta_x
-SUB $pos_TL_ROC_center.y $pos_hdi_center_withError.y $delta_y
-
-#Copying the z-components
-COPY $pos_TL_ROC_center.z $pos_hdi_center_withError.z
-COPY $pos_BR_ROC_center.z $pos_hdi_center_withError.z
-COPY $pos_BL_ROC_center.z $pos_hdi_center_withError.z
-COPY $pos_TR_ROC_center.z $pos_hdi_center_withError.z
+SUB $delta_x $dx_cos $dy_sin
+ADD $delta_y $dx_sin $dy_cos
+ADD $pos_ROC_center $pos_hdi_center_withError.x $delta_x
+ADD $pos_ROC_center.y $pos_hdi_center_withError.y $delta_y
+COPY $pos_ROC_center.z $pos_hdi_center_withError.z
 
 
 # Step 6. Prompt placement of ROC
 SETVAC gelpak_release 1
-@STEP_SIX CHOICEPOPUP $choice "Have you placed the four ROCs on the Launchpad?" "Yes, continue" "No, ask me again"
+@STEP_SIX CHOICEPOPUP $choice "Have you placed the ROC on the Launchpad?" "Yes, continue" "No, ask me again"
 GOTOIFN @STEP_SIX $choice
 SETVAC gelpak_release 0
 @STEP_SIX_i CHOICEPOPUP $choice "Is Chuck 1 clear?" "Yes, continue" "No, ask me again"
@@ -217,17 +164,8 @@ GOTOIFN @STEP_SIX_ii $choice
 
 # Step 7. Survey the ROC
 @STEP_SEVEN PASS
-  #TR ROC
-CALL @FINDROCCENTERS $pos_TR_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_TR_ROC_launch2 $rot_TR_ROC_launch2
+CALL @FINDROCCENTERS $pos_ROC_launch1_tr $len_ROC $wid_ROC -> $pos_ROC_launch1 $rot_ROC_launch1
 
-  #BR ROC
-CALL @FINDROCCENTERS $pos_BR_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_BR_ROC_launch2 $rot_BR_ROC_launch2
-
-  #BL ROC
-CALL @FINDROCCENTERS $pos_BL_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_BL_ROC_launch2 $rot_BL_ROC_launch2
-
-  #TL ROC
-CALL @FINDROCCENTERS $pos_TL_ROC_launch2_tr $len_ROC $wid_ROC -> $pos_TL_ROC_launch2 $rot_TL_ROC_launch2
 
 
 # Step 8. Pick up the ROCs and place them on Chuck 1 at positions computed in Step 5
@@ -237,48 +175,17 @@ MOVENAME stagingArea
 
 ####################
   # Pickup Step TR #
-CALL @CALCPICKUP_4ROC $pos_TR_ROC_launch2 $rot_TR_ROC_launch2 -> $pos $pos_z0
-CALL @PICKUPSTEP $pos $pos_z0 $rot_TR_ROC_launch2
+CALL @CALCPICKUP_4ROC $pos_ROC_launch1 $rot_ROC_launch1 -> $pos $pos_z0
+CALL @PICKUPSTEP $pos $pos_z0 $rot_ROC_launch1
 
   # Place Step TR
-CALL @CALCPICKUP_4ROC $pos_TR_ROC_center $rot_hdi_withError -> $pos $pos_z0
-COPY $vac @TURNON_chuck1_TR
-CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
-
-####################
-  # Pickup Step BR #
-CALL @CALCPICKUP_4ROC $pos_BR_ROC_launch2 $rot_BR_ROC_launch2 -> $pos $pos_z0
-CALL @PICKUPSTEP $pos $pos_z0 $rot_BR_ROC_launch2
-
-  # Place Step BR
-CALL @CALCPICKUP_4ROC $pos_BR_ROC_center $rot_hdi_withError -> $pos $pos_z0
-COPY $vac @TURNON_chuck1_BR
-CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
-
-####################
-  # Pickup Step BL #
-CALL @CALCPICKUP_4ROC $pos_BL_ROC_launch2 $rot_BL_ROC_launch2 -> $pos $pos_z0
-CALL @PICKUPSTEP $pos $pos_z0 $rot_BL_ROC_launch2
-
-  # Place Step BL
-CALL @CALCPICKUP_4ROC $pos_BL_ROC_center $rot_hdi_withError -> $pos $pos_z0
-COPY $vac @TURNON_chuck1_BL
-CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
-
-####################
-  # Pickup Step TL #
-CALL @CALCPICKUP_4ROC $pos_TL_ROC_launch2 $rot_TL_ROC_launch2 -> $pos $pos_z0
-CALL @PICKUPSTEP $pos $pos_z0 $rot_TL_ROC_launch2
-
-  # Place Step TL
-CALL @CALCPICKUP_4ROC $pos_TL_ROC_center $rot_hdi_withError -> $pos $pos_z0
-COPY $vac @TURNON_chuck1_TL
-CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError $vac
+CALL @CALCPICKUP_4ROC $pos_ROC_center $rot_hdi_withError -> $pos $pos_z0
+CALL @PLACESTEP $pos $pos_z0 $rot_hdi_withError
 
 ROTATETO 0 10
 UNLOADTOOL
 
-MOVESAFE {350,150,0} 100
+MOVENAME safeUnload
 
 
 # Step 9. Prompt placement of vacuum tool on HDI on Chuck 2
@@ -316,58 +223,35 @@ GOTOIFN @STEP_FOURTEEN $choice
 # Step 15. Calculate the placement of the ROC and the HDI
 @STEP_FIFTEEN PASS
   #ROC
-CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_ROC -> $pos_TR_ROC_center $pos_BR_ROC_center $pos_BL_ROC_center $pos_TL_ROC_center
-CALL @CALCCORNERS $pos_TR_ROC_center $rot_hdi_withError $dim_ROC -> $pos_TR_ROC_tr $pos_TR_ROC_br $trash_bl $trash_tl
-CALL @CALCCORNERS $pos_BR_ROC_center $rot_hdi_withError $dim_ROC -> $pos_BR_ROC_tr $pos_BR_ROC_br $trash_bl $trash_tl
-CALL @CALCCORNERS $pos_BL_ROC_center $rot_hdi_withError $dim_ROC -> $trash_tr $trash_br $pos_BL_ROC_bl $pos_BL_ROC_tl
-CALL @CALCCORNERS $pos_TL_ROC_center $rot_hdi_withError $dim_ROC -> $trash_tr $trash_br $pos_TL_ROC_bl $pos_TL_ROC_tl
+CALL @CALCCORNERS $pos_ROC_center $rot_hdi_withError $dim_ROC -> $pos_ROC_tr $pos_ROC_br $pos_ROC_bl $pos_ROC_tl
+
 
   #HDI
 SUB $pos_hdi_center_withError.z $pos_hdi_center_withError.z $thickness_HDI
-CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_bondHDI -> $pos_TRchuck1_center $pos_BRchuck1_center $pos_BLchuck1_center $pos_TLchuck1_center
-CALL @CALCCORNERS $pos_TRchuck1_center $rot_hdi_withError $dim_bondHDI -> $pos_TRchuck1_tr $pos_TRchuck1_br $trash_bl $trash_tl
-CALL @CALCCORNERS $pos_BRchuck1_center $rot_hdi_withError $dim_bondHDI -> $pos_BRchuck1_tr $pos_BRchuck1_br $trash_bl $trash_tl
-CALL @CALCCORNERS $pos_BLchuck1_center $rot_hdi_withError $dim_bondHDI -> $trash_tr $trash_br $pos_BLchuck1_bl $pos_BLchuck1_tl
-CALL @CALCCORNERS $pos_TLchuck1_center $rot_hdi_withError $dim_bondHDI -> $trash_tr $trash_br $pos_TLchuck1_bl $pos_TLchuck1_tl
+
+CALL @CALCCORNERS $pos_hdi_center_withError $rot_hdi_withError $dim_bondHDI -> $pos_chuck1_tr $pos_chuck1_br $pos_chuck1_bl $pos_chuck1_tl
 
 
 # Step 16. Move gantry head to Chuck 1 and survey for Module accuracy
 @STEP_SIXTEEN PASS
-@ACC_0 CHOICEPOPUP $choice "Ready to survey the Top Right ROC's accuracy?"
+@ACC_0 CHOICEPOPUP $choice "Ready to survey the right side of the Module's accuracy?"
 GOTOIFN @ACC_0 $choice
-CALL @QUARTERSURVEILLENCE $pos_TRchuck1_tr $pos_TRchuck1_br $pos_TR_ROC_tr $pos_TR_ROC_br -1 -> $TR_dx $TR_dy
+CALL @FULLSURVEILLENCE $pos_chuck1_tr $pos_chuck1_br $pos_ROC_tr $pos_ROC_br -1 -> $right_dx $right_dy
 
-PRINT "---------------------"
-PRINT "Top Right"
-PRINT "Delta(delta(X)): %f" $TR_dx
-PRINT "Avg(delta(Y)): %f" $TR_dy
-
-@ACC_1 CHOICEPOPUP $choice "Ready to survey the Bottom Right ROC's accuracy?"
+@ACC_1 CHOICEPOPUP $choice "Ready to survey the left side of the Module's accuracy?"
 GOTOIFN @ACC_1 $choice
-CALL @QUARTERSURVEILLENCE $pos_BRchuck1_tr $pos_BRchuck1_br $pos_BR_ROC_tr $pos_BR_ROC_br -1 -> $BR_dx $BR_dy
+CALL @FULLSURVEILLENCE $pos_chuck1_tl $pos_chuck1_bl $pos_ROC_tl $pos_ROC_bl +1 -> $left_dx $left_dy
+
 
 PRINT "---------------------"
-PRINT "Bottom Right"
-PRINT "Delta(delta(X)): %f" $BR_dx
-PRINT "Avg(delta(Y)): %f" $BR_dy
-
-@ACC_2 CHOICEPOPUP $choice "Ready to survey the Bottom Left ROC's accuracy?"
-GOTOIFN @ACC_2 $choice
-CALL @QUARTERSURVEILLENCE $pos_BLchuck1_tl $pos_BLchuck1_bl $pos_BL_ROC_tl $pos_BL_ROC_bl +1 -> $BL_dx $BL_dy
+PRINT "Right Side"
+PRINT "Delta(delta(X)): %f" $right_dx
+PRINT "Avg(delta(Y)): %f" $right_dy
 
 PRINT "---------------------"
-PRINT "Bottom Left"
-PRINT "Delta(delta(X)): %f" $BL_dx
-PRINT "Avg(delta(Y)): %f" $BL_dy
-
-@ACC_3 CHOICEPOPUP $choice "Ready to survey the Top Left ROC's accuracy?"
-GOTOIFN @ACC_3 $choice
-CALL @QUARTERSURVEILLENCE $pos_TLchuck1_tl $pos_TLchuck1_bl $pos_TL_ROC_tl $pos_TL_ROC_bl +1 -> $TL_dx $TL_dy
-
-PRINT "---------------------"
-PRINT "Top Left"
-PRINT "Delta(delta(X)): %f" $TL_dx
-PRINT "Avg(delta(Y)): %f" $TL_dy
+PRINT "Left Side"
+PRINT "Delta(delta(X)): %f" $left_dx
+PRINT "Avg(delta(Y)): %f" $left_dy
 
 
 # Step 17. End program with vacuums on or off
@@ -440,7 +324,7 @@ END
   CALL @SURVEYCORNERS $tl -> $tl
 
   # Calculate the orientation of the ROC
-  FIT $position $rotation TFPX_RD53AQUARTERROC $tr $br $bl $tl
+  FIT $position $rotation TFPX_RD53AROC $tr $br $bl $tl
 
   QUAT2EULER $rotation $trash0 $trash1 $rotation
 
@@ -508,7 +392,7 @@ END
 #  $vacIndex - current vacuum that needs to be turned on (passed as number)
 #
 # No Returns
-@PLACESTEP(place_pos,place_pos_z0,place_rot,vacIndex)
+@PLACESTEP(place_pos,place_pos_z0,place_rot)
   MOVETO $place_pos_z0 200
   ROTATETO $place_rot 10
   SUB $place_pos.z $place_pos.z 2
@@ -516,15 +400,10 @@ END
   ADD $place_pos.z $place_pos.z 2
   MOVETO $place_pos 1
   WAIT 500
-  GOTO $vacIndex
-  @TURNON_chuck1_TR SETVAC rd53a_chuck_1_TR 1
-  GOTO @VACWAIT
-  @TURNON_chuck1_BR SETVAC rd53a_chuck_1_BR 1
-  GOTO @VACWAIT
-  @TURNON_chuck1_BL SETVAC rd53a_chuck_1_BL 1
-  GOTO @VACWAIT
-  @TURNON_chuck1_TL SETVAC rd53a_chuck_1_TL 1
-  @VACWAIT
+  SETVAC rd53a_chuck_1_TR 1
+  SETVAC rd53a_chuck_1_BR 1
+  SETVAC rd53a_chuck_1_BL 1
+  SETVAC rd53a_chuck_1_TL 1
   WAIT 1000
   SETVAC gantry_head_inner 0
   WAIT 2000
@@ -582,66 +461,66 @@ END
   RETURN $topRight $botRight $botLeft $topLeft
 
 
-# QUARTERSURVEILLENCE
+# FULLSURVEILLENCE
 # Arguments:
 #  $top_hdi - Position of the top HDI bond pad
 #  $bot_hdi - Position of the bottom HDI bond pad
-#  $top_roc - Position of the top ROC bond pad
-#  $bot_roc - Position of the bottom ROC bond pad
-#  $sign    - +1 for left side ROCs, -1 for right side ROCs
+#  $top_ROC - Position of the top ROC bond pad
+#  $bot_ROC - Position of the bottom ROC bond pad
+#  $sign    - +1 for left side of the module, -1 for right side module
 #
 # Returns:
 #  $d_DeltaX   - opening angle
-#  $avg_DeltaY -
-@QUARTERSURVEILLENCE(top_hdi,bot_hdi,top_roc,bot_roc,sign)
+#  $avg_DeltaY - slide
+@FULLSURVEILLENCE(top_hdi,bot_hdi,top_ROC,bot_ROC,sign)
   MOVESAFE $top_hdi 100
 
   # HDI bond pads, top and bottom
-  @HDI_TOP_OUTER CHOICEPOPUP $choice "Ready to survey the HDI's upper bond pad's outer edge's middle?"
+  @HDI_TOP_OUTER CHOICEPOPUP $choice "Ready to survey the middle of the upper bond pad on the HDI (outer edge)?"
   GOTOIFN @HDI_TOP_OUTER $choice
   CALL @SURVEYCORNERS  $top_hdi -> $top_hdi_outer
   COPY $top_hdi_inner $top_hdi_outer
   MUL $len_bondHDI_signed $len_bondpad_HDI $sign
   ADD $top_hdi_inner.x $top_hdi_outer.x $len_bondHDI_signed
-  @HDI_TOP_INNER CHOICEPOPUP $choice "Ready to survey the HDI's upper bond pad's inner edge's middle?"
+  @HDI_TOP_INNER CHOICEPOPUP $choice "Ready to survey the middle of the upper bond pad on the HDI (inner edge)?"
   GOTOIFN @HDI_TOP_INNER $choice
   CALL @SURVEYCORNERS $top_hdi_inner -> $top_hdi_inner
   ADD $top_hdi $top_hdi_outer $top_hdi_inner
   MUL $top_hdi $top_hdi {0.5,0.5,0.5}
   COPY $bot_hdi.z $top_hdi.z
 
-  @HDI_BOT_OUTER CHOICEPOPUP $choice "Ready to survey the HDI's lower bond pad's outer edge's middle?"
+  @HDI_BOT_OUTER CHOICEPOPUP $choice "Ready to survey the middle of the lower bond pad on the HDI (outer edge)?"
   GOTOIFN @HDI_BOT_OUTER $choice
   CALL @SURVEYCORNERS  $bot_hdi -> $bot_hdi_outer
   COPY $bot_hdi_inner $bot_hdi_outer
   ADD $bot_hdi_inner.x $bot_hdi_outer.x $len_bondHDI_signed
-  @HDI_BOT_INNER CHOICEPOPUP $choice "Ready to survey the HDI's lower bond pad's inner edge's middle?"
+  @HDI_BOT_INNER CHOICEPOPUP $choice "Ready to survey the middle of the lower bond pad on the HDI (inner edge)?"
   GOTOIFN @HDI_BOT_INNER $choice
   CALL @SURVEYCORNERS $bot_hdi_inner -> $bot_hdi_inner
   ADD $bot_hdi $bot_hdi_outer $bot_hdi_inner
   MUL $bot_hdi $bot_hdi {0.5,0.5,0.5}
 
-  @ROC_TOP_1 CHOICEPOPUP $choice "Ready to survey one corner of the ROC's top corner bond pad?"
+  @ROC_TOP_1 CHOICEPOPUP $choice "Ready to survey one corner of the ROC's uppermost bond pad?"
   GOTOIFN @ROC_TOP_1 $choice
-  CALL @SURVEYCORNERS $top_roc -> $top_roc_1
-  @ROC_TOP_2 CHOICEPOPUP $choice "Ready to survey the opposite corner of the ROC's top corner bond pad?"
+  CALL @SURVEYCORNERS $top_ROC -> $top_ROC_1
+  @ROC_TOP_2 CHOICEPOPUP $choice "Ready to survey the opposite corner of the ROC's uppermost bond pad?"
   GOTOIFN @ROC_TOP_2 $choice
-  CALL @SURVEYCORNERS $top_roc_1 -> $top_roc_2
-  ADD $top_roc $top_roc_1 $top_roc_2
-  MUL $top_roc $top_roc {0.5,0.5,0.5}
-  COPY $bot_roc.z $top_roc.z
+  CALL @SURVEYCORNERS $top_ROC_1 -> $top_ROC_2
+  ADD $top_ROC $top_ROC_1 $top_ROC_2
+  MUL $top_ROC $top_ROC {0.5,0.5,0.5}
+  COPY $bot_ROC.z $top_ROC.z
 
-  @ROC_BOT_1 CHOICEPOPUP $choice "Ready to survey one corner of the ROC's bottom corner bond pad?"
+  @ROC_BOT_1 CHOICEPOPUP $choice "Ready to survey one corner of the ROC's lowest bond pad?"
   GOTOIFN @ROC_BOT_1 $choice
-  CALL @SURVEYCORNERS $bot_roc -> $bot_roc_1
-  @ROC_BOT_2 CHOICEPOPUP $choice "Ready to survey the opposite corner of the ROC's bottom corner bond pad?"
+  CALL @SURVEYCORNERS $bot_ROC -> $bot_ROC_1
+  @ROC_BOT_2 CHOICEPOPUP $choice "Ready to survey the opposite corner of the ROC's lowest bond pad?"
   GOTOIFN @ROC_BOT_2 $choice
-  CALL @SURVEYCORNERS $bot_roc_1 -> $bot_roc_2
-  ADD $bot_roc $bot_roc_1 $bot_roc_2
-  MUL $bot_roc $bot_roc {0.5,0.5,0.5}
+  CALL @SURVEYCORNERS $bot_ROC_1 -> $bot_ROC_2
+  ADD $bot_ROC $bot_ROC_1 $bot_ROC_2
+  MUL $bot_ROC $bot_ROC {0.5,0.5,0.5}
 
-  CALL @SURVEYCALC $top_hdi $bot_hdi $top_roc -> $d_upper_x $d_upper_y
-  CALL @SURVEYCALC $bot_hdi $top_hdi $bot_roc -> $d_lower_x $d_lower_y
+  CALL @SURVEYCALC $top_hdi $bot_hdi $top_ROC -> $d_upper_x $d_upper_y
+  CALL @SURVEYCALC $bot_hdi $top_hdi $bot_ROC -> $d_lower_x $d_lower_y
 
   SUB $d_DeltaX $d_upper_x $d_lower_x
   ADD $avg_DeltaY $d_upper_y $d_lower_y
