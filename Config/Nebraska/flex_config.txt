@@ -156,7 +156,7 @@ geometry.ETL_mock_base.fid_br: {27.25, 20.55, 0}
 #geometry.PICKER_TOOL.center_offset: {0,0,49.5} #phase1 suction cup
 geometry.PICKER_TOOL.center_offset: {0,0,52.5} #phase1 suction cup + narrow
 
-geometry.etl_picker_tool.center_offset: {0,0,60.1}
+geometry.etl_picker_tool.center_offset: {0,0,50.5}
 
 
 # The offset between the camera and the
@@ -245,16 +245,12 @@ geometry.PICKER_TOOL.center_to_suction: {0,11.084,0} #center of picker tool to t
 #geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
 
 #LOADSTAMP:
-stamp.1.rot: 0              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-stamp.1.pos1: {670.258053,424.512024,33.852022}        
-stamp.1.pos2: {704.138055,424.512009,33.852009}
-stamp.1.pos3: {704.138057,424.512005,67.892004}
-stamp.1.pos4: {670.818054,424.512005,67.892023}
 
-geometry.stamp_1.center_offset: {-2.160744, 0.350103,0}
-geometry.stamp_1.center_rotation: 0.5272 #deg
-geometry.stamp_2.center_offset: {-2.009,-.2384,0}
-geometry.stamp_2.center_rotation: -.0296 #deg
+
+geometry.stamp_1.center_offset: {0, 0,0}
+geometry.stamp_1.center_rotation: 0 #deg
+geometry.stamp_2.center_offset: {-1.079,1.159,0} #check if negatives make sense! not tested....
+geometry.stamp_2.center_rotation: -0.064 #deg
 
 
 #================================================
@@ -411,32 +407,32 @@ potting.sylgard.safe_height_offset: 5 # mm
 
 #geometry definitions for LOADSTAMP, UNLOADSTAMP, APPLYSTAMP
 #LOADSTAMP:
-stamp_info.chuck: etl_chuck_2
+stamp_info.chuck: etl_chuck_1
 
 stamp.1.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-stamp.1.pos1: {670.654066,423.841117,19.443268}        
-stamp.1.pos2: {704.214053,423.841101,19.443290}
-stamp.1.pos3: {704.214054,423.841116,68.638757}
-stamp.1.pos4: {670.694054,423.841106,68.638756}
+stamp.1.pos1: {439.875986,441.961555,0}        
+stamp.1.pos2: {390.835985,441.961552,0}
+stamp.1.pos3: {390.835983,441.961555,65.938846}
+stamp.1.pos4: {440.995989,441.961555,65.938836}
 
 stamp.2.rot: 90              # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
-stamp.2.pos1: {672.331956,569.136999,1.040516}        
-stamp.2.pos2: {703.651956,569.136991,1.040528}
-stamp.2.pos3: {703.651957,569.136999,68.683248}
-stamp.2.pos4: {670.931955,569.136999,68.683247}
+stamp.2.pos1: {504.45,441.081160,0}        
+stamp.2.pos2: {547.54,441.081160,0}
+stamp.2.pos3: {547.54,441.081160,65.267}
+stamp.2.pos4: {504.457,441.081149,65.267}
 
-weight_info.chuck: etl_chuck_2
-weight.1.rot: 90 # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+weight_info.chuck: etl_chuck_1
 
-weight.1.pos1: {600.331994,410.041112,13.887786}       
-weight.1.pos2: {600.331993,369.761113,13.887789}
-weight.1.pos3: {600.331993,369.761115,68.443401}
-weight.1.pos4: {600.331995,410.041112,68.443401}
+weight.2.rot: 90 # Comment: this rotation is 90 deg or 0 deg usually, angle to turn from where it is in the script 
+weight.2.pos1: {504.913681,549.614052,0}       
+weight.2.pos2: {548.513675,549.614069,0}
+weight.2.pos3: {548.513677,549.614054,64.352495}
+weight.2.pos4: {504.633679,549.614058,64.352496}
 
-reservoir.chuck: 1
-reservoir.1.pos: {451.703700,319.453258,77.592240}
+reservoir.chuck: 2
+reservoir.1.pos: {598.750158,317.869333,79.894045}
 reservoir.1.rot: 90
-reservoir.2.pos: {500.239475,318.277149,77.638528}
+reservoir.2.pos: {10,10,10}
 reservoir.2.rot: 90
 reservoir.3.pos: {10,10,10}
 reservoir.3.rot: 90
@@ -454,18 +450,19 @@ reservoir.8.rot: 90
 
 #UNLOADSTAMP:
 stamp.1.return_offset: {-1.0,1,0}
-stamp.2.return_offset: {-1.0,-1,0}
-weight.1.return_offset: {1.0,-1,0}
+stamp.2.return_offset: {-1.0,1,0}
+weight.2.return_offset: {-1.0,1,0}
 
 #APPLYSTAMP:
-geometry.grabber_tool.Zg: {0,0,43.5} 
-geometry.stamp.1.Zs: {0,0,12.5}
-geometry.stamp.2.Zs: {0,0,12.5}
-geometry.weight.1.Zs: {0,0,11.8}
+geometry.grabber_tool.Zg: {0,0,44.6} 
+geometry.stamp.1.Zs: {0,0,15.8}
+geometry.stamp.2.Zs: {0,0,15.8}
+geometry.weight.2.Zs: {0,0,14.28}
 stamp_info.apply_gap: {0,0,1}
 weight_info.apply_gap: {0,0,1}
 stamp_info.apply_time: 1000
 
+#these are for applying the weight!
 weight.horizontal: {30,0,0}
 weight.vertical: {0,0,-50}
 
