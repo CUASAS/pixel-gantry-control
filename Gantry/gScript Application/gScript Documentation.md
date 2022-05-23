@@ -514,7 +514,9 @@ Sets the current error handling mode.
 
 Moves the X,Y,and Z axes to their home positions.
 
-*Format:* `HOME`
+*Format:* `HOME if-needed`
+
+  - `if-needed`: **Optional** If the literal string "if-needed" is supplied, the gantry will only home if it hasn't already been homed since the gScript interpreter started.
 
 #### `MOVETO`
 
