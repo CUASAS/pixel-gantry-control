@@ -156,7 +156,7 @@ geometry.ETL_mock_base.fid_br: {27.25, 20.55, 0}
 #geometry.PICKER_TOOL.center_offset: {0,0,49.5} #phase1 suction cup
 geometry.PICKER_TOOL.center_offset: {0,0,52.5} #phase1 suction cup + narrow
 
-geometry.etl_picker_tool.center_offset: {0,0,50.5}
+geometry.etl_picker_tool.center_offset: {0,0,49.9}
 
 
 # The offset between the camera and the

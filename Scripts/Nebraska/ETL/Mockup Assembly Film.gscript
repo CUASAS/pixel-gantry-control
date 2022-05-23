@@ -4,7 +4,7 @@ LOADCONFIG
 LOADCONFIG "" Scripts\Nebraska\ETL\assembly_positions.txt
 
 COPY $bot_chuck_num 3
-COPY $bot_pos_num 1
+GETINTPOPUP $bot_pos_num "Which module PCB position are you using?"
 
 COPY $topA_chuck_num 4
 COPY $topA_pos_num 13
@@ -32,15 +32,15 @@ SETVAC etl_chuck_3 1  # vacuum for assembly plate
 CALL @SURVEY_PART $bot_chuck_num $bot_pos_num 0 -> $bot_pos $bot_rot
 
 CALL @SURVEY_PART $topA_chuck_num $topA_pos_num 1 -> $topA_pos $topA_rot
-# CALL @SURVEY_PART $topB_chuck_num $topB_pos_num 1 -> $topB_pos $topB_rot
-# CALL @SURVEY_PART $topC_chuck_num $topC_pos_num 1 -> $topC_pos $topC_rot
-# CALL @SURVEY_PART $topD_chuck_num $topD_pos_num 1 -> $topD_pos $topD_rot
+CALL @SURVEY_PART $topB_chuck_num $topB_pos_num 1 -> $topB_pos $topB_rot
+CALL @SURVEY_PART $topC_chuck_num $topC_pos_num 1 -> $topC_pos $topC_rot
+CALL @SURVEY_PART $topD_chuck_num $topD_pos_num 1 -> $topD_pos $topD_rot
 
 # TODO: Adjust "bot_pos" to place the top parts in the correct positions
-TRANSFORML2G $bot_pos_A {-11.6,10.75,0}  $bot_pos $bot_rot
-TRANSFORML2G $bot_pos_B {-11.6,-10.75,0} $bot_pos $bot_rot
-TRANSFORML2G $bot_pos_C {11.6,10.75,0}   $bot_pos $bot_rot
-TRANSFORML2G $bot_pos_D {11.6,-10.75,0}  $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_A {-11.7,10.87,0}  $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_B {-11.7,-10.83,0} $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_C {11.7,11.09,0}   $bot_pos $bot_rot
+TRANSFORML2G $bot_pos_D {11.7,-10.605,0}  $bot_pos $bot_rot
 
 ADD $bot_rot_A $bot_rot -90
 ADD $bot_rot_B $bot_rot -90
@@ -50,28 +50,39 @@ ADD $bot_rot_D $bot_rot 90
 LOADTOOL etl_picker_tool
 PICKPART $topA_pos $topA_rot "etl_chuck_4_pos_{$topA_pos_num}" etl_chuck_4
 PLACEPART $bot_pos_A $bot_rot_A "" etl_chuck_3
-# PICKPART $topB_pos $topB_rot "etl_chuck_4_pos_{$topB_pos_num}" etl_chuck_4
-# PLACEPART $bot_pos_B $bot_rot_B "" etl_chuck_3
-# PICKPART $topC_pos $topC_rot "etl_chuck_4_pos_{$topC_pos_num}" etl_chuck_4
-# PLACEPART $bot_pos_C $bot_rot_C "" etl_chuck_3
-# PICKPART $topD_pos $topD_rot "etl_chuck_4_pos_{$topD_pos_num}" etl_chuck_4
-# PLACEPART $bot_pos_D $bot_rot_D "" etl_chuck_3
+PICKPART $topB_pos $topB_rot "etl_chuck_4_pos_{$topB_pos_num}" etl_chuck_4
+PLACEPART $bot_pos_B $bot_rot_B "" etl_chuck_3
+PICKPART $topC_pos $topC_rot "etl_chuck_4_pos_{$topC_pos_num}" etl_chuck_4
+PLACEPART $bot_pos_C $bot_rot_C "" etl_chuck_3
+PICKPART $topD_pos $topD_rot "etl_chuck_4_pos_{$topD_pos_num}" etl_chuck_4
+PLACEPART $bot_pos_D $bot_rot_D "" etl_chuck_3
 
 UNLOADTOOL
 
 #CALL @APPLY_WEIGHT $weightA_num $bot_chuck_num $bot_pos $bot_rot
 
 CALL @SURVEY_CORRECTED $bot_chuck_num $bot_pos_A $bot_rot_A -> $pos_corr_A $rot_corr_A
-PRINT "CHIP A:"
-PRINT "    target: %v | %f deg" $bot_pos_A $bot_rot_A
-PRINT "    actual: %v | %f deg" $pos_corr_A $rot_corr_A
-SUB $pos_err_A $pos_corr_A $bot_pos_A
-SUB $rot_err_A $rot_corr_A $bot_rot_A
-PRINT "    delta:  %v | %f deg" $pos_err_A $rot_err_A
+CALL @PRINT_SURVEY_RESULTS $bot_pos_A $bot_rot_A $pos_corr_A $rot_corr_A 1
 
+CALL @SURVEY_CORRECTED $bot_chuck_num $bot_pos_B $bot_rot_B -> $pos_corr_B $rot_corr_B
+CALL @PRINT_SURVEY_RESULTS $bot_pos_B $bot_rot_B $pos_corr_B $rot_corr_B 2
+
+CALL @SURVEY_CORRECTED $bot_chuck_num $bot_pos_C $bot_rot_C -> $pos_corr_C $rot_corr_C
+CALL @PRINT_SURVEY_RESULTS $bot_pos_C $bot_rot_C $pos_corr_C $rot_corr_C 3
+
+CALL @SURVEY_CORRECTED $bot_chuck_num $bot_pos_D $bot_rot_D -> $pos_corr_D $rot_corr_D
+CALL @PRINT_SURVEY_RESULTS $bot_pos_D $bot_rot_D $pos_corr_D $rot_corr_D 4
 
 END
 
+@PRINT_SURVEY_RESULTS(target_pos,target_rot,meas_pos,meas_rot,chip_num)
+    PRINT "CHIP %d:" $chip_num
+    PRINT "    target: %v | %f deg" $target_pos $target_rot
+    PRINT "    actual: %v | %f deg" $meas_pos $meas_rot
+    SUB $pos_err $meas_pos $target_pos
+    SUB $rot_err $meas_rot $target_rot
+    PRINT "    delta:  %v | %f deg" $pos_err $rot_err
+    RETURN
 
 @SURVEY_CORRECTED(chuck_num,target_pos,target_rot)
 # Arguments:
@@ -173,4 +184,3 @@ END
     VIDEO
     getpos $fid_position
     RETURN $fid_position
-
