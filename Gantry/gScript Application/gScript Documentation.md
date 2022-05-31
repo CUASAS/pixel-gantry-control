@@ -514,7 +514,9 @@ Sets the current error handling mode.
 
 Moves the X,Y,and Z axes to their home positions.
 
-*Format:* `HOME`
+*Format:* `HOME if-needed`
+
+  - `if-needed`: **Optional** If the literal string "if-needed" is supplied, the gantry will only home if it hasn't already been homed since the gScript interpreter started.
 
 #### `MOVETO`
 
@@ -836,4 +838,24 @@ Invokes the Syringe Tool potting routine. Must supply the start and end position
 
 #### **Picker Tool**
 
-*NOT YET IMPLEMENTED*
+#### `PICKPART`
+
+Picks up a part using a picker tool. The tool must already be loaded prior to invocation. Requires an accurate gantry-head-camera-offset (called `geometry.tool_holder_offset` in the flex_config) and a tool height/offset for the loaded picker tool. E.g. `geometry.etl_picker_tool.center_offset: {0,0,60.1}`.
+
+*Format:* `PICKPART pos rot vac loc`
+
+  - `pos`: Coordinates of the center of the part
+  - `rot`: **Optional** Initial rotation of the part as a quaternion or degrees in the x-y plane. Default=0
+  - `vac`: **Optional** If specified, the vacuum line to toggle to release the part.
+  - `loc`: **Optional** The named position for the part's location. E.g. "part_staging_area_1". If specified, the gantry moves to this position prior to picking up the part.
+
+#### `PLACEPART`
+
+Places an alredy-picked part using the picker tool. Has the same configuration requirements as `PICKPART`.
+
+*Format:* `PLACEPART pos rot vac loc`
+
+  - `pos`: Target position to place the part.
+  - `rot`: **Optional** Target rotation of the part as a quaternion or degrees in the x-y plane. Default=0
+  - `vac`: **Optional** If specified, the vacuum line to toggle to hold the part.
+  - `loc`: **Optional** The named position for the part's destination. E.g. "part_assembly_area_1". If specified, the gantry moves to this position prior to placing down the part.
