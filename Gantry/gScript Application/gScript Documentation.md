@@ -402,6 +402,19 @@ Computes a position/orientation of a part in the gantry's coordinate system by c
   - `fid_bl`: Bottom-left fiducial position
   - `fid_tl`: Top-left fiducial position
 
+#### `FITLINE` 
+
+Performs a linear fit in 3d space on a set of input points. Because this command operates on a variable number of points, they must be stored in "main memory", ie memory accessed using the `[addr]` syntax.
+
+*Format:* `FITLINE direction centroid residual mem_start n_points`
+
+  - `direction`: The unit vector that points in the direction of the fitted line
+  - `centroid`: A point on the fitted line in the center of the distribution of input points
+  - `residual`: The average distance between the fitted line and the input points
+  - `mem_start`: An integer specifying where the first point lives in main memory. For example, if the first point is at `[5]`, then it should be `5`.
+  - `n_points`: The number of input points. They should be in main memory sequentially after `mem_start`.
+
+
 #### `CHOICEPOPUP`
 
 Creates a popup offering the user two options. Typically used to ask the user a yes or no question.
