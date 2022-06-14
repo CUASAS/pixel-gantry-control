@@ -16,7 +16,7 @@ COPY $targetPos {571.669621,215.414145,87.984001}
 
 FLEXREAD $dim geometry.TFPX_GHCOPIECE.fid_br
 
-COPY $angle 50
+COPY $angle 0
 
 
 
@@ -104,7 +104,7 @@ END
 #  $pickup_pos - pickup position
 #  $pickup_pos_z0 - pickup position with z = 0
 @CALCPICKUP(target_pos)
-  FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset
+  FLEXREAD $picker_height geometry.PICKER_TOOL.center_offset #geometry.PICKER_TOOL.center_offset
   FLEXREAD $ghco geometry.tool_holder_offset
   ADD $netoffset $picker_height $ghco
   SUB $pickup_pos $target_pos $netoffset
