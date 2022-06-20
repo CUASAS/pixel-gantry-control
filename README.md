@@ -9,6 +9,8 @@ This project contains control and automation softare for particle detector modul
 
 This software is written primarily in LabVIEW and therefore requires LabVIEW itself as well as some NI toolkits to be installed to function. The software is currently developed on Windows 10 64-bit. Other operating systems may work but are not guaranteed.
 
+An experimental distribution (found under [Releases](https://github.com/CUASAS/pixel-gantry-control/releases)) is available for download which packages a compiled executable version of the project. Try this if you do not intend to modify the underlying LabVIEW code.
+
 ### Getting the Code
 
 Checkout this repository with
