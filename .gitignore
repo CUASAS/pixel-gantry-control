@@ -18,3 +18,6 @@ Config/config.txt
 
 # Compiled Aerotech scripts
 *.OGM
+
+# Application Builds
+builds/
