@@ -9,7 +9,7 @@ COPY $count 0
 END
 
 @recursive_fibb(N)
-    GOTOIF @case0 `$N=i=0`
+    GOTOIF case0 `$N=i=0`  # leading @ is optional for label args
     GOTOIF @case1 `$N=i=1`
 
     CALL recursive_fibb `$N-1` -> $F_Nm1
