@@ -395,6 +395,106 @@
 			<Item Name="Read Potting Parameters.vi" Type="VI" URL="../Shared Components/Config Manager Class/Read Potting Parameters.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
+			<Item Name="gScript" Type="Installer">
+				<Property Name="Destination[0].name" Type="Str">gScript</Property>
+				<Property Name="Destination[0].parent" Type="Str">{3912416A-D2E5-411B-AFEE-B63654D690C0}</Property>
+				<Property Name="Destination[0].tag" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Destination[0].type" Type="Str">userFolder</Property>
+				<Property Name="DestinationCount" Type="Int">1</Property>
+				<Property Name="DistPart[0].flavorID" Type="Str">DefaultFull</Property>
+				<Property Name="DistPart[0].productID" Type="Str">{346E6CBC-2AEE-4A6E-B646-0DF98EAFA580}</Property>
+				<Property Name="DistPart[0].productName" Type="Str">NI Vision Common Resources 2020 SP1</Property>
+				<Property Name="DistPart[0].upgradeCode" Type="Str">{409BEFA9-EB3E-472F-AD77-271A4A1D5927}</Property>
+				<Property Name="DistPart[1].flavorID" Type="Str">DefaultFull</Property>
+				<Property Name="DistPart[1].productID" Type="Str">{633A1550-642D-4DAB-A449-234FEFC53097}</Property>
+				<Property Name="DistPart[1].productName" Type="Str">NI Vision Runtime 2020</Property>
+				<Property Name="DistPart[1].upgradeCode" Type="Str">{63DF74E5-A5C9-11D4-814E-005004D6CDD6}</Property>
+				<Property Name="DistPart[2].flavorID" Type="Str">_full_</Property>
+				<Property Name="DistPart[2].productID" Type="Str">{990D2361-0AD6-4071-B4CB-E32698D4FC64}</Property>
+				<Property Name="DistPart[2].productName" Type="Str">NI-DAQmx Runtime 20.0</Property>
+				<Property Name="DistPart[2].upgradeCode" Type="Str">{923C9CD5-A0D8-4147-9A8D-998780E30763}</Property>
+				<Property Name="DistPart[3].flavorID" Type="Str">DefaultFull</Property>
+				<Property Name="DistPart[3].productID" Type="Str">{06CE04CA-A6D6-4353-B169-328BE6B7046C}</Property>
+				<Property Name="DistPart[3].productName" Type="Str">NI-IMAQdx Runtime 20.6</Property>
+				<Property Name="DistPart[3].upgradeCode" Type="Str">{3D104AB3-CE10-43C0-B647-07600754072C}</Property>
+				<Property Name="DistPart[4].flavorID" Type="Str">DefaultFull</Property>
+				<Property Name="DistPart[4].productID" Type="Str">{8F7C1532-BC57-4C23-A16C-7C0139C2121F}</Property>
+				<Property Name="DistPart[4].productName" Type="Str">NI LabVIEW Runtime 2017 SP1 f4 (64-bit)</Property>
+				<Property Name="DistPart[4].SoftDep[0].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[0].productName" Type="Str">NI ActiveX Container (64-bit)</Property>
+				<Property Name="DistPart[4].SoftDep[0].upgradeCode" Type="Str">{1038A887-23E1-4289-B0BD-0C4B83C6BA21}</Property>
+				<Property Name="DistPart[4].SoftDep[1].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[1].productName" Type="Str">NI Deployment Framework 2017</Property>
+				<Property Name="DistPart[4].SoftDep[1].upgradeCode" Type="Str">{838942E4-B73C-492E-81A3-AA1E291FD0DC}</Property>
+				<Property Name="DistPart[4].SoftDep[10].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[10].productName" Type="Str">NI LabVIEW Real-Time NBFifo 2017</Property>
+				<Property Name="DistPart[4].SoftDep[10].upgradeCode" Type="Str">{4F261250-2C38-488D-A9EC-9D1EFCC24D4B}</Property>
+				<Property Name="DistPart[4].SoftDep[11].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[11].productName" Type="Str">NI TDM Streaming 19.0</Property>
+				<Property Name="DistPart[4].SoftDep[11].upgradeCode" Type="Str">{4CD11BE6-6BB7-4082-8A27-C13771BC309B}</Property>
+				<Property Name="DistPart[4].SoftDep[2].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[2].productName" Type="Str">NI Error Reporting 2017 (64-bit)</Property>
+				<Property Name="DistPart[4].SoftDep[2].upgradeCode" Type="Str">{785BE224-E5B2-46A5-ADCB-55C949B5C9C7}</Property>
+				<Property Name="DistPart[4].SoftDep[3].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[3].productName" Type="Str">NI Logos 19.0</Property>
+				<Property Name="DistPart[4].SoftDep[3].upgradeCode" Type="Str">{5E4A4CE3-4D06-11D4-8B22-006008C16337}</Property>
+				<Property Name="DistPart[4].SoftDep[4].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[4].productName" Type="Str">NI LabVIEW Web Server 2017 (64-bit)</Property>
+				<Property Name="DistPart[4].SoftDep[4].upgradeCode" Type="Str">{5F449D4C-83B9-492E-986B-6B85A29C431D}</Property>
+				<Property Name="DistPart[4].SoftDep[5].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[5].productName" Type="Str">NI mDNS Responder 19.0</Property>
+				<Property Name="DistPart[4].SoftDep[5].upgradeCode" Type="Str">{9607874B-4BB3-42CB-B450-A2F5EF60BA3B}</Property>
+				<Property Name="DistPart[4].SoftDep[6].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[6].productName" Type="Str">Math Kernel Libraries</Property>
+				<Property Name="DistPart[4].SoftDep[6].upgradeCode" Type="Str">{699C1AC5-2CF2-4745-9674-B19536EBA8A3}</Property>
+				<Property Name="DistPart[4].SoftDep[7].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[7].productName" Type="Str">NI VC2008MSMs</Property>
+				<Property Name="DistPart[4].SoftDep[7].upgradeCode" Type="Str">{FDA3F8BB-BAA9-45D7-8DC7-22E1F5C76315}</Property>
+				<Property Name="DistPart[4].SoftDep[8].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[8].productName" Type="Str">NI VC2010MSMs</Property>
+				<Property Name="DistPart[4].SoftDep[8].upgradeCode" Type="Str">{EFBA6F9E-F934-4BD7-AC51-60CCA480489C}</Property>
+				<Property Name="DistPart[4].SoftDep[9].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[4].SoftDep[9].productName" Type="Str">NI VC2015 Runtime</Property>
+				<Property Name="DistPart[4].SoftDep[9].upgradeCode" Type="Str">{D42E7BAE-6589-4570-B6A3-3E28889392E7}</Property>
+				<Property Name="DistPart[4].SoftDepCount" Type="Int">12</Property>
+				<Property Name="DistPart[4].upgradeCode" Type="Str">{0A5935DD-3D5B-4396-8769-038C205F86EA}</Property>
+				<Property Name="DistPartCount" Type="Int">5</Property>
+				<Property Name="INST_autoIncrement" Type="Bool">true</Property>
+				<Property Name="INST_buildLocation" Type="Path">../builds/gScript Installer/gScript</Property>
+				<Property Name="INST_buildLocation.type" Type="Str">relativeToCommon</Property>
+				<Property Name="INST_buildSpecName" Type="Str">gScript</Property>
+				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="INST_productName" Type="Str">gScript Installer</Property>
+				<Property Name="INST_productVersion" Type="Str">1.0.1</Property>
+				<Property Name="InstSpecBitness" Type="Str">64-bit</Property>
+				<Property Name="InstSpecVersion" Type="Str">17018009</Property>
+				<Property Name="MSI_arpCompany" Type="Str">Univ. of Nebraska-Lincoln</Property>
+				<Property Name="MSI_arpContact" Type="Str">Caleb Fangmeier</Property>
+				<Property Name="MSI_arpPhone" Type="Str">402 768 1358</Property>
+				<Property Name="MSI_arpURL" Type="Str">unl.edu</Property>
+				<Property Name="MSI_autoselectDrivers" Type="Bool">true</Property>
+				<Property Name="MSI_distID" Type="Str">{A4BBED86-F722-4B79-925D-5A5BAF2693C5}</Property>
+				<Property Name="MSI_hideNonRuntimes" Type="Bool">true</Property>
+				<Property Name="MSI_osCheck" Type="Int">0</Property>
+				<Property Name="MSI_upgradeCode" Type="Str">{CCD855E2-7781-4D1C-AF4A-20281164D3A7}</Property>
+				<Property Name="RegDest[0].dirName" Type="Str">Software</Property>
+				<Property Name="RegDest[0].dirTag" Type="Str">{DDFAFC8B-E728-4AC8-96DE-B920EBB97A86}</Property>
+				<Property Name="RegDest[0].parentTag" Type="Str">2</Property>
+				<Property Name="RegDestCount" Type="Int">1</Property>
+				<Property Name="Source[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[0].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[0].File[0].name" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="Source[0].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
+				<Property Name="Source[0].File[0].Shortcut[0].name" Type="Str">gScript Interpreter</Property>
+				<Property Name="Source[0].File[0].Shortcut[0].subDir" Type="Str">Gantry</Property>
+				<Property Name="Source[0].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[0].File[0].tag" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
+				<Property Name="Source[0].FileCount" Type="Int">1</Property>
+				<Property Name="Source[0].name" Type="Str">gScript Interpreter</Property>
+				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter</Property>
+				<Property Name="Source[0].type" Type="Str">EXE</Property>
+				<Property Name="SourceCount" Type="Int">1</Property>
+			</Item>
 			<Item Name="gScript Interpreter" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
 				<Property Name="App_INI_aliasGUID" Type="Str">{00AFF8D0-8B5E-43BC-B849-E103A2CE402E}</Property>
@@ -421,7 +521,7 @@
 				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{2D5055C4-02A7-4872-8132-55B6D61E4C0A}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{F49FD7B1-15E4-4DD3-BF56-375197E7060A}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
