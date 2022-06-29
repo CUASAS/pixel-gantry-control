@@ -498,6 +498,16 @@ Dumps the internal state of the application to the log.
 
   - `prefix`: **Optional** Used to specify a prefix to select only a subset of the internal state variables. For example, `DUMPSTATE geometry` will only dump out the geometry definitions.
 
+#### `SAVESTATE`
+
+Writes the internal state of the application to an output file.
+
+*Format:* `SAVESTATE prefix filename`
+
+  - `prefix`: Used to specify a prefix to select only a subset of the internal state variables. For example, `SAVESTATE geometry` will only write the geometry definitions.
+  - `filename`: The file to save the output. The path is relative to the current `Logs` directory.
+
+
 #### `LOADCONFIG`
 
 Loads the content of a config file into the internal state of the application.
