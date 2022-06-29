@@ -1,9 +1,0 @@
-SETLIGHT 50
-
-COPY $count 10
-
-@LOOP FINDFID $tl_fid_one ETL_DUMMY
-      PRINT "top left fiducial measured at %v" $tl_fid_one
-
-DEC $count $count
-GOTOIF @LOOP $count      

@@ -1,0 +1,143 @@
+#================================================
+#====== Hardware configuration
+#================================================
+
+# A set of entries is needed for each camera in the system. An minimum,
+# a "gantryhead" set of entries is required.
+camera.gantryhead.CameraGroup: 1
+camera.gantryhead.VendorName: UI327xCP-M_4103643853
+camera.gantryhead.SerialNumberHigh: 0xA4C207BC
+camera.gantryhead.SerialNumberLow: 0x2D82C3C8
+camera.gantryhead.FOV-x: 1.400
+camera.gantryhead.FOV-y: 1.048
+camera.gantryhead.horizontalMirror: False
+light.gantryhead.control: npaq
+light.gantryhead.hardware_address: Y.0
+
+# Below entries assign names to the vacuum port numbers. Overlaps are allowed.
+vacuum.gantry_head_outer: 14
+vacuum.gantry_head_inner: 15
+vacuum.module_chuck_0_slot_1: 4
+vacuum.module_chuck_0_slot_1: 5
+
+# below is the mapping from the port id (ie 1, 2, 3...) to the
+# Name assigned by labview
+manifold.reset_on_start: false
+manifold.port.00: cDAQ1Mod1/port0/line0
+manifold.port.01: cDAQ1Mod1/port0/line1
+manifold.port.02: cDAQ1Mod1/port0/line2
+manifold.port.03: cDAQ1Mod1/port0/line3
+manifold.port.04: cDAQ1Mod1/port0/line4
+manifold.port.05: cDAQ1Mod1/port0/line5
+manifold.port.06: cDAQ1Mod1/port0/line6
+manifold.port.07: cDAQ1Mod1/port0/line7
+manifold.port.08: cDAQ1Mod1/port0/line8
+manifold.port.09: cDAQ1Mod1/port0/line9
+manifold.port.10: cDAQ1Mod1/port0/line10
+manifold.port.11: cDAQ1Mod1/port0/line11
+manifold.port.12: cDAQ1Mod1/port0/line12
+manifold.port.13: cDAQ1Mod1/port0/line13
+manifold.port.14: cDAQ1Mod1/port0/line14
+manifold.port.15: cDAQ1Mod1/port0/line15
+manifold.port.16: cDAQ1Mod1/port0/line16
+manifold.port.17: cDAQ1Mod1/port0/line17
+manifold.port.18: cDAQ1Mod1/port0/line18
+manifold.port.19: cDAQ1Mod1/port0/line19
+manifold.port.20: cDAQ1Mod1/port0/line20
+manifold.port.21: cDAQ1Mod1/port0/line21
+manifold.port.22: cDAQ1Mod1/port0/line22
+manifold.port.23: cDAQ1Mod1/port0/line23
+manifold.port.24: cDAQ1Mod1/port0/line24
+manifold.port.25: cDAQ1Mod1/port0/line25
+manifold.port.26: cDAQ1Mod1/port0/line26
+manifold.port.27: cDAQ1Mod1/port0/line27
+manifold.port.28: cDAQ1Mod1/port0/line28
+manifold.port.29: cDAQ1Mod1/port0/line29
+manifold.port.30: cDAQ1Mod1/port0/line30
+manifold.port.31: cDAQ1Mod1/port0/line31
+
+motion.travel_speed: 100  # mm/s
+
+tool_rack.0: picker_tool
+tool_rack.1: grabber_tool
+tool_rack.2: etl_picker_tool
+
+tool_exchange_vacuum_delay: 2500  # ms
+
+survey_image_delay: 0  # ms
+survey_movement_speed: 20  # mm/s
+
+#================================================
+#====== Geometry Definitions
+#================================================
+
+# Coordinates of fiducial markers wrt the part's center
+geometry.example.fid_tr: {2.90,-20.825,0}
+geometry.example.fid_tl: {-8.77,-20.775,0}
+geometry.example.fid_bl: {-8.77,20.775,0}
+geometry.example.fid_br: {2.90,21.575,0}
+
+# The offset between the camera and the
+# center-of-rotation of the gantry head in x-y
+# and the bottom surface of the tool-holder in z
+geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
+
+
+#================================================
+#====== Vision/Pattern Recognition parameters
+#================================================
+
+vision.debug_enable: False
+vision.autofocus.step_size: 0.01 # mm
+vision.autofocus.delay: 250 # ms
+
+vision.example.method: find_patches
+vision.example.shrinkFactor: 4
+vision.example.dilateSize: 5
+vision.example.sizeMin: 0.12
+vision.example.sizeMax: 0.18
+vision.example.colorGroups: 2
+vision.example.aspectRatioMin: 0.9
+vision.example.aspectRatioMax: 1.1
+
+#================================================
+#====== "Safe" (ie graph-based) motion data
+#================================================
+# Data file for the "safe move" functionality of the gantry software.
+# Here are declared labeled positions and routes among the positions
+# The gantry software will find the shortest path to get from
+# point to point
+
+#graph_motion.pos.LABEL: {x,y,z}
+graph_motion.pos.home: {0,0,0}
+graph_motion.pos.module_chuck_0:  {272,494,0}
+
+#graph_motion.edge.LABEL1.LABEL2 True/False
+graph_motion.edge.home.module_chuck_0: True
+
+
+#================================================
+#====== Potting procedure parameters
+#================================================
+# The curing parameters are used to adjust the speed of the needle to
+# compensate for the increasing viscosity of the encapsulant as time passes.
+# v = v_nom * (1 - A*t^2 - B*t)
+# For depositing a dot instead of a line, this value scales how long the 
+# dispenser is active
+potting.sylgard.curing_param_a: 4e-9
+potting.sylgard.curing_param_b: 2e-5
+potting.sylgard.speed_nominal: 0.5 # mm/s
+potting.sylgard.time_nominal: 2.0  # s
+
+# The time delay between turning on the dispenser and beginning motion
+potting.sylgard.turn_on_time: 0.5
+# The amount of time to preemptively turn off the dispenser before motion ends
+potting.sylgard.turn_off_time: 0.1
+
+# Nominal distance between the tip of the needle and the surface during
+# encapsulation.
+potting.sylgard.tip_height: 0.180
+
+# Height of the needle as it moves between pot-lines. Must be high enough to clear
+# any obstacles on the module.
+potting.sylgard.safe_height_offset: 5 # mm

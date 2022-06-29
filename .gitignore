@@ -14,7 +14,7 @@ Gantry/Shared Components/gVision API/
 Gantry/Shared Components/gVision API.zip
 
 #Local config selection
-Config/config.txt
+gscript_config.ini
 
 # Compiled Aerotech scripts
 *.OGM
