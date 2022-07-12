@@ -10,8 +10,7 @@
 Logs/
 
 #gVision API (downloaded separately)
-Gantry/Shared Components/gVision API/
-Gantry/Shared Components/gVision API.zip
+Gantry/Shared Components/External/
 
 #Local config selection
 gscript_config.ini
