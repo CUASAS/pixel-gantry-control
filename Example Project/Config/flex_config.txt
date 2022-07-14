@@ -11,6 +11,19 @@ camera.gantryhead.SerialNumberLow: 0x2D82C3C8
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
 camera.gantryhead.horizontalMirror: False
+
+# The following 2 lines are for the case where the image coming from the camera
+# does *not* have the gantry's positive x-axis pointing to the right and positive
+# y-axis pointing down. If this is the case, first determine what counter-clockwise
+# rotation of the image, will align the x-axis (options are 0, 90, 180, and 
+# 270 degrees). For example, if the gantry's positive x-axis points up in the image,
+# then a counter-clockwise rotation of 90 degrees will align the image's +x axis with
+# the gantry's +x axis.
+# After rotating the image to align the x-axis, the y-axis may 
+# be pointing in the wrong direction. In this case, set `invertY` to True.
+camera.gantryhead.axes.rotation: 270
+camera.gantryhead.axes.invertY: True
+
 light.gantryhead.control: npaq
 light.gantryhead.hardware_address: Y.0
 
@@ -20,8 +33,8 @@ vacuum.gantry_head_inner: 15
 vacuum.module_chuck_0_slot_1: 4
 vacuum.module_chuck_0_slot_1: 5
 
-# below is the mapping from the port id (ie 1, 2, 3...) to the
-# Name assigned by labview
+# below is the mapping from the port id (ie 0, 1, 2, 3...) to the
+# hardware address assigned by labview
 manifold.reset_on_start: false
 manifold.port.00: cDAQ1Mod1/port0/line0
 manifold.port.01: cDAQ1Mod1/port0/line1
