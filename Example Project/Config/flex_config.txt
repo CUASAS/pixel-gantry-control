@@ -15,14 +15,14 @@ camera.gantryhead.horizontalMirror: False
 # The following 2 lines are for the case where the image coming from the camera
 # does *not* have the gantry's positive x-axis pointing to the right and positive
 # y-axis pointing down. If this is the case, first determine what counter-clockwise
-# rotation of the image, will align the x-axis (options are 0, 90, 180, and 
+# rotation of the image will align the x-axis (options are 0, 90, 180, and 
 # 270 degrees). For example, if the gantry's positive x-axis points up in the image,
 # then a counter-clockwise rotation of 90 degrees will align the image's +x axis with
 # the gantry's +x axis.
 # After rotating the image to align the x-axis, the y-axis may 
 # be pointing in the wrong direction. In this case, set `invertY` to True.
-camera.gantryhead.axes.rotation: 270
-camera.gantryhead.axes.invertY: True
+camera.gantryhead.axes.rotation: 0
+camera.gantryhead.axes.invertY: False
 
 light.gantryhead.control: npaq
 light.gantryhead.hardware_address: Y.0
@@ -100,18 +100,27 @@ geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-vision.debug_enable: False
+reference_image.default: Data\reference_images\rectangle_test.png
+
+vision.debug_enable: True
 vision.autofocus.step_size: 0.01 # mm
 vision.autofocus.delay: 250 # ms
 
 vision.example.method: find_patches
 vision.example.shrinkFactor: 4
-vision.example.dilateSize: 5
-vision.example.sizeMin: 0.12
-vision.example.sizeMax: 0.18
-vision.example.colorGroups: 2
+vision.example.dilateSize: 3
+vision.example.sizeMin: 0.02
+vision.example.sizeMax: 0.04
+vision.example.colorGroups: 4
 vision.example.aspectRatioMin: 0.9
 vision.example.aspectRatioMax: 1.1
+
+vision.example2.method: find_rects
+vision.example2.nominalWidth: 1
+vision.example2.nominalHeight: 1
+vision.example2.tolerance: 0.5
+vision.example2.pointSelect: 0
+vision.example2.allowRotation: True 
 
 #================================================
 #====== "Safe" (ie graph-based) motion data
