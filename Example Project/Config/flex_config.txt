@@ -101,6 +101,7 @@ geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 #================================================
 
 reference_image.default: Data\reference_images\rectangle_test.png
+reference_image.hdi_fid: Data\reference_images\HDI_fid.png
 
 vision.debug_enable: True
 vision.autofocus.step_size: 0.01 # mm

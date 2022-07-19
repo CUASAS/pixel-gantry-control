@@ -666,9 +666,12 @@ Fetches an image from the specified camera. If filename is specified, the image 
 
 #### `VIDEO`
 
-Displays a popup windows showing a video stream from a specified camera. If no camera is specified, `gantry_head` is used. In the popup window, clicking on the display will recenter the gantry on that position.
+Displays a popup windows showing a video stream from a specified camera. If no camera is specified, `gantry_head` is used. In the popup window, clicking on the display will recenter the gantry on that position. Scrolling the mouse wheel slowly moves the gantry up and down. If setup, adjusting the slider changes the intensity of the light.
 
-*Format:* `VIDEO cam_name`
+*Format:* `VIDEO cam_name reference_image`
+
+  - `cam_nam` **Optional:** Name of camera to stream images from
+  - `reference_image` **Optional:** identifier for a reference image that will be displayed in the corner of the video. This must match a configuration entry like `reference_image.img_identifier: PATH`. So for example, using `img_identifier` will open an image located at PATH. Either absolute paths or relative paths in the project directory are supported.
 
 #### `AUTOFOCUS`
 
