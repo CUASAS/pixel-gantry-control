@@ -1,0 +1,10 @@
+DBLOGIN
+
+DBFINDCOMP "rd53a_chip - V1" new chip1 chip2 chip3 chip4
+
+FLEXWRITE assembly.chip1.offset {0.1,0.1,0.05}
+FLEXWRITE assembly.chip2.offset {0.1,0.1,0.05}
+FLEXWRITE assembly.chip3.offset {0.1,0.1,0.05}
+FLEXWRITE assembly.chip4.offset {0.1,0.1,0.05}
+
+DBSAVEASSEMBLY "rd53a_module - V2"
