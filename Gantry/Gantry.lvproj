@@ -75,7 +75,6 @@
 				<Item Name="3DMathPlot Ctrl Act Queue.ctl" Type="VI" URL="/&lt;vilib&gt;/Math Plots/3D Math Plots/3D Plot/Action String/3DMathPlot Ctrl Act Queue.ctl"/>
 				<Item Name="3DMathPlot State Class.ctl" Type="VI" URL="/&lt;vilib&gt;/Math Plots/3D Math Plots/3D Plot/Action String/3DMathPlot State Class.ctl"/>
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
-				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="Cast Image 2 Method.ctl" Type="VI" URL="/&lt;vilib&gt;/vision/Management.llb/Cast Image 2 Method.ctl"/>
 				<Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi"/>
@@ -293,6 +292,7 @@
 				<Item Name="General Error Handler Core CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler Core CORE.vi"/>
 				<Item Name="General Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler.vi"/>
 				<Item Name="Get String Text Bounds.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Get String Text Bounds.vi"/>
+				<Item Name="Get System Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/Get System Directory.vi"/>
 				<Item Name="Get Text Rect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Get Text Rect.vi"/>
 				<Item Name="GetHelpDir.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetHelpDir.vi"/>
 				<Item Name="GetRTHostConnectedProp.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/GetRTHostConnectedProp.vi"/>
@@ -357,6 +357,7 @@
 				<Item Name="Space Constant.vi" Type="VI" URL="/&lt;vilib&gt;/dlg_ctls.llb/Space Constant.vi"/>
 				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
 				<Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi"/>
+				<Item Name="System Directory Type.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/System Directory Type.ctl"/>
 				<Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl"/>
 				<Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi"/>
 				<Item Name="Three Button Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog.vi"/>
@@ -453,7 +454,7 @@
 				<Property Name="INST_buildSpecName" Type="Str">gScript</Property>
 				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="INST_productName" Type="Str">gScript Installer</Property>
-				<Property Name="INST_productVersion" Type="Str">1.0.2</Property>
+				<Property Name="INST_productVersion" Type="Str">1.0.8</Property>
 				<Property Name="InstSpecBitness" Type="Str">64-bit</Property>
 				<Property Name="InstSpecVersion" Type="Str">17018009</Property>
 				<Property Name="MSI_arpCompany" Type="Str">Univ. of Nebraska-Lincoln</Property>
@@ -475,7 +476,10 @@
 				<Property Name="Source[0].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
 				<Property Name="Source[0].File[0].Shortcut[0].name" Type="Str">gScript Interpreter</Property>
 				<Property Name="Source[0].File[0].Shortcut[0].subDir" Type="Str">Gantry</Property>
-				<Property Name="Source[0].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[0].File[0].Shortcut[1].destIndex" Type="Int">1</Property>
+				<Property Name="Source[0].File[0].Shortcut[1].name" Type="Str">gScript Interpreter</Property>
+				<Property Name="Source[0].File[0].Shortcut[1].subDir" Type="Str"></Property>
+				<Property Name="Source[0].File[0].ShortcutCount" Type="Int">2</Property>
 				<Property Name="Source[0].File[0].tag" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
 				<Property Name="Source[0].FileCount" Type="Int">1</Property>
 				<Property Name="Source[0].name" Type="Str">gScript Interpreter</Property>
@@ -499,7 +503,7 @@
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">8</Property>
+				<Property Name="Bld_version.build" Type="Int">12</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/gScript Interpreter.exe</Property>
@@ -509,7 +513,7 @@
 				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{F49FD7B1-15E4-4DD3-BF56-375197E7060A}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{28788D59-3D4D-434A-904A-3DD3BC170082}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
@@ -522,7 +526,28 @@
 				<Property Name="Source[2].properties[1].value" Type="Bool">true</Property>
 				<Property Name="Source[2].propertiesCount" Type="Int">2</Property>
 				<Property Name="Source[2].type" Type="Str">VI</Property>
-				<Property Name="SourceCount" Type="Int">3</Property>
+				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Shared Components/External/bin/Database.dll</Property>
+				<Property Name="Source[3].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[4].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/External/bin/libcrypto-1_1-x64.dll</Property>
+				<Property Name="Source[4].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[5].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[5].itemID" Type="Ref">/My Computer/Shared Components/External/bin/libssl-1_1-x64.dll</Property>
+				<Property Name="Source[5].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[6].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[6].itemID" Type="Ref">/My Computer/Shared Components/External/bin/mysqlcppconn-9-vs14.dll</Property>
+				<Property Name="Source[6].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[7].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[7].itemID" Type="Ref">/My Computer/Shared Components/External/bin/mysqlcppconn8-2-vs14.dll</Property>
+				<Property Name="Source[7].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[8].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[8].itemID" Type="Ref">/My Computer/Shared Components/External/bin/opencv_world455.dll</Property>
+				<Property Name="Source[8].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[9].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[9].itemID" Type="Ref">/My Computer/Shared Components/External/bin/Vision.dll</Property>
+				<Property Name="Source[9].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="SourceCount" Type="Int">10</Property>
 				<Property Name="TgtF_companyName" Type="Str">Univ. of Nebraska - Lincoln</Property>
 				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter</Property>
 				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter</Property>
