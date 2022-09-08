@@ -33,6 +33,7 @@
 		</Item>
 		<Item Name="gScript.ico" Type="Document" URL="../../gScript.ico"/>
 		<Item Name="Post-Build Action.vi" Type="VI" URL="../Post-Build Action.vi"/>
+		<Item Name="Post-Install Action.vi" Type="VI" URL="../Post-Install Action.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="user.lib" Type="Folder">
 				<Item Name="AbortMultiple.vi" Type="VI" URL="/&lt;userlib&gt;/aerotech/2010/Motion/AbortMultiple.vi"/>
@@ -446,7 +447,7 @@
 				<Property Name="INST_buildSpecName" Type="Str">gScript</Property>
 				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="INST_productName" Type="Str">gScript Installer</Property>
-				<Property Name="INST_productVersion" Type="Str">1.0.13</Property>
+				<Property Name="INST_productVersion" Type="Str">1.0.15</Property>
 				<Property Name="InstSpecBitness" Type="Str">64-bit</Property>
 				<Property Name="InstSpecVersion" Type="Str">17018009</Property>
 				<Property Name="MSI_arpCompany" Type="Str">Univ. of Nebraska-Lincoln</Property>
@@ -477,7 +478,20 @@
 				<Property Name="Source[0].name" Type="Str">gScript Interpreter</Property>
 				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter</Property>
 				<Property Name="Source[0].type" Type="Str">EXE</Property>
-				<Property Name="SourceCount" Type="Int">1</Property>
+				<Property Name="Source[1].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[1].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[1].File[0].name" Type="Str">Post-Install Action.exe</Property>
+				<Property Name="Source[1].File[0].runEXE" Type="Bool">true</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].name" Type="Str">Post-Install Action</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[1].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[1].File[0].tag" Type="Str">{AF7A5BE2-A5F1-40D8-8BEC-7FF8A4A70DDF}</Property>
+				<Property Name="Source[1].FileCount" Type="Int">1</Property>
+				<Property Name="Source[1].name" Type="Str">Post-Install Action</Property>
+				<Property Name="Source[1].tag" Type="Ref">/My Computer/Build Specifications/Post-Install Action</Property>
+				<Property Name="Source[1].type" Type="Str">EXE</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
 			</Item>
 			<Item Name="gScript Interpreter" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
@@ -495,7 +509,7 @@
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">14</Property>
+				<Property Name="Bld_version.build" Type="Int">17</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/gScript Interpreter.exe</Property>
@@ -547,6 +561,45 @@
 				<Property Name="TgtF_productName" Type="Str">gScript Interpreter</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="Post-Install Action" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{250907F6-7A6A-4464-9A10-3C33A4B3E93B}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{65BE4BEC-8D92-4A6B-B5AE-B6689A3B41F1}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{5C000291-AD1F-4A9E-A529-049ABE5C3637}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">Post-Install Action</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{5D18E17D-CBC4-46AB-A4CA-0D2437EE6AE2}</Property>
+				<Property Name="Bld_version.build" Type="Int">1</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">Post-Install Action.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/Post-Install Action.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{B2E122EC-9C2D-47ED-90FB-98BF5331448C}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Post-Install Action.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">Post-Install Action</Property>
+				<Property Name="TgtF_internalName" Type="Str">Post-Install Action</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2022 </Property>
+				<Property Name="TgtF_productName" Type="Str">Post-Install Action</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{AF7A5BE2-A5F1-40D8-8BEC-7FF8A4A70DDF}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Post-Install Action.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
 		</Item>
