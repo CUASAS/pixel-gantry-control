@@ -1,4 +1,4 @@
-# Pixel Gantry Control
+![gScript Interpreter](https://raw.githubusercontent.com/CUASAS/pixel-gantry-control/master/gScript_header.png)
 
 This project contains control and automation softare for particle detector module assembly using Aerotech gantry based systems. The software is currently divided into two parts:
 
