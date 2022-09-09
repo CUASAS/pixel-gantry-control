@@ -29,8 +29,7 @@ Install [LabVIEW 2017 (64-bit)](http://www.ni.com/download/labview-development-s
 Next use `NI Package Manager` to install the following toolkits
 
   1. NI Vision Acquisition Software 18.0
-  2. Vision Development Module 2017
-  3. NI-DAQmx 18.6
+  2. NI-DAQmx 18.6
 
 Valid licenses for the above packages are required. Newer versions of the toolkits should work, but these have been tested. However, newer versions of LabVIEW **are not** currently supported.
 
