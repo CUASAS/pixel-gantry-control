@@ -80,6 +80,17 @@ tool_exchange_vacuum_delay: 2500  # ms
 survey_image_delay: 0  # ms
 survey_movement_speed: 20  # mm/s
 
+# The following option can be set to adjust the behavior of the PICKPART and
+# PLACEPART commands. If set, the rotation to match the rotation of the part 
+# (for PICKPART) or target (for PLACEPART) occurs at the specified height. 
+# If omitted, the rotation happens at z=0.
+pickplace_rotation_height: 15  # mm
+
+# The option `invert_rotation` can be set to true to invert the rotation direction
+# of the U axis. Keep in mind that if set to True, the values that appear in gScript
+# will have opposite sign to those that can be seen in the motion composer.
+invert_rotation: False
+
 #================================================
 #====== Database Definitions
 #================================================

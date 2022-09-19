@@ -448,7 +448,7 @@
 				<Property Name="INST_buildSpecName" Type="Str">gScript</Property>
 				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="INST_productName" Type="Str">gScript Installer</Property>
-				<Property Name="INST_productVersion" Type="Str">1.0.17</Property>
+				<Property Name="INST_productVersion" Type="Str">1.0.18</Property>
 				<Property Name="InstSpecBitness" Type="Str">64-bit</Property>
 				<Property Name="InstSpecVersion" Type="Str">17018009</Property>
 				<Property Name="MSI_arpCompany" Type="Str">Univ. of Nebraska-Lincoln</Property>
@@ -492,7 +492,19 @@
 				<Property Name="Source[1].name" Type="Str">Post-Install Action</Property>
 				<Property Name="Source[1].tag" Type="Ref">/My Computer/Build Specifications/Post-Install Action</Property>
 				<Property Name="Source[1].type" Type="Str">EXE</Property>
-				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="Source[2].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[2].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[2].File[0].name" Type="Str">gScript Path Visualizer.exe</Property>
+				<Property Name="Source[2].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
+				<Property Name="Source[2].File[0].Shortcut[0].name" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Source[2].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[2].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[2].File[0].tag" Type="Str">{9394FC08-D494-4767-8BAE-729831BAB5FB}</Property>
+				<Property Name="Source[2].FileCount" Type="Int">1</Property>
+				<Property Name="Source[2].name" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Source[2].tag" Type="Ref">/My Computer/Build Specifications/gScript Path Visualizer</Property>
+				<Property Name="Source[2].type" Type="Str">EXE</Property>
+				<Property Name="SourceCount" Type="Int">3</Property>
 			</Item>
 			<Item Name="gScript Interpreter" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
@@ -510,7 +522,7 @@
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">18</Property>
+				<Property Name="Bld_version.build" Type="Int">19</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/gScript Interpreter.exe</Property>
@@ -562,6 +574,45 @@
 				<Property Name="TgtF_productName" Type="Str">gScript Interpreter</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="gScript Path Visualizer" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{B3B53403-52FD-4EBE-9C77-C505811C4115}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{BC7A3669-8753-4EB3-9A7F-4257ED99469B}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{76EAF74A-4B8D-4B77-885A-7A87188DC40F}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Path Visualizer</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{6DF3558C-9506-46AF-8F13-01812F5AB42C}</Property>
+				<Property Name="Bld_version.build" Type="Int">1</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">gScript Path Visualizer.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Path Visualizer/gScript Path Visualizer.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Path Visualizer/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{38CF9986-9355-4E2A-9D38-68922AFB6C64}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Shared Components/Utils/Graph Motion/Visualize Paths.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="TgtF_internalName" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2022 </Property>
+				<Property Name="TgtF_productName" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{9394FC08-D494-4767-8BAE-729831BAB5FB}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">gScript Path Visualizer.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Post-Install Action" Type="EXE">
