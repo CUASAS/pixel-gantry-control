@@ -46,6 +46,22 @@ The visual pattern recognition and database connectivity features are developed 
 
 A "project folder" is defined as any folder that contains a `Config\` subdirectory containing any configuration files and a `Scripts\` directory to store any gScript files. An example of this can be found in the [Example Project](https://github.com/CUASAS/pixel-gantry-control/tree/master/Example%20Project) folder in this repository. Upon first running of the gScript interpreter, the user is prompted to select the project folder on their filesystem. This is then stored in `Gantry\gscript_config.ini` and can be updated there if needed.
 
+#### Listing of Site Project Folders
+
+| Site      | URL                                                                 |
+|-----------|---------------------------------------------------------------------|
+| UNL       | https://github.com/nebraska-silicon-lab/gantry-config-nebraska      |
+| FNAL      | https://github.com/nebraska-silicon-lab/gantry-config-fnal          |
+| Purdue    | https://github.com/souvik1982/pixel-config-purdue                   |
+
+#### Listing Shared Scripts
+
+| Project | URL                                                            |
+|---------|----------------------------------------------------------------|
+| TFPX    | https://github.com/souvik1982/gscript-TFPXModules              |
+| ETL     | https://github.com/nebraska-silicon-lab/gscript-ETLModules     |
+
+Please create a PR to be added to either of these lists.
 
 ### Getting Help
 
