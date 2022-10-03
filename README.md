@@ -53,6 +53,7 @@ A "project folder" is defined as any folder that contains a `Config\` subdirecto
 | UNL       | https://github.com/nebraska-silicon-lab/gantry-config-nebraska      |
 | FNAL      | https://github.com/nebraska-silicon-lab/gantry-config-fnal          |
 | Purdue    | https://github.com/souvik1982/pixel-config-purdue                   |
+| CUA       | https://github.com/CUASAS/gantry-config-cua                         |
 
 #### Listing Shared Scripts
 
