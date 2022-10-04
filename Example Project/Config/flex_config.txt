@@ -5,9 +5,8 @@
 # A set of entries is needed for each camera in the system. An minimum,
 # a "gantryhead" set of entries is required.
 camera.gantryhead.CameraGroup: 1
-camera.gantryhead.VendorName: UI327xCP-M_4103643853
-camera.gantryhead.SerialNumberHigh: 0xA4C207BC
-camera.gantryhead.SerialNumberLow: 0x2D82C3C8
+camera.gantryhead.driver: ueye
+camera.gantryhead.serial_number: "4103643853"
 camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
 camera.gantryhead.horizontalMirror: False
