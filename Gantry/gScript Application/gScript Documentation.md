@@ -724,7 +724,7 @@ Sets the specified vacuum channel to either on or off depending on the boolean e
 
 *Format:* `SETVAC chan state`
 
-  - `chan`: The channel name of Vacuum to set. Must be one of the channels listed in the `vacuum.*`namespace in `flex_config.txt`.
+  - `chan`: The channel name of Vacuum to set. Must be one of the channels listed in the `vacuum.*`namespace in `flex_config.txt`. You can also use a glob "\*" to specify multiple channels at once. For example, `SETVAC * 0` would set all vacuum lines to zero, or `SETVAC gantryhead* 1` would turn on any line starting with `gantryhead`.
   - `state`: A readable value interpreted as a boolean.
 
 #### `GETVAC`
