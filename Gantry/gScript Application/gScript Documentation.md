@@ -652,6 +652,48 @@ Stops the MPG Script.
 
 Clears all axis faults and (re-)enables all exes.
 
+
+#### `AEROSCRIPTSTART`
+
+*Format:* `AEROSCRIPTSTART path task_id wait`
+
+Starts the execution of an AeroScript file on the specified task slot. Can optionally wait for script to complete before returning.
+
+  - `path`: The path to the AeroScript file relative to the project root. These files typically have the `.pgm` extension.
+  - `task_id`: **Optional** The task to run this script under. The default is `T01`, but can range up to  `T31`.
+  - `wait`: **Optional**  The literal string "wait" can be added to wait until the script is finished before finishing the command.
+
+#### `AEROSCRIPTSTATUS`
+
+*Format:* `AEROSCRIPTSTATUS status task_id`
+
+Queries the status of the script (if any) running in the specified task slot. The status is enumurated as follows:
+
+| Code | Status           |
+|------|------------------|
+| 0    | Unavailable      |
+| 1    | Inactive         |
+| 2    | Idle             |
+| 3    | ProgramReady     |
+| 4    | ProgramRunning   |
+| 5    | ProgramFeedheld  |
+| 6    | ProgramPaused    |
+| 7    | ProgramComplete  |
+| 8    | Error            |
+| 9    | Queue            |
+
+  - `status`: Writable location to store the status code
+  - `task_id`: **Optional** The task to get the status of. The default is `T01`, but can range up to  `T31`.
+
+#### `AEROSCRIPTSTOP`
+
+*Format:* `AEROSCRIPTSTOP task_id`
+
+Starts the execution of an AeroScript file on the specified task slot. Can optionally wait for script to complete before returning.
+
+  - `task_id`: **Optional** The task to stop. The default is `T01`, but can range up to  `T31`.
+
+
 ### Vision Commands
 
 #### `SNAPSHOT`
