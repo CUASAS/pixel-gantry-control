@@ -55,7 +55,7 @@ The second argument in the `SNAPSHOT` command is the filename to save the snapsh
 
 ```
 GETPOS $curr
-CHOICEPOPUP "You are at {$curr:%v}. Is this correct?"
+CHOICEPOPUP $answer "You are at {$curr:%v}. Is this correct?"
 ```
 
 This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
