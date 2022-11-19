@@ -11,6 +11,7 @@ camera.gantryhead.FOV-x: 1.400
 camera.gantryhead.FOV-y: 1.048
 camera.gantryhead.horizontalMirror: False
 
+
 # The following 2 lines are for the case where the image coming from the camera
 # does *not* have the gantry's positive x-axis pointing to the right and positive
 # y-axis pointing down. If this is the case, first determine what counter-clockwise
@@ -25,6 +26,13 @@ camera.gantryhead.axes.invertY: False
 
 light.gantryhead.control: npaq
 light.gantryhead.hardware_address: Y.0
+
+
+camera.webcam.CameraGroup: 2
+camera.webcam.driver: wmf
+camera.webcam.serial_number: "Logitech Webcam C925e | a&1a72a30b&0&0000"
+camera.webcam.FOV-x: 1
+camera.webcam.FOV-y: 1
 
 # Below entries assign names to the vacuum port numbers. Overlaps are allowed.
 vacuum.gantry_head_outer: 14

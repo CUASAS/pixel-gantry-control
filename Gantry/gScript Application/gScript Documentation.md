@@ -653,9 +653,9 @@ Stops the MPG Script.
 Clears all axis faults and (re-)enables all exes.
 
 
-#### `AEROSCRIPTSTART`
+#### `AEROSCRIPTRUN`
 
-*Format:* `AEROSCRIPTSTART path task_id wait`
+*Format:* `AEROSCRIPTRUN path task_id wait`
 
 Starts the execution of an AeroScript file on the specified task slot. Can optionally wait for script to complete before returning.
 
@@ -689,7 +689,7 @@ Queries the status of the script (if any) running in the specified task slot. Th
 
 *Format:* `AEROSCRIPTSTOP task_id`
 
-Starts the execution of an AeroScript file on the specified task slot. Can optionally wait for script to complete before returning.
+Stops the execution of an AeroScript file on the specified task slot.
 
   - `task_id`: **Optional** The task to stop. The default is `T01`, but can range up to  `T31`.
 
