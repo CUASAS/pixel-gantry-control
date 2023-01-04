@@ -449,7 +449,7 @@
 				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="INST_installerName" Type="Str">setup.exe</Property>
 				<Property Name="INST_productName" Type="Str">gScript Installer</Property>
-				<Property Name="INST_productVersion" Type="Str">1.0.25</Property>
+				<Property Name="INST_productVersion" Type="Str">1.0.27</Property>
 				<Property Name="InstSpecBitness" Type="Str">64-bit</Property>
 				<Property Name="InstSpecVersion" Type="Str">22318008</Property>
 				<Property Name="MSI_arpCompany" Type="Str">Univ. of Nebraska-Lincoln</Property>
@@ -513,7 +513,59 @@
 				<Property Name="Source[3].name" Type="Str">gScript Pattern Recognition Tuner</Property>
 				<Property Name="Source[3].tag" Type="Ref">/My Computer/Build Specifications/gScript Pattern Recognition Tuner</Property>
 				<Property Name="Source[3].type" Type="Str">EXE</Property>
-				<Property Name="SourceCount" Type="Int">4</Property>
+				<Property Name="Source[4].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[4].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
+				<Property Name="Source[4].File[0].name" Type="Str">gScript Camera Helper.exe</Property>
+				<Property Name="Source[4].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
+				<Property Name="Source[4].File[0].Shortcut[0].name" Type="Str">gScript Camera Helper</Property>
+				<Property Name="Source[4].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[4].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[4].File[0].tag" Type="Str">{0AE143D7-E3F8-48C6-B979-D7F214500AB6}</Property>
+				<Property Name="Source[4].FileCount" Type="Int">1</Property>
+				<Property Name="Source[4].name" Type="Str">gScript Camera Helper</Property>
+				<Property Name="Source[4].tag" Type="Ref">/My Computer/Build Specifications/gScript Camera Helper</Property>
+				<Property Name="Source[4].type" Type="Str">EXE</Property>
+				<Property Name="SourceCount" Type="Int">5</Property>
+			</Item>
+			<Item Name="gScript Camera Helper" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{7FFD3F42-7CAC-47ED-B664-FA039970820A}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{02B389E4-FCBB-4DCA-8BDC-701C03FB4D29}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">0</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{A5913B8D-BB5F-4D14-A616-638F7B3D7BB4}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">gScript Camera Helper</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Camera Helper</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{E3967936-BB90-4A8B-B1DB-B1EF1C9DC66C}</Property>
+				<Property Name="Bld_version.build" Type="Int">2</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">gScript Camera Helper.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Camera Helper/gScript Camera Helper.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Camera Helper/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Source[0].itemID" Type="Str">{EF830252-A150-4DB4-AA3E-D687B462437C}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Shared Components/External/Vision/tests/cameras_test.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="SourceCount" Type="Int">2</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">gScript Camera Helper</Property>
+				<Property Name="TgtF_internalName" Type="Str">gScript Camera Helper</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2023 </Property>
+				<Property Name="TgtF_productName" Type="Str">gScript Camera Helper</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{0AE143D7-E3F8-48C6-B979-D7F214500AB6}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">gScript Camera Helper.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
 			<Item Name="gScript Interpreter" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
@@ -532,7 +584,7 @@
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">28</Property>
+				<Property Name="Bld_version.build" Type="Int">30</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/gScript Interpreter.exe</Property>
@@ -602,7 +654,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{6DF3558C-9506-46AF-8F13-01812F5AB42C}</Property>
-				<Property Name="Bld_version.build" Type="Int">7</Property>
+				<Property Name="Bld_version.build" Type="Int">8</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Path Visualizer.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Path Visualizer/gScript Path Visualizer.exe</Property>
@@ -642,7 +694,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{CDAF973B-90B9-40CD-B56C-EE97CF390EAA}</Property>
-				<Property Name="Bld_version.build" Type="Int">5</Property>
+				<Property Name="Bld_version.build" Type="Int">6</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Pattern Recognition Tuner.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Pattern Recognition Tuner/gScript Pattern Recognition Tuner.exe</Property>
@@ -706,7 +758,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{5D18E17D-CBC4-46AB-A4CA-0D2437EE6AE2}</Property>
-				<Property Name="Bld_version.build" Type="Int">8</Property>
+				<Property Name="Bld_version.build" Type="Int">9</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Post-Install Action.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/Post-Install Action.exe</Property>
