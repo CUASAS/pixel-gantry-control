@@ -921,7 +921,18 @@ Invokes the Syringe Tool potting routine. Must supply the start and end position
 
 #### `PICKPART`
 
-Picks up a part using a picker tool. The tool must already be loaded prior to invocation. Requires an accurate gantry-head-camera-offset (called `geometry.tool_holder_offset` in the flex_config) and a tool height/offset for the loaded picker tool. E.g. `geometry.etl_picker_tool.center_offset: {0,0,60.1}`.
+Picks up a part using a picker tool. The tool must already be loaded prior to invocation. Requires an accurate gantry-head-camera-offset (called `geometry.tool_holder_offset` in the flex_config) and a tool height/offset for the loaded picker tool. E.g. `geometry.etl_picker_tool.center_offset: {0,0,60.1}`. The exact motion described below with configurable options (specified in the flex_config) mentioned when appropriate.
+
+  1. If `loc` is supplied, a `MOVENAME` is executed to arrive at that named position
+  2. The gantry moves to `pos` with z=0 at the speed `pickplace_move_speed` (default 50 mm/s).
+  3. The gantry moves vertically to z=`pickplace_rotation_height` (default 0 mm)
+  4. The gantry rotates to `rot`, if specified, at the speed `pickplace_rotate_speed` (default 30 deg/s)
+  5. The gantry descends to bring the suction cups to `pickplace_descent_space` (default 10mm) above the part at speed `pickplace_descent_speed1` (default 30 mm/s)
+  6. The gantry descends the rest of the way to make contact with the part at speed `pickplace_descent_speed2` (default 5 mm/2).
+  7. The gantry waits `pickplace_delay1` (default 0.5 s)
+  8. The vacuum to the suction cups is engaged, followed by another pause lasting `pickplace_delay2` (default 1 s).
+  9. If specified, the vacuum holding the part down is released, followed by one last delay lasting `pickplace_delay3` (default 1 s)
+  10. Finally, the gantry performs steps 2-6 in reverse order to lift the part and bring its rotation to zero.
 
 *Format:* `PICKPART pos rot vac loc`
 
@@ -932,7 +943,7 @@ Picks up a part using a picker tool. The tool must already be loaded prior to in
 
 #### `PLACEPART`
 
-Places an alredy-picked part using the picker tool. Has the same configuration requirements as `PICKPART`.
+Places an alredy-picked part using the picker tool. Has the same configuration and customization requirements as `PICKPART`. The motion is identical. The only real difference is the vacuum behaving in the opposite manner to disengage the suction cups and engage the bottom holding vacuum if specified.
 
 *Format:* `PLACEPART pos rot vac loc`
 
