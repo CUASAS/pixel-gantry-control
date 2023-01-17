@@ -63,8 +63,3 @@ Next use `NI Package Manager` to install NI-DAQmx and IMAQdx. Valid licenses for
 
 Run the Aerotech installer. The installer doesn't put the Aerotech VIs in a place where LabVIEW knows to look. To fix this, run `Aerotech Dumbness Fixer.vi` to copy the VIs to `user.lib`. This step will likely need LabVIEW to be started as an administrator since it is moving files around in `Program Files`.
 
-
-### Installing External Dependencies
-
-The visual pattern recognition and database connectivity features are developed using a C++ codebase in [pixel-gantry-extra](https://github.com/cfangmeier/pixel-gantry-extra). If you clone this repository, you need to download the [latest release](https://github.com/cfangmeier/pixel-gantry-extra/releases) and extract the contents of the zip file into `Gantry\Shared Components\External\`. If the zip file contains any redistributable installers in `bin\`, run those now to install any required libraries.
-
