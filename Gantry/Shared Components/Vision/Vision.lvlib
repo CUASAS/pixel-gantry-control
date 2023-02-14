@@ -39,6 +39,7 @@
 			<Item Name="ueye allocate image memory.vi" Type="VI" URL="../ueye allocate image memory.vi"/>
 			<Item Name="ueye get image size.vi" Type="VI" URL="../ueye get image size.vi"/>
 			<Item Name="ueye array to image.vi" Type="VI" URL="../ueye array to image.vi"/>
+			<Item Name="ueye error handling.vi" Type="VI" URL="../ueye error handling.vi"/>
 		</Item>
 		<Item Name="wmf" Type="Folder">
 			<Item Name="wmf_list_cameras.vi" Type="VI" URL="../wmf_list_cameras.vi"/>
