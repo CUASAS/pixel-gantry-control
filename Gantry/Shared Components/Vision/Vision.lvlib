@@ -35,12 +35,6 @@
 		<Item Name="CAM String Array.vi" Type="VI" URL="../../Database/CAM String Array.vi"/>
 	</Item>
 	<Item Name="image acquisition" Type="Folder">
-		<Item Name="ueye" Type="Folder">
-			<Item Name="ueye allocate image memory.vi" Type="VI" URL="../ueye allocate image memory.vi"/>
-			<Item Name="ueye get image size.vi" Type="VI" URL="../ueye get image size.vi"/>
-			<Item Name="ueye array to image.vi" Type="VI" URL="../ueye array to image.vi"/>
-			<Item Name="ueye error handling.vi" Type="VI" URL="../ueye error handling.vi"/>
-		</Item>
 		<Item Name="wmf" Type="Folder">
 			<Item Name="wmf_list_cameras.vi" Type="VI" URL="../wmf_list_cameras.vi"/>
 			<Item Name="wmf_capture_image.vi" Type="VI" URL="../wmf_capture_image.vi"/>
@@ -51,6 +45,14 @@
 			<Item Name="wmf_get_property.vi" Type="VI" URL="../wmf_get_property.vi"/>
 			<Item Name="wmf_properties.vi" Type="VI" URL="../wmf_properties.vi"/>
 		</Item>
+		<Item Name="ueye" Type="Folder">
+			<Item Name="ueye allocate image memory.vi" Type="VI" URL="../ueye allocate image memory.vi"/>
+			<Item Name="ueye get image size.vi" Type="VI" URL="../ueye get image size.vi"/>
+			<Item Name="ueye array to image.vi" Type="VI" URL="../ueye array to image.vi"/>
+			<Item Name="ueye error handling.vi" Type="VI" URL="../ueye error handling.vi"/>
+			<Item Name="ueye grab image.vi" Type="VI" URL="../ueye grab image.vi"/>
+			<Item Name="ueye check capture status.vi" Type="VI" URL="../ueye check capture status.vi"/>
+		</Item>
 		<Item Name="open camera.vi" Type="VI" URL="../open camera.vi"/>
 		<Item Name="grab image.vi" Type="VI" URL="../grab image.vi"/>
 		<Item Name="camera.ctl" Type="VI" URL="../camera.ctl"/>
@@ -60,5 +62,6 @@
 		<Item Name="save configuration.vi" Type="VI" URL="../save configuration.vi"/>
 		<Item Name="get modes.vi" Type="VI" URL="../get modes.vi"/>
 		<Item Name="get properties.vi" Type="VI" URL="../get properties.vi"/>
+		<Item Name="get status.vi" Type="VI" URL="../get status.vi"/>
 	</Item>
 </Library>
