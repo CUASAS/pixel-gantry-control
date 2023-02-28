@@ -2,6 +2,11 @@
 #====== Hardware configuration
 #================================================
 
+# If using IMAQdx (ie the National Instruments camera driver), set the following value
+# to True. Note that this requires a license on this machine
+enable_imaqdx: False
+
+
 # A set of entries is needed for each camera in the system. An minimum,
 # a "gantryhead" set of entries is required.
 camera.gantryhead.CameraGroup: 1

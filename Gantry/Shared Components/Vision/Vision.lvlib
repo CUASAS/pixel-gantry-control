@@ -52,6 +52,11 @@
 			<Item Name="ueye error handling.vi" Type="VI" URL="../ueye error handling.vi"/>
 			<Item Name="ueye grab image.vi" Type="VI" URL="../ueye grab image.vi"/>
 			<Item Name="ueye check capture status.vi" Type="VI" URL="../ueye check capture status.vi"/>
+			<Item Name="ueye open camera.vi" Type="VI" URL="../ueye open camera.vi"/>
+		</Item>
+		<Item Name="imaqdx" Type="Folder">
+			<Item Name="imaqdx open camera.vi" Type="VI" URL="../imaqdx open camera.vi"/>
+			<Item Name="imaqdx construct identifier.vi" Type="VI" URL="../imaqdx construct identifier.vi"/>
 		</Item>
 		<Item Name="open camera.vi" Type="VI" URL="../open camera.vi"/>
 		<Item Name="grab image.vi" Type="VI" URL="../grab image.vi"/>
