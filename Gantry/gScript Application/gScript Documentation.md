@@ -60,6 +60,15 @@ CHOICEPOPUP $answer "You are at {$curr:%v}. Is this correct?"
 
 This gets the current position and then asks the user if that is the correct place to be. The `:%v` tells the string interpolation routine to format that value as a vector. The possible format options are: `%d`, `%b`, `%f`, and `%v`.
 
+String interpolation also supports timestamps. To do this, just use the literal `timestamp` in place of the variable name, eg: `"The current time is {timestamp}"`. There is support for a few different formats documented in the table below.
+
+| format | example output       | note                                                         |
+|--------|----------------------|--------------------------------------------------------------|
+| %a     | 2023-03-09--16-21-50 | Full timestamp in a format suitable for a filename (default) |
+| %c     | 3/9/2023 4:21:50 PM  | Full timestamp in human readable form                        |
+| %d     | 2023-03-09           | Only Year, month, day                                        |
+| %t     | 16-21-50             | Only hour, minute, second                                    |
+
 ### Tick Expressions
 
 It is often convenient to be able to do simple calculations and pass the result to a command, a function call, or to determine whether a `GOTOIF` get's executed. To help with this, "Tick Expressions" were added in `gScript v2.1`. They allow you to put a simple calculation in any place where you would normally put a variable, constant, or main memory access. Take a simple example. We have a variable and we want to print out double the number. Without using tick expressions this would be done like:
