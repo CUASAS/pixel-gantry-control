@@ -451,7 +451,7 @@ Creates a popup offering the user two options. Typically used to ask the user a 
 
 #### `GETINTPOPUP`
 
-Creates a popup asking the user to supply a single integer value.
+*(Depreciated, will be replaced with DIALOG)* Creates a popup asking the user to supply a single integer value.
 
 *Format:* `GETINTPOPUP value prompt`
 
@@ -461,7 +461,7 @@ Creates a popup asking the user to supply a single integer value.
 
 #### `GETFLOATPOPUP`
 
-Creates a popup asking the user to supply a single float value.
+*(Depreciated, will be replaced with DIALOG)* Creates a popup asking the user to supply a single float value.
 
 *Format:* `GETFLOATPOPUP value prompt`
 
@@ -471,13 +471,57 @@ Creates a popup asking the user to supply a single float value.
 
 #### `GETVECPOPUP`
 
-Creates a popup asking the user to supply a 3d vector
+*(Depreciated, will be replaced with DIALOG)* Creates a popup asking the user to supply a 3d vector
 
 *Format:* `GETVECPOPUP value prompt`
 
   - `value`: Writable location to store the user's input
   - `prompt`: The text to be displayed to the user, default is "Please provide a vector"
 
+#### `DIALOG`
+
+Create dialog box based on the description in a specified `.ini` file.  The dialog can contain up to ten each of float, integer, or boolean controls. The `.ini` file must have a section for each control that should be included. The section names follow the format `[{type}_input_{number}]` where `{type}` can be either `bool`, `float`, or `int`, and `{number}` can be 1 up to 10, eg. `bool_input_3` or `float_input_9`. Each section can have up to five entries: `label`, `x`, `y`, `default`, and `variable`. The `variable` entry specifies where the value entered into the control should be saved upon closing the dialog while the other entries should be self-explanatory. Below is an example configuration along with the dialog box it generates
+
+```ini
+[window]
+width=220
+height=220
+title=Test Dialog
+
+[float_input_1]
+label=Hello World
+x=10
+y=100
+default=16
+variable="[1]"
+
+[float_input_2]
+label=Hello World
+x=110
+y=100
+default=16
+variable="$float2"
+
+[bool_input_1]
+label=Boolean input 1
+x=10
+y=10
+default=false
+variable=$bool1
+
+[bool_input_2]
+label=Boolean input 2
+x=110
+y=10
+default=true
+variable=$bool2
+```
+
+![image](https://user-images.githubusercontent.com/2569566/225164153-9a91af6e-dbdc-4237-a1a3-6312102dc02c.png)
+
+*Format:* `DIALOG path`
+
+  - `path`: The path relative to the active project root to the dialog description file. eg `Config\dialog-test.ini`.
 
 #### `SETLOG`
 
