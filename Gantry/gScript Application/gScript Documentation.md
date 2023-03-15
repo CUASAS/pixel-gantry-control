@@ -1,16 +1,16 @@
  # gScript (Gantry Script) Documentation
 
-gScript is an interpreted language similar to assembly. A gScript source code file is a plain text file with one statement per line. Statements are executed in sequence from top to bottom. A statement has the form
+gScript is an interpreted language similar to BASIC. A gScript source code file is a plain text file with one statement per line. Statements are executed in sequence from top to bottom. A statement has the form
 
 ```
 COMMAND ARG0 ARG1 ... ARGN
 ```
 
-`COMMAND` must be one of the build in commands as specified below. Arguments can be of various forms, including numeric and string literals, variables, or references to memory. The syntax for these forms will be described below.
+`COMMAND` must be one of the built-in commands as specified below. Arguments can be of various forms, including numeric and string literals, variables, or references to memory. The syntax for these forms will be described below.
 
 The gScript interpreter has memory that is split into two parts. The first is a variable table. When you reference a variable with the `$VAR` syntax, gScript looks into the variable table to either read or write to that variable. Whether a read or write occurs depends on the command. Trying to read from a variable that has not been initialized will result in an error. The second part of memory is called Main Memory. It consists of an array of memory cells that can be accessed with bracket syntax, e.g. `[10]` to access the cell at address 10. The bracket syntax can also be used in conjuntion with variables. This is accomplished via the syntax `[$var]`.
 
-Comments are indicated with a `#`, with all characters after it being ignored. 
+Comments are indicated with a `#`, with all characters after it being ignored.
 
 ```
 # This whole line is a comment
@@ -71,7 +71,7 @@ String interpolation also supports timestamps. To do this, just use the literal 
 
 ### Tick Expressions
 
-It is often convenient to be able to do simple calculations and pass the result to a command, a function call, or to determine whether a `GOTOIF` get's executed. To help with this, "Tick Expressions" were added in `gScript v2.1`. They allow you to put a simple calculation in any place where you would normally put a variable, constant, or main memory access. Take a simple example. We have a variable and we want to print out double the number. Without using tick expressions this would be done like:
+It is often convenient to be able to do simple calculations and pass the result to a command, a function call, or to determine whether a `GOTOIF` gets executed. To help with this, "Tick Expressions" were added in `gScript v2.1`. They allow you to put a simple calculation in any place where you would normally put a variable, constant, or main memory access. Take a simple example. We have a variable and we want to print out double the number. Without using tick expressions this would be done like:
 
 ```
 COPY $N 10
