@@ -806,10 +806,11 @@ Creates a composite image centered at `loc` with size `x-size` by `y-size`.
 
 #### `FINDFID`
 
-*Format:* `FINDFID loc fidtype`
+*Format:* `FINDFID loc fidtype verbose`
 
   - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0} and an error will be thrown.
   - `fidtype`: Specify the type of fiducial you want to find. Needs to correspond to a section in the `vision.*` namespace in `flex_config.txt`.
+  - `verbose`: **Optional**, supply the literal string "verbose" to output debug information to the console.
 
 ### Vacuum Commands
 
