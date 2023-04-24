@@ -15,6 +15,8 @@
 		<Item Name="find_circles parameters.ctl" Type="VI" URL="../find_circles parameters.ctl"/>
 		<Item Name="find_patches parameters.ctl" Type="VI" URL="../find_patches parameters.ctl"/>
 		<Item Name="find_patches.vi" Type="VI" URL="../find_patches.vi"/>
+		<Item Name="find_template.vi" Type="VI" URL="../find_template.vi"/>
+		<Item Name="find_template parameters.ctl" Type="VI" URL="../find_template parameters.ctl"/>
 	</Item>
 	<Item Name="image manipulation" Type="Folder">
 		<Item Name="fill.vi" Type="VI" URL="../fill.vi"/>

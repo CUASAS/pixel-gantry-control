@@ -64,6 +64,24 @@ DLLExport int __cdecl find_circles(
         float *circleRadii);
 
 
+DLLExport int __cdecl find_template(
+        char *imgPtr,
+        int imgLineWidth,
+        int imgWidth,
+        int imgHeight,
+        char *templatePtr,
+        int templateLineWidth,
+        int templateWidth,
+        int templateHeight,
+        float fieldOfViewX,  //  for img, mm
+        float fieldOfViewY,  // for img, mm
+        int templateBlurFactor, // pixels
+        float minConcurrence,
+        int *numMatch,
+        float *matchX,
+        float *matchY,
+        float *matchConcurrence);
+
 DLLExport int __cdecl find_rects(
         char *imgPtr,
         int imgLineWidth,

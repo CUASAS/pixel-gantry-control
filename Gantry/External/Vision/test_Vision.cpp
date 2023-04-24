@@ -1,5 +1,5 @@
 #include <iostream>
-#include "camera.h"
+#include "../Camera/capture.h"
 
 using namespace std;
 

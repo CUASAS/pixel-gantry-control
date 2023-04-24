@@ -298,6 +298,60 @@ __declspec(dllexport) int __cdecl find_circles(
     return 0;
 }
 
+__declspec(dllexport) int __cdecl find_template(
+        char *imgPtr,
+        int imgLineWidth,
+        int imgWidth,
+        int imgHeight,
+        char *templatePtr,
+        int templateLineWidth,
+        int templateWidth,
+        int templateHeight,
+        float fieldOfViewX,  //  for img, mm
+        float fieldOfViewY,  // for img, mm
+        int templateBlurFactor, // pixels
+        float minConcurrence,
+        int *numMatch,
+        float *matchX,
+        float *matchY,
+        float *matchConcurrence
+        ) {
+    log("Running find_template");
+    std::stringstream ss;
+
+    cv::Mat img(imgHeight, imgWidth, CV_8U, (void *) imgPtr, imgLineWidth);
+    cv::Mat template_(templateHeight, templateWidth, CV_8U, (void *) templatePtr, templateLineWidth);
+
+    cv::Mat template_blurred;
+    if (templateBlurFactor > 0) {
+        cv::GaussianBlur(template_, template_blurred, cv::Size(0, 0), templateBlurFactor);
+    } else {
+        template_blurred = template_;
+    }
+
+    cv::Mat out;
+    cv::matchTemplate(img, template_, out, cv::TM_CCOEFF_NORMED);
+    show(out);
+
+    double minVal, maxVal;
+    cv::Point2i minLoc, maxLoc;
+    cv::minMaxLoc(out, &minVal, &maxVal, &minLoc, &maxLoc);
+    if (maxVal < minConcurrence) {
+        *numMatch = 0;
+        return -1;  // No match
+    }
+    float x_px = (maxLoc.x + 0.5*templateWidth) - 0.5*imgWidth;
+    float y_px = (maxLoc.y + 0.5*templateHeight) - 0.5*imgHeight;
+    float x_mm = x_px * (fieldOfViewX / imgWidth);
+    float y_mm = y_px * (fieldOfViewY / imgHeight);
+
+    *numMatch = 1;
+    *matchX = x_mm;
+    *matchY = y_mm;
+    *matchConcurrence = (float)maxVal;
+
+    return 0;
+}
 
 __declspec(dllexport) int __cdecl find_rects(
         char *imgPtr,
