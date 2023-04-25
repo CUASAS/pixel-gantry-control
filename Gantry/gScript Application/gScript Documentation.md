@@ -17,7 +17,7 @@ Comments are indicated with a `#`, with all characters after it being ignored.
 ADD $res 12 -6  # This a comment sharing a line with a statement.
 ```
 
-In addition to the above mentioned memory, there is also the internal state of the gantry that is stored in a `FlexWorktable` object. The format of this section of memory is key-value pairs and is initially populated with the contents of `flex_config.txt`. Elements in the `FlexWorktable` can be accessed with the `FLEXREAD` and `FLEXWRITE` commands. The contents of the FlexWorktable can be dumped to the console with the `DUMPSTATE` command.
+In addition to the above mentioned memory, there is also the internal state of the gantry that is stored in a `FlexWorktable` object. The format of this section of memory is key-value pairs and is initially populated with the contents of `flex_config.txt`. Elements in the `FlexWorktable` can be accessed with the `FLEXREAD` and `FLEXWRITE` commands, or by using flex references. The contents of the FlexWorktable can be dumped to the console with the `DUMPSTATE` command.
 
 ## Labels
 
@@ -91,6 +91,26 @@ Note that this eliminates one line of code and the awkward `$2N` variable. The n
 **Caveats:**
   - Only expressions of the form `{value}{operation}{value}` are supported. More complex expressions must be broken up and performed one at a time.
   - Only scalar numbers are supported. If a vector or quaternion is supplied, the `.x` component will be used.
+
+### Flex References
+
+(**New in v2.3.0**) Flex references are a more compact alternative to using the `FLEXREAD` or `FLEXWRITE` commands. They can be placed anywhere where a variable or literal can be, and are constructed by simply prepending an ampersand to the name of an entry in the FlexWorktable. For example,
+
+```
+# Tradition usage of FLEXREAD
+FLEXREAD $var my.config.value
+PRINT %d $var
+
+# Now, using a flex reference instead
+PRINT %d &my.config.value
+```
+
+Flex references can also be used in conjunction with string interpolation.
+
+```
+COPY $id 5
+PRINT "Module %d has dimensions %f x %f mm." $id &module_{$id}.width &module_{$id}.height
+```
 
 ### Error Handling
 
