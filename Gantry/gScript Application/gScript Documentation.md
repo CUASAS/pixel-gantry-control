@@ -419,12 +419,24 @@ Pauses execution for the specified number of milliseconds.
 
 #### `FIT` 
 
-Computes a position/orientation of a part in the gantry's coordinate system by comparing measured reference points with reference points defined by mechanical drawings of that part.
+Computes a position/orientation of a part in the gantry's coordinate system by comparing measured reference points with reference points defined by mechanical drawings of that part. The points from the drawing should be referenced relative to the "center" of the part. This can be the physical center of the part, i.e. a point at equal distances from opposing sides, but it can also be any other arbitrary point on the part. Just keep in mind that the FIT will return the position of this "center", however you choose to define it.
 
-*Format:* `FIT pos rot type fid_tr fid_br fid_bl fid_tl`
+As an example, consider a rectangular part that is 20mm wide and 16mm deep. We use the corners as the reference points. If we define the "center" as the physical center of the part, the local coordinates of these reference positions would be defined like:
+
+```
+geometry.example_part.fid_tr: {10,-8,0}
+geometry.example_part.fid_br: {10,8,0}
+geometry.example_part.fid_bl: {-10,-8,0}
+geometry.example_part.fid_tl: {-10,8,0}
+```
+
+In addition to these position definitions, a maximum residual, defined as the sum of the distances between the measured and fitted points, can be defined as `geometry.part_name.residual_threshold`. If the residual from the fit is greater than this value an error will get thrown.
+
+*Format:* `FIT pos rot residual type fid_tr fid_br fid_bl fid_tl`
 
   - `pos`: Writable location to store the position resulting from the fit
   - `rot`: Writable location to store the orientation resulting from the fit
+  - `residual`: Writable location to store the residual resulting from the fit
   - `type`: The type of part that is being fit. Must correspond to an object in the `geometry.*` namespace that has four corner fiducials positions specified.
   - `fid_tr`: Top-right fiducial position
   - `fid_br`: Bottom-right fiducial position
