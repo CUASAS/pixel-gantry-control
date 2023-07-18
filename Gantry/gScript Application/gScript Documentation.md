@@ -838,6 +838,74 @@ Creates a composite image centered at `loc` with size `x-size` by `y-size`.
 
 #### `FINDFID`
 
+This command invokes one of several visual pattern recognition routines. The second argument, `fidtype`, refers to a set of pattern recognition parameters spelled out in the flex config. The parameters for each routine are different and are documented in the following tables.
+
+*Method:* `find_patches`
+
+| Parameter Name | Type    | Description                                                | Typical Values |
+|----------------|---------|------------------------------------------------------------|----------------|
+| dilateSize     | integer | Size of dilation kernel in pixels                          | 3-10           |
+| sizeMin        | float   | Minimum area of patch in mm^2                              | .01-.1         |
+| sizeMax        | float   | Maximum area of patch in mm^2                              | 0.1-0.5        |
+| aspectRatioMin | float   | Minimum aspect ratio (width/height) of patch               | 0.8            |
+| aspectRatioMax | float   | Maximum aspect ratio of patch                              | 1.2            |
+| colorGroups    | integer | Number of groups used in the k-means foreground separation | 2-4            |
+
+*Method:* `find_rects`
+
+| Parameter Name | Type    | Description                                                                                                                             | Typical Values |
+|----------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| nominalWidth   | float   | Nominal width of rectangle in mm                                                                                                        | 0.2-1          |
+| nominalHeight  | float   | Nominal height of rectangle in mm                                                                                                       | 0.2-1          |
+| tolerance      | float   | Fractional tolerance on dimensions                                                                                                      | 0.05-0.2       |
+| pointSelect    | int     | Which point on rectangle to return.   0: center  1: bottom-left corner  2: top-left corner  3: top-right corner  4: bottom-right-corner | 0-4            |
+| allowRotation  | Boolean | Whether to allow for off-square rectangles.                                                                                             | True/False     |
+
+*Method:* `find_circles`
+
+| Parameter Name      | Type  | Description                                          | Typical Values |
+|---------------------|-------|------------------------------------------------------|----------------|
+| minRadius           | float | Minimum radius of circle in mm                       | 0.1-0.8        |
+| maxRadius           | float | Maximum radius of circle in mm                       | 0.5-1.5        |
+| houghGradientParam1 | int   | Upper threshold for the internal Canny edge detector | 150-250        |
+| houghGradientParam2 | int   | Threshold for center detection                       | 30-100         |
+
+
+*Method:* `find_template`
+
+| Parameter Name     | Type  | Description                                                                      | Typical Values                                                              |
+|--------------------|-------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| templateBlurFactor | int   | Size of kernel for Gaussian blur of the template in pixels.                      | 4-8                                                                         |
+| minConcurrence     | float | Minimum concurrence between template and matching region.                        | 100-1000                                                                    |
+| templatePath       | path  | Path to template image. Either an absolute path or relative to the project root. | "Scripts\Assy1\fiducial_template.png" "C:\\Templates\fiducial_template.png" |
+
+Each method also supports an integer `shrink_factor` parameter which, if greater than 1, downsamples the image prior to running the pattern recognition. This can be useful for increasing the runtime speed of the routine. Finally, if the fiducial marker is larger than the camera's field-of-view, optional floating point parameters `scan_window_x` and `scan_window_y` can be supplied in mm to specify a larger area to scan. If the requested scan area is larger than the camera's field-of-view then multiple images will be taken and stitched together to form a composite image of the requested area.
+
+These parameters need to be spelled out in the flex config with a section for each type of fiducial. A couple examples follow:
+
+```
+vision.example1.method: find_patches
+vision.example1.shrinkFactor: 4
+vision.example1.dilateSize: 3
+vision.example1.sizeMin: 0.02
+vision.example1.sizeMax: 0.04
+vision.example1.colorGroups: 4
+vision.example1.aspectRatioMin: 0.9
+vision.example1.aspectRatioMax: 1.1
+
+vision.example2.method: find_rects
+vision.example2.scan_window_x: 3.5  # mm
+vision.example2.scan_window_y: 4.0  # mm
+vision.example2.nominalWidth: 1
+vision.example2.nominalHeight: 1
+vision.example2.tolerance: 0.2
+vision.example2.pointSelect: 0
+vision.example2.allowRotation: True
+```
+
+To present visual debugging popups showing intermediate steps during execution, set the entry `vision.debug_enable: True` in the flex config. To show or save fiducial finding results, set the `vision.findfid_result` entry to "popup" to show the result in a popup window or to a directory (e.g. "Logs\") to save the result to disk.
+
+
 *Format:* `FINDFID loc fidtype verbose`
 
   - `loc`: Location of the fiducial in gantry coordinates. If no fiducial was found, the result will be {-1,0,0,0} and an error will be thrown.

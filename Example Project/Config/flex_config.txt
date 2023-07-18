@@ -131,7 +131,8 @@ geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 reference_image.default: Data\reference_images\rectangle_test.png
 reference_image.hdi_fid: Data\reference_images\HDI_fid.png
 
-vision.debug_enable: True
+vision.debug_enable: False
+vision.findfid_result: Logs\
 vision.autofocus.step_size: 0.01 # mm
 vision.autofocus.delay: 250 # ms
 
@@ -145,6 +146,8 @@ vision.example.aspectRatioMin: 0.9
 vision.example.aspectRatioMax: 1.1
 
 vision.example2.method: find_rects
+vision.example2.scan_window_x: -1  # mm
+vision.example2.scan_window_y: -1  # mm
 vision.example2.nominalWidth: 1
 vision.example2.nominalHeight: 1
 vision.example2.tolerance: 0.5
