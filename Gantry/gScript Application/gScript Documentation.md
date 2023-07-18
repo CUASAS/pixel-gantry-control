@@ -877,7 +877,7 @@ This command invokes one of several visual pattern recognition routines. The sec
 |--------------------|-------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
 | templateBlurFactor | int   | Size of kernel for Gaussian blur of the template in pixels.                      | 4-8                                                                         |
 | minConcurrence     | float | Minimum concurrence between template and matching region.                        | 100-1000                                                                    |
-| templatePath       | path  | Path to template image. Either an absolute path or relative to the project root. | "Scripts\Assy1\fiducial_template.png" "C:\\Templates\fiducial_template.png" |
+| templatePath       | path  | Path to template image. Either an absolute path or relative to the project root. | "Scripts\Assy1\fiducial_template.png" "C:\\\\Templates\fiducial_template.png" |
 
 Each method also supports an integer `shrink_factor` parameter which, if greater than 1, downsamples the image prior to running the pattern recognition. This can be useful for increasing the runtime speed of the routine. Finally, if the fiducial marker is larger than the camera's field-of-view, optional floating point parameters `scan_window_x` and `scan_window_y` can be supplied in mm to specify a larger area to scan. If the requested scan area is larger than the camera's field-of-view then multiple images will be taken and stitched together to form a composite image of the requested area.
 
@@ -903,7 +903,7 @@ vision.example2.pointSelect: 0
 vision.example2.allowRotation: True
 ```
 
-To present visual debugging popups showing intermediate steps during execution, set the entry `vision.debug_enable: True` in the flex config. To show or save fiducial finding results, set the `vision.findfid_result` entry to "popup" to show the result in a popup window or to a directory (e.g. "Logs\") to save the result to disk.
+To present visual debugging popups showing intermediate steps during execution, set the entry `vision.debug_enable: True` in the flex config. To show or save fiducial finding results, set the `vision.findfid_result` entry to "popup" to show the result in a popup window or to a directory (e.g. "Logs\\") to save the result to disk.
 
 
 *Format:* `FINDFID loc fidtype verbose`
