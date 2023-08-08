@@ -81,6 +81,10 @@ manifold.port.29: cDAQ1Mod1/port0/line29
 manifold.port.30: cDAQ1Mod1/port0/line30
 manifold.port.31: cDAQ1Mod1/port0/line31
 
+# If using the dispenser control functionality of the software, set the hardware address
+# for the line that enables/disables the dispenser as follows
+dispenser.hardware_address: cDAQ1Mod1/port1/line42
+
 motion.travel_speed: 100  # mm/s
 
 tool_rack.0: picker_tool
