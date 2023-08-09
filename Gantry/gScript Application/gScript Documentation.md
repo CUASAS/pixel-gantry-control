@@ -930,6 +930,101 @@ Sets the specified vacuum channel to either on or off depending on the boolean e
   - `chan`: The channel name of Vacuum to get
   - `dest`: writable location to store that channel's state
 
+### Serial Communication Commands
+
+Communication over a serial port (either a literal RS-232 or emulated over USB) is supported via the following commands. Note that all communication is line-based so every `SERIALPRINT` command will be implicitly terminated with a line feed (`\n`) character, and incoming data must be similarly terminated to be properly handled by `SERIALECHO` or `SERIALPARSE`.
+
+#### `SERIALLIST`
+
+Print the names of any available serial connections to the console. On windows, these typically are named "COM1", "COM2", etc. 
+
+Note that the enumeration of COM devices can (but usually don't) change when a PC reboots, devices are plugged into different ports, or there's a different phase of the moon (The answer [here](https://learn.microsoft.com/en-us/answers/questions/452998/how-to-assign-static-com-port-number-to-a-device) has some advice on how to get more consistent port enumeration if you run into this problem).
+
+*Format:* `SERIALLIST`
+
+#### `SERIALOPEN`
+
+Open a serial port. The port settings are defined in the flex config. The setting names and defaults are listed in the table below.
+
+| Name         | Label               | Default Value |
+|--------------|---------------------|---------------|
+| Timeout (ms) | serial.timeout      | 10,000        |
+| Data Bits    | serial.data_bits    | 8             |
+| Parity       | serial.parity       | None          |
+| Baud Rate    | serial.baud_rate    | 9600          |
+| Stop Bits    | serial.stop_bits    | 1.0           |
+| Flow Control | serial.flow_control | None          |
+
+In addition, the settings for parity, stop bits, and flow control use the following enumerations. The number in the table should be entered in the flex config to set the corresponding setting.
+
+| Parity Setting | Enumerated Value |
+|----------------|------------------|
+| None           | 0                |
+| Odd            | 1                |
+| Even           | 2                |
+| Mark           | 3                |
+| Space          | 4                |
+
+| Stop Bits Setting | Enumerated Value |
+|-------------------|------------------|
+| 1.0               | 0                |
+| 1.5               | 1                |
+| 2.0               | 2                |
+
+| Flow Control Setting | Enumerated Value |
+|----------------------|------------------|
+| None                 | 0                |
+| XON/XOFF             | 1                |
+| RTS/CTS              | 2                |
+| XON/XOFF & RTS/CTS   | 3                |
+| DTR/DSR              | 4                |
+| XON/XOFF & DTR/DSR   | 5                |
+
+
+*Format:* `SERIALOPEN connection_id channel_name`
+
+  - `connection_id`: A writable location to store the connection identifier of the open port. This is the identifier used in later commands to refer to this connection.
+  - `channel_name`: Name of the device as displayed in the `SERIALLIST` command.
+
+
+#### `SERIALCLOSE`
+
+Closes an open serial connection.
+
+*Format:* `SERIALCLOSE connection_id`
+
+  - `connection_id`: The connection identifier provided by the `SERIALOPEN` command.
+
+#### `SERIALPRINT`
+
+Writes a line of text to an open serial connection.
+
+*Format:* `SERIALPRINT connection_id string_out`
+
+  - `connection_id`: The connection identifier provided by the `SERIALOPEN` command.
+  - `string_out`: A string to write to the serial connection. It will be automatically terminated with a line feed (`\n`) character. String interpolation can be used for dynamic output.
+
+
+#### `SERIALECHO`
+
+Reads a line of text from an open serial connection and prints it to the terminal.
+
+*Format:* `SERIALECHO connection_id`
+
+  - `connection_id`: The connection identifier provided by the `SERIALOPEN` command.
+
+
+#### `SERIALPARSE`
+
+Reads a line of text from an open serial connection and parses it according to a supplied format string. For example, if a line of incoming text has the format: `TEMP: 12.6C`, it can be parsed with the parse string `TEMP: %fC`. In other words, the format string should be the same as the incoming string with any numbers replaced with `%f` for floating point numbers or `%d` for integers. Parsing of non-numeric data is not currently supported.
+
+*Format:* `SERIALPARSE connection_id val_1 val_2 ... format_string`
+
+  - `connection_id`: The connection identifier provided by the `SERIALOPEN` command.
+  - `val_1`, `val_2`, ... `val_n`: Writable locations to store the parsed numeric values. There should be the same number as the number of format specifiers (`%f` or `%d`) in the format string.
+  - `format_string`: The format of the incoming line of data with `%`-style placeholders.
+  
+  
 ### Tooled Routines
 
 Tooled Routines call functions that are defined by the "Tool" subclasses of the LabVIEW Gantry Class. To call these, the script must first execute the `LOADTOOL` command for the specific tool. Afterwards, the `UNLOADTOOL` command must be called.
@@ -1070,6 +1165,15 @@ Invokes the Syringe Tool potting routine. Must supply the start and end position
 
   - `start`: 3D position of the desired dot of encapsulant
   - `offset`: Calibrated 3d offset of the needle tip.
+
+#### `SETDISPENSE`
+
+Simply turns the dispenser on or off. 
+
+*Format:* `SETDISPENSE state`
+
+  - `state`: Boolean value to set the state of the dispenser. Set to `1` to turn on, `0` to turn off.
+
 
 #### **Picker Tool**
 
