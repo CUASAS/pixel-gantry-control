@@ -607,10 +607,11 @@ Loads the content of a config file into the internal state of the application.
 
 Reads an object from the internal state of the application (ie the FlexWorktable) and saves it as a gScript variable.
 
-*Format:* `FLEXREAD dest key`
+*Format:* `FLEXREAD dest key default`
 
   - `dest`: Writable location to store the value
   - `key`: Key for the object to read from the internal state.
+  - `default`: **Optional** If supplied, use this value if no value is found at `key`.
 
 #### `FLEXWRITE`
 
