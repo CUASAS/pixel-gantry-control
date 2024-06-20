@@ -601,6 +601,21 @@ DLLExport int __cdecl crop(
     return 0;
 }
 
+DLLExport int __cdecl copy(
+        char *srcPtr,
+        int srcLineWidth,
+        int srcWidth,
+        int srcHeight,
+        char *dstPtr,
+        int dstLineWidth,
+        int dstWidth,
+        int dstHeight) {
+    cv::Mat imgIn(srcHeight, srcWidth, CV_8U, (void *) srcPtr, srcLineWidth);
+    cv::Mat imgOut(dstHeight, dstWidth, CV_8U, (void *) dstPtr, dstLineWidth);
+    imgIn.copyTo(imgOut);
+    return 0;
+}
+
 DLLExport int __cdecl fill(
         char *srcPtr,
         int srcLineWidth,
@@ -617,14 +632,18 @@ DLLExport int __cdecl resample(
         int srcLineWidth,
         int srcWidth,
         int srcHeight,
+        const char *src_type,
         char *dstPtr,
         int dstLineWidth,
         int dstWidth,
         int dstHeight,
         int new_width,
         int new_height) {
-    cv::Mat imgIn(srcHeight, srcWidth, CV_8U, (void *) srcPtr, srcLineWidth);
-    cv::Mat imgOut(dstHeight, dstWidth, CV_8U, (void *) dstPtr, dstLineWidth);
+    int src_color_code = color_code(src_type);
+    if (src_color_code < 0) return -1;
+
+    cv::Mat imgIn(srcHeight, srcWidth, src_color_code, (void *) srcPtr, srcLineWidth);
+    cv::Mat imgOut(dstHeight, dstWidth, src_color_code, (void *) dstPtr, dstLineWidth);
 
     cv::resize(imgIn, imgOut, cv::Size(new_width, new_height), cv::INTER_LINEAR);
     return 0;

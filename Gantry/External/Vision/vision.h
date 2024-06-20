@@ -130,6 +130,15 @@ DLLExport int __cdecl crop(
         int top,
         int bottom);
 
+DLLExport int __cdecl copy(
+        char *srcPtr,
+        int srcLineWidth,
+        int srcWidth,
+        int srcHeight,
+        char *dstPtr,
+        int dstLineWidth,
+        int dstWidth,
+        int dstHeight);
 
 DLLExport int __cdecl fill(
         char *srcPtr,
@@ -143,6 +152,7 @@ DLLExport int __cdecl resample(
         int srcLineWidth,
         int srcWidth,
         int srcHeight,
+        const char *src_type,
         char *dstPtr,
         int dstLineWidth,
         int dstWidth,

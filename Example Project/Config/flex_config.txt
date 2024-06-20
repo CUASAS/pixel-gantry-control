@@ -132,8 +132,8 @@ geometry.tool_holder_offset: {-0.677,-101.445,-43.72}
 #====== Vision/Pattern Recognition parameters
 #================================================
 
-reference_image.default: Data\reference_images\rectangle_test.png
-reference_image.hdi_fid: Data\reference_images\HDI_fid.png
+reference_image.default: Data\reference_images\friday_afternoon_developer.jpg
+reference_image.coffee_maker: Data\reference_images\coffee_maker.jpg
 
 vision.debug_enable: False
 vision.findfid_result: Logs\
