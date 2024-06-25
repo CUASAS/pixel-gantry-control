@@ -512,27 +512,27 @@ Creates a popup offering the user two options. Typically used to ask the user a 
 
 #### `DIALOG`
 
-Create dialog box based on the description in a specified `.ini` file.  The dialog can contain up to ten each of float, integer, or boolean controls. The `.ini` file must have a section for each control that should be included. The section names follow the format `[{type}_input_{number}]` where `{type}` can be either `bool`, `float`, or `int`, and `{number}` can be 1 up to 10, eg. `bool_input_3` or `float_input_9`. Each section can have up to five entries: `label`, `x`, `y`, `default`, and `variable`. The `variable` entry specifies where the value entered into the control should be saved upon closing the dialog while the other entries should be self-explanatory. Below is an example configuration along with the dialog box it generates
+Create dialog box based on the description in a specified `.ini` file.  The dialog can contain up to ten each of float, integer, or boolean controls. The `.ini` file must have a section for each control that should be included. The section names follow the format `[{type}_input_{number}]` where `{type}` can be either `bool`, `float`, or `int`, and `{number}` can be 1 up to 10, eg. `bool_input_3` or `float_input_9`. Each section can have up to five entries: `label`, `x`, `y`, `default`, and `variable`. The `variable` entry specifies where the value entered into the control should be saved upon closing the dialog while the other entries should be self-explanatory. gScript v2.6 also added support for displaying an image. Up to two images are supported. Below is an example configuration along with the dialog box it generates
 
 ```ini
 [window]
-width=220
-height=220
+width=300
+height=450
 title=Test Dialog
 
 [float_input_1]
 label=Hello World
 x=10
-y=100
-default=16
-variable="[1]"
+y=120
+default=16.12
+variable="$float1"
 
-[float_input_2]
+[int_input_2]
 label=Hello World
 x=110
-y=100
+y=120
 default=16
-variable="$float2"
+variable="$int2"
 
 [bool_input_1]
 label=Boolean input 1
@@ -547,9 +547,18 @@ x=110
 y=10
 default=true
 variable=$bool2
+
+[picture_1]
+label=Cat
+path=C:\Users\cfang\Desktop\2569566.jpg
+x=50
+y=170
+width=200
+height=200
 ```
 
-![image](https://user-images.githubusercontent.com/2569566/225164153-9a91af6e-dbdc-4237-a1a3-6312102dc02c.png)
+![image](https://github.com/CUASAS/pixel-gantry-control/assets/2569566/f984f006-c708-4043-984e-af0e72d97ee9)
+
 
 *Format:* `DIALOG path`
 
@@ -657,6 +666,17 @@ Moves the gantry through the displacement specified by the vector `dis`
 
   - `dis`: 3D Vector specifying a relative motion
   - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, use the (rather slow) default speed.
+
+#### `MOVECIR`
+
+Moves the gantry from its current position to the destination along a circular path. The radius of the circular path and orientation must also be supplied.
+
+*Format:* `MOVECIR destination radius cw/ccw speed`
+
+  - `destination`: 3D vector specifying the position to move to. Note that no motion in the vertical (Z) direction will happen even if the destinations's Z-coordinate is different than the current Z-coordinate.
+  - `radius`: Radius of the circular motion. Must be at least twice the straight-line distance from the current position to the destination.
+  - `cw/ccw`: Must be either the literal string "cw" or "ccw". This determines whether the motion is clockwise (cw) or counter-clockwise(ccw) along the circular path.
+  - `speed`: **Optional** Speed of motion in mm/s. Default is 5mm/s.
 
 #### `MOVENAME`
 
