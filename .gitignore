@@ -22,3 +22,4 @@ gscript_config.ini
 builds/
 
 Gantry/A3200/
+*.bak

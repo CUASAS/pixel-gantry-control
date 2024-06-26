@@ -7,6 +7,12 @@
 enable_imaqdx: False
 
 
+#  Both the old Aerotech system "A3200" and the new system "AUTOMATION1" are supported.
+#  Defaults to "A3200" if not specified
+
+gantry_driver:A3200
+
+
 # A set of entries is needed for each camera in the system. An minimum,
 # a "gantryhead" set of entries is required.
 camera.gantryhead.CameraGroup: 1
