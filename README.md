@@ -32,7 +32,7 @@ A "project folder" is defined as any folder that contains a `Config\` subdirecto
 | Project | URL                                                            |
 |---------|----------------------------------------------------------------|
 | TFPX    | https://github.com/souvik1982/gscript-TFPXModules              |
-| ETL     | https://github.com/nebraska-silicon-lab/gscript-ETLModules     |
+| ETL     | https://github.com/bu-etl/gscript-ETLModules                   |
 
 Please create a PR to be added to either of these lists.
 
