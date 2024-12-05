@@ -239,6 +239,14 @@ Stops the execution of the current script.
 
 *Format:* `END`
 
+#### `ERROR`
+
+Throws an error with the specified message and, optionally, an error code
+
+*Format:* `ERROR message code`
+
+  - `message`: Error message to be displayed to the user
+  - `code`: **Optional** Integer error code, default is -1
 
 #### `ADD`
 
@@ -393,21 +401,21 @@ Applies a coordinate tranformation to convert a local coordinate to a global (ie
   
 #### `INC` 
 
-Increments the first, the `x`, field in `arg1` by 1 and stores the result in `dest`.
+Increments `src` by 1 and stores the result in `val`.
 
-*Format:* `INC dest arg1`
+*Format:* `INC val src`
 
-  - `dest`: Writable location for the result of the increment
-  - `arg`: Readable location for the value to be incremented
+  - `val`: Writable location for the result of the increment
+  - `src`: **Optional** Readable location for the value to be incremented, if omitted use `val` instead.
 
 #### `DEC` 
 
-Decrements the first, the `x`, field in `arg1` by 1 and stores the result in `dest`.
+Decrements `src` by 1 and stores the result in `val`.
 
-*Format:* `DEC dest arg1`
+*Format:* `DEC val src`
 
-  - `dest`: Writable location for the result of the decrement
-  - `arg`: Readable location for the value to be incremented
+  - `val`: Writable location for the result of the decrement
+  - `src`: **Optional** Readable location for the value to be incremented, if omitted use `val` instead.
 
 #### `WAIT`
 
@@ -467,6 +475,16 @@ Finds a best-fit circle in the x-y plane to a set of input points. Because this 
   - `mem_start`: An integer specifying where the first point lives in main memory. For example, if the first point is at `[5]`, then it should be `5`.
   - `n_points`: The number of input points. They should be in main memory sequentially after `mem_start`.
   - `autoclose`: **Optional** Add the literal string "autoclose" to close the result visualization when finished. If omitted, just click "Continue" to close it.
+
+
+#### `ALERT`
+
+Creates a popup with the given message and pauses execution until clicked.
+
+*Format:* `ALERT message btnlabel`
+
+  - `message`: The text to be displayed to the user
+  - `btnlabel`: **Optional** Label for the button, Default: "Ok!"
 
 
 #### `CHOICEPOPUP`
