@@ -24,14 +24,14 @@ A "project folder" is defined as any folder that contains a `Config\` subdirecto
 |-----------|---------------------------------------------------------------------|
 | UNL       | https://github.com/nebraska-silicon-lab/gantry-config-nebraska      |
 | FNAL      | https://github.com/nebraska-silicon-lab/gantry-config-fnal          |
-| Purdue    | https://github.com/souvik1982/pixel-config-purdue                   |
+| Purdue    | https://github.com/PurdueHEPex/pixel-config-purdue                  |
 | CUA       | https://github.com/CUASAS/gantry-config-cua                         |
 
 ### Listing Shared Scripts
 
 | Project | URL                                                            |
 |---------|----------------------------------------------------------------|
-| TFPX    | https://github.com/souvik1982/gscript-TFPXModules              |
+| TFPX    | https://gitlab.cern.ch/cms_tk_ph2/gscript-tfpxmodules          |
 | ETL     | https://github.com/bu-etl/gscript-ETLModules                   |
 
 Please create a PR to be added to either of these lists.
