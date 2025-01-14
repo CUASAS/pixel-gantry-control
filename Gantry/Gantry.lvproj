@@ -1,11 +1,10 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
 <Project Type="Project" LVVersion="24008000">
-	<Property Name="CCSymbols" Type="Str">GANTRY_DRIVER,A3200;</Property>
+	<Property Name="CCSymbols" Type="Str">GANTRY_DRIVER,AUTOMATION1;</Property>
 	<Property Name="NI.LV.All.SaveVersion" Type="Str">Editor version</Property>
 	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
 	<Property Name="NI.Project.Description" Type="Str"></Property>
 	<Item Name="My Computer" Type="My Computer">
-		<Property Name="CCSymbols" Type="Str">GANTRY_DRIVER, A3200;</Property>
 		<Property Name="IOScan.Faults" Type="Str"></Property>
 		<Property Name="IOScan.NetVarPeriod" Type="UInt">100</Property>
 		<Property Name="IOScan.NetWatchdogEnabled" Type="Bool">false</Property>
@@ -38,7 +37,7 @@
 		<Item Name="gScript.ico" Type="Document" URL="../../gScript.ico"/>
 		<Item Name="Post-Build Action.vi" Type="VI" URL="../Post-Build Action.vi"/>
 		<Item Name="Post-Install Action.vi" Type="VI" URL="../Post-Install Action.vi"/>
-		<Item Name="Pre-Build Action A3200.vi" Type="VI" URL="../Pre-Build Action A3200.vi"/>
+		<Item Name="Pre-Build Action.vi" Type="VI" URL="../Pre-Build Action.vi"/>
 		<Item Name="Set Conditional Disable Value.vi" Type="VI" URL="../Set Conditional Disable Value.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
@@ -441,7 +440,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{E3967936-BB90-4A8B-B1DB-B1EF1C9DC66C}</Property>
-				<Property Name="Bld_version.build" Type="Int">21</Property>
+				<Property Name="Bld_version.build" Type="Int">22</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Camera Helper.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Camera Helper/gScript Camera Helper.exe</Property>
@@ -465,63 +464,6 @@
 				<Property Name="TgtF_targetfileName" Type="Str">gScript Camera Helper.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
-			<Item Name="gScript Interpreter - A3200" Type="EXE">
-				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{00AFF8D0-8B5E-43BC-B849-E103A2CE402E}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{38E28AE9-A554-4C75-8768-3422FC1BBB14}</Property>
-				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="App_serverType" Type="Int">1</Property>
-				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{DA95B87B-E7D6-479B-BBBA-A7FA9E683112}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">gScript Interpreter - A3200</Property>
-				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
-				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/Gantry - A3200/gScript Interpreter</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">52</Property>
-				<Property Name="Bld_version.major" Type="Int">1</Property>
-				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/gScript Interpreter.exe</Property>
-				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-				<Property Name="Destination[0].type" Type="Str">App</Property>
-				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/data</Property>
-				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{A85D16B1-9A3C-47DF-995E-8C7C96109C36}</Property>
-				<Property Name="Source[0].type" Type="Str">Container</Property>
-				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
-				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Shared Components/Utils/Geometry Utils/Fit Circle - 2D.vi</Property>
-				<Property Name="Source[2].properties[0].type" Type="Str">Remove front panel</Property>
-				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[1].type" Type="Str">Remove block diagram</Property>
-				<Property Name="Source[2].properties[1].value" Type="Bool">true</Property>
-				<Property Name="Source[2].propertiesCount" Type="Int">2</Property>
-				<Property Name="Source[2].type" Type="Str">VI</Property>
-				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Shared Components/bin/Camera.dll</Property>
-				<Property Name="Source[3].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[4].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/bin/Vision.dll</Property>
-				<Property Name="Source[4].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="SourceCount" Type="Int">5</Property>
-				<Property Name="TgtF_companyName" Type="Str">Univ. of Nebraska - Lincoln</Property>
-				<Property Name="TgtF_enableDebugging" Type="Bool">true</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter - A3200</Property>
-				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter - A3200</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2023</Property>
-				<Property Name="TgtF_productName" Type="Str">gScript Interpreter - A3200</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
-				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
-			</Item>
 			<Item Name="gScript Path Visualizer" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
 				<Property Name="App_INI_aliasGUID" Type="Str">{B3B53403-52FD-4EBE-9C77-C505811C4115}</Property>
@@ -538,7 +480,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{6DF3558C-9506-46AF-8F13-01812F5AB42C}</Property>
-				<Property Name="Bld_version.build" Type="Int">23</Property>
+				<Property Name="Bld_version.build" Type="Int">24</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Path Visualizer.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Path Visualizer/gScript Path Visualizer.exe</Property>
@@ -578,7 +520,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{CDAF973B-90B9-40CD-B56C-EE97CF390EAA}</Property>
-				<Property Name="Bld_version.build" Type="Int">22</Property>
+				<Property Name="Bld_version.build" Type="Int">23</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Pattern Recognition Tuner.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Pattern Recognition Tuner/gScript Pattern Recognition Tuner.exe</Property>
@@ -618,7 +560,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{5D18E17D-CBC4-46AB-A4CA-0D2437EE6AE2}</Property>
-				<Property Name="Bld_version.build" Type="Int">25</Property>
+				<Property Name="Bld_version.build" Type="Int">26</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Post-Install Action.exe</Property>
 				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/Post-Install Action.exe</Property>
@@ -642,7 +584,123 @@
 				<Property Name="TgtF_targetfileName" Type="Str">Post-Install Action.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
-			<Item Name="gScript" Type="Installer">
+			<Item Name="gScript Interpreter - A3200" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{00AFF8D0-8B5E-43BC-B849-E103A2CE402E}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{38E28AE9-A554-4C75-8768-3422FC1BBB14}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">1</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{DA95B87B-E7D6-479B-BBBA-A7FA9E683112}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/Gantry - A3200/gScript Interpreter</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
+				<Property Name="Bld_preActionVIID" Type="Ref">/My Computer/Pre-Build Action.vi</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
+				<Property Name="Bld_version.build" Type="Int">52</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/gScript Interpreter.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{21FBA7B2-ED5B-4D39-8CDF-D176E1225880}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Shared Components/Utils/Geometry Utils/Fit Circle - 2D.vi</Property>
+				<Property Name="Source[2].properties[0].type" Type="Str">Remove front panel</Property>
+				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
+				<Property Name="Source[2].properties[1].type" Type="Str">Remove block diagram</Property>
+				<Property Name="Source[2].properties[1].value" Type="Bool">true</Property>
+				<Property Name="Source[2].propertiesCount" Type="Int">2</Property>
+				<Property Name="Source[2].type" Type="Str">VI</Property>
+				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Shared Components/bin/Camera.dll</Property>
+				<Property Name="Source[3].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[4].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/bin/Vision.dll</Property>
+				<Property Name="Source[4].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="SourceCount" Type="Int">5</Property>
+				<Property Name="TgtF_companyName" Type="Str">Univ. of Nebraska - Lincoln</Property>
+				<Property Name="TgtF_enableDebugging" Type="Bool">true</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2023</Property>
+				<Property Name="TgtF_productName" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="gScript Interpreter - AUTOMATION1" Type="EXE">
+				<Property Name="App_copyErrors" Type="Bool">true</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{224A52DF-A3BB-4007-A10A-BBBCD1169D49}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{7DAF735D-B2FA-43F4-885A-9E48081D166B}</Property>
+				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
+				<Property Name="App_serverType" Type="Int">1</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{B2EA6B40-3539-4619-BDF2-88D34E2AD1E4}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">gScript Interpreter - AUTOMATION1</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
+				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
+				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/Gantry - A3200/gScript Interpreter</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
+				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
+				<Property Name="Bld_preActionVIID" Type="Ref">/My Computer/Pre-Build Action.vi</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{9D7F8D96-14F9-464F-B38D-70F52E5F7AA9}</Property>
+				<Property Name="Bld_version.build" Type="Int">53</Property>
+				<Property Name="Bld_version.major" Type="Int">1</Property>
+				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/gScript Interpreter.exe</Property>
+				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
+				<Property Name="Destination[0].type" Type="Str">App</Property>
+				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/data</Property>
+				<Property Name="DestinationCount" Type="Int">2</Property>
+				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
+				<Property Name="Source[0].itemID" Type="Str">{21FBA7B2-ED5B-4D39-8CDF-D176E1225880}</Property>
+				<Property Name="Source[0].type" Type="Str">Container</Property>
+				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
+				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
+				<Property Name="Source[1].type" Type="Str">VI</Property>
+				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Shared Components/Utils/Geometry Utils/Fit Circle - 2D.vi</Property>
+				<Property Name="Source[2].properties[0].type" Type="Str">Remove front panel</Property>
+				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
+				<Property Name="Source[2].properties[1].type" Type="Str">Remove block diagram</Property>
+				<Property Name="Source[2].properties[1].value" Type="Bool">true</Property>
+				<Property Name="Source[2].propertiesCount" Type="Int">2</Property>
+				<Property Name="Source[2].type" Type="Str">VI</Property>
+				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Shared Components/bin/Camera.dll</Property>
+				<Property Name="Source[3].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="Source[4].destinationIndex" Type="Int">0</Property>
+				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/bin/Vision.dll</Property>
+				<Property Name="Source[4].sourceInclusion" Type="Str">Include</Property>
+				<Property Name="SourceCount" Type="Int">5</Property>
+				<Property Name="TgtF_companyName" Type="Str">Univ. of Nebraska - Lincoln</Property>
+				<Property Name="TgtF_enableDebugging" Type="Bool">true</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2023</Property>
+				<Property Name="TgtF_productName" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{AE30B9B7-1787-4F0D-B206-15A827B55A83}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
+			</Item>
+			<Item Name="gScript - AUTOMATION1" Type="Installer">
 				<Property Name="Destination[0].name" Type="Str">gScript</Property>
 				<Property Name="Destination[0].parent" Type="Str">{3912416A-D2E5-411B-AFEE-B63654D690C0}</Property>
 				<Property Name="Destination[0].tag" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
@@ -653,52 +711,63 @@
 				<Property Name="DistPart[0].productName" Type="Str">NI Vision Common Resources 2023 Q1</Property>
 				<Property Name="DistPart[0].upgradeCode" Type="Str">{409BEFA9-EB3E-472F-AD77-271A4A1D5927}</Property>
 				<Property Name="DistPart[1].flavorID" Type="Str">_full_</Property>
-				<Property Name="DistPart[1].productID" Type="Str">{068568CA-A017-4ABF-83A2-E85C146BADF8}</Property>
-				<Property Name="DistPart[1].productName" Type="Str">NI-DAQmx Runtime 23.0</Property>
-				<Property Name="DistPart[1].upgradeCode" Type="Str">{923C9CD5-A0D8-4147-9A8D-998780E30763}</Property>
-				<Property Name="DistPart[2].flavorID" Type="Str">DefaultFull</Property>
-				<Property Name="DistPart[2].productID" Type="Str">{600831DA-D9CA-4B20-A4B3-3293A741324F}</Property>
-				<Property Name="DistPart[2].productName" Type="Str">NI-IMAQdx Runtime 23.0</Property>
-				<Property Name="DistPart[2].upgradeCode" Type="Str">{3D104AB3-CE10-43C0-B647-07600754072C}</Property>
+				<Property Name="DistPart[1].productID" Type="Str">{45E21CB8-05D7-4E12-B56D-2DDF6EC5B1CB}</Property>
+				<Property Name="DistPart[1].productName" Type="Str">NI-488.2 Runtime 23.5</Property>
+				<Property Name="DistPart[1].upgradeCode" Type="Str">{357F6618-C660-41A2-A185-5578CC876D1D}</Property>
+				<Property Name="DistPart[2].flavorID" Type="Str">_full_</Property>
+				<Property Name="DistPart[2].productID" Type="Str">{5461C098-453B-4C05-9255-80F64D1669FA}</Property>
+				<Property Name="DistPart[2].productName" Type="Str">NI-DAQmx Runtime 24.0</Property>
+				<Property Name="DistPart[2].upgradeCode" Type="Str">{923C9CD5-A0D8-4147-9A8D-998780E30763}</Property>
 				<Property Name="DistPart[3].flavorID" Type="Str">DefaultFull</Property>
-				<Property Name="DistPart[3].productID" Type="Str">{34D9C224-BFA4-4288-9226-EAF4EEDC48BD}</Property>
-				<Property Name="DistPart[3].productName" Type="Str">NI LabVIEW Runtime 2024 Q1 Patch 1 (64-bit)</Property>
-				<Property Name="DistPart[3].SoftDep[0].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[0].productName" Type="Str">NI ActiveX Container (64-bit)</Property>
-				<Property Name="DistPart[3].SoftDep[0].upgradeCode" Type="Str">{1038A887-23E1-4289-B0BD-0C4B83C6BA21}</Property>
-				<Property Name="DistPart[3].SoftDep[1].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[1].productName" Type="Str">NI Deployment Framework 2024 (64-bit)</Property>
-				<Property Name="DistPart[3].SoftDep[1].upgradeCode" Type="Str">{E0D3C7F9-4512-438F-8123-E2050457972B}</Property>
-				<Property Name="DistPart[3].SoftDep[2].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[2].productName" Type="Str">NI Error Reporting 2020 (64-bit)</Property>
-				<Property Name="DistPart[3].SoftDep[2].upgradeCode" Type="Str">{785BE224-E5B2-46A5-ADCB-55C949B5C9C7}</Property>
-				<Property Name="DistPart[3].SoftDep[3].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[3].productName" Type="Str">NI Logos 24.1</Property>
-				<Property Name="DistPart[3].SoftDep[3].upgradeCode" Type="Str">{5E4A4CE3-4D06-11D4-8B22-006008C16337}</Property>
-				<Property Name="DistPart[3].SoftDep[4].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[4].productName" Type="Str">NI LabVIEW Web Server 2024 (64-bit)</Property>
-				<Property Name="DistPart[3].SoftDep[4].upgradeCode" Type="Str">{5F449D4C-83B9-492E-986B-6B85A29C431D}</Property>
-				<Property Name="DistPart[3].SoftDep[5].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[5].productName" Type="Str">NI mDNS Responder 24.0</Property>
-				<Property Name="DistPart[3].SoftDep[5].upgradeCode" Type="Str">{9607874B-4BB3-42CB-B450-A2F5EF60BA3B}</Property>
-				<Property Name="DistPart[3].SoftDep[6].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[6].productName" Type="Str">Math Kernel Libraries 2017</Property>
-				<Property Name="DistPart[3].SoftDep[6].upgradeCode" Type="Str">{699C1AC5-2CF2-4745-9674-B19536EBA8A3}</Property>
-				<Property Name="DistPart[3].SoftDep[7].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[7].productName" Type="Str">Math Kernel Libraries 2020</Property>
-				<Property Name="DistPart[3].SoftDep[7].upgradeCode" Type="Str">{9872BBBA-FB96-42A4-80A2-9605AC5CBCF1}</Property>
-				<Property Name="DistPart[3].SoftDep[8].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[8].productName" Type="Str">NI VC2015 Runtime</Property>
-				<Property Name="DistPart[3].SoftDep[8].upgradeCode" Type="Str">{D42E7BAE-6589-4570-B6A3-3E28889392E7}</Property>
-				<Property Name="DistPart[3].SoftDep[9].exclude" Type="Bool">false</Property>
-				<Property Name="DistPart[3].SoftDep[9].productName" Type="Str">NI TDM Streaming 24.1</Property>
-				<Property Name="DistPart[3].SoftDep[9].upgradeCode" Type="Str">{4CD11BE6-6BB7-4082-8A27-C13771BC309B}</Property>
-				<Property Name="DistPart[3].SoftDepCount" Type="Int">10</Property>
-				<Property Name="DistPart[3].upgradeCode" Type="Str">{B2695A3E-34C2-3082-9B16-BB16F4DF1A07}</Property>
-				<Property Name="DistPartCount" Type="Int">4</Property>
-				<Property Name="INST_buildLocation" Type="Path">../builds/gScript/gScript</Property>
+				<Property Name="DistPart[3].productID" Type="Str">{600831DA-D9CA-4B20-A4B3-3293A741324F}</Property>
+				<Property Name="DistPart[3].productName" Type="Str">NI-IMAQdx Runtime 23.0</Property>
+				<Property Name="DistPart[3].upgradeCode" Type="Str">{3D104AB3-CE10-43C0-B647-07600754072C}</Property>
+				<Property Name="DistPart[4].flavorID" Type="Str">_deployment_</Property>
+				<Property Name="DistPart[4].productID" Type="Str">{57642ED1-74E5-4FA3-9407-9499E414A555}</Property>
+				<Property Name="DistPart[4].productName" Type="Str">NI-VISA Runtime 24.0</Property>
+				<Property Name="DistPart[4].upgradeCode" Type="Str">{8627993A-3F66-483C-A562-0D3BA3F267B1}</Property>
+				<Property Name="DistPart[5].flavorID" Type="Str">DefaultFull</Property>
+				<Property Name="DistPart[5].productID" Type="Str">{34D9C224-BFA4-4288-9226-EAF4EEDC48BD}</Property>
+				<Property Name="DistPart[5].productName" Type="Str">NI LabVIEW Runtime 2024 Q1 Patch 1 (64-bit)</Property>
+				<Property Name="DistPart[5].SoftDep[0].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[0].productName" Type="Str">NI ActiveX Container (64-bit)</Property>
+				<Property Name="DistPart[5].SoftDep[0].upgradeCode" Type="Str">{1038A887-23E1-4289-B0BD-0C4B83C6BA21}</Property>
+				<Property Name="DistPart[5].SoftDep[1].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[1].productName" Type="Str">NI Deployment Framework 2024 (64-bit)</Property>
+				<Property Name="DistPart[5].SoftDep[1].upgradeCode" Type="Str">{E0D3C7F9-4512-438F-8123-E2050457972B}</Property>
+				<Property Name="DistPart[5].SoftDep[10].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[10].productName" Type="Str">NI TDM Streaming 24.1</Property>
+				<Property Name="DistPart[5].SoftDep[10].upgradeCode" Type="Str">{4CD11BE6-6BB7-4082-8A27-C13771BC309B}</Property>
+				<Property Name="DistPart[5].SoftDep[2].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[2].productName" Type="Str">NI Error Reporting 2020 (64-bit)</Property>
+				<Property Name="DistPart[5].SoftDep[2].upgradeCode" Type="Str">{785BE224-E5B2-46A5-ADCB-55C949B5C9C7}</Property>
+				<Property Name="DistPart[5].SoftDep[3].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[3].productName" Type="Str">NI LabVIEW Real-Time NBFifo 2024</Property>
+				<Property Name="DistPart[5].SoftDep[3].upgradeCode" Type="Str">{57233740-EFE9-3C47-BF6A-4C5981105136}</Property>
+				<Property Name="DistPart[5].SoftDep[4].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[4].productName" Type="Str">NI Logos 24.1</Property>
+				<Property Name="DistPart[5].SoftDep[4].upgradeCode" Type="Str">{5E4A4CE3-4D06-11D4-8B22-006008C16337}</Property>
+				<Property Name="DistPart[5].SoftDep[5].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[5].productName" Type="Str">NI LabVIEW Web Server 2024 (64-bit)</Property>
+				<Property Name="DistPart[5].SoftDep[5].upgradeCode" Type="Str">{5F449D4C-83B9-492E-986B-6B85A29C431D}</Property>
+				<Property Name="DistPart[5].SoftDep[6].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[6].productName" Type="Str">NI mDNS Responder 24.0</Property>
+				<Property Name="DistPart[5].SoftDep[6].upgradeCode" Type="Str">{9607874B-4BB3-42CB-B450-A2F5EF60BA3B}</Property>
+				<Property Name="DistPart[5].SoftDep[7].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[7].productName" Type="Str">Math Kernel Libraries 2017</Property>
+				<Property Name="DistPart[5].SoftDep[7].upgradeCode" Type="Str">{699C1AC5-2CF2-4745-9674-B19536EBA8A3}</Property>
+				<Property Name="DistPart[5].SoftDep[8].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[8].productName" Type="Str">Math Kernel Libraries 2020</Property>
+				<Property Name="DistPart[5].SoftDep[8].upgradeCode" Type="Str">{9872BBBA-FB96-42A4-80A2-9605AC5CBCF1}</Property>
+				<Property Name="DistPart[5].SoftDep[9].exclude" Type="Bool">false</Property>
+				<Property Name="DistPart[5].SoftDep[9].productName" Type="Str">NI VC2015 Runtime</Property>
+				<Property Name="DistPart[5].SoftDep[9].upgradeCode" Type="Str">{D42E7BAE-6589-4570-B6A3-3E28889392E7}</Property>
+				<Property Name="DistPart[5].SoftDepCount" Type="Int">11</Property>
+				<Property Name="DistPart[5].upgradeCode" Type="Str">{B2695A3E-34C2-3082-9B16-BB16F4DF1A07}</Property>
+				<Property Name="DistPartCount" Type="Int">6</Property>
+				<Property Name="INST_buildLocation" Type="Path">../builds/gScript - AUTOMATION1/gScript</Property>
 				<Property Name="INST_buildLocation.type" Type="Str">relativeToCommon</Property>
-				<Property Name="INST_buildSpecName" Type="Str">gScript</Property>
+				<Property Name="INST_buildSpecName" Type="Str">gScript - AUTOMATION1</Property>
 				<Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="INST_installerName" Type="Str">setup.exe</Property>
 				<Property Name="INST_productName" Type="Str">gScript</Property>
@@ -720,65 +789,56 @@
 				<Property Name="RegDestCount" Type="Int">1</Property>
 				<Property Name="Source[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[0].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
-				<Property Name="Source[0].File[0].name" Type="Str">gScript Interpreter.exe</Property>
+				<Property Name="Source[0].File[0].name" Type="Str">gScript Path Visualizer.exe</Property>
 				<Property Name="Source[0].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
-				<Property Name="Source[0].File[0].Shortcut[0].name" Type="Str">gScript Interpreter</Property>
-				<Property Name="Source[0].File[0].Shortcut[0].subDir" Type="Str">Gantry</Property>
-				<Property Name="Source[0].File[0].Shortcut[1].destIndex" Type="Int">1</Property>
-				<Property Name="Source[0].File[0].Shortcut[1].name" Type="Str">gScript Interpreter</Property>
-				<Property Name="Source[0].File[0].Shortcut[1].subDir" Type="Str"></Property>
-				<Property Name="Source[0].File[0].ShortcutCount" Type="Int">2</Property>
-				<Property Name="Source[0].File[0].tag" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
+				<Property Name="Source[0].File[0].Shortcut[0].name" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Source[0].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[0].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[0].File[0].tag" Type="Str">{9394FC08-D494-4767-8BAE-729831BAB5FB}</Property>
 				<Property Name="Source[0].FileCount" Type="Int">1</Property>
-				<Property Name="Source[0].name" Type="Str">gScript Interpreter</Property>
-				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter - A3200</Property>
+				<Property Name="Source[0].name" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Path Visualizer</Property>
 				<Property Name="Source[0].type" Type="Str">EXE</Property>
 				<Property Name="Source[1].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[1].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
-				<Property Name="Source[1].File[0].name" Type="Str">Post-Install Action.exe</Property>
-				<Property Name="Source[1].File[0].runEXE" Type="Bool">true</Property>
-				<Property Name="Source[1].File[0].tag" Type="Str">{AF7A5BE2-A5F1-40D8-8BEC-7FF8A4A70DDF}</Property>
+				<Property Name="Source[1].File[0].name" Type="Str">gScript Pattern Recognition Tuner.exe</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].name" Type="Str">gScript Pattern Recognition Tuner</Property>
+				<Property Name="Source[1].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[1].File[0].ShortcutCount" Type="Int">1</Property>
+				<Property Name="Source[1].File[0].tag" Type="Str">{92E7A773-D2BE-4323-BEAE-E1F115B7A7CF}</Property>
 				<Property Name="Source[1].FileCount" Type="Int">1</Property>
-				<Property Name="Source[1].name" Type="Str">Post-Install Action</Property>
-				<Property Name="Source[1].tag" Type="Ref">/My Computer/Build Specifications/Post-Install Action</Property>
+				<Property Name="Source[1].name" Type="Str">gScript Pattern Recognition Tuner</Property>
+				<Property Name="Source[1].tag" Type="Ref">/My Computer/Build Specifications/gScript Pattern Recognition Tuner</Property>
 				<Property Name="Source[1].type" Type="Str">EXE</Property>
 				<Property Name="Source[2].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[2].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
-				<Property Name="Source[2].File[0].name" Type="Str">gScript Path Visualizer.exe</Property>
+				<Property Name="Source[2].File[0].name" Type="Str">gScript Camera Helper.exe</Property>
 				<Property Name="Source[2].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
-				<Property Name="Source[2].File[0].Shortcut[0].name" Type="Str">gScript Path Visualizer</Property>
+				<Property Name="Source[2].File[0].Shortcut[0].name" Type="Str">gScript Camera Helper</Property>
 				<Property Name="Source[2].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
 				<Property Name="Source[2].File[0].ShortcutCount" Type="Int">1</Property>
-				<Property Name="Source[2].File[0].tag" Type="Str">{9394FC08-D494-4767-8BAE-729831BAB5FB}</Property>
+				<Property Name="Source[2].File[0].tag" Type="Str">{0AE143D7-E3F8-48C6-B979-D7F214500AB6}</Property>
 				<Property Name="Source[2].FileCount" Type="Int">1</Property>
-				<Property Name="Source[2].name" Type="Str">gScript Path Visualizer</Property>
-				<Property Name="Source[2].tag" Type="Ref">/My Computer/Build Specifications/gScript Path Visualizer</Property>
+				<Property Name="Source[2].name" Type="Str">gScript Camera Helper</Property>
+				<Property Name="Source[2].tag" Type="Ref">/My Computer/Build Specifications/gScript Camera Helper</Property>
 				<Property Name="Source[2].type" Type="Str">EXE</Property>
 				<Property Name="Source[3].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[3].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
-				<Property Name="Source[3].File[0].name" Type="Str">gScript Pattern Recognition Tuner.exe</Property>
+				<Property Name="Source[3].File[0].name" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="Source[3].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
-				<Property Name="Source[3].File[0].Shortcut[0].name" Type="Str">gScript Pattern Recognition Tuner</Property>
-				<Property Name="Source[3].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
+				<Property Name="Source[3].File[0].Shortcut[0].name" Type="Str">gScript Interpreter</Property>
+				<Property Name="Source[3].File[0].Shortcut[0].subDir" Type="Str">gScript</Property>
 				<Property Name="Source[3].File[0].ShortcutCount" Type="Int">1</Property>
-				<Property Name="Source[3].File[0].tag" Type="Str">{92E7A773-D2BE-4323-BEAE-E1F115B7A7CF}</Property>
+				<Property Name="Source[3].File[0].tag" Type="Str">{AE30B9B7-1787-4F0D-B206-15A827B55A83}</Property>
 				<Property Name="Source[3].FileCount" Type="Int">1</Property>
-				<Property Name="Source[3].name" Type="Str">gScript Pattern Recognition Tuner</Property>
-				<Property Name="Source[3].tag" Type="Ref">/My Computer/Build Specifications/gScript Pattern Recognition Tuner</Property>
+				<Property Name="Source[3].name" Type="Str">gScript Interpreter - AUTOMATION1</Property>
+				<Property Name="Source[3].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter - AUTOMATION1</Property>
 				<Property Name="Source[3].type" Type="Str">EXE</Property>
-				<Property Name="Source[4].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[4].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[4].File[0].name" Type="Str">gScript Camera Helper.exe</Property>
-				<Property Name="Source[4].File[0].Shortcut[0].destIndex" Type="Int">0</Property>
-				<Property Name="Source[4].File[0].Shortcut[0].name" Type="Str">gScript Camera Helper</Property>
-				<Property Name="Source[4].File[0].Shortcut[0].subDir" Type="Str">gScript Installer</Property>
-				<Property Name="Source[4].File[0].ShortcutCount" Type="Int">1</Property>
 				<Property Name="Source[4].File[0].tag" Type="Str">{0AE143D7-E3F8-48C6-B979-D7F214500AB6}</Property>
-				<Property Name="Source[4].FileCount" Type="Int">1</Property>
-				<Property Name="Source[4].name" Type="Str">gScript Camera Helper</Property>
-				<Property Name="Source[4].tag" Type="Ref">/My Computer/Build Specifications/gScript Camera Helper</Property>
-				<Property Name="Source[4].type" Type="Str">EXE</Property>
-				<Property Name="SourceCount" Type="Int">5</Property>
+				<Property Name="SourceCount" Type="Int">4</Property>
 			</Item>
 		</Item>
 	</Item>
