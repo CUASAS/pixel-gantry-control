@@ -48,15 +48,6 @@
 			<Item Name="wmf_get_property.vi" Type="VI" URL="../wmf_get_property.vi"/>
 			<Item Name="wmf_properties.vi" Type="VI" URL="../wmf_properties.vi"/>
 		</Item>
-		<Item Name="ueye" Type="Folder">
-			<Item Name="ueye allocate image memory.vi" Type="VI" URL="../ueye allocate image memory.vi"/>
-			<Item Name="ueye get image size.vi" Type="VI" URL="../ueye get image size.vi"/>
-			<Item Name="ueye array to image.vi" Type="VI" URL="../ueye array to image.vi"/>
-			<Item Name="ueye error handling.vi" Type="VI" URL="../ueye error handling.vi"/>
-			<Item Name="ueye grab image.vi" Type="VI" URL="../ueye grab image.vi"/>
-			<Item Name="ueye check capture status.vi" Type="VI" URL="../ueye check capture status.vi"/>
-			<Item Name="ueye open camera.vi" Type="VI" URL="../ueye open camera.vi"/>
-		</Item>
 		<Item Name="imaqdx" Type="Folder">
 			<Item Name="imaqdx open camera.vi" Type="VI" URL="../imaqdx open camera.vi"/>
 			<Item Name="imaqdx construct identifier.vi" Type="VI" URL="../imaqdx construct identifier.vi"/>

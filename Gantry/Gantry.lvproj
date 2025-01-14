@@ -1,7 +1,11 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
 <Project Type="Project" LVVersion="24008000">
+	<Property Name="CCSymbols" Type="Str">GANTRY_DRIVER,A3200;</Property>
+	<Property Name="NI.LV.All.SaveVersion" Type="Str">Editor version</Property>
 	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
+	<Property Name="NI.Project.Description" Type="Str"></Property>
 	<Item Name="My Computer" Type="My Computer">
+		<Property Name="CCSymbols" Type="Str">GANTRY_DRIVER, A3200;</Property>
 		<Property Name="IOScan.Faults" Type="Str"></Property>
 		<Property Name="IOScan.NetVarPeriod" Type="UInt">100</Property>
 		<Property Name="IOScan.NetWatchdogEnabled" Type="Bool">false</Property>
@@ -34,6 +38,8 @@
 		<Item Name="gScript.ico" Type="Document" URL="../../gScript.ico"/>
 		<Item Name="Post-Build Action.vi" Type="VI" URL="../Post-Build Action.vi"/>
 		<Item Name="Post-Install Action.vi" Type="VI" URL="../Post-Install Action.vi"/>
+		<Item Name="Pre-Build Action A3200.vi" Type="VI" URL="../Pre-Build Action A3200.vi"/>
+		<Item Name="Set Conditional Disable Value.vi" Type="VI" URL="../Set Conditional Disable Value.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Aerotech Automation1.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Aerotech Automation1/Aerotech Automation1.lvlib"/>
@@ -291,7 +297,6 @@
 				<Item Name="Image Type" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Type"/>
 				<Item Name="Image Unit" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Image Unit"/>
 				<Item Name="imagedata.ctl" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/imagedata.ctl"/>
-				<Item Name="IMAQ ArrayToImage" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ ArrayToImage"/>
 				<Item Name="IMAQ Clear Overlay" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Clear Overlay"/>
 				<Item Name="IMAQ ColorImageToArray" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ ColorImageToArray"/>
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
@@ -415,7 +420,6 @@
 			<Item Name="RetrieveDiagPacket.vi" Type="VI" URL="../A3200/Status/RetrieveDiagPacket.vi"/>
 			<Item Name="SetAnalogOutput.vi" Type="VI" URL="../A3200/Commands/SetAnalogOutput.vi"/>
 			<Item Name="StopProgram.vi" Type="VI" URL="../A3200/Commands/StopProgram.vi"/>
-			<Item Name="uEyeDotNet.dll" Type="Document" URL="../../../../../../cfangmeier3/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/Shared Components/bin/uEyeDotNet.dll"/>
 			<Item Name="WaitMultiple.vi" Type="VI" URL="../A3200/Motion/WaitMultiple.vi"/>
 			<Item Name="WaitSingle.vi" Type="VI" URL="../A3200/Motion/WaitSingle.vi"/>
 		</Item>
@@ -461,7 +465,7 @@
 				<Property Name="TgtF_targetfileName" Type="Str">gScript Camera Helper.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
 			</Item>
-			<Item Name="gScript Interpreter" Type="EXE">
+			<Item Name="gScript Interpreter - A3200" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
 				<Property Name="App_INI_aliasGUID" Type="Str">{00AFF8D0-8B5E-43BC-B849-E103A2CE402E}</Property>
 				<Property Name="App_INI_GUID" Type="Str">{38E28AE9-A554-4C75-8768-3422FC1BBB14}</Property>
@@ -469,46 +473,31 @@
 				<Property Name="App_serverType" Type="Int">1</Property>
 				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
 				<Property Name="Bld_buildCacheID" Type="Str">{DA95B87B-E7D6-479B-BBBA-A7FA9E683112}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">gScript Interpreter</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">gScript Interpreter - A3200</Property>
 				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/Gantry - A3200/gScript Interpreter</Property>
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_postActionVIID" Type="Ref">/My Computer/Post-Build Action.vi</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{45EEE2F0-5F8B-4AB5-A3E3-6D0FA7413227}</Property>
-				<Property Name="Bld_version.build" Type="Int">51</Property>
+				<Property Name="Bld_version.build" Type="Int">52</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">gScript Interpreter.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/gScript Interpreter.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/gScript Interpreter.exe</Property>
 				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
 				<Property Name="Destination[0].type" Type="Str">App</Property>
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/gScript Interpreter/data</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/Gantry - A3200/gScript Interpreter/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{CB8D828A-A416-4294-A59A-3FC6A9669E18}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{A85D16B1-9A3C-47DF-995E-8C7C96109C36}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
 				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
 				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="Source[10].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[10].itemID" Type="Ref">/My Computer/Shared Components/bin/mysqlcppconn8-2-vs14.dll</Property>
-				<Property Name="Source[10].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[11].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[11].itemID" Type="Ref">/My Computer/Shared Components/bin/opencv_world455.dll</Property>
-				<Property Name="Source[11].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[12].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[12].itemID" Type="Ref">/My Computer/Shared Components/bin/SDL2.dll</Property>
-				<Property Name="Source[12].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[13].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[13].itemID" Type="Ref">/My Computer/Shared Components/bin/uEyeDotNet.dll</Property>
-				<Property Name="Source[13].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[14].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[14].itemID" Type="Ref">/My Computer/Shared Components/bin/Vision.dll</Property>
-				<Property Name="Source[14].sourceInclusion" Type="Str">Include</Property>
 				<Property Name="Source[2].itemID" Type="Ref">/My Computer/Shared Components/Utils/Geometry Utils/Fit Circle - 2D.vi</Property>
 				<Property Name="Source[2].properties[0].type" Type="Str">Remove front panel</Property>
 				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
@@ -517,33 +506,18 @@
 				<Property Name="Source[2].propertiesCount" Type="Int">2</Property>
 				<Property Name="Source[2].type" Type="Str">VI</Property>
 				<Property Name="Source[3].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[3].itemID" Type="Ref"></Property>
+				<Property Name="Source[3].itemID" Type="Ref">/My Computer/Shared Components/bin/Camera.dll</Property>
 				<Property Name="Source[3].sourceInclusion" Type="Str">Include</Property>
 				<Property Name="Source[4].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/bin/Camera.dll</Property>
+				<Property Name="Source[4].itemID" Type="Ref">/My Computer/Shared Components/bin/Vision.dll</Property>
 				<Property Name="Source[4].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[5].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[5].itemID" Type="Ref">/My Computer/Shared Components/bin/escapi.dll</Property>
-				<Property Name="Source[5].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[6].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[6].itemID" Type="Ref">/My Computer/Shared Components/bin/libcrypto-1_1-x64.dll</Property>
-				<Property Name="Source[6].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[7].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[7].itemID" Type="Ref">/My Computer/Shared Components/bin/libssl-1_1-x64.dll</Property>
-				<Property Name="Source[7].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[8].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[8].itemID" Type="Ref">/My Computer/Shared Components/bin/msvcr120.dll</Property>
-				<Property Name="Source[8].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="Source[9].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[9].itemID" Type="Ref">/My Computer/Shared Components/bin/mysqlcppconn-9-vs14.dll</Property>
-				<Property Name="Source[9].sourceInclusion" Type="Str">Include</Property>
-				<Property Name="SourceCount" Type="Int">15</Property>
+				<Property Name="SourceCount" Type="Int">5</Property>
 				<Property Name="TgtF_companyName" Type="Str">Univ. of Nebraska - Lincoln</Property>
 				<Property Name="TgtF_enableDebugging" Type="Bool">true</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter</Property>
-				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">gScript Interpreter - A3200</Property>
+				<Property Name="TgtF_internalName" Type="Str">gScript Interpreter - A3200</Property>
 				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2023</Property>
-				<Property Name="TgtF_productName" Type="Str">gScript Interpreter</Property>
+				<Property Name="TgtF_productName" Type="Str">gScript Interpreter - A3200</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">gScript Interpreter.exe</Property>
 				<Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
@@ -757,7 +731,7 @@
 				<Property Name="Source[0].File[0].tag" Type="Str">{E86D54D1-9A2C-4FC7-A143-E4F76395344D}</Property>
 				<Property Name="Source[0].FileCount" Type="Int">1</Property>
 				<Property Name="Source[0].name" Type="Str">gScript Interpreter</Property>
-				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter</Property>
+				<Property Name="Source[0].tag" Type="Ref">/My Computer/Build Specifications/gScript Interpreter - A3200</Property>
 				<Property Name="Source[0].type" Type="Str">EXE</Property>
 				<Property Name="Source[1].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
 				<Property Name="Source[1].File[0].dest" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
