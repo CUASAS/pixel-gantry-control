@@ -35,7 +35,6 @@
 		<Item Name="set_debug.vi" Type="VI" URL="../set_debug.vi"/>
 		<Item Name="dump_log.vi" Type="VI" URL="../dump_log.vi"/>
 		<Item Name="next_img_name.vi" Type="VI" URL="../next_img_name.vi"/>
-		<Item Name="CAM String Array.vi" Type="VI" URL="../../Database/CAM String Array.vi"/>
 	</Item>
 	<Item Name="image acquisition" Type="Folder">
 		<Item Name="wmf" Type="Folder">

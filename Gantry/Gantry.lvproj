@@ -377,15 +377,15 @@
 			<Item Name="_LaunchHelpUrl.vi" Type="VI" URL="/&lt;helpdir&gt;/_LaunchHelpUrl.vi"/>
 			<Item Name="AbortMultiple.vi" Type="VI" URL="../A3200/Motion/AbortMultiple.vi"/>
 			<Item Name="AcknowledgeAll.vi" Type="VI" URL="../A3200/Commands/AcknowledgeAll.vi"/>
-			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.dll"/>
-			<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.LabVIEW.dll"/>
-			<Item Name="AxisDiagPacket.ctl" Type="VI" URL="../A3200/Status/AxisDiagPacket.ctl"/>
+			<Item Name="Aerotech.A3200" Type="Document" URL="Aerotech.A3200">
+				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
+			</Item>
+			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
+			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfangmeier3/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
+			<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.LabVIEW.dll"/>
 			<Item Name="Circular.vi" Type="VI" URL="../A3200/Motion/Circular.vi"/>
-			<Item Name="CircularCenter.vi" Type="VI" URL="../A3200/Motion/CircularCenter.vi"/>
 			<Item Name="CircularRadius.vi" Type="VI" URL="../A3200/Motion/CircularRadius.vi"/>
 			<Item Name="Connect.vi" Type="VI" URL="../A3200/Initialize/Connect.vi"/>
-			<Item Name="ControllerDiagPacket.ctl" Type="VI" URL="../A3200/Status/ControllerDiagPacket.ctl"/>
-			<Item Name="ConvertDiagPacket.vi" Type="VI" URL="../A3200/Status/ConvertDiagPacket.vi"/>
 			<Item Name="Disconnect.vi" Type="VI" URL="../A3200/Initialize/Disconnect.vi"/>
 			<Item Name="EnableMultiple.vi" Type="VI" URL="../A3200/Motion/EnableMultiple.vi"/>
 			<Item Name="ExecuteCommand.vi" Type="VI" URL="../A3200/Commands/ExecuteCommand.vi"/>
