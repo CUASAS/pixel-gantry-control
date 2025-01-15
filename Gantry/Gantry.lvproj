@@ -382,6 +382,9 @@
 			</Item>
 			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
 			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfangmeier3/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
+			<Item Name="Aerotech.A3200.LabVIEW" Type="Document" URL="Aerotech.A3200.LabVIEW">
+				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
+			</Item>
 			<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.LabVIEW.dll"/>
 			<Item Name="Circular.vi" Type="VI" URL="../A3200/Motion/Circular.vi"/>
 			<Item Name="CircularRadius.vi" Type="VI" URL="../A3200/Motion/CircularRadius.vi"/>
