@@ -34,6 +34,7 @@
 		<Item Name="Shared Components" Type="Folder" URL="../Shared Components">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
+		<Item Name="API Demo.vi" Type="VI" URL="../API Demo.vi"/>
 		<Item Name="gScript.ico" Type="Document" URL="../../gScript.ico"/>
 		<Item Name="Post-Build Action.vi" Type="VI" URL="../Post-Build Action.vi"/>
 		<Item Name="Post-Install Action.vi" Type="VI" URL="../Post-Install Action.vi"/>
@@ -326,6 +327,8 @@
 				<Item Name="IMAQ Write TIFF File 2" Type="VI" URL="/&lt;vilib&gt;/vision/Files.llb/IMAQ Write TIFF File 2"/>
 				<Item Name="IMAQdx.ctl" Type="VI" URL="/&lt;vilib&gt;/userDefined/High Color/IMAQdx.ctl"/>
 				<Item Name="Is Path and Not Empty.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Is Path and Not Empty.vi"/>
+				<Item Name="LabVIEWHTTPClient.lvlib" Type="Library" URL="/&lt;vilib&gt;/httpClient/LabVIEWHTTPClient.lvlib"/>
+				<Item Name="lib_NI_Advanced HTTP Client.lvlib" Type="Library" URL="/&lt;vilib&gt;/NI/Advanced HTTP Client/lib_NI_Advanced HTTP Client.lvlib"/>
 				<Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi"/>
 				<Item Name="LV3DPointTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LV3DPointTypeDef.ctl"/>
 				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
@@ -333,6 +336,7 @@
 				<Item Name="LVPointTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVPointTypeDef.ctl"/>
 				<Item Name="LVRectTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRectTypeDef.ctl"/>
 				<Item Name="LVSelectionTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVSelectionTypeDef.ctl"/>
+				<Item Name="lvwebclient_64.dll" Type="Document" URL="/&lt;vilib&gt;/NI/Advanced HTTP Client/lvwebclient_64.dll"/>
 				<Item Name="Move Pen.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Move Pen.vi"/>
 				<Item Name="NI_3D Picture Control.lvlib" Type="Library" URL="/&lt;vilib&gt;/picture/3D Picture Control/NI_3D Picture Control.lvlib"/>
 				<Item Name="NI_AALBase.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALBase.lvlib"/>
@@ -348,10 +352,15 @@
 				<Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi"/>
 				<Item Name="PCT Pad String.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/PCT Pad String.vi"/>
 				<Item Name="Remove Duplicates From 1D Array.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Remove Duplicates From 1D Array.vim"/>
+				<Item Name="REST Client.lvlib" Type="Library" URL="/&lt;vilib&gt;/addons/_JKI.lib/REST Client/REST Client.lvlib"/>
 				<Item Name="Search and Replace Pattern.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Search and Replace Pattern.vi"/>
 				<Item Name="Search Unsorted 1D Array Core.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Helpers/Search Unsorted 1D Array Core.vim"/>
 				<Item Name="Search Unsorted 1D Array.vim" Type="VI" URL="/&lt;vilib&gt;/Array/Search Unsorted 1D Array.vim"/>
 				<Item Name="Set Bold Text.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set Bold Text.vi"/>
+				<Item Name="Set Busy.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Busy.vi"/>
+				<Item Name="Set Cursor (Cursor ID).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor (Cursor ID).vi"/>
+				<Item Name="Set Cursor (Icon Pict).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor (Icon Pict).vi"/>
+				<Item Name="Set Cursor.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor.vi"/>
 				<Item Name="Set Pen State.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Set Pen State.vi"/>
 				<Item Name="Set String Value.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Set String Value.vi"/>
 				<Item Name="Simple Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Simple Error Handler.vi"/>
@@ -366,6 +375,7 @@
 				<Item Name="To .NET Object.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/dotnet.llb/To .NET Object.vi"/>
 				<Item Name="Trim Whitespace One-Sided.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace One-Sided.vi"/>
 				<Item Name="Trim Whitespace.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Trim Whitespace.vi"/>
+				<Item Name="Unset Busy.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Unset Busy.vi"/>
 				<Item Name="Version To Dotted String.vi" Type="VI" URL="/&lt;vilib&gt;/_xctls/Version To Dotted String.vi"/>
 				<Item Name="VISA Configure Serial Port" Type="VI" URL="/&lt;vilib&gt;/Instr/_visa.llb/VISA Configure Serial Port"/>
 				<Item Name="VISA Configure Serial Port (Instr).vi" Type="VI" URL="/&lt;vilib&gt;/Instr/_visa.llb/VISA Configure Serial Port (Instr).vi"/>
@@ -377,18 +387,15 @@
 			<Item Name="_LaunchHelpUrl.vi" Type="VI" URL="/&lt;helpdir&gt;/_LaunchHelpUrl.vi"/>
 			<Item Name="AbortMultiple.vi" Type="VI" URL="../A3200/Motion/AbortMultiple.vi"/>
 			<Item Name="AcknowledgeAll.vi" Type="VI" URL="../A3200/Commands/AcknowledgeAll.vi"/>
-			<Item Name="Aerotech.A3200" Type="Document" URL="Aerotech.A3200">
-				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
-			</Item>
-			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
-			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../../../../../cfangmeier3/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.dll"/>
-			<Item Name="Aerotech.A3200.LabVIEW" Type="Document" URL="Aerotech.A3200.LabVIEW">
-				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
-			</Item>
-			<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../../../../../cfang/Desktop/nebraska-silicon-lab/pixel-gantry-control/Gantry/A3200/Bin/Aerotech.A3200.LabVIEW.dll"/>
+			<Item Name="Aerotech.A3200.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.dll"/>
+			<Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.LabVIEW.dll"/>
+			<Item Name="AxisDiagPacket.ctl" Type="VI" URL="../A3200/Status/AxisDiagPacket.ctl"/>
 			<Item Name="Circular.vi" Type="VI" URL="../A3200/Motion/Circular.vi"/>
+			<Item Name="CircularCenter.vi" Type="VI" URL="../A3200/Motion/CircularCenter.vi"/>
 			<Item Name="CircularRadius.vi" Type="VI" URL="../A3200/Motion/CircularRadius.vi"/>
 			<Item Name="Connect.vi" Type="VI" URL="../A3200/Initialize/Connect.vi"/>
+			<Item Name="ControllerDiagPacket.ctl" Type="VI" URL="../A3200/Status/ControllerDiagPacket.ctl"/>
+			<Item Name="ConvertDiagPacket.vi" Type="VI" URL="../A3200/Status/ConvertDiagPacket.vi"/>
 			<Item Name="Disconnect.vi" Type="VI" URL="../A3200/Initialize/Disconnect.vi"/>
 			<Item Name="EnableMultiple.vi" Type="VI" URL="../A3200/Motion/EnableMultiple.vi"/>
 			<Item Name="ExecuteCommand.vi" Type="VI" URL="../A3200/Commands/ExecuteCommand.vi"/>
