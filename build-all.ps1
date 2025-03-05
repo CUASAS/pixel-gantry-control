@@ -1,5 +1,4 @@
-
-
+Set-PSDebug -Trace 1
 $lvproj = $PSScriptRoot + "\Gantry\Gantry.lvproj"
 
 function Set-Gantry-Driver {
