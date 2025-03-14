@@ -22,4 +22,5 @@ gscript_config.ini
 builds/
 
 Gantry/A3200/
+Gantry/Shared Components/bin
 *.bak
