@@ -15,7 +15,6 @@ function Set-Gantry-Driver {
 LabVIEWCLI.exe -OperationName ExecuteBuildSpec -ProjectPath $lvproj -BuildSpecName "gScript Camera Helper"
 LabVIEWCLI.exe -OperationName ExecuteBuildSpec -ProjectPath $lvproj -BuildSpecName "gScript Path Visualizer"
 LabVIEWCLI.exe -OperationName ExecuteBuildSpec -ProjectPath $lvproj -BuildSpecName "gScript Pattern Recognition Tuner"
-LabVIEWCLI.exe -OperationName ExecuteBuildSpec -ProjectPath $lvproj -BuildSpecName "Post-Install Action"
 
 #Build the A3200 Distribution
 Set-Gantry-Driver -DriverName "A3200" -ProjectPath $lvproj
