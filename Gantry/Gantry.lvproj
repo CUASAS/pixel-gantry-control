@@ -403,10 +403,9 @@
 			<Item Name="kernel32.dll" Type="Document" URL="kernel32.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
+			<Item Name="Linear.vi" Type="VI" URL="../A3200/Motion/Linear.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
-			<Item Name="MoveAbsMultiple.vi" Type="VI" URL="../A3200/Motion/MoveAbsMultiple.vi"/>
 			<Item Name="MoveAbsSingle.vi" Type="VI" URL="../A3200/Motion/MoveAbsSingle.vi"/>
-			<Item Name="MoveIncMultiple.vi" Type="VI" URL="../A3200/Motion/MoveIncMultiple.vi"/>
 			<Item Name="MoveIncSingle.vi" Type="VI" URL="../A3200/Motion/MoveIncSingle.vi"/>
 			<Item Name="mscorlib" Type="VI" URL="mscorlib">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
