@@ -55,11 +55,6 @@ git clone git@github.com:CUASAS/pixel-gantry-control.git
 
 ### Installing LabVIEW
 
-Using the `NI Package manager`, install [LabVIEW 2022 Q3 (64-bit)](http://www.ni.com/download/labview-development-system-2017/6698/en/).
+Using the `NI Package manager`, install LabVIEW 2024 Q1 (64-bit)
 
 Next use `NI Package Manager` to install NI-DAQmx and IMAQdx. Valid licenses for these packages are required on the development machine. 
-
-### Installing the Aerotech Software
-
-Run the Aerotech installer. The installer doesn't put the Aerotech VIs in a place where LabVIEW knows to look. To fix this, run `Aerotech Dumbness Fixer.vi` to copy the VIs to `user.lib`. This step will likely need LabVIEW to be started as an administrator since it is moving files around in `Program Files`.
-

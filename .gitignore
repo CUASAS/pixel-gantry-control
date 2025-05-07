@@ -24,3 +24,4 @@ builds/
 Gantry/A3200/
 Gantry/Shared Components/bin
 *.bak
+*.zip
