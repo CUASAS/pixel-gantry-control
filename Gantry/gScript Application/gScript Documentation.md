@@ -672,30 +672,33 @@ Moves the X,Y,and Z axes to their home positions.
 
 Moves the gantry to the absolute position of the vector specified by `pos`.
 
-*Format:* `MOVETO pos speed`
+*Format:* `MOVETO pos speed rotation`
 
   - `pos`: 3D Vector specifying an absolute position to move to
   - `speed`: **Optional** number to specify the speed of the motion in mm/s. If omitted, use the (rather slow) default speed.
+  - `rotation`: **Optional** If supplied, rotate the U axis to the specified angle (in degrees) simultaneously with the linear motion.
 
 #### `MOVEREL`
 
 Moves the gantry through the displacement specified by the vector `dis`
 
-*Format:* `MOVEREL dis speed`
+*Format:* `MOVEREL dis speed rotation`
 
   - `dis`: 3D Vector specifying a relative motion
   - `speed`: **Optional** number to specify the speed of the motion in mm/s.  If omitted, use the (rather slow) default speed.
+  - `rotation`: **Optional** If supplied, rotate the U axis by the specified angle (in degrees) simultaneously with the linear motion.
 
 #### `MOVECIR`
 
 Moves the gantry from its current position to the destination along a circular path. The radius of the circular path and orientation must also be supplied.
 
-*Format:* `MOVECIR destination radius cw/ccw speed`
+*Format:* `MOVECIR destination radius cw/ccw speed rotation`
 
   - `destination`: 3D vector specifying the position to move to. Note that no motion in the vertical (Z) direction will happen even if the destinations's Z-coordinate is different than the current Z-coordinate.
   - `radius`: Radius of the circular motion. Must be at least twice the straight-line distance from the current position to the destination.
   - `cw/ccw`: Must be either the literal string "cw" or "ccw". This determines whether the motion is clockwise (cw) or counter-clockwise(ccw) along the circular path.
   - `speed`: **Optional** Speed of motion in mm/s. Default is 5mm/s.
+  - `rotation`: **Optional** If supplied, rotate the U axis to the specified angle (in degrees) simultaneously with the circular motion.
 
 #### `MOVENAME`
 
