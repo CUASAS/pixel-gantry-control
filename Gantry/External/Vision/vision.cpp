@@ -298,6 +298,37 @@ __declspec(dllexport) int __cdecl find_circles(
     return 0;
 }
 
+__declspec(dllexport) int __cdecl rotateAndPad(
+    const cv::Mat &src,
+    double angleDeg,
+    int padColor,
+    cv::Mat &dst,
+    int &padX,
+    int &padY,
+    int &diagPx)
+{
+    const int h = src.rows;
+    const int w = src.cols;
+
+    // build the square canvas once per angle
+    diagPx = static_cast<int>(std::ceil(std::sqrt(1.0 * h * h + 1.0 * w * w)));
+
+    padX = (diagPx - w) / 2;
+    padY = (diagPx - h) / 2;
+
+    cv::Mat big(diagPx, diagPx, src.type(), cv::Scalar(padColor));
+    src.copyTo(big(cv::Rect(padX, padY, w, h)));
+
+    // rotate around the centre of the square
+    cv::Point2f centre(diagPx / 2.0f, diagPx / 2.0f);
+    cv::Mat M = cv::getRotationMatrix2D(centre, angleDeg, 1.0);
+    cv::warpAffine(big, dst, M, big.size(),
+                   cv::INTER_LINEAR,
+                   cv::BORDER_CONSTANT,
+                   cv::Scalar(padColor));
+    return 0;
+}
+
 __declspec(dllexport) int __cdecl find_template(
         char *imgPtr,
         int imgLineWidth,
@@ -311,13 +342,17 @@ __declspec(dllexport) int __cdecl find_template(
         float fieldOfViewY,  // for img, mm
         int templateBlurFactor, // pixels
         float minConcurrence,
+        float angleStep,
+        float angleStart,
+        float angleEnd,
         int *numMatch,
         float *matchX,
         float *matchY,
-        float *matchConcurrence
-        ) {
+        float *matchConcurrence,
+        float  *matchAngle
+        )
+{
     log("Running find_template");
-    std::stringstream ss;
 
     cv::Mat img(imgHeight, imgWidth, CV_8U, (void *) imgPtr, imgLineWidth);
     cv::Mat template_(templateHeight, templateWidth, CV_8U, (void *) templatePtr, templateLineWidth);
@@ -329,26 +364,115 @@ __declspec(dllexport) int __cdecl find_template(
         template_blurred = template_;
     }
 
-    cv::Mat out;
-    cv::matchTemplate(img, template_, out, cv::TM_CCOEFF_NORMED);
-    show(out);
-
-    double minVal, maxVal;
-    cv::Point2i minLoc, maxLoc;
-    cv::minMaxLoc(out, &minVal, &maxVal, &minLoc, &maxLoc);
-    if (maxVal < minConcurrence) {
-        *numMatch = 0;
-        return -1;  // No match
+    // Log image sizes
+    {
+        std::stringstream imgss;
+        imgss << "Target size in px: " << imgWidth << "x" << imgHeight
+              << std::endl <<  "Template size in px: " << templateWidth << "x" << templateHeight
+              << std::endl << "Angle step: " << angleStep << ", Angle Start: " << angleStart << ", Angle End: " << angleEnd;
+        log(imgss);
     }
-    float x_px = (maxLoc.x + 0.5*templateWidth) - 0.5*imgWidth;
-    float y_px = (maxLoc.y + 0.5*templateHeight) - 0.5*imgHeight;
-    float x_mm = x_px * (fieldOfViewX / imgWidth);
-    float y_mm = y_px * (fieldOfViewY / imgHeight);
+
+    const int PAD_COLOR = 0; // background colour for padding
+
+    float bestScore = -1.0;
+    float bestAngle = 0.0;
+    cv::Point bestLoc;
+    int bestPadX = 0;
+    int bestPadY = 0;
+    int bestDiag = 0;
+    for (float angle = angleStart; angle <= angleEnd; angle += angleStep) {
+        cv::Mat rotated;
+        int padX, padY, diag;
+        rotateAndPad(img, angle, PAD_COLOR, rotated, padX, padY, diag);
+
+        // match template
+        cv::Mat res;
+        cv::matchTemplate(rotated, template_blurred, res, cv::TM_CCOEFF_NORMED);
+
+        double maxVal;
+        cv::Point maxLoc;
+        cv::minMaxLoc(res, nullptr, &maxVal, nullptr, &maxLoc);
+
+        const int cx = maxLoc.x + templateWidth / 2;
+        const int cy = maxLoc.y + templateHeight / 2;
+
+        // reject matches whose centre falls in the padded frame
+        if (cx < padX || cx >= padX + imgWidth || 
+            cy < padY || cy >= padY + imgHeight) {
+            // log("Angle: " + std::to_string(angle) + " has been skipped"); 
+            continue;
+        }
+        // log("Angle: " + std::to_string(angle) + ", score: " + std::to_string(maxVal));
+
+        if (maxVal > bestScore) {
+            bestScore = static_cast<float>(maxVal);
+            bestAngle = static_cast<float>(angle);
+            bestLoc = maxLoc;
+            bestPadX = padX;
+            bestPadY = padY;
+            bestDiag = diag;
+        }
+    }
+
+    if (bestScore < minConcurrence) {
+        *numMatch = 0;
+        log("No match found");
+        return -1;
+    }
+
+    float cxRot = bestLoc.x + templateWidth/2.0;
+    float cyRot = bestLoc.y + templateHeight/2.0;
+
+    float dx = cxRot - bestDiag/2.0;
+    float dy = cyRot - bestDiag/2.0;
+
+    float rad = -bestAngle * 3.141592/180.0;
+    float cosT = std::cos(rad);
+    float sinT = std::sin(rad);
+
+    float xp =  cosT * dx + sinT * dy;
+    float yp = -sinT * dx + cosT * dy;
+
+    float xPad = xp + bestDiag/2.0;
+    float yPad = yp + bestDiag/2.0;
+
+    float xOrig = xPad - bestPadX;
+    float yOrig = yPad - bestPadY;
 
     *numMatch = 1;
-    *matchX = x_mm;
-    *matchY = y_mm;
-    *matchConcurrence = (float)maxVal;
+    log("Found best match");
+    log("Angle: " + std::to_string(bestAngle) + " with score: " + std::to_string(bestScore));
+    // log("xOrig: " + std::to_string(xOrig));
+    // log("yOrig: " + std::to_string(yOrig));
+
+    // now convert into millimetres 
+    *matchX = static_cast<float>((xOrig - 0.5*imgWidth) * (fieldOfViewX / imgWidth));
+    *matchY = static_cast<float>((yOrig - 0.5*imgHeight) * (fieldOfViewY / imgHeight));
+    *matchAngle = static_cast<float>(bestAngle);
+    *matchConcurrence = static_cast<float>(bestScore);
+
+    /* ----------------original code-------------------- */
+    // cv::Mat out;
+    // cv::matchTemplate(img, template_, out, cv::TM_CCOEFF_NORMED);
+    // show(out);
+
+    // double minVal, maxVal;
+    // cv::Point2i minLoc, maxLoc;
+    // cv::minMaxLoc(out, &minVal, &maxVal, &minLoc, &maxLoc);
+    // if (maxVal < minConcurrence) {
+    //     *numMatch = 0;
+    //     return -1;  // No match
+    // }
+    // float x_px = (maxLoc.x + 0.5*templateWidth) - 0.5*imgWidth;
+    // float y_px = (maxLoc.y + 0.5*templateHeight) - 0.5*imgHeight;
+    // float x_mm = x_px * (fieldOfViewX / imgWidth);
+    // float y_mm = y_px * (fieldOfViewY / imgHeight);
+
+    // *numMatch = 1;
+    // *matchX = x_mm;
+    // *matchY = y_mm;
+    // *matchConcurrence = (float)maxVal;
 
     return 0;
 }

@@ -63,6 +63,15 @@ DLLExport int __cdecl find_circles(
         float *circleYCenters,
         float *circleRadii);
 
+DLLExport int __cdecl rotate_and_pad(
+        const cv::Mat &src,
+        double angleDeg,
+        int padColor,
+        cv::Mat &dst,
+        int &padX,
+        int &padY,
+        int &diagPx
+);
 
 DLLExport int __cdecl find_template(
         char *imgPtr,
