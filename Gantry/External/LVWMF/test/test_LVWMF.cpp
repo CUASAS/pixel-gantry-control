@@ -2,7 +2,7 @@
 // Created by Caleb on 11/10/2022.
 //
 #include <iostream>
-#include "interface.h"
+#include "../include/interface.h"
 #include "opencv2/opencv.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"

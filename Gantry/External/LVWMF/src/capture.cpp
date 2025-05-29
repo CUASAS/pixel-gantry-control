@@ -14,12 +14,12 @@
 
 #define ESCAPI_DEFINITIONS_ONLY
 
-#include "conversion.h"
-#include "capture.h"
-#include "scopedrelease.h"
+#include "../include/conversion.h"
+#include "../include/capture.h"
+#include "../include/scopedrelease.h"
 #include "videobufferlock.h"
 #include "choosedeviceparam.h"
-#include "captureproperties.h"
+#include "../include/captureproperties.h"
 
 extern std::map<std::string, int> gDoCapture;
 extern std::map<std::string, int> gIds;

@@ -1,7 +1,7 @@
-#include "interface.h"
-#include "capture.h"
+#include "../include/interface.h"
+#include "../include/capture.h"
 #include "scopedrelease.h"
-#include "choosedeviceparam.h"
+#include "../include/choosedeviceparam.h"
 
 #include "opencv2/opencv.hpp"
 #include "opencv2/imgproc.hpp"
