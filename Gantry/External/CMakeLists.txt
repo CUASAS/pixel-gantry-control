@@ -15,17 +15,48 @@ find_package(OpenCV 4.9 REQUIRED)
 find_package(LabVIEW REQUIRED)
 find_package(ids_peak_comfort_c REQUIRED HINTS "C:/Program Files/IDS/ids_peak/comfort_sdk" )
 
+## Method 1: Print all imported targets
+#message(STATUS "Imported targets:")
+#get_property(importedTargets DIRECTORY PROPERTY IMPORTED_TARGETS)
+#foreach(target ${importedTargets})
+#    message(STATUS "  ${target}")
+#endforeach()
+
+## Method 2: More detailed information about targets
+#foreach(target ${importedTargets})
+#    message(STATUS "\nTarget: ${target}")
+#    # Check if target exists (safety check)
+#    if(TARGET ${target})
+#        # Get target type
+#        get_target_property(target_type ${target} TYPE)
+#        message(STATUS "  Type: ${target_type}")
+#
+#        # Get include directories
+#        get_target_property(target_includes ${target} INTERFACE_INCLUDE_DIRECTORIES)
+#        if(target_includes)
+#            message(STATUS "  Include dirs: ${target_includes}")
+#        endif()
+#
+#        # Get linked libraries
+#        get_target_property(target_libs ${target} INTERFACE_LINK_LIBRARIES)
+#        if(target_libs)
+#            message(STATUS "  Links to: ${target_libs}")
+#        endif()
+#
+#        # Get compile definitions
+#        get_target_property(target_defs ${target} INTERFACE_COMPILE_DEFINITIONS)
+#        if(target_defs)
+#            message(STATUS "  Definitions: ${target_defs}")
+#        endif()
+#    endif()
+#endforeach()
+
+
 file(GLOB PatternRecognition_SRC "PatternRecognition/src/*.cpp")
 file(GLOB PatternRecognition_INC "PatternRecognition/include/*.h")
 file(GLOB PatternRecognition_TEST "PatternRecognition/test/*")
 
 
-# Method 1: Print all imported targets
-message(STATUS "Imported targets:")
-get_property(importedTargets DIRECTORY PROPERTY IMPORTED_TARGETS)
-foreach(target ${importedTargets})
-    message(STATUS "  ${target}")
-endforeach()
 
 
 add_library(PatternRecognition SHARED ${PatternRecognition_SRC})
@@ -36,37 +67,16 @@ target_link_libraries(PatternRecognition PUBLIC LabVIEW opencv_world)
 add_executable(test_PatternRecognition ${PatternRecognition_TEST})
 target_link_libraries(test_PatternRecognition PUBLIC PatternRecognition)
 
+#### LVPeak Library
+add_library(LVPeak SHARED LVPeak/include/lvpeak.h LVPeak/src/lvpeak.cpp)
+target_link_libraries(LVPeak LabVIEW ids_peak_comfort_c::ids_peak_comfort_c opencv_world)
+target_include_directories(LVPeak PUBLIC ${LabVIEW_INCLUDE_DIRS} LVPeak/include/)
+ids_peak_comfort_c_deploy(LVPeak)
 
-
-
-# Method 2: More detailed information about targets
-foreach(target ${importedTargets})
-    message(STATUS "\nTarget: ${target}")
-    # Check if target exists (safety check)
-    if(TARGET ${target})
-        # Get target type
-        get_target_property(target_type ${target} TYPE)
-        message(STATUS "  Type: ${target_type}")
-
-        # Get include directories
-        get_target_property(target_includes ${target} INTERFACE_INCLUDE_DIRECTORIES)
-        if(target_includes)
-            message(STATUS "  Include dirs: ${target_includes}")
-        endif()
-
-        # Get linked libraries
-        get_target_property(target_libs ${target} INTERFACE_LINK_LIBRARIES)
-        if(target_libs)
-            message(STATUS "  Links to: ${target_libs}")
-        endif()
-
-        # Get compile definitions
-        get_target_property(target_defs ${target} INTERFACE_COMPILE_DEFINITIONS)
-        if(target_defs)
-            message(STATUS "  Definitions: ${target_defs}")
-        endif()
-    endif()
-endforeach()
+add_executable(test_LVPeak LVPeak/test/test.cpp)
+target_link_libraries(test_LVPeak LVPeak)
+target_include_directories(test_LVPeak PUBLIC LVPeak/include/ )
+ids_peak_comfort_c_deploy(test_LVPeak)
 
 
 
