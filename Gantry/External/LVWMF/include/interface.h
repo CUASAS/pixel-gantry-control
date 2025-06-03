@@ -5,7 +5,7 @@
 #include <mfreadwrite.h>
 #include <map>
 #include <string>
-#include "../mediamode.h"
+#include "mediamode.h"
 
 #include "extcode.h"
 #include "ILVDataInterface.h"

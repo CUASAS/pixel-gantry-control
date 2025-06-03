@@ -57,7 +57,7 @@ __declspec(dllexport) int __cdecl LVPeakCloseCamera(unsigned long long camera_id
     peak_camera_handle camera = open_cameras[camera_id];
 
     if (peak_Acquisition_IsStarted(camera) == PEAK_TRUE) {
-        (void)LVPeakStopAcquisition(camera_id);
+        (void) LVPeakStopAcquisition(camera_id);
     }
 
     status = peak_Camera_Close(camera);
@@ -117,21 +117,21 @@ __declspec(dllexport) int __cdecl LVPeakCameraInfo(int cam_idx, unsigned long lo
     return status;
 }
 
-__declspec(dllexport) int LVPeakSaveConfig(unsigned long long cam_id, const char *filename) {
-    if (!open_cameras.contains(cam_id)) {
+__declspec(dllexport) int LVPeakSaveConfig(unsigned long long camera_id, const char *filename) {
+    if (!open_cameras.contains(camera_id)) {
         return PEAK_STATUS_INVALID_PARAMETER;
     }
-    peak_camera_handle camera = open_cameras[cam_id];
+    peak_camera_handle camera = open_cameras[camera_id];
     peak_status status = peak_CameraSettings_DiskFile_Store(camera, filename);
     return status;
 }
 
-__declspec(dllexport) int LVPeakLoadConfig(unsigned long long cam_id, const char *filename) {
-    if (!open_cameras.contains(cam_id)) {
+__declspec(dllexport) int LVPeakLoadConfig(unsigned long long camera_id, const char *filename) {
+    if (!open_cameras.contains(camera_id)) {
         return PEAK_STATUS_INVALID_PARAMETER;
     }
     peak_status status = PEAK_STATUS_SUCCESS;
-    peak_camera_handle camera = open_cameras[cam_id];
+    peak_camera_handle camera = open_cameras[camera_id];
 
     peak_access_status access_status = peak_CameraSettings_DiskFile_GetAccessStatus(camera);
     // cout << format("Access Status: {:#06x}\n", (int) access_status);
@@ -140,7 +140,26 @@ __declspec(dllexport) int LVPeakLoadConfig(unsigned long long cam_id, const char
     return status;
 }
 
-__declspec(dllexport) int __cdecl LVPeakStartAcquisition(int camera_id) {
+
+__declspec(dllexport) int __cdecl LVPeakGetResolution(unsigned long long camera_id, unsigned int *width_px,
+                                                      unsigned int *height_px) {
+    if (!open_cameras.contains(camera_id)) {
+        cerr << "Camera not open\n";
+        return PEAK_STATUS_INVALID_PARAMETER;
+    }
+    const peak_camera_handle camera = open_cameras[camera_id];
+
+    peak_status status = PEAK_STATUS_SUCCESS;
+    peak_size resolution;
+    peak_ROI_Size_Get(camera, &resolution);
+    OK_OR_RETURN(status);
+
+    *width_px = resolution.width;
+    *height_px = resolution.height;
+    return status;
+}
+
+__declspec(dllexport) int __cdecl LVPeakStartAcquisition(unsigned long long camera_id) {
     if (!open_cameras.contains(camera_id)) {
         cerr << "Camera not open\n";
         return PEAK_STATUS_INVALID_PARAMETER;
@@ -152,6 +171,9 @@ __declspec(dllexport) int __cdecl LVPeakStartAcquisition(int camera_id) {
     }
     // Set Pixel Format to 1-byte grayscale
     status = peak_PixelFormat_Set(camera, PEAK_PIXEL_FORMAT_MONO8);
+    OK_OR_RETURN(status)
+    // Set Buffer Handling to always return the latest
+    status = peak_Acquisition_BufferHandling_Mode_Set(camera, PEAK_BUFFER_HANDLING_MODE_NEWEST_ONLY);
     OK_OR_RETURN(status)
     // Set Framerate to maximum
     double minFramerate, maxFramerate, incFramerate;
@@ -165,7 +187,7 @@ __declspec(dllexport) int __cdecl LVPeakStartAcquisition(int camera_id) {
     return status;
 }
 
-__declspec(dllexport) int __cdecl LVPeakStopAcquisition(int camera_id) {
+__declspec(dllexport) int __cdecl LVPeakStopAcquisition(unsigned long long camera_id) {
     if (!open_cameras.contains(camera_id)) {
         cerr << "Camera not open\n";
         return PEAK_STATUS_INVALID_PARAMETER;
@@ -180,7 +202,7 @@ __declspec(dllexport) int __cdecl LVPeakStopAcquisition(int camera_id) {
 }
 
 
-__declspec(dllexport) peak_status PeakGetFrame(const int camera_id, cv::Mat &img) {
+__declspec(dllexport) peak_status PeakGetFrame(unsigned long long camera_id, cv::Mat &img) {
     if (!open_cameras.contains(camera_id)) {
         cerr << "Camera not open\n";
         return PEAK_STATUS_INVALID_PARAMETER;
@@ -193,7 +215,8 @@ __declspec(dllexport) peak_status PeakGetFrame(const int camera_id, cv::Mat &img
     }
 
     peak_frame_handle frame = nullptr;
-    for (int i = 0; i < 10; i++) { // Try up to 10 times to get an image
+    for (int i = 0; i < 10; i++) {
+        // Try up to 10 times to get an image
         status = peak_Acquisition_WaitForFrame(camera, frame_timeout_ms, &frame);
         if (status == PEAK_STATUS_TIMEOUT) continue;
         break;
@@ -212,7 +235,7 @@ __declspec(dllexport) peak_status PeakGetFrame(const int camera_id, cv::Mat &img
     return status;
 }
 
-__declspec(dllexport) int LVPeakGetFrame(int camera_id, char *imgPtr,
+__declspec(dllexport) int LVPeakGetFrame(unsigned long long camera_id, char *imgPtr,
                                          int imgLineWidth, int imgWidth,
                                          int imgHeight) {
     cv::Mat lv_img = cv::Mat(imgHeight, imgWidth, CV_8U, imgPtr, imgLineWidth);
@@ -220,4 +243,18 @@ __declspec(dllexport) int LVPeakGetFrame(int camera_id, char *imgPtr,
     peak_status status = PeakGetFrame(camera_id, cam_img);
     cam_img.copyTo(lv_img);
     return status;
+}
+
+__declspec(dllexport) int __cdecl LVPeakGetLastError(unsigned int *code, LStrHandle message) {
+    // Get last error message size
+    size_t lastErrorMessageSize = 0;
+    (void) peak_Library_GetLastError(reinterpret_cast<peak_status *>(code), nullptr, &lastErrorMessageSize);
+
+    string lastErrorMessage;
+    lastErrorMessage.resize(lastErrorMessageSize);
+    (void) peak_Library_GetLastError(reinterpret_cast<peak_status *>(code), lastErrorMessage.data(),
+                                     &lastErrorMessageSize);
+
+    LStrPrintf(message, (CStr) "Last-Error: %s | Code: %#06x\n", lastErrorMessage, *code);
+    return PEAK_STATUS_SUCCESS;
 }

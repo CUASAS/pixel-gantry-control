@@ -1,6 +1,6 @@
 # Stolen from: https://github.com/samangh/libsg_cmake/blob/master/cmake/FindLabVIEW.cmake
-set(LABVIEW_MIN_VER 2020 STRING "Minimum LabVIEW version to use")
-set(LABVIEW_MAX_VER 2025 STRING "Maximum LabVIEW version to use")
+set(LABVIEW_MIN_VER 2020)
+set(LABVIEW_MAX_VER 2025)
 
 # Use 32-bit in x86 and 64-bit in x64 by looking at pointer size
 # macOS and Linux only use have 64-bit LabVIEW

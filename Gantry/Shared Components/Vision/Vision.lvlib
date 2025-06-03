@@ -52,6 +52,19 @@
 			<Item Name="imaqdx open camera.vi" Type="VI" URL="../imaqdx open camera.vi"/>
 			<Item Name="imaqdx construct identifier.vi" Type="VI" URL="../imaqdx construct identifier.vi"/>
 		</Item>
+		<Item Name="LVPEAK" Type="Folder">
+			<Item Name="lvpeak_list_cameras.vi" Type="VI" URL="../lvpeak_list_cameras.vi"/>
+			<Item Name="lvpeak_interpret_status_code.vi" Type="VI" URL="../lvpeak_interpret_status_code.vi"/>
+			<Item Name="lvpeak_camera.ctl" Type="VI" URL="../lvpeak_camera.ctl"/>
+			<Item Name="lvpeak_get_last_error.vi" Type="VI" URL="../lvpeak_get_last_error.vi"/>
+			<Item Name="lvpeak_open_camera.vi" Type="VI" URL="../lvpeak_open_camera.vi"/>
+			<Item Name="lvpeak_load_config.vi" Type="VI" URL="../lvpeak_load_config.vi"/>
+			<Item Name="lvpeak_save_config.vi" Type="VI" URL="../lvpeak_save_config.vi"/>
+			<Item Name="lvpeak_close_camera.vi" Type="VI" URL="../lvpeak_close_camera.vi"/>
+			<Item Name="lvpeak_get_frame.vi" Type="VI" URL="../lvpeak_get_frame.vi"/>
+			<Item Name="lvpeak_start_acquisition.vi" Type="VI" URL="../lvpeak_start_acquisition.vi"/>
+			<Item Name="lvpeak_stop_acquisition.vi" Type="VI" URL="../lvpeak_stop_acquisition.vi"/>
+		</Item>
 		<Item Name="open camera.vi" Type="VI" URL="../open camera.vi"/>
 		<Item Name="grab image.vi" Type="VI" URL="../grab image.vi"/>
 		<Item Name="camera.ctl" Type="VI" URL="../camera.ctl"/>

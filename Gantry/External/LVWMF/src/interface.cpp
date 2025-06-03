@@ -3,14 +3,14 @@
 #include "scopedrelease.h"
 #include "../include/choosedeviceparam.h"
 
-#include "opencv2/opencv.hpp"
-#include "opencv2/imgproc.hpp"
+#include <opencv2/world.hpp>
 
 #include <vector>
 #include <string>
 #include <sstream>
 #include <map>
 #include <stdexcept>
+#include <opencv2/imgproc.hpp>
 
 std::map<std::string, CaptureClass *> gDevice;
 std::map<std::string, int> gIds;

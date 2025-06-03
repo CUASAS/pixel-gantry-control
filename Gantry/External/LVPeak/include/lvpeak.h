@@ -53,7 +53,7 @@ return status; \
 
 __declspec(dllexport) peak_status PeakQueryCameras(std::vector<peak_camera_descriptor> &Camera_descriptors);
 
-__declspec(dllexport) peak_status PeakGetFrame(int camera_id, cv::Mat &img);
+__declspec(dllexport) peak_status PeakGetFrame(unsigned long long camera_id, cv::Mat &img);
 
 extern "C" {
 __declspec(dllexport) int __cdecl LVPeakInit();
@@ -69,17 +69,21 @@ __declspec(dllexport) int __cdecl LVPeakOpenCamera(unsigned long long camera_id)
 
 __declspec(dllexport) int __cdecl LVPeakCloseCamera(unsigned long long camera_id);
 
-__declspec(dllexport) int __cdecl LVPeakSaveConfig(unsigned long long cam_id, const char *filename);
+__declspec(dllexport) int __cdecl LVPeakSaveConfig(unsigned long long camera_id, const char *filename);
 
-__declspec(dllexport) int __cdecl LVPeakLoadConfig(unsigned long long cam_id, const char *filename);
+__declspec(dllexport) int __cdecl LVPeakLoadConfig(unsigned long long camera_id, const char *filename);
 
-__declspec(dllexport) int __cdecl LVPeakStartAcquisition(int camera_id);
+__declspec(dllexport) int __cdecl LVPeakGetResolution(unsigned long long camera_id, unsigned int *width_px, unsigned int *height_px);
 
-__declspec(dllexport) int __cdecl LVPeakStopAcquisition(int camera_id);
+__declspec(dllexport) int __cdecl LVPeakStartAcquisition(unsigned long long camera_id);
 
-__declspec(dllexport) int LVPeakGetFrame(int camera_id, char *imgPtr,
+__declspec(dllexport) int __cdecl LVPeakStopAcquisition(unsigned long long camera_id);
+
+__declspec(dllexport) int LVPeakGetFrame(unsigned long long camera_id, char *imgPtr,
                                          int imgLineWidth, int imgWidth,
                                          int imgHeight);
+
+    __declspec(dllexport) int __cdecl LVPeakGetLastError(unsigned int *code, LStrHandle message);
 }
 
 
