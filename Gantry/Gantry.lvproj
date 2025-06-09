@@ -101,7 +101,10 @@
       </Item>
       <Item Name="vi.lib" Type="Folder">
         <Item Name=".NET Object to Variant.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/dotnet.llb/.NET Object to Variant.vi" />
+        <Item Name="3DPC_SurfacePlot.xctl" Type="XControl" URL="/&lt;vilib&gt;/Native 3D Graph/xcontrol/3DPC_SurfacePlot.xctl" />
         <Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi" />
+        <Item Name="Base Datatype.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Base Datatype.lvclass" />
+        <Item Name="Binary Search Sorted Array.vi" Type="VI" URL="/&lt;vilib&gt;/Native 3D Graph/Binary Search Sorted Array.vi" />
         <Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi" />
         <Item Name="Check if File or Folder Exists.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Check if File or Folder Exists.vi" />
         <Item Name="Check Special Tags.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Check Special Tags.vi" />
@@ -328,6 +331,7 @@
         <Item Name="Format Message String.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Format Message String.vi" />
         <Item Name="General Error Handler Core CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler Core CORE.vi" />
         <Item Name="General Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/General Error Handler.vi" />
+        <Item Name="Generate Temporary File Path.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Generate Temporary File Path.vi" />
         <Item Name="Get String Text Bounds.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Get String Text Bounds.vi" />
         <Item Name="Get System Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/Get System Directory.vi" />
         <Item Name="Get Text Rect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Get Text Rect.vi" />
@@ -369,6 +373,7 @@
         <Item Name="Is Path and Not Empty.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Is Path and Not Empty.vi" />
         <Item Name="LabVIEWHTTPClient.lvlib" Type="Library" URL="/&lt;vilib&gt;/httpClient/LabVIEWHTTPClient.lvlib" />
         <Item Name="lib_NI_Advanced HTTP Client.lvlib" Type="Library" URL="/&lt;vilib&gt;/NI/Advanced HTTP Client/lib_NI_Advanced HTTP Client.lvlib" />
+        <Item Name="Line.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Line/Line.lvclass" />
         <Item Name="Longest Line Length in Pixels.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Longest Line Length in Pixels.vi" />
         <Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl" />
         <Item Name="lveventtype.ctl" Type="VI" URL="/&lt;vilib&gt;/event_ctls.llb/lveventtype.ctl" />
@@ -388,6 +393,7 @@
         <Item Name="NI_PackedLibraryUtility.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/LVLibp/NI_PackedLibraryUtility.lvlib" />
         <Item Name="NI_Vision_Acquisition_Software.lvlib" Type="Library" URL="/&lt;vilib&gt;/vision/driver/NI_Vision_Acquisition_Software.lvlib" />
         <Item Name="Not Found Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Not Found Dialog.vi" />
+        <Item Name="Parametric.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Parametric/Parametric.lvclass" />
         <Item Name="PCT Pad String.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/PCT Pad String.vi" />
         <Item Name="REST Client.lvlib" Type="Library" URL="/&lt;vilib&gt;/addons/_JKI.lib/REST Client/REST Client.lvlib" />
         <Item Name="Search and Replace Pattern.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Search and Replace Pattern.vi" />
@@ -403,6 +409,7 @@
         <Item Name="Stall Data Flow.vim" Type="VI" URL="/&lt;vilib&gt;/Utility/Stall Data Flow.vim" />
         <Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi" />
         <Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi" />
+        <Item Name="Surface.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Surface/Surface.lvclass" />
         <Item Name="System Directory Type.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/System Directory Type.ctl" />
         <Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl" />
         <Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi" />
@@ -416,15 +423,13 @@
         <Item Name="VISA Configure Serial Port (Serial Instr).vi" Type="VI" URL="/&lt;vilib&gt;/Instr/_visa.llb/VISA Configure Serial Port (Serial Instr).vi" />
         <Item Name="VISA Find Search Mode.ctl" Type="VI" URL="/&lt;vilib&gt;/Instr/_visa.llb/VISA Find Search Mode.ctl" />
         <Item Name="whitespace.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/whitespace.ctl" />
+        <Item Name="XControlSupport.lvlib" Type="Library" URL="/&lt;vilib&gt;/_xctls/XControlSupport.lvlib" />
       </Item>
       <Item Name="AbortMultiple.vi" Type="VI" URL="../A3200/Motion/AbortMultiple.vi" />
       <Item Name="AcknowledgeAll.vi" Type="VI" URL="../A3200/Commands/AcknowledgeAll.vi" />
       <Item Name="Aerotech.A3200.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.dll" />
       <Item Name="Aerotech.A3200.LabVIEW.dll" Type="Document" URL="../A3200/Bin/Aerotech.A3200.LabVIEW.dll" />
       <Item Name="AxisDiagPacket.ctl" Type="VI" URL="../A3200/Status/AxisDiagPacket.ctl" />
-      <Item Name="Circular.vi" Type="VI" URL="../A3200/Motion/Circular.vi" />
-      <Item Name="CircularCenter.vi" Type="VI" URL="../A3200/Motion/CircularCenter.vi" />
-      <Item Name="CircularRadius.vi" Type="VI" URL="../A3200/Motion/CircularRadius.vi" />
       <Item Name="Connect.vi" Type="VI" URL="../A3200/Initialize/Connect.vi" />
       <Item Name="ControllerDiagPacket.ctl" Type="VI" URL="../A3200/Status/ControllerDiagPacket.ctl" />
       <Item Name="ConvertDiagPacket.vi" Type="VI" URL="../A3200/Status/ConvertDiagPacket.vi" />
@@ -434,6 +439,7 @@
       <Item Name="ExecuteProgram.vi" Type="VI" URL="../A3200/Commands/ExecuteProgram.vi" />
       <Item Name="GetAxisIndex.vi" Type="VI" URL="../A3200/Utility/GetAxisIndex.vi" />
       <Item Name="GetAxisNames.vi" Type="VI" URL="../A3200/Utility/GetAxisNames.vi" />
+      <Item Name="GetTaskStatus.vi" Type="VI" URL="../A3200/Status/GetTaskStatus.vi" />
       <Item Name="HomeSingle.vi" Type="VI" URL="../A3200/Motion/HomeSingle.vi" />
       <Item Name="kernel32.dll" Type="Document" URL="kernel32.dll">
         <Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -460,6 +466,7 @@
       <Item Name="RetrieveDiagPacket.vi" Type="VI" URL="../A3200/Status/RetrieveDiagPacket.vi" />
       <Item Name="SetAnalogOutput.vi" Type="VI" URL="../A3200/Commands/SetAnalogOutput.vi" />
       <Item Name="StopProgram.vi" Type="VI" URL="../A3200/Commands/StopProgram.vi" />
+      <Item Name="TaskStatus.ctl" Type="VI" URL="../A3200/Status/TaskStatus.ctl" />
       <Item Name="WaitMultiple.vi" Type="VI" URL="../A3200/Motion/WaitMultiple.vi" />
       <Item Name="WaitSingle.vi" Type="VI" URL="../A3200/Motion/WaitSingle.vi" />
     </Item>
@@ -636,47 +643,6 @@
         <Property Name="TgtF_targetfileName" Type="Str">gScript Pattern Recognition Tuner.exe</Property>
         <Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
       </Item>
-      <Item Name="Post-Install Action" Type="EXE">
-        <Property Name="App_copyErrors" Type="Bool">true</Property>
-        <Property Name="App_INI_aliasGUID" Type="Str">{250907F6-7A6A-4464-9A10-3C33A4B3E93B}</Property>
-        <Property Name="App_INI_GUID" Type="Str">{65BE4BEC-8D92-4A6B-B5AE-B6689A3B41F1}</Property>
-        <Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-        <Property Name="App_serverType" Type="Int">1</Property>
-        <Property Name="Bld_autoIncrement" Type="Bool">true</Property>
-        <Property Name="Bld_buildCacheID" Type="Str">{5C000291-AD1F-4A9E-A529-049ABE5C3637}</Property>
-        <Property Name="Bld_buildSpecName" Type="Str">Post-Install Action</Property>
-        <Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
-        <Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-        <Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-        <Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action</Property>
-        <Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-        <Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-        <Property Name="Bld_previewCacheID" Type="Str">{5D18E17D-CBC4-46AB-A4CA-0D2437EE6AE2}</Property>
-        <Property Name="Bld_version.build" Type="Int">27</Property>
-        <Property Name="Bld_version.major" Type="Int">1</Property>
-        <Property Name="Destination[0].destName" Type="Str">Post-Install Action.exe</Property>
-        <Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/Post-Install Action.exe</Property>
-        <Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-        <Property Name="Destination[0].type" Type="Str">App</Property>
-        <Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-        <Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Post-Install Action/data</Property>
-        <Property Name="DestinationCount" Type="Int">2</Property>
-        <Property Name="Source[0].itemID" Type="Str">{B2E122EC-9C2D-47ED-90FB-98BF5331448C}</Property>
-        <Property Name="Source[0].type" Type="Str">Container</Property>
-        <Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-        <Property Name="Source[1].itemID" Type="Ref">
-        </Property>
-        <Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-        <Property Name="Source[1].type" Type="Str">VI</Property>
-        <Property Name="SourceCount" Type="Int">2</Property>
-        <Property Name="TgtF_fileDescription" Type="Str">Post-Install Action</Property>
-        <Property Name="TgtF_internalName" Type="Str">Post-Install Action</Property>
-        <Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2022 </Property>
-        <Property Name="TgtF_productName" Type="Str">Post-Install Action</Property>
-        <Property Name="TgtF_targetfileGUID" Type="Str">{AF7A5BE2-A5F1-40D8-8BEC-7FF8A4A70DDF}</Property>
-        <Property Name="TgtF_targetfileName" Type="Str">Post-Install Action.exe</Property>
-        <Property Name="TgtF_versionIndependent" Type="Bool">true</Property>
-      </Item>
       <Item Name="gScript Interpreter" Type="EXE">
         <Property Name="App_copyErrors" Type="Bool">true</Property>
         <Property Name="App_INI_aliasGUID" Type="Str">{00AFF8D0-8B5E-43BC-B849-E103A2CE402E}</Property>
@@ -706,7 +672,7 @@
         <Property Name="Destination[1].path" Type="Path">../builds/gScript Interpreter/data</Property>
         <Property Name="DestinationCount" Type="Int">2</Property>
         <Property Name="Exe_iconItemID" Type="Ref">/My Computer/gScript.ico</Property>
-        <Property Name="Source[0].itemID" Type="Str">{06C51384-149A-4D65-8A86-0947713349FA}</Property>
+        <Property Name="Source[0].itemID" Type="Str">{5EADC5E1-8940-4B94-830B-D15D0AB15C2C}</Property>
         <Property Name="Source[0].type" Type="Str">Container</Property>
         <Property Name="Source[1].destinationIndex" Type="Int">0</Property>
         <Property Name="Source[1].itemID" Type="Ref">/My Computer/gScript Application/Main gScript UI.vi</Property>
@@ -901,7 +867,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.1</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.2</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>
@@ -1045,7 +1011,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.1</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.2</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>

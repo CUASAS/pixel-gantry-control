@@ -1,4 +1,6 @@
 # Set-PSDebug -Trace 1
+$ErrorActionPreference = "Stop"
+
 $lvproj = $PSScriptRoot + "\Gantry\Gantry.lvproj"
 
 $version = Read-Host "Enter the version specifier (e.g., 1.0.0)"
@@ -19,7 +21,6 @@ function Set-Build-Version {
 	
 	$xml = [xml](Get-Content -Path $projectPath)
 	$node = $xml.SelectSingleNode("/Project/Item[@Name='My Computer']/Item[@Name='Build Specifications']/Item[@Name='gScript - ${driverName}']/Property[@Name='INST_productVersion']")
-	Write-Host $node
 	$node.'#text' = "${version}"
 	
 	$xml.Save($projectPath)
