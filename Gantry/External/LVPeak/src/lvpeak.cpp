@@ -181,7 +181,6 @@ __declspec(dllexport) int __cdecl LVPeakStartAcquisition(unsigned long long came
     OK_OR_RETURN(status)
     status = peak_FrameRate_Set(camera, maxFramerate);
     OK_OR_RETURN(status)
-    frame_timeout_ms = (3000 / maxFramerate) + 0.5;
     status = peak_Acquisition_Start(camera, PEAK_INFINITE);
     OK_OR_RETURN(status)
     return status;

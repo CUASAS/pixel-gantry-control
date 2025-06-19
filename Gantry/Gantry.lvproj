@@ -867,7 +867,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.2</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.3</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>
@@ -1011,7 +1011,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.2</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.3</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>
