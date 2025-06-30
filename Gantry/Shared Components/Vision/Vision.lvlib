@@ -18,6 +18,8 @@
 		<Item Name="find_patches.vi" Type="VI" URL="../find_patches.vi"/>
 		<Item Name="find_template.vi" Type="VI" URL="../find_template.vi"/>
 		<Item Name="find_template parameters.ctl" Type="VI" URL="../find_template parameters.ctl"/>
+		<Item Name="find_custom parameters.ctl" Type="VI" URL="../find_custom parameters.ctl"/>
+		<Item Name="find_custom.vi" Type="VI" URL="../find_custom.vi"/>
 	</Item>
 	<Item Name="image manipulation" Type="Folder">
 		<Item Name="fill.vi" Type="VI" URL="../fill.vi"/>
