@@ -583,6 +583,17 @@ height=200
 
   - `path`: The path relative to the active project root to the dialog description file. eg `Config\dialog-test.ini`.
 
+
+#### `EXEC`
+
+This command invokes another executable to run until completion. The working directory for the invocation is the root of the current project directory. For example, suppose one had a python script in the `Scripts\` directory within the project directory. One could invoke this script via `EXEC "python Scripts\example.py"`. String interpolation is also supported so passing some information to the script via arguments is supported like `EXEC "python Script\example.py -a {$myVar} -b {$myVar2}"`. Any information that needs to be returned to gScript should be written to a text file following the `key: value` format of `flex_config`. The file can then be loaded into gScript using `LOADCONFIG`. Do not return data as the return code. Any non-zero value is interpreted as an error code and will raise an error in gScript.
+
+
+*Format:* `EXEC command silent
+
+  - `command`: A string to be executed by the system exec. Typically consists of an application executable followed by a series of arguments.
+  - `silent`: **Optional** the literal string "silent" can be supplied which supresses standard output. Standard Error will still be shown if the return code is non-zero.
+
 #### `SETLOG`
 
 Specifies the log file to use for the session.

@@ -411,6 +411,7 @@
         <Item Name="subTimeDelay.vi" Type="VI" URL="/&lt;vilib&gt;/express/express execution control/TimeDelayBlock.llb/subTimeDelay.vi" />
         <Item Name="Surface.lvclass" Type="LVClass" URL="/&lt;vilib&gt;/Native 3D Graph/classes/Surface/Surface.lvclass" />
         <Item Name="System Directory Type.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/System Directory Type.ctl" />
+        <Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi" />
         <Item Name="TagReturnType.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/TagReturnType.ctl" />
         <Item Name="Three Button Dialog CORE.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog CORE.vi" />
         <Item Name="Three Button Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Three Button Dialog.vi" />
@@ -437,6 +438,7 @@
       <Item Name="EnableMultiple.vi" Type="VI" URL="../A3200/Motion/EnableMultiple.vi" />
       <Item Name="ExecuteCommand.vi" Type="VI" URL="../A3200/Commands/ExecuteCommand.vi" />
       <Item Name="ExecuteProgram.vi" Type="VI" URL="../A3200/Commands/ExecuteProgram.vi" />
+      <Item Name="find_custom parameters.ctl" Type="VI" URL="../Shared Components/Vision/find_custom parameters.ctl" />
       <Item Name="GetAxisIndex.vi" Type="VI" URL="../A3200/Utility/GetAxisIndex.vi" />
       <Item Name="GetAxisNames.vi" Type="VI" URL="../A3200/Utility/GetAxisNames.vi" />
       <Item Name="GetTaskStatus.vi" Type="VI" URL="../A3200/Status/GetTaskStatus.vi" />
@@ -867,7 +869,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.3</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.5</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>
@@ -1011,7 +1013,7 @@
         <Property Name="INST_defaultDir" Type="Str">{B12F01E5-4A2E-4EE3-886B-8C8FC28D575C}</Property>
         <Property Name="INST_installerName" Type="Str">setup.exe</Property>
         <Property Name="INST_productName" Type="Str">gScript</Property>
-        <Property Name="INST_productVersion" Type="Str">2.8.3</Property>
+        <Property Name="INST_productVersion" Type="Str">2.8.5</Property>
         <Property Name="InstSpecBitness" Type="Str">64-bit</Property>
         <Property Name="InstSpecVersion" Type="Str">24118001</Property>
         <Property Name="MSI_arpCompany" Type="Str">Boston University</Property>
