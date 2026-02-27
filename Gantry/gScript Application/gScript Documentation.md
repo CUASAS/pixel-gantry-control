@@ -170,16 +170,8 @@ Copies the contents of `src` to `dest`.
 
 #### `PRINT`
 
-Used to print to the console on the bottom of the UI. The arguments are any readable value while `format` specifies how the arguments are to be printed. Supported format codes are listed in the table below. To omit the timestamp prefix, replace `PRINT` with `XPRINT`.
+Used to print to the console on the bottom of the UI. The arguments are any readable value while `format` specifies how the arguments are to be printed. Format strings follow the [C-style "%" string format](https://cplusplus.com/reference/cstdio/printf/). In addition, vectors and quaternions can be printed with `%v` and `%q`, respectively. To automatically convert a quaternion to a phi-angle in degrees use `%r`. To omit the timestamp prefix, replace `PRINT` with `XPRINT`.
 
-| gScript Format |                  Description                          |
-|----|-------------------------------------------------------------------|
-| %f | Equivalent to the `printf` format string `%0.3f`                  |
-| %d | Equivalent to the `printf` format string `%d`                     |
-| %v | Formats the value as a vector. `{x,y,z}`                          |
-| %q | Formats the value as a quaternion. `{x,y,z,w}`                    |
-| %r | Converts a quaternion to a rotation in x-y plane.                 |
-| %b | Evaluates argument as a boolean. Becomes either `True` or `False` |
 
 *Format:* `PRINT format arg1 arg2 argn`
 
@@ -850,10 +842,10 @@ Fetches an image from the specified camera. If filename is specified, the image 
 
 Displays a popup windows showing a video stream from a specified camera. If no camera is specified, `gantry_head` is used. In the popup window, clicking on the display will recenter the gantry on that position. Scrolling the mouse wheel slowly moves the gantry up and down. If setup, adjusting the slider changes the intensity of the light.
 
-*Format:* `VIDEO cam_name reference_image`
+*Format:* `VIDEO cam_name img_id_or_path`
 
   - `cam_nam` **Optional:** Name of camera to stream images from
-  - `reference_image` **Optional:** identifier for a reference image that will be displayed in the corner of the video. This must match a configuration entry like `reference_image.img_identifier: PATH`. So for example, using `img_identifier` will open an image located at PATH. Either absolute paths or relative paths in the project directory are supported.
+  - `img_id_or_path` **Optional:** identifier for a reference image that will be displayed in the corner of the video. This must match a configuration entry like `reference_image.img_identifier: PATH`. So for example, using `img_identifier` will open an image located at PATH. Either absolute paths or relative paths in the project directory are supported. If no matching identifier is found, the command interprets the id as a path literal.
 
 #### `AUTOFOCUS`
 
