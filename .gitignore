@@ -23,5 +23,6 @@ builds/
 
 Gantry/A3200/
 Gantry/Shared Components/bin
+.Gantry.UserState/
 *.bak
 *.zip
