@@ -1,0 +1,8 @@
+SETLIGHT gantryhead 128
+PRINT "Light intensity set to 128 (mid-scale)"
+WAIT 1000
+SETLIGHT gantryhead 255
+PRINT "Light intensity set to 255 (max)"
+WAIT 1000
+SETLIGHT gantryhead 0
+PRINT "Light intensity set to 0 (off)"
