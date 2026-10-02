@@ -16,7 +16,7 @@ gh2.port: COM3
 gh2.baudrate: 115200
 
 
-# A set of entries is needed for each camera in the system. An minimum,
+# A set of entries is needed for each camera in the system. At minimum,
 # a "gantryhead" set of entries is required.
 camera.gantryhead.CameraGroup: 1
 camera.gantryhead.driver: peak
